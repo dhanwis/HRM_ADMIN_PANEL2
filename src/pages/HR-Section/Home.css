@@ -1,0 +1,7 @@
+#demo {
+    display: flex;
+    gap: 10px;
+  }
+  /* .noflex{
+    display: block;
+  } */
