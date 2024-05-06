@@ -216,9 +216,8 @@ export default class SignIn extends Component {
                     </Button>
                   </Form.Item>
                   <p className="font-semibold text-muted">
-                    Don't have an account?{" "}
-                    <Link to="/sign-up" className="text-dark font-bold">
-                      Sign Up
+                    <Link to="/teamlead/changepass" className="text-dark font-bold">
+                      forgot password
                     </Link>
                   </p>
                 </Form>

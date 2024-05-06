@@ -127,7 +127,7 @@ export default class TeamLeadLogin extends Component {
             <div className="header-col header-nav">
               <Menu mode="horizontal" defaultSelectedKeys={["1"]}>
                 <Menu.Item key="1">
-                  <Link to="/dashboard">
+                  <Link to="/teamlead/dashboard">
                     {template}
                     <span> Dashboard</span>
                   </Link>
@@ -220,9 +220,8 @@ export default class TeamLeadLogin extends Component {
                     </Button>
                   </Form.Item>
                   <p className="font-semibold text-muted">
-                    Don't have an account?{" "}
-                    <Link to="/sign-up" className="text-dark font-bold">
-                      Sign Up
+                    <Link to="/teamlead/changepass" className="text-dark font-bold">
+                      Forgot password
                     </Link>
                   </p>
                 </Form>

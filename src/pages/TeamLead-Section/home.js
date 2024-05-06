@@ -1,6 +1,6 @@
  
 import { useState } from "react";
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   Card,
   Col,
@@ -37,7 +37,7 @@ import team4 from "../../assets/images/team-4.jpg";
 import card from "../../assets/images/info-card-1.jpg";
 
 
-function HR_Home() {
+function Team_Home() {
   const { Title, Text } = Typography;
 
   const onChange = (e) => console.log(`radio checked:${e.target.value}`);
@@ -146,7 +146,7 @@ function HR_Home() {
       bnb: "bnb2",
     },
     {
-      today: "New Clients",
+      today: "new ones",
       title: "+1,200",
       persent: "-20%",
       icon: heart,
@@ -549,4 +549,4 @@ function HR_Home() {
   );
 }
 
-export default HR_Home;
+export default Team_Home;
