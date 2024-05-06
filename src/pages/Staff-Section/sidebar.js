@@ -14,8 +14,7 @@
 import { Menu, Button } from "antd";
 import { NavLink, useLocation } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
-
-export default function SidenavHR({ color }) {
+export default function SidenavStaff({ color }) {
   const { pathname } = useLocation();
   const page = pathname.replace("/", "");
 
@@ -121,6 +120,24 @@ export default function SidenavHR({ color }) {
       ></path>
     </svg>,
   ];
+  const attendance = (
+    // SVG code for attendance table icon
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      key={0}
+    >
+      {/* Insert SVG path for attendance table icon */}
+    </svg>
+  );
+  const notes = (
+    <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" key={0}>
+      {/* SVG path for notes icon */}
+    </svg>
+  );
 
   const signin = [
     <svg
@@ -164,12 +181,12 @@ export default function SidenavHR({ color }) {
     <>
       <div className="brand">
         <img src={logo} alt="" />
-        <span>HR Dashboard</span>
+        <span>Staff Dashboard</span>
       </div>
       <hr />
       <Menu theme="light" mode="inline">
         <Menu.Item key="1">
-          <NavLink to="/admin/dashboard">
+          <NavLink to="/staff/dashboard" style={{textDecoration:'none'}}>
             <span
               className="icon"
               style={{
@@ -182,7 +199,7 @@ export default function SidenavHR({ color }) {
           </NavLink>
         </Menu.Item>
         <Menu.Item key="2">
-          <NavLink to="/admin/tables">
+          <NavLink to="/staff/table">
             <span
               className="icon"
               style={{
@@ -191,11 +208,11 @@ export default function SidenavHR({ color }) {
             >
               {tables}
             </span>
-            <span className="label">Tables</span>
+            <span className="label">Pending Task</span>
           </NavLink>
         </Menu.Item>
         <Menu.Item key="3">
-          <NavLink to="/admin/billing">
+          <NavLink to="/staff/leave">
             <span
               className="icon"
               style={{
@@ -204,7 +221,29 @@ export default function SidenavHR({ color }) {
             >
               {billing}
             </span>
-            <span className="label">Billing</span>
+            <span className="label">leave request</span>
+          </NavLink>
+        </Menu.Item>
+        <Menu.Item key="4">
+          <NavLink to="/staff/attendance">
+            <span
+              className="icon"
+               
+              style={{
+                background: page === "attendance" ? color : "",
+              }}
+            >
+              {attendance}
+            </span>
+            <span className="label">Attendance Table</span>
+          </NavLink>
+        </Menu.Item>
+        <Menu.Item key="5">
+          <NavLink to="/staff/notes">
+            <span className="icon" style={{ background: page === 'notes' ? color : '' }}>
+              {notes}
+            </span>
+            <span className="label">Notes Sharing</span>
           </NavLink>
         </Menu.Item>
         {/* <Menu.Item key="4">
@@ -220,11 +259,11 @@ export default function SidenavHR({ color }) {
             <span className="label">RTL</span>
           </NavLink>
         </Menu.Item> */}
-        <Menu.Item className="menu-item-header" key="5">
+        {/* <Menu.Item className="menu-item-header" key="5">
           Account Pages
-        </Menu.Item>
+        </Menu.Item> */}
         <Menu.Item key="6">
-          <NavLink to="/admin/profile">
+          <NavLink to="/staff/profile">
             <span
               className="icon"
               style={{
@@ -237,15 +276,15 @@ export default function SidenavHR({ color }) {
           </NavLink>
         </Menu.Item>
         <Menu.Item key="7">
-          <NavLink to="/sign-in">
-            <span className="icon">{signin}</span>
-            <span className="label">Sign In</span>
-          </NavLink>
+        <NavLink to="/staff/worksheet">
+            <span className="icon"></span>
+            <span className="label">Daily worksheet</span>
+        </NavLink>
         </Menu.Item>
         <Menu.Item key="8">
-          <NavLink to="/sign-up">
+          <NavLink to="/staff/task">
             <span className="icon">{signup}</span>
-            <span className="label">Sign Up</span>
+            <span className="label">Task Details</span>
           </NavLink>
         </Menu.Item>
       </Menu>

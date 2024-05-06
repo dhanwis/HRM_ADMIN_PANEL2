@@ -11,7 +11,6 @@ import { Switch, Route, Redirect } from "react-router-dom";
 // import StaffProfile from "./pages/StaffProfile";
 // import InternProfile from "./pages/InternProfile";
 // import TeamLeadProfile from "./pages/TeamLeadProfile";
-
 import "antd/dist/antd.css";
 import "./assets/styles/main.css";
 import "./assets/styles/responsive.css";
@@ -34,12 +33,17 @@ import HR_Billing from "./pages/HR-Section/billing";
 import HR_Main from "./pages/HR-Section/main";
 import Intern_Main from "./pages/Intern-Section/main";
 import Intern_Home from "./pages/Intern-Section/Home";
-//import Intern_Sidebar from "./pages/Intern-Section/sidebar";
-import EmployeeRegistrationForm from './pages/HR-Section/Registration';
-import InternRegistrationForm from "./pages/HR-Section/Internregister";
-
-
-
+import Staffhome from "./pages/Staff-Section/Home";
+import Staff_Main from "./pages/Staff-Section/main";
+import Profilestaff from "./pages/Staff-Section/profile";
+import Tablesstaff from "./pages/Staff-Section/Table";
+import LeaveForm from "./pages/Staff-Section/leaveform";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Viewproject from "./pages/Staff-Section/Task";
+import AttendanceTable from "./pages/Staff-Section/attendence";
+import NotesSharingPage from "./pages/Staff-Section/Notes";
+import DailyWorksheetView from "./pages/Staff-Section/worksheet";
+import ResetPassword from "./pages/Staff-Section/resetpassword";
 
 
 // Higher-order component to restrict access for HR Admin
@@ -108,22 +112,64 @@ function App() {
         <Route path="/teamlead/login" exact component={TeamLeadLogin} />
           
 
-        <HR_Main><PrivateHRAdminRoute
+        <PrivateHRAdminRoute
             path="/admin/dashboard"
             exact
             component={HR_Home}
           />
-{/* 
-        <PrivateHRAdminRoute
-            path="/admin/main"
+           <PrivateStaffRoute
+            path="/staff/resetpasswoord"
             exact
-            component={HR_Main}
-          /> */}
+            component={ResetPassword}
+          />
+          <Staff_Main>
+          <PrivateStaffRoute
+            path="/staff/dashboard"
+            exact
+            component={Staffhome}
+          />
+            <PrivateStaffRoute
+            path="/staff/table"
+            exact
+            component={Tablesstaff}
+          />
+            <PrivateStaffRoute
+            path="/staff/profile"
+            exact
+            component={Profilestaff}
+          />
+            <PrivateStaffRoute
+            path="/staff/leave"
+            exact
+            component={LeaveForm}
+          />
+            <PrivateStaffRoute
+            path="/staff/task"
+            exact
+            component={Viewproject}
+          />
+            <PrivateStaffRoute
+            path="/staff/attendance"
+            exact
+            component={AttendanceTable}
+          />
+            <PrivateStaffRoute
+            path="/staff/notes"
+            exact
+            component={NotesSharingPage}
+          />
+            <PrivateStaffRoute
+            path="/staff/worksheet"
+            exact
+            component={DailyWorksheetView}
+          />
+          </Staff_Main>
           <PrivateHRAdminRoute
             path="/admin/tables"
             exact
             component={HR_Tables}
           />
+          
           <PrivateHRAdminRoute
             path="/admin/profile"
             exact
@@ -134,19 +180,6 @@ function App() {
             exact
             component={HR_Billing}
           />
-            <PrivateHRAdminRoute
-            path="/register/dashboard"
-            exact
-            component={EmployeeRegistrationForm}
-          />
-          <PrivateHRAdminRoute
-            path="/intern/register/dashboard"
-            exact
-            component={InternRegistrationForm}
-          />
-          
-      </HR_Main>
-
 
         <PrivateInternRoute
             path="/intern/dashboard"
@@ -154,24 +187,8 @@ function App() {
             component={Intern_Home}
           />
 
-
-
           {/* <PrivateInternRoute
-            path="/intern/sidebar"
-            exact
-            component={Intern_Sidebar}
-          /> */}
-          {/* <PrivateInternRoute
-            path="/intern/profile" <Menu.Item key="9">
-            <NavLink to="/admin/employee-registration">
-              <span
-                className="icon"
-                style={{
-                  background: page === "employee-registration" ? color : "",
-                }}
-              >
-                {/* You can use any icon for the employee registration menu item */}
-                {/* <svg
+            path="/intern/profile"
             exact
             component={InternProfile}
           /> */}
@@ -185,7 +202,6 @@ function App() {
        <Redirect from="*" to="/admin/login" />
       </Switch>
     </div>
-  
   );
 }
 

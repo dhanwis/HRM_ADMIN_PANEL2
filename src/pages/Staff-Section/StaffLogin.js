@@ -220,9 +220,9 @@ export default class StaffLogin extends Component {
                     </Button>
                   </Form.Item>
                   <p className="font-semibold text-muted">
-                    Don't have an account?{" "}
-                    <Link to="/sign-up" className="text-dark font-bold">
-                      Sign Up
+                    forget password??{" "}
+                    <Link to="/staff/resetpasswoord" className="text-dark font-bold">
+                      Reset
                     </Link>
                   </p>
                 </Form>
