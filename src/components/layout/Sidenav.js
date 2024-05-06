@@ -147,7 +147,7 @@ function Sidenav({ color }) {
       height="14"
       viewBox="0 0 14 14"
       key={0}
-    >s
+    >
       <path
         d="M0,2A2,2,0,0,1,2,0H8a2,2,0,0,1,2,2V8a2,2,0,0,1-2,2H2A2,2,0,0,1,0,8Z"
         transform="translate(4 4)"
@@ -215,7 +215,7 @@ function Sidenav({ color }) {
                 background: page === "rtl" ? color : "",
               }}
             >
-              {rtl}s
+              {rtl}
             </span>
             <span className="label">RTL</span>
           </NavLink>

@@ -11,10 +11,9 @@
 */
 
 // import { useState } from "react";
-import { Menu, Button,Dropdown } from "antd";
+import { Menu, Button } from "antd";
 import { NavLink, useLocation } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
-import InternRegistrationForm from "./Internregister";
 
 export default function SidenavHR({ color }) {
   const { pathname } = useLocation();
@@ -161,82 +160,10 @@ export default function SidenavHR({ color }) {
     </svg>,
   ];
 
-  const Registration = [
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="14"
-      height="14"
-      viewBox="0 0 14 14"
-      key={0}
-    >
-      <path
-        d="M0,2A2,2,0,0,1,2,0H8a2,2,0,0,1,2,2V8a2,2,0,0,1-2,2H2A2,2,0,0,1,0,8Z"
-        transform="translate(4 4)"
-        fill={color}
-      />
-      <path
-        d="M2,0A2,2,0,0,0,0,2V8a2,2,0,0,0,2,2V4A2,2,0,0,1,4,2h6A2,2,0,0,0,8,0Z"
-        fill={color}
-      />
-    </svg>,
-  ];
-
-  const Internregister = [
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="14"
-      height="14"
-      viewBox="0 0 14 14"
-      key={0}
-    >
-      <path
-        d="M0,2A2,2,0,0,1,2,0H8a2,2,0,0,1,2,2V8a2,2,0,0,1-2,2H2A2,2,0,0,1,0,8Z"
-        transform="translate(4 4)"
-        fill={color}
-      />
-      <path
-        d="M2,0A2,2,0,0,0,0,2V8a2,2,0,0,0,2,2V4A2,2,0,0,1,4,2h6A2,2,0,0,0,8,0Z"
-        fill={color}
-      />
-    </svg>,
-  ];
-  const employeeMenu = (
-    <Menu>
-      <Menu.Item key="employee-registration">
-        <NavLink to="/register/dashboard">
-          Employee Registration
-        </NavLink>
-       
-      </Menu.Item>
-      {/* Add more menu items for other options */}
-      <Menu.Item key="employee-registration">
-        <NavLink to="/task/dashboard">
-          Task
-        </NavLink>
-       
-      </Menu.Item>
-    </Menu>
-  );
-  const internMenu = (
-    <Menu>
-      <Menu.Item key="intern-registration">
-        <NavLink to="/intern/register/dashboard">
-          Intern Registration
-        </NavLink>
-       
-      </Menu.Item>
-      {/* Add more menu items for other options */}
-    
-    </Menu>
-
-  
-  );
-
   return (
     <>
-    <div style={{width:'20%'}}>
       <div className="brand">
-        <img src={logo} alt="" style={{width:'40px'}} />
+        <img src={logo} alt="" />
         <span>HR Dashboard</span>
       </div>
       <hr />
@@ -279,7 +206,7 @@ export default function SidenavHR({ color }) {
             </span>
             <span className="label">Billing</span>
           </NavLink>
-     </Menu.Item>
+        </Menu.Item>
         {/* <Menu.Item key="4">
           <NavLink to="/rtl">
             <span
@@ -310,58 +237,19 @@ export default function SidenavHR({ color }) {
           </NavLink>
         </Menu.Item>
         <Menu.Item key="7">
-          <NavLink to="/admin/login">
-            <span
-              className="icon"
-              style={{
-                background: page === "signin" ? color : "",
-              }}
-            >
-              {signin}
-            </span>
-            <span className="label">Sign in</span>
-          </NavLink>
-        </Menu.Item>
-        
-        {/* <Menu.Item key="7">
           <NavLink to="/sign-in">
             <span className="icon">{signin}</span>
             <span className="label">Sign In</span>
           </NavLink>
-        </Menu.Item> */}
-        
-
+        </Menu.Item>
         <Menu.Item key="8">
-          <NavLink to="/register/dashboard">
-            <span
-              className="icon"
-              style={{
-                background: page === "Registration" ? color : "",
-              }}
-            >
-              {Registration}
-            </span>
-            <span className="label">Employee</span>
+          <NavLink to="/sign-up">
+            <span className="icon">{signup}</span>
+            <span className="label">Sign Up</span>
           </NavLink>
         </Menu.Item>
-
-        <Menu.Item key="9">
-          <NavLink to="/intern/register/dashboard">
-            <span
-              className="icon"
-              style={{
-                background: page === "InternRegistration" ? color : "",
-              }}
-            >
-              {Internregister}
-            </span>
-            <span className="label">Intern</span>
-          </NavLink>
-        </Menu.Item>
-
-
-
-          {/* <div className="aside-footer">
+      </Menu>
+      <div className="aside-footer">
         <div
           className="footer-box"
           style={{
@@ -370,29 +258,14 @@ export default function SidenavHR({ color }) {
         >
           <span className="icon" style={{ color }}>
             {dashboard}
-          </span> 
-           <h6>Need Help?</h6>
+          </span>
+          <h6>Need Help?</h6>
           <p>Please check our docs</p>
           <Button type="primary" className="ant-btn-sm ant-btn-block">
             DOCUMENTATION
           </Button>
         </div>
-      </div> */}
-      <Menu.Item key="employee" className="menu-item-header">
-          <Dropdown overlay={employeeMenu} trigger={['click']}>
-            <span>Employee</span>
-          </Dropdown>
-        </Menu.Item>
-         
-    
-     <Menu.Item key="intern" className="menu-item-header">
-          <Dropdown overlay={internMenu} trigger={['click']}>
-            <span>Intern</span>
-          </Dropdown>
-        </Menu.Item>
-         
-     </Menu>
-</div>
+      </div>
     </>
   );
 }

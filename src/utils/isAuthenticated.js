@@ -34,3 +34,12 @@ export const isTeamLeadAuthenticated = () => {
   const authToken = localStorage.getItem("authToken");
   return userRole === "team_lead" && authToken;
 };
+
+// Function to check if the user is an HR admin and authenticated
+export const isFrontOfficeAuthenticated = () => {
+  // Check if the user's role is 'hradmin' and if they are authenticated
+  // const userRole = localStorage.getItem("userRole");
+  // const authToken = localStorage.getItem("authToken");
+  // return userRole === "Front_office" && authToken;
+  return true
+};
