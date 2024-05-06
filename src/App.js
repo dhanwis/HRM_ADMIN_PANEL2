@@ -37,9 +37,9 @@ import Intern_Home from "./pages/Intern-Section/Home";
 //import Intern_Sidebar from "./pages/Intern-Section/sidebar";
 import EmployeeRegistrationForm from './pages/HR-Section/Registration';
 import InternRegistrationForm from "./pages/HR-Section/Internregister";
-
-
-
+import Taskform from "./pages/HR-Section/Task";
+import Feeform from "./pages/HR-Section/Fee";
+import Salaryform from "./pages/HR-Section/salary";
 
 
 // Higher-order component to restrict access for HR Admin
@@ -144,6 +144,24 @@ function App() {
             exact
             component={InternRegistrationForm}
           />
+          <PrivateHRAdminRoute
+            path="/task/dashboard"
+            exact
+            component={Taskform}
+          />
+
+          <PrivateHRAdminRoute
+            path="/fee/dashboard"
+            exact
+            component={Feeform}
+          />
+
+          <PrivateHRAdminRoute
+            path="/salary/dashboard"
+            exact
+            component={Salaryform}
+          />
+          
           
       </HR_Main>
 

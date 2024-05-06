@@ -200,16 +200,16 @@ export default function SidenavHR({ color }) {
       />
     </svg>,
   ];
-  const employeeMenu = (
+  const teamleadMenu = (
     <Menu>
-      <Menu.Item key="employee-registration">
+      <Menu.Item key="teamlead-registration">
         <NavLink to="/register/dashboard">
-          Employee Registration
+          TeamLead Registration
         </NavLink>
        
       </Menu.Item>
       {/* Add more menu items for other options */}
-      <Menu.Item key="employee-registration">
+      <Menu.Item key="teamlead-registration">
         <NavLink to="/task/dashboard">
           Task
         </NavLink>
@@ -226,10 +226,52 @@ export default function SidenavHR({ color }) {
        
       </Menu.Item>
       {/* Add more menu items for other options */}
+      <Menu.Item key="intern-registration">
+        <NavLink to="/fee/dashboard">
+          Intern Fee
+        </NavLink>
+       
+      </Menu.Item>
     
     </Menu>
 
   
+  );
+
+  const staffMenu = (
+    <Menu>
+      <Menu.Item key="staff-registration">
+        <NavLink to="/register/dashboard">
+          Staff Registration
+        </NavLink>
+       
+      </Menu.Item>
+      {/* Add more menu items for other options */}
+      <Menu.Item key="staff-registration">
+        <NavLink to="/task/dashboard">
+          Profile
+        </NavLink>
+       
+      </Menu.Item>
+    </Menu>
+  );
+
+  const frontofficeMenu = (
+    <Menu>
+      <Menu.Item key="fo-registration">
+        <NavLink to="/register/dashboard">
+          Frontoffice Registration
+        </NavLink>
+       
+      </Menu.Item>
+      {/* Add more menu items for other options */}
+      <Menu.Item key="fo-registration">
+        <NavLink to="/task/dashboard">
+          Profile
+        </NavLink>
+       
+      </Menu.Item>
+    </Menu>
   );
 
   return (
@@ -309,8 +351,8 @@ export default function SidenavHR({ color }) {
             <span className="label">Profile</span>
           </NavLink>
         </Menu.Item>
-        <Menu.Item key="7">
-          <NavLink to="/admin/login">
+       <Menu.Item key="7">
+          <NavLink to="/salary/dashboard">
             <span
               className="icon"
               style={{
@@ -319,9 +361,9 @@ export default function SidenavHR({ color }) {
             >
               {signin}
             </span>
-            <span className="label">Sign in</span>
+            <span className="label">Salary</span>
           </NavLink>
-        </Menu.Item>
+        </Menu.Item> 
         
         {/* <Menu.Item key="7">
           <NavLink to="/sign-in">
@@ -331,7 +373,7 @@ export default function SidenavHR({ color }) {
         </Menu.Item> */}
         
 
-        <Menu.Item key="8">
+        {/* <Menu.Item key="8">
           <NavLink to="/register/dashboard">
             <span
               className="icon"
@@ -343,9 +385,9 @@ export default function SidenavHR({ color }) {
             </span>
             <span className="label">Employee</span>
           </NavLink>
-        </Menu.Item>
+        </Menu.Item> */}
 
-        <Menu.Item key="9">
+        {/* <Menu.Item key="9">
           <NavLink to="/intern/register/dashboard">
             <span
               className="icon"
@@ -357,7 +399,7 @@ export default function SidenavHR({ color }) {
             </span>
             <span className="label">Intern</span>
           </NavLink>
-        </Menu.Item>
+        </Menu.Item> */}
 
 
 
@@ -378,9 +420,9 @@ export default function SidenavHR({ color }) {
           </Button>
         </div>
       </div> */}
-      <Menu.Item key="employee" className="menu-item-header">
-          <Dropdown overlay={employeeMenu} trigger={['click']}>
-            <span>Employee</span>
+      <Menu.Item key="teamlead" className="menu-item-header">
+          <Dropdown overlay={teamleadMenu} trigger={['click']}>
+            <span>Team lead</span>
           </Dropdown>
         </Menu.Item>
          
@@ -388,6 +430,23 @@ export default function SidenavHR({ color }) {
      <Menu.Item key="intern" className="menu-item-header">
           <Dropdown overlay={internMenu} trigger={['click']}>
             <span>Intern</span>
+          </Dropdown>
+        </Menu.Item>
+
+
+
+      <Menu.Item key="teamlead" className="menu-item-header">
+          <Dropdown overlay={staffMenu} trigger={['click']}>
+            <span>staff</span>
+          </Dropdown>
+        </Menu.Item>
+
+
+
+        
+     <Menu.Item key="fo" className="menu-item-header">
+          <Dropdown overlay={frontofficeMenu} trigger={['click']}>
+            <span>Frontoffice</span>
           </Dropdown>
         </Menu.Item>
          
