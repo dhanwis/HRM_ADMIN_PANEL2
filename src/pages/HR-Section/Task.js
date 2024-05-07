@@ -1,48 +1,132 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { Form, Input, Button, DatePicker, Table } from "antd";
 
-function TaskForm() {
-    const [formData, setFormData] = useState({
-        id: '',
-        title: '',
-        startDate: '',
-        endDate: '',
-        description: ''
-    });
+const Taskform = () => {
+  const [form] = Form.useForm();
+  const [internshipType, setInternshipType] = useState(null);
+  const [tableData, setTableData] = useState([]);
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-    };
+  const onFinish = (values) => {
+    console.log("Success:", values);
+    setTableData([...tableData, values]);
+    form.resetFields();
+  };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Handle form submission here
-        console.log(formData);
-    };
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
 
-    return (
-        <div>
-            <h2>Task Form</h2>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="id">ID:</label><br />
-                <input type="text" id="id" name="id" value={formData.id} onChange={handleChange} /><br />
-                
-                <label htmlFor="title">Task Title:</label><br />
-                <input type="text" id="title" name="title" value={formData.title} onChange={handleChange} /><br />
-                
-                <label htmlFor="startDate">Start Date:</label><br />
-                <input type="date" id="startDate" name="startDate" value={formData.startDate} onChange={handleChange} /><br />
-                
-                <label htmlFor="endDate">End Date:</label><br />
-                <input type="date" id="endDate" name="endDate" value={formData.endDate} onChange={handleChange} /><br />
-                
-                <label htmlFor="description">Task Description:</label><br />
-                <textarea id="description" name="description" rows="4" cols="50" value={formData.description} onChange={handleChange}></textarea><br />
-                
-                <input type="submit" value="Submit" />
-            </form>
-        </div>
-    );
-}
+  const validateName = (_, value) => {
+    if (!value || /^[a-zA-Z\s]*$/.test(value)) {
+      return Promise.resolve();
+    }
+    return Promise.reject(new Error("Please enter only letters"));
+  };
 
-export default TaskForm;
+  const handleInternshipTypeChange = (e) => {
+    setInternshipType(e.target.value);
+  };
+
+  const columns = [
+    {
+      title: "ID",
+      dataIndex: "id",
+      key: "id",
+    },
+    {
+      title: "Task Title",
+      dataIndex: "taskTitle",
+      key: "taskTitle",
+    },
+    {
+      title: "Start Date",
+      dataIndex: "startDate",
+      key: "startDate",
+    },
+    {
+      title: "End Date",
+      dataIndex: "endDate",
+      key: "endDate",
+    },
+    {
+      title: "Task Description",
+      dataIndex: "taskDescription",
+      key: "taskDescription",
+    },
+  ];
+
+  return (
+    <div>
+      <Form
+        form={form}
+        layout="vertical"
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+      >
+        {/* Task Information Section */}
+        <h2>Task Information</h2>
+        <Form.Item
+          label="ID"
+          name="id"
+          rules={[
+            { required: true, message: "Please enter ID" },
+          ]}
+          style={{ width: '50%' }} 
+        >
+          <Input placeholder="ID" />
+        </Form.Item>
+        <Form.Item
+          label="Task Title"
+          name="taskTitle"
+          rules={[
+            { required: true, message: "Please enter task title" },
+          ]}
+          style={{ width: '50%' }} 
+        >
+          <Input placeholder="Task Title" />
+        </Form.Item>
+        <Form.Item
+          label="Start Date"
+          name="startDate"
+          rules={[
+            { required: true, message: "Please select start date" },
+          ]}
+          style={{ width: '50%' }} 
+        >
+          <DatePicker style={{ width: "100%" }} />
+        </Form.Item>
+        <Form.Item
+          label="End Date"
+          name="endDate"
+          rules={[
+            { required: true, message: "Please select end date" },
+          ]}
+          style={{ width: '50%' }} 
+        >
+          <DatePicker style={{ width: "100%" }} />
+        </Form.Item>
+        <Form.Item
+          label="Task Description"
+          name="taskDescription"
+          rules={[
+            { required: true, message: "Please enter task description" },
+          ]}
+          style={{ width: '50%' }} 
+        >
+          <Input.TextArea placeholder="Task Description" />
+        </Form.Item>
+
+        <Form.Item>
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
+        </Form.Item>
+      </Form>
+      {/* Table Section */}
+      <h2>Task Data</h2>
+      <Table columns={columns} dataSource={tableData} />
+    </div>
+  );
+};
+
+export default Taskform;

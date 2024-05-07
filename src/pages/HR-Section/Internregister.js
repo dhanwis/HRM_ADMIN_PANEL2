@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Form, Input, Button, DatePicker, Row, Col, Radio } from "antd";
+import { Form, Input, Button, DatePicker, Row, Col, Radio, Upload } from "antd";
+import { UploadOutlined } from '@ant-design/icons';
 
 const InternRegistrationForm = () => {
   const [internshipType, setInternshipType] = useState(null);
@@ -193,6 +194,28 @@ const InternRegistrationForm = () => {
           </Col>
         </Row>
       ) : null}
+      {/* Photo Upload Section */}
+      <h2>Upload Photo</h2>
+      <Row gutter={16}>
+        <Col span={24}>
+          <Form.Item
+            name="photo"
+            label="Photo"
+            valuePropName="fileList"
+            getValueFromEvent={(e) => e && e.fileList}
+          >
+            <Upload
+              name="photo"
+              listType="picture-card"
+              maxCount={1}
+              beforeUpload={() => false}
+            >
+              <Button icon={<UploadOutlined />}>Click to upload</Button>
+            </Upload>
+          </Form.Item>
+        </Col>
+      </Row>
+
       
       <Form.Item>
         <Button type="primary" htmlType="submit">

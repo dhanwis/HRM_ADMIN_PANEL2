@@ -1,0 +1,71 @@
+/* AttendanceMarkingPage.css */
+
+/* Style for the table */
+.attendance-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  /* Style for table header */
+  .attendance-table th {
+    background-color: #f2f2f2;
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  /* Style for table cells */
+  .attendance-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  /* Style for action buttons */
+  .action-button {
+    padding: 6px 10px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .action-button:hover {
+    background-color: #0056b3;
+  }
+  /* AttendanceMarkingPage.css */
+
+/* Style for the container div */
+.container {
+    max-width: 2000px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Style for the heading */
+  .heading {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Style for the button */
+  .load-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .load-button:hover {
+    background-color: #0056b3;
+  }
+  
