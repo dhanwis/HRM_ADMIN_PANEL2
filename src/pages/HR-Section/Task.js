@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Form, Input, Button, DatePicker, Table } from "antd";
 
@@ -11,11 +12,13 @@ const Taskform = () => {
     setTableData([...tableData, values]);
     form.resetFields();
   };
+   
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
 
+ 
   const validateName = (_, value) => {
     if (!value || /^[a-zA-Z\s]*$/.test(value)) {
       return Promise.resolve();
@@ -25,10 +28,12 @@ const Taskform = () => {
 
   const handleInternshipTypeChange = (e) => {
     setInternshipType(e.target.value);
+ 
   };
 
   const columns = [
     {
+
       title: "ID",
       dataIndex: "id",
       key: "id",
@@ -52,6 +57,12 @@ const Taskform = () => {
       title: "Task Description",
       dataIndex: "taskDescription",
       key: "taskDescription",
+
+      title: 'ID',
+      dataIndex: 'id',
+      key: 'id',
+    },
+    
     },
   ];
 
@@ -63,6 +74,7 @@ const Taskform = () => {
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
       >
+
         {/* Task Information Section */}
         <h2>Task Information</h2>
         <Form.Item
@@ -116,12 +128,35 @@ const Taskform = () => {
           <Input.TextArea placeholder="Task Description" />
         </Form.Item>
 
+
+//         {/* Form fields */}
+//         <h2>Task Information</h2>
+//         <Form.Item label="ID" name="id" rules={[{ required: true, message: "Please enter ID" }]}>
+//           <Input placeholder="ID" />
+//         </Form.Item>
+//         <Form.Item label="Task Title" name="taskTitle" rules={[{ required: true, message: "Please enter task title" }]}>
+//           <Input placeholder="Task Title" />
+//         </Form.Item>
+//         <Form.Item label="Start Date" name="startDate" rules={[{ required: true, message: "Please select start date" }]}>
+//           <DatePicker style={{ width: "100%" }} />
+//         </Form.Item>
+//         <Form.Item label="End Date" name="endDate" rules={[{ required: true, message: "Please select end date" }]}>
+//           <DatePicker style={{ width: "100%" }} />
+//         </Form.Item>
+//         <Form.Item label="Task Description" name="taskDescription" rules={[{ required: true, message: "Please enter task description" }]}>
+//           <Input.TextArea placeholder="Task Description" />
+//         </Form.Item>
+
+//         {/* Add more form items as needed */}
+
+// >>>>>>> main
         <Form.Item>
           <Button type="primary" htmlType="submit">
             Submit
           </Button>
         </Form.Item>
       </Form>
+
       {/* Table Section */}
       <h2>Task Data</h2>
       <Table columns={columns} dataSource={tableData} />
@@ -129,4 +164,15 @@ const Taskform = () => {
   );
 };
 
+// =======
+//       <div>
+//         <h2>Submitted Team lead task Information</h2>
+//         <Table dataSource={submittedData} columns={columns} />
+//       </div>
+//      </div>
+//   );
+// };
+
+
+// >>>>>>> main
 export default Taskform;

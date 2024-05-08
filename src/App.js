@@ -35,12 +35,9 @@ import HR_Main from "./pages/HR-Section/main";
 import Intern_Main from "./pages/Intern-Section/main";
 import Intern_Home from "./pages/Intern-Section/Home";
 //import Intern_Sidebar from "./pages/Intern-Section/sidebar";
-import EmployeeRegistrationForm from './pages/HR-Section/Registration';
+import EmployeeRegistrationForm from "./pages/HR-Section/Registration";
 import InternRegistrationForm from "./pages/HR-Section/Internregister";
-import TaskForm from "./pages/HR-Section/Task";
-import Feeform from "./pages/HR-Section/Internfee";
-import AttendanceMarkingPage from "./pages/HR-Section/Attendance";
-import SalaryForm from "./pages/HR-Section/Salary";
+
 
 
 // Higher-order component to restrict access for HR Admin
@@ -107,14 +104,14 @@ function App() {
         <Route path="/staff/login" exact component={StaffLogin} />
         <Route path="/intern/login" exact component={InternLogin} />
         <Route path="/teamlead/login" exact component={TeamLeadLogin} />
-          
 
-        <HR_Main><PrivateHRAdminRoute
+        <HR_Main>
+          <PrivateHRAdminRoute
             path="/admin/dashboard"
             exact
             component={HR_Home}
           />
-{/* 
+          {/* 
         <PrivateHRAdminRoute
             path="/admin/main"
             exact
@@ -135,7 +132,7 @@ function App() {
             exact
             component={HR_Billing}
           />
-            <PrivateHRAdminRoute
+          <PrivateHRAdminRoute
             path="/register/dashboard"
             exact
             component={EmployeeRegistrationForm}
@@ -148,41 +145,36 @@ function App() {
           <PrivateHRAdminRoute
             path="/task/dashboard"
             exact
-            component={TaskForm}
-          />
-            <PrivateHRAdminRoute
+
+
+          <PrivateHRAdminRoute
             path="/fee/dashboard"
             exact
             component={Feeform}
           />
 
           <PrivateHRAdminRoute
-            path="/admin/attendance"
+            path="/salary/dashboard"
             exact
-            component={AttendanceMarkingPage}
+            component={Salaryform}
           />
-           <PrivateHRAdminRoute
-            path="/admin/salary"
-            exact
-            component={SalaryForm}
-          />
+          
+          
       </HR_Main>
 
 
         <PrivateInternRoute
-            path="/intern/dashboard"
-            exact
-            component={Intern_Home}
-          />
+          path="/intern/dashboard"
+          exact
+          component={Intern_Home}
+        />
 
-
-
-          {/* <PrivateInternRoute
+        {/* <PrivateInternRoute
             path="/intern/sidebar"
             exact
             component={Intern_Sidebar}
           /> */}
-          {/* <PrivateInternRoute
+        {/* <PrivateInternRoute
             path="/intern/profile" <Menu.Item key="9">
             <NavLink to="/admin/employee-registration">
               <span
@@ -192,7 +184,7 @@ function App() {
                 }}
               >
                 {/* You can use any icon for the employee registration menu item */}
-                {/* <svg
+        {/* <svg
             exact
             component={InternProfile}
           /> */}
@@ -202,11 +194,10 @@ function App() {
         <PrivateStaffRoute path="/staff/profile" exact component={StaffProfile} /><
         
         <PrivateTeamLeadRoute path="/teamlead/profile" exact component={TeamLeadProfile} /> */}
-       
-       <Redirect from="*" to="/admin/login" />
+
+        <Redirect from="*" to="/admin/login" />
       </Switch>
     </div>
-  
   );
 }
 
