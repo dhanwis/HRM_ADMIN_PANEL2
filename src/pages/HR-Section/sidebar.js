@@ -1,14 +1,4 @@
-/*!
-  =========================================================
-  * Muse Ant Design Dashboard - v1.0.0
-  =========================================================
-  * Product Page: https://www.creative-tim.com/product/muse-ant-design-dashboard
-  * Copyright 2021 Creative Tim (https://www.creative-tim.com)
-  * Licensed under MIT (https://github.com/creativetimofficial/muse-ant-design-dashboard/blob/main/LICENSE.md)
-  * Coded by Creative Tim
-  =========================================================
-  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
+ 
 
 // import { useState } from "react";
 import { Menu, Button,Dropdown } from "antd";
@@ -161,7 +151,7 @@ export default function SidenavHR({ color }) {
     </svg>,
   ];
 
-  const Registration = [
+  const attendance = [
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="14"
@@ -181,7 +171,7 @@ export default function SidenavHR({ color }) {
     </svg>,
   ];
 
-  const Internregister = [
+  const leave = [
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="14"
@@ -200,7 +190,31 @@ export default function SidenavHR({ color }) {
       />
     </svg>,
   ];
-  const teamleadMenu = (
+
+
+  const employee = [
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="14"
+      height="14"
+      viewBox="0 0 14 14"
+      key={0}
+    >
+      <path
+        d="M0,2A2,2,0,0,1,2,0H8a2,2,0,0,1,2,2V8a2,2,0,0,1-2,2H2A2,2,0,0,1,0,8Z"
+        transform="translate(4 4)"
+        fill={color}
+      />
+      <path
+        d="M2,0A2,2,0,0,0,0,2V8a2,2,0,0,0,2,2V4A2,2,0,0,1,4,2h6A2,2,0,0,0,8,0Z"
+        fill={color}
+      />
+    </svg>,
+  ];
+
+  const employeeMenu = (
+
+  
     <Menu>
       <Menu.Item key="teamlead-registration">
         <NavLink to="/register/dashboard">
@@ -217,27 +231,55 @@ export default function SidenavHR({ color }) {
       </Menu.Item>
     </Menu>
   );
+  const teamleadMenu = (
+    <Menu>
+      <Menu.Item key="teamlead-registration">
+        <NavLink to="/register/dashboard">
+         Registration
+        </NavLink>
+       
+      </Menu.Item>
+      {/* Add more menu items for other options */}
+ 
+      <Menu.Item key="teamlead-registration">
+        <NavLink to="/task/dashboard">
+          Task
+        </NavLink>
+       
+      </Menu.Item>
+ 
+    </Menu>
+  );
+
+  const frontofficeMenu = (
+    <Menu>
+      <Menu.Item key="frontoffice-registration">
+        <NavLink to="/register/dashboard">
+         Registration
+        </NavLink>
+       
+      </Menu.Item>
+    </Menu>
+  );
+
+ 
   const internMenu = (
     <Menu>
       <Menu.Item key="intern-registration">
         <NavLink to="/intern/register/dashboard">
           Intern Registration
         </NavLink>
-       
       </Menu.Item>
       {/* Add more menu items for other options */}
       <Menu.Item key="intern-registration">
         <NavLink to="/fee/dashboard">
-          Intern Fee
+          Fee
         </NavLink>
-       
       </Menu.Item>
-    
-    </Menu>
-
-  
+    </Menu> 
   );
-
+  
+ 
   const staffMenu = (
     <Menu>
       <Menu.Item key="staff-registration">
@@ -273,6 +315,7 @@ export default function SidenavHR({ color }) {
       </Menu.Item>
     </Menu>
   );
+
 
   return (
     <>
@@ -363,94 +406,94 @@ export default function SidenavHR({ color }) {
             </span>
             <span className="label">Salary</span>
           </NavLink>
+ 
+        </Menu.Item>
+        <Menu.Item key="8">
+          <NavLink to="/admin/attendance">
+ 
         </Menu.Item> 
         
-        {/* <Menu.Item key="7">
-          <NavLink to="/sign-in">
-            <span className="icon">{signin}</span>
-            <span className="label">Sign In</span>
+       
+            <span
+              className="icon"
+              style={{
+                background: page === "attendance" ? color : "",
+              }}
+            >
+              {attendance}
+            </span>
+            <span className="label">Attendance</span>
           </NavLink>
-        </Menu.Item> */}
-        
+ 
+        </Menu.Item>
+        <Menu.Item key="9">
+          <NavLink to="/admin/salary">
 
-        {/* <Menu.Item key="8">
+            <span
+              className="icon"
+              style={{
+                background: page === "leave" ? color : "",
+              }}
+            >
+              {leave}
+            </span>
+            <span className="label">Salary</span>
+          </NavLink>
+ 
+        </Menu.Item>
+        <Menu.Item key="10">
           <NavLink to="/register/dashboard">
             <span
               className="icon"
               style={{
-                background: page === "Registration" ? color : "",
+                background: page === "employee" ? color : "",
               }}
             >
-              {Registration}
+              {leave}
             </span>
             <span className="label">Employee</span>
           </NavLink>
-        </Menu.Item> */}
-
-        {/* <Menu.Item key="9">
-          <NavLink to="/intern/register/dashboard">
-            <span
-              className="icon"
-              style={{
-                background: page === "InternRegistration" ? color : "",
-              }}
-            >
-              {Internregister}
-            </span>
-            <span className="label">Intern</span>
-          </NavLink>
+        </Menu.Item>
+      
+       
+      <Menu.Item key="employee" className="menu-item-header">
+          <Dropdown overlay={employeeMenu} trigger={['click']}>
+            <span>Employee</span>
+ 
         </Menu.Item> */}
 
 
 
-          {/* <div className="aside-footer">
-        <div
-          className="footer-box"
-          style={{
-            background: color,
-          }}
-        >
-          <span className="icon" style={{ color }}>
-            {dashboard}
-          </span> 
-           <h6>Need Help?</h6>
-          <p>Please check our docs</p>
-          <Button type="primary" className="ant-btn-sm ant-btn-block">
-            DOCUMENTATION
-          </Button>
-        </div>
-      </div> */}
+           
+          </Dropdown>
+      </Menu.Item>
+
       <Menu.Item key="teamlead" className="menu-item-header">
           <Dropdown overlay={teamleadMenu} trigger={['click']}>
-            <span>Team lead</span>
+            <span>TeamLead</span>
           </Dropdown>
-        </Menu.Item>
-         
+      </Menu.Item>  
+
+      <Menu.Item key="frontoffice" className="menu-item-header">
+          <Dropdown overlay={frontofficeMenu} trigger={['click']}>
+            <span>Front Office</span>
+          </Dropdown>
+      </Menu.Item>      
     
      <Menu.Item key="intern" className="menu-item-header">
           <Dropdown overlay={internMenu} trigger={['click']}>
             <span>Intern</span>
           </Dropdown>
+ 
+        </Menu.Item>        
+     </Menu>   
+       
+ 
         </Menu.Item>
 
 
 
-      <Menu.Item key="teamlead" className="menu-item-header">
-          <Dropdown overlay={staffMenu} trigger={['click']}>
-            <span>staff</span>
-          </Dropdown>
-        </Menu.Item>
-
-
-
-        
-     <Menu.Item key="fo" className="menu-item-header">
-          <Dropdown overlay={frontofficeMenu} trigger={['click']}>
-            <span>Frontoffice</span>
-          </Dropdown>
-        </Menu.Item>
-         
-     </Menu>
+       
 </div>
     </>
   );
