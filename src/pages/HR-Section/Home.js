@@ -456,7 +456,7 @@ function HR_Home() {
           <Col xs={24} sm={24} md={12} lg={12} xl={8} className="mb-24">
             <Card bordered={false} className="criclebox h-full">
               <div className="timeline-box">
-                <Title level={5}>Orders History</Title>
+                <Title level={5}>Project History</Title>
                 <Paragraph className="lastweek" style={{ marginBottom: 24 }}>
                   this month <span className="bnb2">20%</span>
                 </Paragraph>

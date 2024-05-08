@@ -88,7 +88,7 @@ const InternRegistrationForm = () => {
             <DatePicker style={{ width: "100%" }} />
           </Form.Item>
         </Col>
-      </Row>intern
+      </Row>
       
       {/* Education Information Section */}
       <h2>Education Information</h2>
