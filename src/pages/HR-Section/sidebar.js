@@ -181,7 +181,7 @@ export default function SidenavHR({ color }) {
     </svg>,
   ];
 
-  const leave = [
+  const salary = [
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="14"
@@ -225,7 +225,7 @@ export default function SidenavHR({ color }) {
     <Menu>
       <Menu.Item key="employee-registration">
         <NavLink to="/register/dashboard">
-          Employee Registration
+          Register
         </NavLink>
        
       </Menu.Item>
@@ -242,7 +242,7 @@ export default function SidenavHR({ color }) {
     <Menu>
       <Menu.Item key="teamlead-registration">
         <NavLink to="/register/dashboard">
-         Registration
+         Register
         </NavLink>
        
       </Menu.Item>
@@ -260,7 +260,7 @@ export default function SidenavHR({ color }) {
     <Menu>
       <Menu.Item key="frontoffice-registration">
         <NavLink to="/register/dashboard">
-         Registration
+         Register
         </NavLink>
        
       </Menu.Item>
@@ -271,7 +271,7 @@ export default function SidenavHR({ color }) {
     <Menu>
       <Menu.Item key="intern-registration">
         <NavLink to="/intern/register/dashboard">
-          Intern Registration
+           Register
         </NavLink>
       </Menu.Item>
       {/* Add more menu items for other options */}
@@ -344,9 +344,9 @@ export default function SidenavHR({ color }) {
             <span className="label">RTL</span>
           </NavLink>
         </Menu.Item> */}
-        <Menu.Item className="menu-item-header" key="5">
+        {/* <Menu.Item className="menu-item-header" key="5">
           Account Pages
-        </Menu.Item>
+        </Menu.Item> */}
         <Menu.Item key="6">
           <NavLink to="/admin/profile">
             <span
@@ -391,15 +391,15 @@ export default function SidenavHR({ color }) {
             <span
               className="icon"
               style={{
-                background: page === "leave" ? color : "",
+                background: page === "salary" ? color : "",
               }}
             >
-              {leave}
+              {salary}
             </span>
             <span className="label">Salary</span>
           </NavLink>
         </Menu.Item>
-        <Menu.Item key="10">
+        {/* <Menu.Item key="10">
           <NavLink to="/register/dashboard">
             <span
               className="icon"
@@ -411,12 +411,12 @@ export default function SidenavHR({ color }) {
             </span>
             <span className="label">Employee</span>
           </NavLink>
-        </Menu.Item>
+        </Menu.Item> */}
       
        
       <Menu.Item key="employee" className="menu-item-header">
           <Dropdown overlay={employeeMenu} trigger={['click']}>
-            <span>Employee</span>
+            <span>Staff</span>
           </Dropdown>
       </Menu.Item>
 
