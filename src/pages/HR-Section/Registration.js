@@ -1,5 +1,3 @@
- 
-
 import React, { useState, useEffect } from "react";
 import { Form, Input, Button, DatePicker, Select, Table, Popconfirm, InputNumber,Row,Col,Upload } from "antd";
 import moment from "moment";
@@ -31,15 +29,6 @@ useEffect(() => {
   setSubmittedData(savedData);
 }, []);
 
-
-  // const onFinish = (values) => {
-  //   const key = Date.now(); 
-  //   const newData = [...submittedData, { ...values, key }];
-  //   setSubmittedData(newData);
-  //   form.resetFields();
-  //   localStorage.setItem("submittedData", JSON.stringify(newData));
-  // };
-
   const onFinish = (values) => {
     const key = Date.now(); 
     const newData = {
@@ -52,10 +41,6 @@ useEffect(() => {
     form.resetFields();
     localStorage.setItem("submittedData", JSON.stringify([...submittedData, newData]));
   };
-
-
-
-
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
@@ -169,11 +154,7 @@ useEffect(() => {
        dataIndex: 'role',
        key: 'role',
      },
-    //  {
-    //    title: 'Join Date',
-    //    dataIndex: 'joinDate',
-    //    key: 'joinDate',
-    //  },
+   
 
     {
       title: 'Join Date',
@@ -184,14 +165,13 @@ useEffect(() => {
         return <span>{moment(record.joinDate).format("YYYY-MM-DD")}</span>;
       }
     },
+    {
+      title: 'Department',
+      dataIndex: 'department',
+      key: 'department',
+    },
 
 
-
-     {
-       title: 'Department',
-       dataIndex: 'department',
-       key: 'department',
-     },
      {
        title: 'Experience',
        dataIndex: 'experience',
@@ -223,7 +203,6 @@ useEffect(() => {
   ];
 
   return (
-
     <div>
       <Form
         form={form}
@@ -233,34 +212,7 @@ useEffect(() => {
       >
         {/* Form fields */}
         <h2>Personal Information</h2>
-       
-      <Row gutter={16}>
-        <Col span={12}>
-          <Form.Item
-            label=" Name"
-            name="name"
-            rules={[
-              { required: true, message: "Please enter your name" },
-              { validator: validateName }
-            ]}
-          >
-            <Input placeholder="Name" />
-          </Form.Item>
-        </Col>
-        <Col span={12}>
-          <Form.Item
-            label="Photo"
-            name="photo"
-            rules={[{ required: true, message: "Please upload your photo" }]}
-          >
-            <Upload maxCount={1}>
-              <Button icon={<UploadOutlined />}>Upload Photo</Button>
-            </Upload>
-          </Form.Item>
-        </Col>
-      </Row>
-      <Row gutter={16}>
-
+       <Row gutter={16}>
         <Col span={12}>
            <Form.Item
              label=" Name"
@@ -329,20 +281,13 @@ useEffect(() => {
            </Form.Item>
          </Col>
          <Col span={12}>
-            
-
          <Form.Item label="dob" name="dob" rules={[{ required: true, message: "Please select DOB" }]}>
           <DatePicker style={{ width: "100%" }} />
         </Form.Item>
-
-
-
-
-           {/* </Form.Item> */}
+           
          </Col>
        </Row>
       
-
        {/* Address Information Section */}
        <h2>Address Information</h2>
        <Row gutter={16}>
@@ -413,43 +358,35 @@ useEffect(() => {
              ]}
            >
                <Select placeholder="Select role">
-               <Option value="IT">Front office</Option>
-               <Option value="HR">Staff</Option>
-               <Option value="Finance">Teamlead</Option>
+               <Option value="Front office">Front office</Option>
+               <Option value="Staff">Staff</Option>
+               <Option value="Teamlead">Teamlead</Option>
              </Select>
-
-      {/* Additional Information Section */}
-      <h2>Additional Information</h2>
-      <Row gutter={16}>
-        <Col span={8}>
-          <Form.Item
-            label="Role"
-            name="role"
-            rules={[
-              { required: true, message: "Please enter role" },
-            ]}
-          >
-              <Select placeholder="Select role">
-              <Option value="IT">Front office</Option>
-              <Option value="HR">Staff</Option>
-              <Option value="Finance">Teamlead</Option>
-            </Select>
           
            </Form.Item>
          </Col>
          <Col span={8}>
-           
-
-
+        
          <Form.Item label="joinDate" name="joinDate" rules={[{ required: true, message: "Please select join date" }]}>
           <DatePicker style={{ width: "100%" }} />
         </Form.Item>
-
-
-
-
          </Col>
-         
+         <Col span={8}>
+           <Form.Item
+             label="Department"
+             name="department"
+             rules={[
+               { required: true, message: "Please select department" },
+             ]}
+           >
+             <Select placeholder="Select department">
+               <Option value="IT">IT</Option>
+               <Option value="HR">HR</Option>
+               <Option value="Finance">Finance</Option>
+             </Select>
+           </Form.Item>
+         </Col>
+     
        </Row>
 
        {/* Work Experience Section */}
@@ -473,9 +410,6 @@ useEffect(() => {
          </Col>
 </Row>
        
-        
-        
-
         {/* Add more form items as needed */}
 
         <Form.Item>
@@ -492,4 +426,5 @@ useEffect(() => {
     </div>
   );
 };
- 
+
+export default EmployeeRegistrationForm

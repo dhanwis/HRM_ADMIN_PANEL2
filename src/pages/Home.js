@@ -457,7 +457,7 @@ function Home() {
               </div>
             </Card>
           </Col>
-          <Col xs={24} sm={24} md={12} lg={12} xl={8} className="mb-24">
+          {/* <Col xs={24} sm={24} md={12} lg={12} xl={8} className="mb-24">
             <Card bordered={false} className="criclebox h-full">
               <div className="timeline-box">
                 <Title level={5}>Orders History</Title>
@@ -486,7 +486,7 @@ function Home() {
                 </Button>
               </div>
             </Card>
-          </Col>
+          </Col> */}
         </Row>
 
         <Row gutter={[24, 0]}>
