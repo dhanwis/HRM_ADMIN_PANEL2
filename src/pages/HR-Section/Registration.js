@@ -427,4 +427,4 @@ useEffect(() => {
   );
 };
 
-export default EmployeeRegistrationForm; 
+export default EmployeeRegistrationForm

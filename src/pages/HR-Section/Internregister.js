@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Form, Input, Button, DatePicker, Row, Col, Radio, Upload } from "antd";
 import { UploadOutlined } from '@ant-design/icons';
 
+
 const InternRegistrationForm = () => {
   const [internshipType, setInternshipType] = useState(null);
 
@@ -45,6 +46,26 @@ const InternRegistrationForm = () => {
             <Input placeholder="Full Name" />
           </Form.Item>
         </Col>
+
+
+        <Col span={12}>
+          <Form.Item
+            label="Photo"
+            name="photo"
+            rules={[{ required: true, message: "Please upload your photo" }]}
+          >
+            <Upload maxCount={1}>
+              <Button icon={<UploadOutlined />}>Upload Photo</Button>
+            </Upload>
+          </Form.Item>
+        </Col>
+
+
+
+
+
+
+
   
       </Row>
       <Row gutter={16}>
