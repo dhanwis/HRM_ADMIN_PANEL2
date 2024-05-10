@@ -165,7 +165,11 @@ useEffect(() => {
         return <span>{moment(record.joinDate).format("YYYY-MM-DD")}</span>;
       }
     },
-
+    {
+      title: 'Department',
+      dataIndex: 'department',
+      key: 'department',
+    },
 
 
      {
@@ -366,6 +370,21 @@ useEffect(() => {
          <Form.Item label="joinDate" name="joinDate" rules={[{ required: true, message: "Please select join date" }]}>
           <DatePicker style={{ width: "100%" }} />
         </Form.Item>
+         </Col>
+         <Col span={8}>
+           <Form.Item
+             label="Department"
+             name="department"
+             rules={[
+               { required: true, message: "Please select department" },
+             ]}
+           >
+             <Select placeholder="Select department">
+               <Option value="IT">IT</Option>
+               <Option value="HR">HR</Option>
+               <Option value="Finance">Finance</Option>
+             </Select>
+           </Form.Item>
          </Col>
      
        </Row>
