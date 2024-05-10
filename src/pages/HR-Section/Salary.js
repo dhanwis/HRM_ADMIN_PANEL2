@@ -8,10 +8,7 @@ const Salaryform = () => {
   const [submittedData, setSubmittedData] = useState([]);
   const [editingKey, setEditingKey] = useState(null);
 
-  // useEffect(() => {
-  //   const savedData = JSON.parse(localStorage.getItem("submittedData")) || [];
-  //   setSubmittedData(savedData);
-  // }, []);
+
 
 
   useEffect(() => {
@@ -44,11 +41,6 @@ const Salaryform = () => {
     localStorage.setItem("submittedData", JSON.stringify(newData));
   };
 
-  // const edit = (key) => {
-  //   setEditingKey(key);
-  //   const recordToEdit = submittedData.find((record) => record.key === key);
-  //   form.setFieldsValue(recordToEdit);
-  // };
 
   const edit = (key) => {
     setEditingKey(key);
@@ -108,7 +100,7 @@ const Salaryform = () => {
        key: 'email',
      },
      {
-       title: 'Join Date',
+       title: 'Date',
        dataIndex: 'joinDate',
        key: 'joinDate',
        render: (joinDate) => moment(joinDate).format('YYYY-MM-DD'),
@@ -175,26 +167,12 @@ const Salaryform = () => {
            <Input />
          </Form.Item>
 
-         {/* <Form.Item label="Join Date" name="joinDate" rules={[{ required: true, message: 'Please select join date' }]}>
-           <DatePicker style={{ width: "100%" }} />
-         </Form.Item> */}
-{/* 
-<Form.Item 
-  label="Join Date" 
-  name="joinDate" 
-  rules={[{ required: true, message: 'Please select join date' }]}
->
-  <DatePicker 
-    style={{ width: "100%" }} 
-    defaultValue={form.getFieldValue('joinDate') ? moment(form.getFieldValue('joinDate'), 'YYYY-MM-DD') : null} 
-    onChange={(date, dateString) => form.setFieldsValue({ joinDate: dateString })} 
-  />
-</Form.Item> */}
+     
 
 <Form.Item 
-  label="Join Date" 
+  label=" Date" 
   name="joinDate" 
-  rules={[{ required: true, message: 'Please select join date' }]}
+  rules={[{ required: true, message: 'Please select  date' }]}
 >
   <DatePicker 
     style={{ width: "100%" }} 
