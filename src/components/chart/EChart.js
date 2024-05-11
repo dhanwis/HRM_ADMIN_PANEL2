@@ -1,67 +1,93 @@
-/*!
-  =========================================================
-  * Muse Ant Design Dashboard - v1.0.0
-  =========================================================
-  * Product Page: https://www.creative-tim.com/product/muse-ant-design-dashboard
-  * Copyright 2021 Creative Tim (https://www.creative-tim.com)
-  * Licensed under MIT (https://github.com/creativetimofficial/muse-ant-design-dashboard/blob/main/LICENSE.md)
-  * Coded by Creative Tim
-  =========================================================
-  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import ReactApexChart from "react-apexcharts";
 import { Row, Col, Typography } from "antd";
-import eChart from "./configs/eChart";
 
 function EChart() {
-  const { Title, Paragraph } = Typography;
+  const { Title } = Typography;
 
-  const items = [
+  const attendanceData = [
     {
-      Title: "3,6K",
-      user: "Users",
+      date: "2024-05-01",
+      present: 50,
+      absent: 10,
     },
     {
-      Title: "2m",
-      user: "Clicks",
+      date: "2024-05-02",
+      present: 48,
+      absent: 12,
     },
     {
-      Title: "$772",
-      user: "Sales",
+      date: "2024-05-03",
+      present: 52,
+      absent: 8,
+    },
+    // Add more attendance data as needed
+  ];
+
+  const options = {
+    chart: {
+      type: "bar",
+      height: 350,
+    },
+    plotOptions: {
+      bar: {
+        horizontal: false,
+        columnWidth: "55%",
+        endingShape: "rounded",
+      },
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    stroke: {
+      show: true,
+      width: 0.2,
+      colors: ["blue"],
+    },
+    xaxis: {
+      categories: attendanceData.map((data) => data.date),
+    },
+    yaxis: {
+      title: {
+        text: "Attendance",
+      },
+    },
+    fill: {
+      opacity: 1,
+    },
+    tooltip: {
+      y: {
+        formatter: function (val) {
+          return val + " employee";
+        },
+      },
+    },
+  };
+
+  const series = [
+    {
+      name: "Present",
+      data: attendanceData.map((data) => data.present),
     },
     {
-      Title: "82",
-      user: "Items",
+      name: "Absent",
+      data: attendanceData.map((data) => data.absent),
     },
   ];
 
   return (
     <>
-      <div id="chart">
-        <ReactApexChart
-          className="bar-chart"
-          options={eChart.options}
-          series={eChart.series}
-          type="bar"
-          height={220}
-        />
+      <div id="attendance-chart">
+        <ReactApexChart options={options} series={series} type="bar" height={350} />
       </div>
-      <div className="chart-vistior">
-        <Title level={5}>Active</Title>
-        <Paragraph className="lastweek">
-          than last week <span className="bnb2">+30%</span>
-        </Paragraph>
-        <Paragraph className="lastweek">
-          We have created multiple options for you to put together and customise
-          into pixel perfect pages.
-        </Paragraph>
-        <Row gutter>
-          {items.map((v, index) => (
-            <Col xs={6} xl={6} sm={6} md={6} key={index}>
-              <div className="chart-visitor-count">
-                <Title level={4}>{v.Title}</Title>
-                <span>{v.user}</span>
+      <div className="attendance-summary">
+        <Title level={5}>Attendance Summary</Title>
+        <Row gutter={[16, 16]}>
+          {attendanceData.map((data, index) => (
+            <Col span={8} key={index}>
+              <div className="date-summary">
+                <Title level={4}>{data.date}</Title>
+                <p>Present: {data.present}</p>
+                <p>Absent: {data.absent}</p>
               </div>
             </Col>
           ))}

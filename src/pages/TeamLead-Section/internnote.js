@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import './Uploadnotes.css';
 
 const Uploadnote = ({ onUpload }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [category, setCategory] = useState('');
+  const [description, setDescription] = useState('');
   const [categories, setCategories] = useState([]); // Replace with your category list
   const [uploadedNotes, setUploadedNotes] = useState([]);
 
@@ -32,16 +34,21 @@ const Uploadnote = ({ onUpload }) => {
     setCategory(event.target.value);
   };
 
+  const handleDescriptionChange = (event) => {
+    setDescription(event.target.value);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!selectedFile || !category) {
-      alert('Please select a PDF and choose a category.');
+    if (!selectedFile || !category || !description) {
+      alert('Please select a PDF, choose a category, and provide a description.');
       return;
     }
 
     const formData = new FormData();
     formData.append('file', selectedFile);
     formData.append('category', category);
+    formData.append('description', description);
 
     // Replace with your backend API endpoint for uploading notes
     const response = await fetch('/upload', {
@@ -56,28 +63,32 @@ const Uploadnote = ({ onUpload }) => {
 
     setSelectedFile(null);
     setCategory('');
+    setDescription('');
     onUpload(category); // Trigger callback to update student list
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input type="file" accept=".pdf" onChange={handleChange} required />
-        <select value={category} onChange={handleCategoryChange} required>
+    <div className="upload-note-container">
+      <form className="upload-note-form" onSubmit={handleSubmit}>
+        <input className="upload-note-input" type="file" accept=".pdf" onChange={handleChange} required />
+        <select className="upload-note-input" value={category} onChange={handleCategoryChange} required>
+          <option value="">Select Category</option>
           {categories.map((cat) => (
             <option key={cat} value={cat}>
               {cat}
             </option>
           ))}
         </select>
-        <button type="submit">Upload</button>
+        <input className="upload-note-input" type="text" value={description} onChange={handleDescriptionChange} placeholder="Description" required />
+        <button className="upload-note-button" type="submit">Upload</button>
       </form>
-      <div>
+      <div className="uploaded-notes-container">
         <h2>Uploaded Notes</h2>
         <ul>
           {uploadedNotes.map((note) => (
-            <li key={note.id}>
-              {note.category} - <a href={note.url} download>Download</a>
+            <li key={note.id} className="uploaded-note-item">
+              <span>{note.category} - {note.description}</span>
+              <a className="uploaded-note-link" href={note.url} download>Download</a>
             </li>
           ))}
         </ul>

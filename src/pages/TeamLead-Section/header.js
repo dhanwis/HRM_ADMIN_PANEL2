@@ -250,7 +250,7 @@ const setting = [
   </svg>,
 ];
 
-function Header({
+function TeamHeader({
   placement,
   name,
   subName,
@@ -270,8 +270,8 @@ function Header({
   const hideDrawer = () => setVisible(false);
 
   return (
-    <>
-      <div className="setting-drwer" onClick={showDrawer} >
+    <div  style={{marginTop:"20px", marginBottom:"10px",marginRight:"10px"}}>
+      <div className="setting-drwer" onClick={showDrawer} style={{marginTop:"10px"}} >
         {setting}
       </div>
       <Row gutter={[24, 0]}>
@@ -437,8 +437,8 @@ function Header({
 
         </Col>
       </Row>
-    </>
+    </div>
   );
 }
 
-export default Header;
+export default TeamHeader;

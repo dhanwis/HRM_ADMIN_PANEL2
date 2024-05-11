@@ -37,7 +37,7 @@ function Viewproject() {
   );
 
   return (
-    <div className="container">
+    <div className="container" style={{paddingTop:"50px"}}>
       <h1>Team Lead Project Assignments ({companyName})</h1>
       <hr />
       <div className="row">

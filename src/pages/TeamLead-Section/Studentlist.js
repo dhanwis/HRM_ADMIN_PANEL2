@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Typography, Input, DatePicker, Button, Modal, Form } from 'antd';
+import { Table, Typography, Input, Button, Modal, Form } from 'antd';
 import moment from 'moment';
 
 const { Title } = Typography;
@@ -81,7 +81,7 @@ function StudentList() {
   ];
 
   return (
-    <div className="student-list">
+    <div className="student-list" style={{paddingTop:"50px", overflowX: "auto"}}>
       <Title level={5}>Student List</Title>
       <Button type="primary" onClick={showModal} style={{ marginBottom: 16 }}>
         Add Student

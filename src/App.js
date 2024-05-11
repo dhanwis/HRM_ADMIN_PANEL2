@@ -139,7 +139,11 @@ function App() {
             exact
             component={PasswordForm}
           />
+
+
+          
           <Teamlead_Main>
+          
 
           <PrivateTeamLeadRoute
             path="/teamlead/dashboard"

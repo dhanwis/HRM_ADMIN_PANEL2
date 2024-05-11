@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import { Container, Row, Col, Form, Button, Table } from 'react-bootstrap';
+import { Typography, Input, DatePicker, Button, Table } from 'antd';
+import moment from 'moment';
+
+const { Title } = Typography;
 
 const StudentTasks = () => {
   const [students, setStudents] = useState([]);
@@ -9,8 +12,8 @@ const StudentTasks = () => {
     details: '',
     guide: '',
     machine: '',
-    startdate: '',
-    deadline: '',
+    startdate: null,
+    deadline: null,
   });
 
   const handleChange = (e) => {
@@ -30,8 +33,8 @@ const StudentTasks = () => {
       details: '',
       guide: '',
       machine: '',
-      startdate: '',
-      deadline: '',
+      startdate: null,
+      deadline: null,
     });
   };
 
@@ -41,127 +44,64 @@ const StudentTasks = () => {
     setStudents(updatedStudents);
   };
 
+  const columns = [
+    {
+      title: 'Task Name',
+      dataIndex: 'task',
+      key: 'task',
+    },
+    {
+      title: 'Student ID',
+      dataIndex: 'id',
+      key: 'id',
+    },
+    {
+      title: 'Task Details',
+      dataIndex: 'details',
+      key: 'details',
+    },
+    {
+      title: 'Guide',
+      dataIndex: 'guide',
+      key: 'guide',
+    },
+    {
+      title: 'Start Date',
+      dataIndex: 'startdate',
+      key: 'startdate',
+      render: (date) => (date ? moment(date).format('YYYY-MM-DD') : '-'),
+    },
+    {
+      title: 'Deadline',
+      dataIndex: 'deadline',
+      key: 'deadline',
+      render: (date) => (date ? moment(date).format('YYYY-MM-DD') : '-'),
+    },
+    {
+      title: 'Actions',
+      dataIndex: 'actions',
+      key: 'actions',
+      render: (text, record, index) => (
+        <Button type="danger" onClick={() => handleDelete(index)}>Delete</Button>
+      ),
+    },
+  ];
+
   return (
-    <Container>
-      <Row className="mt-5">
-        <Col>
-          <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="Task">
-              <Form.Label>Task</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter the task"
-                name="task"
-                value={formData.task}
-                onChange={handleChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="id">
-              <Form.Label>Student Id</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter the studnet id"
-                name="id"
-                value={formData.id}
-                onChange={handleChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="details">
-              <Form.Label>Task details</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter the task"
-                name="details"
-                value={formData.details}
-                onChange={handleChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="guide">
-              <Form.Label>Assigned guide</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Assigned guide name"
-                name="guide"
-                value={formData.guide}
-                onChange={handleChange}
-              />
-            </Form.Group>
-
-            <Form.Group controlId="machine">
-              <Form.Label>Machine Numder</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter the allocated machine number"
-                name="machine"
-                value={formData.machine}
-                onChange={handleChange}
-              />
-            </Form.Group>
-
-            <Form.Group controlId="startdate">
-              <Form.Label>Start date</Form.Label>
-              <Form.Control
-                type="date"
-                placeholder="Enter the start date"
-                name="startdate"
-                value={formData.startdate}
-                onChange={handleChange}
-              />
-            </Form.Group>
-
-            <Form.Group controlId="deadline">
-              <Form.Label>deadline</Form.Label>
-              <Form.Control
-                type="date"
-                placeholder="Enter the deadline"
-                name="deadline"
-                value={formData.deadline}
-                onChange={handleChange}
-              />
-            </Form.Group>
-            
-            <Button variant="primary" type="submit">
-              Add Student
-            </Button>
-          </Form>
-        </Col>
-      </Row>
-      <Row className="mt-5">
-        <Col>
-          <h2>Student List</h2>
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>Task Name</th>
-                <th>Student ID</th>
-                <th>Task Details</th>
-                <th>Guide</th>
-                <th>Start Date</th>
-                <th>Deadline</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {students.map((student, index) => (
-                <tr key={index}>
-                  <td>{student.task}</td>
-                  <td>{student.id}</td>
-                  <td>{student.details}</td>
-                  <td>{student.guide}</td>
-                  <td>{student.startdate}</td>
-                  <td>{student.deadline}</td>
-                  <td>
-                    <Button variant="danger" size="sm" onClick={() => handleDelete(index)}>
-                      Delete
-                    </Button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        </Col>
-      </Row>
-    </Container>
+    <div style={{ paddingTop: "50px", overflowX: "auto" }}>
+      <Title level={4}>Student Tasks</Title>
+      <form onSubmit={handleSubmit}>
+        <Input placeholder="Task" name="task" value={formData.task} onChange={handleChange} />
+        <Input type="number" placeholder="Student ID" name="id" value={formData.id} onChange={handleChange} style={{ marginTop: "10px" }} />
+        <Input.TextArea placeholder="Task Details" name="details" value={formData.details} onChange={handleChange} style={{ marginTop: "10px" }} />
+        <Input placeholder="Assigned Guide" name="guide" value={formData.guide} onChange={handleChange} style={{ marginTop: "10px" }} />
+        <Input type="number" placeholder="Machine Number" name="machine" value={formData.machine} onChange={handleChange} style={{ marginTop: "10px" }} />
+        <DatePicker placeholder="Start Date" name="startdate" value={formData.startdate} onChange={(date) => setFormData({ ...formData, startdate: date })} style={{ marginTop: "10px" }} />
+        <DatePicker placeholder="Deadline" name="deadline" value={formData.deadline} onChange={(date) => setFormData({ ...formData, deadline: date })} style={{ marginTop: "10px", marginLeft: "10px" }} />
+        <Button type="primary" htmlType="submit" style={{ marginTop: "10px", marginLeft: "10px" }}>Add Student</Button>
+      </form>
+      <Table dataSource={students} columns={columns} rowKey={(record, index) => index} />
+    </div>
   );
 };
 

@@ -35,9 +35,15 @@ import team2 from "../../assets/images/team-2.jpg";
 import team3 from "../../assets/images/team-3.jpg";
 import team4 from "../../assets/images/team-4.jpg";
 import card from "../../assets/images/info-card-1.jpg";
+import { Header } from "antd/lib/layout/layout";
+import TeamHeader from "./header";
+
+
+
 
 
 function Team_Home() {
+  
   const { Title, Text } = Typography;
 
   const onChange = (e) => console.log(`radio checked:${e.target.value}`);
@@ -333,6 +339,34 @@ function Team_Home() {
 
   return (
     <>
+    {/* <TeamHeader /> */}
+    {/* <Header>
+    {fixed ? (
+          <Affix>
+            <AntHeader className={`${fixed ? "ant-header-fixed" : ""}`}>
+              <Header
+                onPress={openDrawer}
+                name={pathname}
+                subName={pathname}
+                handleSidenavColor={handleSidenavColor}
+                handleSidenavType={handleSidenavType}
+                handleFixedNavbar={handleFixedNavbar}
+              />
+            </AntHeader>
+          </Affix>
+        ) : (
+          <AntHeader className={`${fixed ? "ant-header-fixed" : ""}`}>
+            <Header
+              onPress={openDrawer}
+              name={pathname}
+              subName={pathname}
+              handleSidenavColor={handleSidenavColor}
+              handleSidenavType={handleSidenavType}
+              handleFixedNavbar={handleFixedNavbar}
+            />
+          </AntHeader>
+        )}
+      </Header> */}
       <div className="layout-content">
         <Row className="rowgap-vbox" gutter={[24, 0]}>
           {count.map((c, index) => (

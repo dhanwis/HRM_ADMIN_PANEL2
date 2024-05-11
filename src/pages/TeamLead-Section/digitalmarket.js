@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Table, Typography, Input, DatePicker, Button, Modal, Form } from 'antd';
+import { Table, Typography, Input, DatePicker, Button, Modal, Form, Row, Col } from 'antd';
 import moment from 'moment';
 
 const { Title } = Typography;
@@ -106,43 +106,84 @@ function DigitalMarketingTable() {
   ];
 
   return (
-    <div className="customer-details">
-      <Title level={5}>Confirmed Customer Details</Title>
-      <Button type="primary" onClick={showModal} style={{ marginBottom: 16 }}>
-        Add Customer
-      </Button>
-      <Button type="danger" onClick={handleDelete} style={{ marginBottom: 16, marginLeft: 16 }}>
-        Delete Selected
-      </Button>
+    <div style={{ padding: '50px' }}>
+      <Title level={5}>Digital Marketing Table</Title>
+      <Row justify="space-between" align="middle">
+        <Col>
+          <Button type="primary" onClick={showModal} style={{ marginBottom: 16 }}>
+            Add Customer
+          </Button>
+        </Col>
+        <Col>
+          <Button type="danger" onClick={handleDelete} style={{ marginBottom: 16 }}>
+            Delete Selected
+          </Button>
+        </Col>
+      </Row>
       <Modal title="Add Customer" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
         <Form form={form} layout="vertical">
-          <Form.Item name="clientname" label="Client Name" rules={[{ required: true, message: 'Please enter client name' }]}>
+          <Form.Item
+            name="clientname"
+            label="Client Name"
+            rules={[{ required: true, message: 'Please enter client name' }]}
+          >
             <Input />
           </Form.Item>
-          <Form.Item name="customerid" label="Customer ID" rules={[{ required: true, message: 'Please enter customer ID' }]}>
+          <Form.Item
+            name="customerid"
+            label="Customer ID"
+            rules={[{ required: true, message: 'Please enter customer ID' }]}
+          >
             <Input />
           </Form.Item>
           <Form.Item name="post" label="Post" rules={[{ required: true, message: 'Please enter post' }]}>
             <Input />
           </Form.Item>
-          <Form.Item name="firmname" label="Firm Name" rules={[{ required: true, message: 'Please enter firm name' }]}>
+          <Form.Item
+            name="firmname"
+            label="Firm Name"
+            rules={[{ required: true, message: 'Please enter firm name' }]}
+          >
             <Input />
           </Form.Item>
-          <Form.Item name="startdate" label="Start Date" rules={[{ required: true, message: 'Please select start date' }]}>
+          <Form.Item
+            name="startdate"
+            label="Start Date"
+            rules={[{ required: true, message: 'Please select start date' }]}
+          >
             <DatePicker />
           </Form.Item>
-          <Form.Item name="location" label="Location" rules={[{ required: true, message: 'Please enter location' }]}>
+          <Form.Item
+            name="location"
+            label="Location"
+            rules={[{ required: true, message: 'Please enter location' }]}
+          >
             <Input />
           </Form.Item>
-          <Form.Item name="enddate" label="End Date" rules={[{ required: true, message: 'Please select end date' }]}>
+          <Form.Item
+            name="enddate"
+            label="End Date"
+            rules={[{ required: true, message: 'Please select end date' }]}
+          >
             <DatePicker />
           </Form.Item>
-          <Form.Item name="amountspend" label="Amount Spend" rules={[{ required: true, message: 'Please enter amount spend' }]}>
+          <Form.Item
+            name="amountspend"
+            label="Amount Spend"
+            rules={[{ required: true, message: 'Please enter amount spend' }]}
+          >
             <Input />
           </Form.Item>
         </Form>
       </Modal>
-      <Table dataSource={digital} columns={columns} pagination={false} rowSelection={{ type: 'checkbox', ...rowSelection }} />
+      <div style={{ overflowX: 'auto' }}>
+        <Table
+          dataSource={digital}
+          columns={columns}
+          pagination={false}
+          rowSelection={{ type: 'checkbox', ...rowSelection }}
+        />
+      </div>
     </div>
   );
 }

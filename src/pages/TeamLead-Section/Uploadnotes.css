@@ -1,0 +1,59 @@
+.upload-note-container {
+    margin: 20px auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 600px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .upload-note-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .upload-note-input {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .upload-note-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .upload-note-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .uploaded-notes-container {
+    margin-top: 20px;
+  }
+  
+  .uploaded-note-item {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .uploaded-note-link {
+    margin-left: 10px;
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .uploaded-note-link:hover {
+    text-decoration: underline;
+  }
+  

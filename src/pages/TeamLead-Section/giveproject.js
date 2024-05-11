@@ -1,32 +1,11 @@
 import { useState } from "react";
-import { Table, Typography, Input, DatePicker, Button, Select, Modal, Form } from "antd";
+import { Table, Typography, Input, DatePicker, Button, Modal, Form, Row, Col } from "antd";
 import moment from "moment";
 
 const { Title } = Typography;
-const { Option } = Select;
-const { TextArea } = Input;
 
 function Giveproject() {
-  const [customerDetails, setCustomerDetails] = useState([
-    // {
-    //   id: 1,
-    //   projectName: "Website Redesign",
-    //   employeeId: "EMP001",
-    //   projectDate: moment("2024-05-01", "YYYY-MM-DD"),
-    //   deadline: moment("2024-06-15", "YYYY-MM-DD"),
-    //   companyName: "Company A",
-    // },
-    // {
-    //   id: 2,
-    //   projectName: "Mobile App Development",
-    //   employeeId: "EMP002",
-    //   projectDate: moment("2024-04-15", "YYYY-MM-DD"),
-    //   deadline: moment("2024-07-01", "YYYY-MM-DD"),
-    //   companyName: "Company B",
-    // },
-    // Add more customer details as needed
-  ]);
-
+  const [customerDetails, setCustomerDetails] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
@@ -118,14 +97,20 @@ function Giveproject() {
   };
 
   return (
-    <div className="customer-details">
-      <Title level={5}>Confirmed Customer Details</Title>
-      <Button type="primary" onClick={showModal} style={{ marginBottom: 16 }}>
-        Add Customer
-      </Button>
-      <Button type="danger" onClick={handleDelete} style={{ marginBottom: 16, marginLeft: 16 }}>
-        Delete Selected
-      </Button>
+    <div className="customer-details" style={{paddingTop:"50px"}}>
+      <Title level={5}>Assign Project</Title>
+      <Row justify="space-between" align="middle">
+        <Col>
+          <Button type="primary" onClick={showModal} style={{ marginBottom: 16 }}>
+            Add Customer
+          </Button>
+        </Col>
+        <Col>
+          <Button type="danger" onClick={handleDelete} style={{ marginBottom: 16, marginLeft: 16 }}>
+            Delete Selected
+          </Button>
+        </Col>
+      </Row>
       <Modal title="Add Customer" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
         <Form form={form} layout="vertical">
           <Form.Item name="projectName" label="Project Name" rules={[{ required: true, message: "Please enter project name" }]}>
@@ -145,16 +130,18 @@ function Giveproject() {
           </Form.Item>
         </Form>
       </Modal>
-      <Table
-        dataSource={customerDetails}
-        columns={columns}
-        pagination={false}
-        rowKey="id"
-        rowSelection={{
-          type: "checkbox",
-          ...rowSelection,
-        }}
-      />
+      <div style={{ overflowX: 'auto' }}>
+        <Table
+          dataSource={customerDetails}
+          columns={columns}
+          pagination={false}
+          rowKey="id"
+          rowSelection={{
+            type: "checkbox",
+            ...rowSelection,
+          }}
+        />
+      </div>
     </div>
   );
 }
