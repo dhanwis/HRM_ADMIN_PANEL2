@@ -43,6 +43,24 @@ import AttendanceMarkingPage from "./pages/HR-Section/Attendance";
 import SalaryForm from "./pages/HR-Section/Salary";
 
 
+
+
+import Intern_Profile from "./pages/Intern-Section/profile";
+import Intern_sidebar from "./pages/Intern-Section/sidebar";
+
+import FeedbackForm from "./pages/Intern-Section/Feedback";
+import LeaveForm from "./pages/Intern-Section/leave";
+import ReferenceForm from "./pages/Intern-Section/reference";
+import AttendanceTable from "./pages/Intern-Section/attendance";
+import Tables from "./pages/Intern-Section/table";
+import Fee_Details from "./pages/Intern-Section/feedetails";
+import View_notes from "./pages/Intern-Section/viewnotes";
+import DailyWorksheetView from "./pages/Intern-Section/updatestatus";
+import Jobapply from "./pages/Intern-Section/jobapply";
+import TestimonialForm from "./pages/Intern-Section/Testimonial";
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 // Higher-order component to restrict access for HR Admin
 const PrivateHRAdminRoute = ({ component: Component, ...rest }) => (
   <Route
@@ -109,17 +127,13 @@ function App() {
         <Route path="/teamlead/login" exact component={TeamLeadLogin} />
           
 
-        <HR_Main><PrivateHRAdminRoute
+        {/* <HR_Main><PrivateHRAdminRoute
             path="/admin/dashboard"
             exact
             component={HR_Home}
           />
-{/* 
-        <PrivateHRAdminRoute
-            path="/admin/main"
-            exact
-            component={HR_Main}
-          /> */}
+
+       
           <PrivateHRAdminRoute
             path="/admin/tables"
             exact
@@ -166,14 +180,87 @@ function App() {
             exact
             component={SalaryForm}
           />
-      </HR_Main>
+      </HR_Main> */}
 
 
-        <PrivateInternRoute
+      <Intern_Main> 
+          
+
+          <PrivateInternRoute
             path="/intern/dashboard"
             exact
             component={Intern_Home}
           />
+          {/* <PrivateInternRoute
+            path="/intern/main"
+            exact
+            component={Intern_Main}
+          /> */}
+           <PrivateInternRoute
+            path="/intern/sidebar"
+            exact
+            component={Intern_sidebar}
+          />
+          <PrivateInternRoute
+            path="/intern/profile"
+            exact
+            component={Intern_Profile} 
+          />
+          <PrivateInternRoute
+            path="/intern/feedback"
+            exact
+            component={FeedbackForm}
+          />
+          <PrivateInternRoute
+            path="/intern/leave"
+            exact
+            component={LeaveForm}
+          />
+          <PrivateInternRoute
+            path="/intern/reference"
+            exact
+            component={ReferenceForm}
+          />
+           <PrivateInternRoute
+            path="/intern/attendance"
+            exact
+            component={AttendanceTable}
+          />
+          <PrivateInternRoute
+            path="/intern/table"
+            exact
+            component={Tables}
+          />
+           <PrivateInternRoute
+            path="/intern/updatestatus"
+            exact
+            component={DailyWorksheetView}
+          />
+           <PrivateInternRoute
+            path="/intern/feedetails"
+            exact
+            component={Fee_Details}
+          />
+          <PrivateInternRoute
+            path="/intern/viewnotes"
+            exact
+            component={View_notes}
+          />
+          <PrivateInternRoute
+            path="/intern/jobapply"
+            exact
+            component={Jobapply}
+          />
+          <PrivateInternRoute
+            path="/intern/Testimonial"
+            exact
+            component={TestimonialForm}
+          />
+          
+         
+          
+          
+        </Intern_Main>
 
 
 

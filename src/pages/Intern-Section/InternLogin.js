@@ -125,7 +125,7 @@ export default class InternLogin extends Component {
               <h5>InternLogin</h5>
             </div>
             <div className="header-col header-nav">
-              <Menu mode="horizontal" defaultSelectedKeys={["1"]}>
+              {/* <Menu mode="horizontal" defaultSelectedKeys={["1"]}>
                 <Menu.Item key="1">
                   <Link to="/intern/dashboard">
                     {template}
@@ -133,24 +133,24 @@ export default class InternLogin extends Component {
                   </Link>
                 </Menu.Item>
                 <Menu.Item key="2">
-                  <Link to="/profile">
+                  <Link to="/intern/profile">
                     {profile}
                     <span>Profile</span>
                   </Link>
-                </Menu.Item>
+                </Menu.Item> */}
                 {/* <Menu.Item key="3">
                   <Link to="/sign-up">
                     {signup}
                     <span> Sign Up</span>
                   </Link>
                 </Menu.Item> */}
-                <Menu.Item key="4">
-                  <Link to="/sign-in">
+                {/* <Menu.Item key="4">
+                  <Link to="/intern/login">
                     {signin}
                     <span> Sign In</span>
                   </Link>
                 </Menu.Item>
-              </Menu>
+              </Menu> */}
             </div>
             {/* <div className="header-col header-btn">
               <Button type="primary">FREE DOWNLOAD</Button>
