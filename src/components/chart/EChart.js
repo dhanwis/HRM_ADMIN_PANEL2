@@ -77,7 +77,9 @@ function EChart() {
   return (
     <>
       <div id="attendance-chart">
+
         <ReactApexChart options={options} series={series} type="bar" height={400} />
+
       </div>
       <div className="attendance-summary">
         <Title level={5}>Attendance Summary</Title>
