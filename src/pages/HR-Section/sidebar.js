@@ -303,6 +303,7 @@ export default function SidenavHR({ color }) {
       />
     </svg>,
   ];
+ 
   return (
     <>
     <div style={{width:'20%'}}>
@@ -491,6 +492,7 @@ export default function SidenavHR({ color }) {
             <span className="label">Salary</span>
           </NavLink>
         </Menu.Item>
+
      </Menu>   
        
 </div>

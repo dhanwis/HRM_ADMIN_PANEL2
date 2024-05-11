@@ -344,7 +344,11 @@ function HR_Home() {
   return (
 
     <>
+
     {/* <Header /> */}
+
+    <Header/>
+
     <div id="demo">
       {/* <SidenavHR /> */}
 
@@ -381,12 +385,12 @@ function HR_Home() {
         </Row>
 
         <Row gutter={[24, 0]}>
-          <Col xs={24} sm={24} md={12} lg={12} xl={10} className="mb-24">
+          <Col xs={24} sm={24} md={12} lg={12} xl={12} className="mb-24">
             <Card bordered={false} className="criclebox h-full">
               <Echart />
             </Card>
           </Col>
-          <Col xs={24} sm={24} md={12} lg={12} xl={14} className="mb-24">
+          <Col xs={24} sm={24} md={12} lg={12} xl={12} className="mb-24">
             <Card bordered={false} className="criclebox h-full">
               <LineChart />
             </Card>

@@ -361,7 +361,9 @@ function Header({
                 </Title>
               </div>
 
+
               <div className="sidebar-color">
+               
                 <Title level={5}>Sidebar Color</Title>
                 <div className="theme-color mb-2">
                   <ButtonContainer>
@@ -449,10 +451,12 @@ function Header({
                     <Button type="black">{<FacebookFilled />}SHARE</Button>
                   </ButtonContainer>
                 </div>
+
               </div>
             </div>
           </Drawer>
           <Link to="/admin/login" className="btn-sign-in">
+ 
             {profile}
             <span>Log out</span>
           </Link>

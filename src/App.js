@@ -44,6 +44,7 @@ import SalaryForm from "./pages/HR-Section/Salary";
 import JobForm from "./pages/HR-Section/Jobalert";
 
 
+
 // Higher-order component to restrict access for HR Admin
 const PrivateHRAdminRoute = ({ component: Component, ...rest }) => (
   <Route
@@ -156,6 +157,7 @@ function App() {
             exact
             component={Feeform}
           />
+          
 
           <PrivateHRAdminRoute
             path="/admin/attendance"
@@ -168,11 +170,13 @@ function App() {
             component={SalaryForm}
           />
 
+
           <PrivateHRAdminRoute
             path="/job/dashboard"
             exact
             component={JobForm}
           />
+
 
 
       </HR_Main>
