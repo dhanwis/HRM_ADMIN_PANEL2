@@ -30,6 +30,7 @@ import HR_Tables from "./pages/HR-Section/table";
 import HR_Profile from "./pages/HR-Section/profile";
 import HR_Billing from "./pages/HR-Section/billing";
 import Intern_Home from "./pages/Intern-Section/Home";
+
 import Teamlead_Main from "./pages/TeamLead-Section/main";
 import Team_Tables from "./pages/TeamLead-Section/Teamtable";
 import Team_Profile from "./pages/TeamLead-Section/teamprofil";
@@ -41,6 +42,18 @@ import DigitalMarketingTable from "./pages/TeamLead-Section/digitalmarket"
 import StudentTasks from "./pages/TeamLead-Section/interntask";
 import Uploadnote from "./pages/TeamLead-Section/internnote";
 import PasswordForm from "./pages/TeamLead-Section/resetpass.js";
+
+//import Intern_Sidebar from "./pages/Intern-Section/sidebar";
+import EmployeeRegistrationForm from './pages/HR-Section/Registration';
+import InternRegistrationForm from "./pages/HR-Section/Internregister";
+import TaskForm from "./pages/HR-Section/Task";
+import Feeform from "./pages/HR-Section/Internfee";
+import AttendanceMarkingPage from "./pages/HR-Section/Attendance";
+import SalaryForm from "./pages/HR-Section/Salary";
+import JobForm from "./pages/HR-Section/Jobalert";
+
+
+
 
 // Higher-order component to restrict access for HR Admin
 const PrivateHRAdminRoute = ({ component: Component, ...rest }) => (
@@ -141,9 +154,45 @@ function App() {
           />
 
 
+
           
           <Teamlead_Main>
           
+
+          <PrivateHRAdminRoute
+            path="/task/dashboard"
+            exact
+            component={TaskForm}
+          />
+            <PrivateHRAdminRoute
+            path="/fee/dashboard"
+            exact
+            component={Feeform}
+          />
+          
+
+          <PrivateHRAdminRoute
+            path="/admin/attendance"
+            exact
+            component={AttendanceMarkingPage}
+          />
+           <PrivateHRAdminRoute
+            path="/admin/salary"
+            exact
+            component={SalaryForm}
+          />
+
+
+          <PrivateHRAdminRoute
+            path="/job/dashboard"
+            exact
+            component={JobForm}
+          />
+
+
+
+      </HR_Main>
+
 
           <PrivateTeamLeadRoute
             path="/teamlead/dashboard"

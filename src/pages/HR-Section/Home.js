@@ -13,6 +13,7 @@ import {
   Button,
   Timeline,
   Radio,
+  
 } from "antd";
 import {
   ToTopOutlined,
@@ -35,6 +36,17 @@ import team2 from "../../assets/images/team-2.jpg";
 import team3 from "../../assets/images/team-3.jpg";
 import team4 from "../../assets/images/team-4.jpg";
 import card from "../../assets/images/info-card-1.jpg";
+
+import SidenavHR from "./sidebar";
+import "./Home.css";
+import { Link } from "react-router-dom";
+import logo1 from "../../assets/images/face-1.jpg";
+import logo2 from "../../assets/images/team-3.jpg";
+import logo3 from "../../assets/images/team-4.jpg";
+import Header from "./Header";
+
+
+
 
 
 function HR_Home() {
@@ -285,29 +297,29 @@ function HR_Home() {
 
   const timelineList = [
     {
-      title: "$2,400 - Redesign store",
+      title: "",
       time: "09 JUN 7:20 PM",
       color: "green",
     },
     {
-      title: "New order #3654323",
+      title: "",
       time: "08 JUN 12:20 PM",
       color: "green",
     },
     {
-      title: "Company server payments",
+      title: "",
       time: "04 JUN 3:10 PM",
     },
     {
-      title: "New card added for order #4826321",
+      title: "",
       time: "02 JUN 2:45 PM",
     },
     {
-      title: "Unlock folders for development",
+      title: "",
       time: "18 MAY 1:30 PM",
     },
     {
-      title: "New order #46282344",
+      title: "",
       time: "14 MAY 3:30 PM",
       color: "gray",
     },
@@ -332,7 +344,19 @@ function HR_Home() {
   };
 
   return (
+
     <>
+
+
+    {/* <Header /> */}
+
+    <Header/>
+
+    <div id="demo">
+      {/* <SidenavHR /> */}
+
+    
+
       <div className="layout-content">
         <Row className="rowgap-vbox" gutter={[24, 0]}>
           {count.map((c, index) => (
@@ -365,12 +389,12 @@ function HR_Home() {
         </Row>
 
         <Row gutter={[24, 0]}>
-          <Col xs={24} sm={24} md={12} lg={12} xl={10} className="mb-24">
+          <Col xs={24} sm={24} md={12} lg={12} xl={12} className="mb-24">
             <Card bordered={false} className="criclebox h-full">
               <Echart />
             </Card>
           </Col>
-          <Col xs={24} sm={24} md={12} lg={12} xl={14} className="mb-24">
+          <Col xs={24} sm={24} md={12} lg={12} xl={12} className="mb-24">
             <Card bordered={false} className="criclebox h-full">
               <LineChart />
             </Card>
@@ -388,13 +412,13 @@ function HR_Home() {
                   </Paragraph>
                 </div>
                 <div className="ant-filtertabs">
-                  <div className="antd-pro-pages-dashboard-analysis-style-salesExtra">
+                  {/* <div className="antd-pro-pages-dashboard-analysis-style-salesExtra">
                     <Radio.Group onChange={onChange} defaultValue="a">
                       <Radio.Button value="a">ALL</Radio.Button>
                       <Radio.Button value="b">ONLINE</Radio.Button>
                       <Radio.Button value="c">STORES</Radio.Button>
                     </Radio.Group>
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <div className="ant-list-box table-responsive">
@@ -434,6 +458,7 @@ function HR_Home() {
                   </tbody>
                 </table>
               </div>
+              
               <div className="uploadfile shadow-none">
                 <Upload {...uploadProps}>
                   <Button
@@ -450,9 +475,9 @@ function HR_Home() {
           <Col xs={24} sm={24} md={12} lg={12} xl={8} className="mb-24">
             <Card bordered={false} className="criclebox h-full">
               <div className="timeline-box">
-                <Title level={5}>Orders History</Title>
+                <Title level={5}>Project History</Title>
                 <Paragraph className="lastweek" style={{ marginBottom: 24 }}>
-                  this month <span className="bnb2">20%</span>
+                  {/* this month <span className="bnb2">20%</span> */}
                 </Paragraph>
 
                 <Timeline
@@ -544,6 +569,69 @@ function HR_Home() {
             </Card>
           </Col>
         </Row>
+
+       
+        <Row gutter={[24, 0]}>
+        
+          <Col xs={24} md={8} lg={8} xl={8} className="mb-24">
+            <Link to="/register/dashboard">
+              <Card bordered={false} className="criclebox">
+                <Title level={4}>Front Office Staff 1</Title>
+                <img src={logo1} style={{width:'400px'}}/>
+                <Paragraph>
+                Name: Emily Johnson
+                <br></br>
+                Position: Office Staff/Administrative Assistant
+                <br></br>
+                Role Overview: Emily Johnson is an indispensable member of our administrative team, 
+                ensuring the seamless operation of day-to-day activities within our office. Her role
+                encompasses a wide range of administrative duties crucial for maintaining efficiency 
+                and organization in our workplace.
+                </Paragraph>
+                <Button>View</Button>
+              </Card>
+            </Link>
+          </Col>
+         
+          <Col xs={24} md={8} lg={8} xl={8} className="mb-24">
+            <Link to="/register/dashboard">
+              <Card bordered={false} className="criclebox">
+                <Title level={4}>Front Office Staff 2</Title>
+                <img src={logo2} style={{width:'400px'}}/>
+                <Paragraph>Name: Emily Johnson
+                <br></br>
+                  Position: Office Staff/Administrative Assistant
+                  <br></br>
+                  Role Overview: Emily Johnson is an indispensable member of our administrative team, 
+                  ensuring the seamless operation of day-to-day activities within our office. Her role
+                  encompasses a wide range of administrative duties crucial for maintaining efficiency 
+                  and organization in our workplace.</Paragraph>
+                  <Button>View</Button>
+              </Card>
+            </Link>
+          </Col>
+          
+          <Col xs={24} md={8} lg={8} xl={8} className="mb-24">
+            <Link to="/register/dashboard">
+              <Card bordered={false} className="criclebox">
+                <Title level={4}>Front Office Staff 3</Title>
+                <img src={logo3} style={{width:'400px'}}/>
+                <Paragraph>Name: Emily Johnson
+                <br></br>
+                Position: Office Staff/Administrative Assistant
+                  <br></br>
+                Role Overview: Emily Johnson is an indispensable member of our administrative team, 
+                ensuring the seamless operation of day-to-day activities within our office. Her role
+                encompasses a wide range of administrative duties crucial for maintaining efficiency 
+                and organization in our workplace.</Paragraph>
+                <Button>View</Button>
+              </Card>
+            </Link>
+          </Col>
+      </Row> 
+      
+      
+
       </div>
     </>
   );

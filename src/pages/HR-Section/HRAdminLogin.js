@@ -1,6 +1,7 @@
 
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+
 import {
   Layout,
   Menu,
@@ -14,7 +15,7 @@ import {
 } from "antd";
 
 //import signinbg from "../assets/images/img-signin.jpg";
-
+import "./HRAdminLogin.css";
 import {
   DribbbleOutlined,
   TwitterOutlined,
@@ -125,32 +126,32 @@ export default class HRSignIn extends Component {
               <h5>HRAdminLogin</h5>
             </div>
             <div className="header-col header-nav">
-              <Menu mode="horizontal" defaultSelectedKeys={["1"]}>
-                <Menu.Item key="1">
+              {/* <Menu mode="horizontal" defaultSelectedKeys={["1"]}> */}
+                {/* <Menu.Item key="1">
                   <Link to="/admin/dashboard">
                     {template}
                     <span> Dashboard</span>
                   </Link>
                 </Menu.Item>
                 <Menu.Item key="2">
-                  <Link to="/profile">
+                  <Link to="/admin/profile">
                     {profile}
                     <span>Profile</span>
                   </Link>
-                </Menu.Item>
+                </Menu.Item> */}
                 {/* <Menu.Item key="3">
                   <Link to="/sign-up">
                     {signup}
                     <span> Sign Up</span>
                   </Link>
                 </Menu.Item> */}
-                <Menu.Item key="4">
+                {/* <Menu.Item key="4">
                   <Link to="/sign-in">
                     {signin}
                     <span> Sign In</span>
                   </Link>
-                </Menu.Item>
-              </Menu>
+                </Menu.Item> */}
+              {/* </Menu> */}
             </div>
             {/* <div className="header-col header-btn">
               <Button type="primary">FREE DOWNLOAD</Button>

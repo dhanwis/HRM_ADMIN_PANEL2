@@ -188,18 +188,18 @@ function HR_Profile() {
                 justifyContent: "flex-end",
               }}
             >
-              <Radio.Group defaultValue="a">
+              {/* <Radio.Group defaultValue="a">
                 <Radio.Button value="a">OVERVIEW</Radio.Button>
                 <Radio.Button value="b">TEAMS</Radio.Button>
                 <Radio.Button value="c">PROJECTS</Radio.Button>
-              </Radio.Group>
+              </Radio.Group> */}
             </Col>
           </Row>
         }
       ></Card>
 
       <Row gutter={[24, 0]}>
-        <Col span={24} md={8} className="mb-24 ">
+        {/* <Col span={24} md={8} className="mb-24 ">
           <Card
             bordered={false}
             className="header-solid h-full"
@@ -241,8 +241,8 @@ function HR_Profile() {
               </li>
             </ul>
           </Card>
-        </Col>
-        <Col span={24} md={8} className="mb-24">
+        </Col> */}
+        <Col span={24} md={12} className="mb-24">
           <Card
             bordered={false}
             title={<h6 className="font-semibold m-0">Profile Information</h6>}
@@ -285,7 +285,7 @@ function HR_Profile() {
             </Descriptions>
           </Card>
         </Col>
-        <Col span={24} md={8} className="mb-24">
+        <Col span={24} md={12} className="mb-24">
           <Card
             bordered={false}
             title={<h6 className="font-semibold m-0">Conversations</h6>}

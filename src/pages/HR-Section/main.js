@@ -95,7 +95,12 @@ export default function HR_Main({ children }) {
         <SidenavHR color={sidenavColor} />
       </Sider>
       <Layout>
-        {fixed ? (
+
+       
+         {fixed ? (
+
+        {/* {fixed ? (
+
           <Affix>
             <AntHeader className={`${fixed ? "ant-header-fixed" : ""}`}>
               <Header
@@ -119,9 +124,16 @@ export default function HR_Main({ children }) {
               handleFixedNavbar={handleFixedNavbar}
             />
           </AntHeader>
-        )}
+
+        )} 
+        {/* <Header/> */}
+
+
+        )} */}
+        {/* <Header/> */}
+
         <Content className="content-ant">{children}</Content>
-        <Footer />
+        {/* <Footer /> */}
       </Layout>
     </Layout>
   );

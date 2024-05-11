@@ -114,7 +114,6 @@ const credit = [
       d="M18 9H2V14C2 15.1046 2.89543 16 4 16H16C17.1046 16 18 15.1046 18 14V9ZM4 13C4 12.4477 4.44772 12 5 12H6C6.55228 12 7 12.4477 7 13C7 13.5523 6.55228 14 6 14H5C4.44772 14 4 13.5523 4 13ZM9 12C8.44772 12 8 12.4477 8 13C8 13.5523 8.44772 14 9 14H10C10.5523 14 11 13.5523 11 13C11 12.4477 10.5523 12 10 12H9Z"
     ></path>
   </svg>,
-
 ];
 const clockicon = (
   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" key={0}>
@@ -302,14 +301,12 @@ function Header({
 
   return (
     <>
-      <div className="setting-drwer" onClick={showDrawer} >
+      <div className="setting-drwer" onClick={showDrawer}>
         {setting}
       </div>
       <Row gutter={[24, 0]}>
-
         <Col span={24} md={6}>
           {/* <Breadcrumb>
-
             <Breadcrumb.Item>
               <NavLink to="/">Pages</NavLink>
             </Breadcrumb.Item>
@@ -324,10 +321,8 @@ function Header({
             >
               {subName.replace("/", "")}
             </span>
-
           </div> */}
         </Col>
-
         <Col span={24} md={18} className="header-control">
           <Badge size="small" count={4}>
             <Dropdown overlay={menu} trigger={["click"]}>
@@ -366,7 +361,9 @@ function Header({
                 </Title>
               </div>
 
-              {/* <div className="sidebar-color">
+
+              <div className="sidebar-color">
+               
                 <Title level={5}>Sidebar Color</Title>
                 <div className="theme-color mb-2">
                   <ButtonContainer>
@@ -454,21 +451,20 @@ function Header({
                     <Button type="black">{<FacebookFilled />}SHARE</Button>
                   </ButtonContainer>
                 </div>
-              </div> */}
+
+              </div>
             </div>
           </Drawer>
-
-          <Link to="/admin/login" className="btn-sign-in"> 
+          <Link to="/admin/login" className="btn-sign-in">
+ 
             {profile}
             <span>Log out</span>
-
           </Link>
           <Input
             className="header-search"
             placeholder="Type here..."
             prefix={<SearchOutlined />}
           />
-
         </Col>
       </Row>
     </>

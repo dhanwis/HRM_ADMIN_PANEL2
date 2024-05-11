@@ -1,39 +1,33 @@
 import React, { useState, useEffect } from "react";
-import { Form, Input, Button, DatePicker, Table, Popconfirm } from "antd";
+import { Form, Input, Button, DatePicker, Select, Table, Popconfirm, InputNumber } from "antd";
 import moment from "moment";
+const { Option } = Select;
 
-const Taskform = () => {
+const Salaryform = () => {
   const [form] = Form.useForm();
   const [submittedData, setSubmittedData] = useState([]);
   const [editingKey, setEditingKey] = useState(null);
 
-    useEffect(() => {
+
+
+
+  useEffect(() => {
     const savedData = JSON.parse(localStorage.getItem("submittedData")) || [];
     // Convert date strings back to moment objects
     savedData.forEach(item => {
-      if (item.startDate) {
-        item.startDate = moment(item.startDate, 'YYYY-MM-DD');
-      }
-      if (item.endDate) {
-        item.endDate = moment(item.endDate, 'YYYY-MM-DD');
+      if (item.joinDate) {
+        item.joinDate = moment(item.joinDate, 'YYYY-MM-DD');
       }
     });
     setSubmittedData(savedData);
   }, []);
 
   const onFinish = (values) => {
-    const key = Date.now();
-    const newData = {
-      ...values,
-      key,
-      startDate: moment(values.startDate).format("YYYY-MM-DD"), // Convert moment object to string
-      endDate: moment(values.endDate).format("YYYY-MM-DD"),     // Convert moment object to string
-    };
-    setSubmittedData([...submittedData, newData]);
+    const key = Date.now(); 
+    const newData = [...submittedData, { ...values, key }];
+    setSubmittedData(newData);
     form.resetFields();
-    const updatedData = [...submittedData, newData];
-    localStorage.setItem("submittedData", JSON.stringify(updatedData));
-    console.log("Updated Data:", updatedData);
+    localStorage.setItem("submittedData", JSON.stringify(newData));
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -47,11 +41,6 @@ const Taskform = () => {
     localStorage.setItem("submittedData", JSON.stringify(newData));
   };
 
-  // const edit = (key) => {
-  //   setEditingKey(key);
-  //   const recordToEdit = submittedData.find((record) => record.key === key);
-  //   form.setFieldsValue(recordToEdit);
-  // };
 
   const edit = (key) => {
     setEditingKey(key);
@@ -59,12 +48,16 @@ const Taskform = () => {
     
     // Convert date strings to moment objects before setting form fields
     const initialValues = { ...recordToEdit };
-    initialValues.startDate = moment(recordToEdit.startDate);
-    initialValues.endDate = moment(recordToEdit.endDate);
+    initialValues.joinDate = moment(recordToEdit.joinDate);
   
     form.setFieldsValue(initialValues);
   };
-  
+
+
+
+
+
+
 
   const save = async (key) => {
     try {
@@ -74,12 +67,10 @@ const Taskform = () => {
 
       if (index > -1) {
         newData[index] = { ...newData[index], ...row };
-        newData[index].startDate = moment(newData[index].startDate);
-        newData[index].endDate = moment(newData[index].endDate);
+        newData[index].joinDate = moment(newData[index].joinDate);
         setSubmittedData(newData);
         setEditingKey(null);
         localStorage.setItem("submittedData", JSON.stringify(newData));
-        console.log("Updated Data:", newData);
       }
     } catch (errInfo) {
       console.log('Validate Failed:', errInfo);
@@ -98,31 +89,42 @@ const Taskform = () => {
       key: 'id',
     },
     {
-      title: 'Task Title',
-      dataIndex: 'taskTitle',
-      key: 'taskTitle',
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name',
     },
+
     {
-      title: 'Start Date',
-      dataIndex: 'startDate',
-      key: 'startDate',
-      render: (text, record) => {
-        return <span>{moment(record.startDate).format("YYYY-MM-DD")}</span>;
-      }
-    },
-    {
-      title: 'End Date',
-      dataIndex: 'endDate',
-      key: 'endDate',
-      render: (text, record) => {
-        return <span>{moment(record.endDate).format("YYYY-MM-DD")}</span>;
-      }
-    },
-    {
-      title: 'Task Description',
-      dataIndex: 'taskDescription',
-      key: 'taskDescription',
-    },
+       title: 'Email',
+       dataIndex: 'email',
+       key: 'email',
+     },
+     {
+       title: 'Date',
+       dataIndex: 'joinDate',
+       key: 'joinDate',
+       render: (joinDate) => moment(joinDate).format('YYYY-MM-DD'),
+     },
+     {
+       title: 'Phone',
+       dataIndex: 'phone',
+       key: 'phone',
+     },
+     {
+       title: 'Role',
+       dataIndex: 'role',
+       key: 'role',
+     },
+     {
+       title: 'Salary',
+       dataIndex: 'salary',
+       key: 'salary',
+     },
+
+
+
+
+    // Add more columns as needed
     {
       title: 'Actions',
       dataIndex: 'actions',
@@ -154,22 +156,55 @@ const Taskform = () => {
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
       >
-        <h2>Task Information</h2>
-        <Form.Item label="ID" name="id" rules={[{ required: true, message: "Please enter ID" }]}>
-          <Input placeholder="ID" />
+        {/* Form fields */}
+        <Form.Item label="ID" name="id" rules={[{ required: true, message: 'Please enter ID' }]}>
+          <Input />
         </Form.Item>
-        <Form.Item label="Task Title" name="taskTitle" rules={[{ required: true, message: "Please enter task title" }]}>
-          <Input placeholder="Task Title" />
+        <Form.Item label="Name" name="name" rules={[{ required: true, message: 'Please enter name' }]}>
+           <Input />
+         </Form.Item>
+         <Form.Item label="Email" name="email" rules={[{ required: true, type: 'email', message: 'Please enter a valid email' }]}>
+           <Input />
+         </Form.Item>
+
+     
+
+<Form.Item 
+  label=" Date" 
+  name="joinDate" 
+  rules={[{ required: true, message: 'Please select  date' }]}
+>
+  <DatePicker 
+    style={{ width: "100%" }} 
+    onChange={(date, dateString) => {
+      // Check if dateString is defined
+      const formattedDate = dateString ? moment(dateString, 'YYYY-MM-DD') : null;
+      form.setFieldsValue({ joinDate: formattedDate });
+    }} 
+  />
+</Form.Item>
+
+
+
+
+
+         <Form.Item label="Phone" name="phone" rules={[{ required: true, pattern: /^\d{10}$/, message: 'Please enter a valid 10-digit phone number' }]}>
+           <Input />
+         </Form.Item>
+
+         <Form.Item label="Role" name="role" rules={[{ required: true, message: 'Please select role' }]}>
+           <Select placeholder="Select role">
+             <Option value="Teamlead">Teamlead</Option>
+             <Option value="Staff">Staff</Option>
+             <Option value="Frontoffice">Frontoffice</Option>
+          </Select>
         </Form.Item>
-        <Form.Item label="Start Date" name="startDate" rules={[{ required: true, message: "Please select start date" }]}>
-          <DatePicker style={{ width: "100%" }} />
+
+        <Form.Item label="Salary" name="salary" rules={[{ required: true, type: 'number', message: 'Please enter salary' }]}>
+          <InputNumber />
         </Form.Item>
-        <Form.Item label="End Date" name="endDate" rules={[{ required: true, message: "Please select end date" }]}>
-          <DatePicker style={{ width: "100%" }} />
-        </Form.Item>
-        <Form.Item label="Task Description" name="taskDescription" rules={[{ required: true, message: "Please enter task description" }]}>
-          <Input.TextArea placeholder="Task Description" />
-        </Form.Item>
+
+        {/* Add more form items as needed */}
 
         <Form.Item>
           <Button type="primary" htmlType="submit">
@@ -178,11 +213,11 @@ const Taskform = () => {
         </Form.Item>
       </Form>
       <div>
-        <h2>Submitted Task Information</h2>
+        <h2>Submitted Employee Salary Information</h2>
         <Table dataSource={submittedData} columns={columns} />
       </div>
     </div>
   );
 };
 
-export default Taskform;
+export default Salaryform;
