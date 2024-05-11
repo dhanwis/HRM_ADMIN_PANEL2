@@ -249,7 +249,7 @@ const setting = [
   </svg>,
 ];
 
-function Header({
+function FrontHeader({
   placement,
   name,
   subName,
@@ -269,7 +269,7 @@ function Header({
   const hideDrawer = () => setVisible(false);
 
   return (
-    <>
+    <div style={{marginTop:"20px",marginBottom:"10px"}}>
       <div className="setting-drwer" onClick={showDrawer}>
         {setting}
       </div>
@@ -434,8 +434,8 @@ function Header({
           />
         </Col>
       </Row>
-    </>
+    </div>
   );
 }
 
-export default Header;
+export default FrontHeader;

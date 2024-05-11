@@ -13,7 +13,8 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Layout, Drawer, Affix } from "antd";
-import Header from "../../components/layout/Header";
+// import Header from "../../components/layout/Header";
+import FrontHeader from "./Header";
 import Footer from "../../components/layout/Footer";
 import SidenavFront from "./sidebar";
 
@@ -95,7 +96,7 @@ export default function Main({ children }) {
         <SidenavFront color={sidenavColor} />
       </Sider>
       <Layout>
-        {fixed ? (
+        {/* {fixed ? (
           <Affix>
             <AntHeader className={`${fixed ? "ant-header-fixed" : ""}`}>
               <Header
@@ -119,9 +120,9 @@ export default function Main({ children }) {
               handleFixedNavbar={handleFixedNavbar}
             />
           </AntHeader>
-        )}
+        )} */}
         <Content className="content-ant">{children}</Content>
-        <Footer />
+        {/* <Footer /> */}
       </Layout>
     </Layout>
   );

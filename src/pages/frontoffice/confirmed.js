@@ -1,52 +1,63 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Table, Typography, Input, DatePicker, Button, Select, Modal, Form } from "antd";
 import moment from "moment";
 
 const { Title } = Typography;
 const { Option } = Select;
-const { TextArea } = Input;
 
 function CustomerDetails() {
-  const [customerDetails, setCustomerDetails] = useState([
-    {
-      id: 1,
-      name: "Samyukth k",
-      phoneNumber: "9192345678",
-      projectName: "Website Redesign",
-      startDate: moment("2024-05-01", "YYYY-MM-DD"),
-      deadline: moment("2024-06-15", "YYYY-MM-DD"),
-    },
-    {
-      id: 2,
-      name: "Aswin kp",
-      phoneNumber: "9996669966",
-      projectName: "Mobile App Development",
-      startDate: moment("2024-04-15", "YYYY-MM-DD"),
-      deadline: moment("2024-07-01", "YYYY-MM-DD"),
-    },
-    // Add more customer details as needed
-  ]);
-
+  const [customerDetails, setCustomerDetails] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-
   const [form] = Form.useForm();
+
+  useEffect(() => {
+    const storedData = localStorage.getItem("customerDetails");
+    if (storedData) {
+      setCustomerDetails(JSON.parse(storedData));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("customerDetails", JSON.stringify(customerDetails));
+  }, [customerDetails]);
 
   const showModal = () => {
     setIsModalVisible(true);
+    setSelectedCustomer(null); // Reset selectedCustomer when opening modal for adding new customer
+  };
+
+  const handleEdit = (record) => {
+    setSelectedCustomer(record);
+    setIsModalVisible(true);
+    form.setFieldsValue({
+      name: record.name,
+      phoneNumber: record.phoneNumber,
+      projectName: record.projectName,
+      startDate: moment(record.startDate),
+      deadline: moment(record.deadline),
+    });
   };
 
   const handleOk = () => {
     form.validateFields().then((values) => {
-      const newCustomer = {
-        id: customerDetails.length + 1,
-        name: values.name,
-        phoneNumber: values.phoneNumber,
-        projectName: values.projectName,
-        startDate: moment(values.startDate),
-        deadline: moment(values.deadline),
-      };
-      setCustomerDetails([...customerDetails, newCustomer]);
+      if (selectedCustomer) {
+        // Edit existing customer
+        const updatedCustomerDetails = customerDetails.map((customer) =>
+          customer.id === selectedCustomer.id ? { ...customer, ...values } : customer
+        );
+        setCustomerDetails(updatedCustomerDetails);
+      } else {
+        // Add new customer
+        const newCustomer = {
+          id: customerDetails.length + 1,
+          ...values,
+          startDate: moment(values.startDate),
+          deadline: moment(values.deadline),
+        };
+        setCustomerDetails([...customerDetails, newCustomer]);
+      }
       setIsModalVisible(false);
       form.resetFields();
     });
@@ -102,10 +113,13 @@ function CustomerDetails() {
       render: (text, record) => moment(text).format("LL"),
     },
     {
-      title: "Print",
-      key: "print",
+      title: "Action",
+      key: "action",
       render: (text, record) => (
-        <Button type="link" onClick={() => handlePrint(record)}>Print</Button>
+        <span>
+          <Button type="link" onClick={() => handleEdit(record)}>Edit</Button>
+          <Button type="link" onClick={() => handlePrint(record)}>Print</Button>
+        </span>
       ),
     },
   ];
@@ -118,7 +132,7 @@ function CustomerDetails() {
   };
 
   return (
-    <div className="customer-details">
+    <div className="customer-details"style={{paddingTop:"50px"}}>
       <Title level={5}>Confirmed Customer Details</Title>
       <Button type="primary" onClick={showModal} style={{ marginBottom: 16 }}>
         Add Customer
@@ -126,7 +140,7 @@ function CustomerDetails() {
       <Button type="danger" onClick={handleDelete} style={{ marginBottom: 16, marginLeft: 16 }}>
         Delete Selected
       </Button>
-      <Modal title="Add Customer" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+      <Modal title={selectedCustomer ? "Edit Customer" : "Add Customer"} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
         <Form form={form} layout="vertical">
           <Form.Item name="name" label="Customer Name" rules={[{ required: true, message: "Please enter customer name" }]}>
             <Input />

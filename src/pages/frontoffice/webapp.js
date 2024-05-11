@@ -1,38 +1,26 @@
 import React, { useState, useEffect } from "react";
-import { Container, Form, Button, Table, Dropdown, Row, Col } from "react-bootstrap";
+import { Container, Form, Button, Table } from "react-bootstrap";
 
-const DigitalMarketingPage = () => {
-  const [companyName, setCompanyName] = useState("DHANWIS TECHINFO SOLUTION");
-  const [introduction, setIntroduction] = useState("DHANWIS TECHINFO SOLUTIONS will provide the Digital Marketing Solution as soon as the agreement is penned. We look forward to providing solutions for your needs, with this proposal being the outline of how we intend to solve it. Based on our previous discussions and our experience working in this field, we have identified and listed below suitable solution in digital marketing we provide.");
+const WebAppDevelopmentPage = () => {
+  const [companyName, setCompanyName] = useState("Stewart Business Academy");
+  const [introduction, setIntroduction] = useState("DHANWIS TECHINFO SOLUTIONS will provide the Dynamic Website Solution as soon as the agreement is penned. We look forward to providing solutions for your needs, with this proposal being the outline of how we intend to solve it. Based on our previous discussions and our experience working in this field, we have identified and listed below ...");
   const [contact, setContact] = useState("8086 487 219");
   const [strategyData, setStrategyData] = useState([
-    { key: "expectedReach", label: "Total Expected Reach", value: "10k", editable: true, options: ["10k", "20k", "50k", "1L", "2L"] },
-    { key: "paidPromotions", label: "Paid Promotions", value: "10k", editable: true, options: ["10k", "20k", "50k", "1L", "2L"] },
-    { key: "creationOfSocialMediaPlatform", label: "Creation of Social Media Platform", value: "Yes", editable: true, options: ["Yes", "No"] },
-    { key: "schedulingAndOptimization", label: "Scheduling & publishing yes profile optimization", value: "Yes", editable: true, options: ["Yes", "No"] },
-    { key: "fbTimelineStatusPosting", label: "Fb time line status posting", value: "Yes", editable: true, options: ["Yes", "No"] },
-    { key: "paidBoost", label: "Paid boost with required attributes", value: "Yes", editable: true, options: ["Yes", "No"] },
-    { key: "videoSharing", label: "VIDEO SHARING in FB & INSTA (PROVIDED BY CLIENT)", value: "Yes", editable: true, options: ["Yes", "No"] },
-    { key: "deleteSpam", label: "Deleting unwanted spam", value: "Yes", editable: true, options: ["Yes", "No"] },
-    { key: "fbInsightMonitoring", label: "Facebook insight monitoring", value: "Yes", editable: true, options: ["Yes", "No"] },
-    { key: "instaImageSharing", label: "Instagram image sharing 14 stories, reposting, poll creations, reels etc", value: "Yes", editable: true, options: ["Yes", "No"] },
-    { key: "hashtagTrendResearch", label: "#Hashtag trend research", value: "Yes", editable: true, options: ["Yes", "No"] },
-    { key: "googleAdsCreation", label: "Google ads account creation", value: "Yes", editable: true, options: ["Yes", "No"] },
-    { key: "googleAdCampaigns", label: "Google ad campaigns", value: "Yes", editable: true, options: ["Yes", "No"] },
-    { key: "keywordResearch", label: "Keyword research", value: "Yes", editable: true, options: ["Yes", "No"] },
-    // Add other strategy data as needed
+    { key: "home", label: "Home", value: "Contains a search bar, Top 10 Brokers list, News, Ranking List, etc." },
+    { key: "brokers", label: "Brokers", value: "Display all the brokers and their details." },
+    { key: "rankingList", label: "Ranking List", value: "Display the brokers and their ranking score." },
+    { key: "news", label: "News", value: "Display all the news related to brokers (text and image only)." },
+    { key: "education", label: "Education", value: "Display all the educational details. Blogs Method (text and image only)." },
   ]);
-
-  const [packageAmount, setPackageAmount] = useState("");
+  const [packageAmount, setPackageAmount] = useState(30000);
   const [gstRate] = useState(18);
   const [gstAmount, setGstAmount] = useState(0);
   const [totalAmount, setTotalAmount] = useState(0);
 
   useEffect(() => {
-    const packageAmountValue = parseFloat(packageAmount);
-    const gst = isNaN(packageAmountValue) ? 0 : (packageAmountValue * gstRate) / 100;
+    const gst = (packageAmount * gstRate) / 100;
     setGstAmount(gst);
-    setTotalAmount(isNaN(packageAmountValue) ? 0 : packageAmountValue + gst);
+    setTotalAmount(packageAmount + gst);
   }, [packageAmount, gstRate]);
 
   const handleCompanyNameChange = (e) => {
@@ -48,7 +36,7 @@ const DigitalMarketingPage = () => {
   };
 
   const handlePackageAmountChange = (e) => {
-    setPackageAmount(e.target.value);
+    setPackageAmount(parseInt(e.target.value));
   };
 
   const handleStrategyInputChange = (key, e) => {
@@ -61,17 +49,6 @@ const DigitalMarketingPage = () => {
     setStrategyData(updatedStrategyData);
   };
 
-  const handleDropdownSelect = (key, value) => {
-    const updatedStrategyData = strategyData.map(item => {
-      if (item.key === key) {
-        return { ...item, value };
-      }
-      return item;
-    });
-    setStrategyData(updatedStrategyData);
-    setTotalAmount(0); // Reset total amount when dropdown is selected
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     // Add functionality to save the form data
@@ -82,7 +59,7 @@ const DigitalMarketingPage = () => {
     printWindow.document.write(`
       <html>
         <head>
-          <title>Digital Marketing Services</title>
+          <title>Web App Development Services</title>
           <style>
             table {
               border-collapse: collapse;
@@ -96,7 +73,7 @@ const DigitalMarketingPage = () => {
           </style>
         </head>
         <body>
-          <h1>Digital Marketing Services</h1>
+          <h1>Web App Development Services</h1>
           <h2>Company Name:</h2>
           <p>${companyName}</p>
           <h2>Introduction:</h2>
@@ -122,17 +99,17 @@ const DigitalMarketingPage = () => {
           <table>
             <thead>
               <tr>
-                <th>Description</th>
-                <th>Amount</th>
+                <th>Key</th>
+                <th>Value</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>Package Amount</td>
+                <td>Development Charge</td>
                 <td>${packageAmount}</td>
               </tr>
               <tr>
-                <td>GST (${gstRate}%)</td>
+                <td>GST Amount (${gstRate}%)</td>
                 <td>${gstAmount}</td>
               </tr>
               <tr>
@@ -143,7 +120,7 @@ const DigitalMarketingPage = () => {
           </table>
           <h2>Terms and Conditions</h2>
           <ol>
-            <li>100% of the project cost (digital marketing) should be paid in advance in acceptance of the proposal. – (For One Month Contract)</li>
+            <li>40% of the project cost should be paid in advance in acceptance of the proposal. 30% After UI Design Final 30% Before project Delivery.</li>
             <li>DHANWIS TECHINFO SOLUTIONS assumes the client has permission from the rightful owner to use any images or design elements that are provided by the client, and are not liable for any copyright infringement or such intellectual property claims or suits.</li>
             <li>DHANWIS TECHINFO SOLUTIONS retains the right to display graphics and other elements in their portfolio and as content features in other projects.</li>
             <li>The agreement contained in this contract constitutes the sole agreement between client and DHANWIS TECHINFO SOLUTIONS regarding all items included in the same.</li>
@@ -159,7 +136,7 @@ const DigitalMarketingPage = () => {
 
   return (
     <Container style={{paddingTop:"50px"}}>
-      <h1>Digital Marketing Services</h1>
+      <h1>Web App Development Services</h1>
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="companyName">
           <Form.Label>Company Name:</Form.Label>
@@ -201,20 +178,11 @@ const DigitalMarketingPage = () => {
             <tr key={index}>
               <td>{item.label}</td>
               <td>
-                {item.editable ? (
-                  <Dropdown onSelect={(value) => handleDropdownSelect(item.key, value)}>
-                    <Dropdown.Toggle variant="secondary">
-                      {item.value}
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu>
-                      {item.options && item.options.map(option => (
-                        <Dropdown.Item key={option} eventKey={option}>{option}</Dropdown.Item>
-                      ))}
-                    </Dropdown.Menu>
-                  </Dropdown>
-                ) : (
-                  <span>{item.value}</span>
-                )}
+                <Form.Control 
+                  type="text" 
+                  value={item.value} 
+                  onChange={(e) => handleStrategyInputChange(item.key, e)} 
+                />
               </td>
             </tr>
           ))}
@@ -225,23 +193,17 @@ const DigitalMarketingPage = () => {
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>Description</th>
-            <th>Amount</th>
+            <th>Key</th>
+            <th>Value</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Package Amount</td>
-            <td>
-              <Form.Control 
-                type="text" 
-                value={packageAmount} 
-                onChange={handlePackageAmountChange} 
-              />
-            </td>
+            <td>Development Charge</td>
+            <td><input type="number" value={packageAmount} onChange={handlePackageAmountChange} /></td>
           </tr>
           <tr>
-            <td>GST ({gstRate}%)</td>
+            <td>GST Amount ({gstRate}%)</td>
             <td>{gstAmount}</td>
           </tr>
           <tr>
@@ -252,18 +214,16 @@ const DigitalMarketingPage = () => {
       </Table>
       
       {/* Print and Save buttons */}
-      <Row>
-        <Col md={{ span: 4, offset: 4 }}>
-          <Button variant="success" onClick={handlePrint} style={{ marginRight: "10px" }}>
-            Print
-          </Button>
-          <Button variant="primary" type="submit">
-            Save
-          </Button>
-        </Col>
-      </Row>
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+        <Button variant="success" onClick={handlePrint} style={{ marginRight: '10px' }}>
+          Print
+        </Button>
+        <Button variant="primary" type="submit">
+          Save
+        </Button>
+      </div>
     </Container>
   );
 };
 
-export default DigitalMarketingPage;
+export default WebAppDevelopmentPage;

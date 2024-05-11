@@ -1,14 +1,16 @@
-import { Menu, Button } from "antd";
+import React from "react";
+import { Menu } from "antd";
 import { NavLink, useLocation } from "react-router-dom";
 import {
   DashboardOutlined,
-  FileTextOutlined,
+  FileOutlined,
   FormOutlined,
-  SolutionOutlined,
+  ScheduleOutlined,
   UserOutlined,
   LaptopOutlined,
-} from "@ant-design/icons"; // Import the icons
-import logo from "../../assets/images/logo.png";
+  SolutionOutlined,
+} from "@ant-design/icons";
+import BMW from '../frontoffice/BMW.png';
 
 export default function SidenavFront({ color }) {
   const { pathname } = useLocation();
@@ -23,27 +25,24 @@ export default function SidenavFront({ color }) {
     },
     {
       key: "callsheet",
-      icon: <FileTextOutlined />,
+      icon: <FileOutlined />,
       label: "CallSheet",
-      link:
-        "https://docs.google.com/spreadsheets/d/1rPTzvgLtt6jcWNUFskW0K6IxjfSzF22chsYUlZazPPw/edit#gid=0",
+      link: "/frontoffice/CallSheet",
     },
     {
       key: "quotation",
-      icon: <FileTextOutlined />,
+      icon: <FileOutlined />,
       label: "Quotation",
       subMenu: [
         {
-          key: "digital_market",
-          label: "Digital Market",
-          bold: true,
-          icon: <FormOutlined />,
+          key: "digital_marketing",
+          label: "Digital Marketing",
+          icon: <LaptopOutlined />,
           link: "/frontoffice/digitalmarket/quotation",
         },
         {
-          key: "mobile_app",
-          label: "Mobile App Development",
-          bold: true,
+          key: "webapp_development",
+          label: "Webapp Development",
           icon: <LaptopOutlined />,
           link: "/frontoffice/mobileapp/quotation",
         },
@@ -56,23 +55,35 @@ export default function SidenavFront({ color }) {
       link: "/frontoffice/LeaveForm",
     },
     {
+      key: "attendance_view",
+      icon: <ScheduleOutlined />,
+      label: "Attendance View",
+      link: "/frontoffice/Attendanceview",
+    },
+    {
       key: "confirmed_details",
       icon: <SolutionOutlined />,
       label: "Confirmed Details",
       link: "/frontoffice/Customerdetails",
     },
     {
+      key: "payment_details",
+      icon: <SolutionOutlined />,
+      label: "Payment Details",
+      link: "/frontoffice/PaymentDetailsPage",
+    },
+    {
       key: "profile",
       icon: <UserOutlined />,
       label: "Profile",
-      link: "/admin/profile",
+      link: "/frontoffice/profile",
     },
   ];
 
   const generateMenuItem = (item) => {
     if (item.subMenu) {
       const subMenuItems = item.subMenu.map((subItem) => (
-        <Menu.Item key={subItem.key} style={{ paddingLeft: "32px" }}>
+        <Menu.Item key={subItem.key} style={{ paddingLeft: "32px", textAlign: "left" }}>
           <NavLink to={subItem.link} style={{ textDecoration: "none" }}>
             <span className="icon">{subItem.icon}</span>
             <span
@@ -99,46 +110,42 @@ export default function SidenavFront({ color }) {
         </Menu.SubMenu>
       );
     } else {
-      return (
-        <Menu.Item key={item.key}>
-          <NavLink to={item.link} style={{ textDecoration: "none" }}>
-            <span className="icon">{item.icon}</span>
-            <span className="label">{item.label}</span>
-          </NavLink>
-        </Menu.Item>
-      );
+      const isExternalLink = item.link.startsWith("http");
+      if (isExternalLink) {
+        return (
+          <Menu.Item key={item.key}>
+            <a href={item.link} style={{ textDecoration: "none", textAlign: "left" }}>
+              <span className="icon">{item.icon}</span>
+              <span className="label">{item.label}</span>
+            </a>
+          </Menu.Item>
+        );
+      } else {
+        return (
+          <Menu.Item key={item.key} style={{ textAlign: "left", paddingLeft: item.key === "quotation" ? "15px" : "0" }}>
+            <NavLink to={item.link} style={{ textDecoration: "none" }}>
+              <span className="icon">{item.icon}</span>
+              <span className="label">{item.label}</span>
+            </NavLink>
+          </Menu.Item>
+        );
+      }
     }
   };
 
   return (
-    <>
-      <div className="brand">
-        <img src={logo} alt="" />
-        <span style={{ color: "black" }}>
+    <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
+      <div style={{ padding: "20px", borderBottom: "1px solid #f0f0f0", textAlign: "center" }}>
+        <img src={BMW} alt="" style={{ width: "150px", marginBottom: "20px"}} />
+        <span style={{ color: "black", fontSize: "18px" }}>
           <b>FrontOfficeDashboard</b>
         </span>
       </div>
-      <hr />
-      <Menu theme="light" mode="inline">
-        {menuItems.map((item) => generateMenuItem(item))}
-      </Menu>
-      <div className="aside-footer">
-        <div
-          className="footer-box"
-          style={{
-            background: color,
-          }}
-        >
-          <span className="icon" style={{ color: color }}>
-            <DashboardOutlined />
-          </span>
-          <h6>Need Help?</h6>
-          <p>Please check our docs</p>
-          <Button type="primary" className="ant-btn-sm ant-btn-block">
-            DOCUMENTATION
-          </Button>
-        </div>
+      <div style={{ flex: "1", overflowY: "auto" }}>
+        <Menu theme="light" mode="inline">
+          {menuItems.map((item) => generateMenuItem(item))}
+        </Menu>
       </div>
-    </>
+    </div>
   );
 }

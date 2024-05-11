@@ -31,6 +31,11 @@ import LeaveForm from "./pages/frontoffice/LeaveForm";
 import Customerdetails from "./pages/frontoffice/confirmed";
 import Quatation from "./pages/frontoffice/quatation";
 import DigitalMarketingPage from "./pages/frontoffice/digital";
+import WebAppDevelopmentPage from "./pages/frontoffice/webapp";
+import PaymentDetailsPage from "./pages/frontoffice/payment";
+import Attendanceview from "./pages/frontoffice/attendance";
+import Profile from "./pages/frontoffice/profile";
+import CallSheet from "./pages/frontoffice/callsheet";
 
 
 import Home from "./pages/Home";
@@ -42,6 +47,7 @@ import HR_Main from "./pages/HR-Section/main";
 import Intern_Main from "./pages/Intern-Section/main";
 import Intern_Home from "./pages/Intern-Section/Home";
 import FrontOffice from "./pages/frontoffice/officehome";
+import ResetPassword from "./pages/frontoffice/resetpass";
 
 
 // Higher-order component to restrict access for HR Admin
@@ -151,12 +157,21 @@ function App() {
             exact
             component={Intern_Home}
           />
-
-        < Main>
+        <PrivateFrontofficeRoute
+            path="/frontoffice/resetPassword"
+            exact
+            component={ResetPassword}
+          />
+        <Main>
         <PrivateFrontofficeRoute
             path="/frontoffice/dashboard"
             exact
             component={FrontOffice}
+          />
+          <PrivateFrontofficeRoute
+            path="/frontoffice/CallSheet"
+            exact
+            component={CallSheet}
           />
           <PrivateFrontofficeRoute
             path="/frontoffice/Quatation"
@@ -169,14 +184,34 @@ function App() {
             component={DigitalMarketingPage}
           />
            <PrivateFrontofficeRoute
+            path="/frontoffice/mobileapp/quotation"
+            exact
+            component={WebAppDevelopmentPage}
+          />
+           <PrivateFrontofficeRoute
             path="/frontoffice/LeaveForm"
             exact
             component={LeaveForm}
           />
           <PrivateFrontofficeRoute
+            path="/frontoffice/Attendanceview"
+            exact
+            component={Attendanceview}
+          />
+          <PrivateFrontofficeRoute
             path="/frontoffice/Customerdetails"
             exact
             component={Customerdetails}
+          />
+           <PrivateFrontofficeRoute
+            path="/frontoffice/PaymentDetailsPage"
+            exact
+            component={PaymentDetailsPage}
+          />
+           <PrivateHRAdminRoute
+            path="/frontoffice/profile"
+            exact
+            component={Profile}
           />
           </Main>
           {/* <PrivateInternRoute

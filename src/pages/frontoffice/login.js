@@ -219,9 +219,9 @@ export default class login extends Component {
                     </Button>
                   </Form.Item>
                   <p className="font-semibold text-muted">
-                    Don't have an account?{" "}
-                    <Link to="/sign-up" className="text-dark font-bold">
-                      Sign Up
+                   forget passsword{" "}
+                    <Link to="/frontoffice/resetPassword" className="text-dark font-bold">
+                      Reset
                     </Link>
                   </p>
                 </Form>
