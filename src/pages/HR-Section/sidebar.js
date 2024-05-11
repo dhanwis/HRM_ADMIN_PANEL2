@@ -268,6 +268,7 @@ export default function SidenavHR({ color }) {
           Fee
         </NavLink>
       </Menu.Item>
+     
     </Menu> 
   );
   
@@ -387,19 +388,7 @@ export default function SidenavHR({ color }) {
             <span className="label">Salary</span>
           </NavLink>
         </Menu.Item>
-        {/* <Menu.Item key="10">
-          <NavLink to="/register/dashboard">
-            <span
-              className="icon"
-              style={{
-                background: page === "employee" ? color : "",
-              }}
-            >
-              {leave}
-            </span>
-            <span className="label">Employee</span>
-          </NavLink>
-        </Menu.Item> */}
+      
       
        
       <Menu.Item key="employee" className="menu-item-header">
