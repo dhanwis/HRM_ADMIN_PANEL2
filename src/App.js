@@ -143,8 +143,16 @@ function App() {
             exact
             component={HR_Billing}
           />
-
-         
+           <PrivateHRAdminRoute
+            path="/register/dashboard"
+            exact
+            component={EmployeeRegistrationForm}
+          />
+            <PrivateHRAdminRoute
+            path="/intern/register/dashboard"
+            exact
+            component={InternRegistrationForm}
+          />
           <PrivateHRAdminRoute
             path="/task/dashboard"
             exact
