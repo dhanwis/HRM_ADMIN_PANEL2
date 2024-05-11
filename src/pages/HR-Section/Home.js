@@ -342,10 +342,16 @@ function HR_Home() {
   };
 
   return (
+
     <>
+
+    {/* <Header /> */}
+
     <Header/>
+
     <div id="demo">
       {/* <SidenavHR /> */}
+
     
       <div className="layout-content">
         <Row className="rowgap-vbox" gutter={[24, 0]}>
