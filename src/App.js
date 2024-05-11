@@ -121,6 +121,7 @@ function App() {
         <Route path="/teamlead/login" exact component={TeamLeadLogin} />
           
 
+     <HR_Main>
         <PrivateHRAdminRoute
             path="/admin/dashboard"
             exact
@@ -142,23 +143,7 @@ function App() {
             component={HR_Billing}
           />
 
-        <PrivateInternRoute
-            path="/intern/dashboard"
-            exact
-            component={Intern_Home}
-          />
-            <PrivateTeamLeadRoute
-            path="/teamlead/changepass"
-            exact
-            component={PasswordForm}
-          />
-
-
-
-          
-          <Teamlead_Main>
-          
-
+         
           <PrivateHRAdminRoute
             path="/task/dashboard"
             exact
@@ -194,6 +179,7 @@ function App() {
       </HR_Main>
 
 
+                <Teamlead_Main>
           <PrivateTeamLeadRoute
             path="/teamlead/dashboard"
             exact
@@ -255,7 +241,15 @@ function App() {
             component={Uploadnote}
           />
 
+               <PrivateTeamLeadRoute
+            path="/teamlead/changepass"
+            exact
+            component={PasswordForm}
+          />
+
           </Teamlead_Main>
+
+  
          
           {/* <PrivateInternRoute
             path="/intern/profile"
