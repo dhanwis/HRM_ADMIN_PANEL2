@@ -42,6 +42,7 @@ import { Link } from "react-router-dom";
 import logo1 from "../../assets/images/face-1.jpg";
 import logo2 from "../../assets/images/team-3.jpg";
 import logo3 from "../../assets/images/team-4.jpg";
+import Header from "./Header";
 
 
 
@@ -341,9 +342,12 @@ function HR_Home() {
   };
 
   return (
+
     <>
+    {/* <Header /> */}
     <div id="demo">
       {/* <SidenavHR /> */}
+
     
       <div className="layout-content">
         <Row className="rowgap-vbox" gutter={[24, 0]}>

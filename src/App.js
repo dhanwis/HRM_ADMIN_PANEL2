@@ -41,6 +41,7 @@ import TaskForm from "./pages/HR-Section/Task";
 import Feeform from "./pages/HR-Section/Internfee";
 import AttendanceMarkingPage from "./pages/HR-Section/Attendance";
 import SalaryForm from "./pages/HR-Section/Salary";
+import JobForm from "./pages/HR-Section/Jobalert";
 
 
 // Higher-order component to restrict access for HR Admin
@@ -166,6 +167,14 @@ function App() {
             exact
             component={SalaryForm}
           />
+
+          <PrivateHRAdminRoute
+            path="/job/dashboard"
+            exact
+            component={JobForm}
+          />
+
+
       </HR_Main>
 
 

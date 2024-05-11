@@ -63,18 +63,133 @@ export default function SidenavHR({ color }) {
       key={0}
     >
       <path
-        d="M4 4C2.89543 4 2 4.89543 2 6V7H18V6C18 4.89543 17.1046 4 16 4H4Z"
-        fill={color}
-      ></path>
-      <path
         fillRule="evenodd"
         clipRule="evenodd"
-        d="M18 9H2V14C2 15.1046 2.89543 16 4 16H16C17.1046 16 18 15.1046 18 14V9ZM4 13C4 12.4477 4.44772 12 5 12H6C6.55228 12 7 12.4477 7 13C7 13.5523 6.55228 14 6 14H5C4.44772 14 4 13.5523 4 13ZM9 12C8.44772 12 8 12.4477 8 13C8 13.5523 8.44772 14 9 14H10C10.5523 14 11 13.5523 11 13C11 12.4477 10.5523 12 10 12H9Z"
+        d="M18 10C18 14.4183 14.4183 18 10 18C5.58172 18 2 14.4183 2 10C2 5.58172 5.58172 2 10 2C14.4183 2 18 5.58172 18 10ZM12 7C12 8.10457 11.1046 9 10 9C8.89543 9 8 8.10457 8 7C8 5.89543 8.89543 5 10 5C11.1046 5 12 5.89543 12 7ZM9.99993 11C7.98239 11 6.24394 12.195 5.45374 13.9157C6.55403 15.192 8.18265 16 9.99998 16C11.8173 16 13.4459 15.1921 14.5462 13.9158C13.756 12.195 12.0175 11 9.99993 11Z"
         fill={color}
       ></path>
     </svg>,
   ];
 
+  const StaffMenu = (
+    <Menu>
+      <Menu.Item key="register">
+        <NavLink to="/register/dashboard">
+          Register
+        </NavLink>
+      </Menu.Item>
+      <Menu.Item key="task">
+        <NavLink to="/task/dashboard">
+          Task
+        </NavLink>
+      </Menu.Item>
+    </Menu>
+  );
+
+  const billing2 = [
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      key={0}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M18 10C18 14.4183 14.4183 18 10 18C5.58172 18 2 14.4183 2 10C2 5.58172 5.58172 2 10 2C14.4183 2 18 5.58172 18 10ZM12 7C12 8.10457 11.1046 9 10 9C8.89543 9 8 8.10457 8 7C8 5.89543 8.89543 5 10 5C11.1046 5 12 5.89543 12 7ZM9.99993 11C7.98239 11 6.24394 12.195 5.45374 13.9157C6.55403 15.192 8.18265 16 9.99998 16C11.8173 16 13.4459 15.1921 14.5462 13.9158C13.756 12.195 12.0175 11 9.99993 11Z"
+        fill={color}
+      ></path>
+    </svg>,
+  ];
+
+  const TeamLeadMenu = (
+    <Menu>
+      <Menu.Item key="register">
+        <NavLink to="/register/dashboard">
+          Register
+        </NavLink>
+      </Menu.Item>
+      <Menu.Item key="task">
+        <NavLink to="/task/dashboard">
+          Task
+        </NavLink>
+      </Menu.Item>
+    </Menu>
+  );
+
+  
+  const billing3 = [
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      key={0}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M18 10C18 14.4183 14.4183 18 10 18C5.58172 18 2 14.4183 2 10C2 5.58172 5.58172 2 10 2C14.4183 2 18 5.58172 18 10ZM12 7C12 8.10457 11.1046 9 10 9C8.89543 9 8 8.10457 8 7C8 5.89543 8.89543 5 10 5C11.1046 5 12 5.89543 12 7ZM9.99993 11C7.98239 11 6.24394 12.195 5.45374 13.9157C6.55403 15.192 8.18265 16 9.99998 16C11.8173 16 13.4459 15.1921 14.5462 13.9158C13.756 12.195 12.0175 11 9.99993 11Z"
+        fill={color}
+      ></path>
+    </svg>,
+  ];
+
+  const FrontofficeMenu = (
+    <Menu>
+      <Menu.Item key="register">
+        <NavLink to="/register/dashboard">
+          Register
+        </NavLink>
+      </Menu.Item>
+    </Menu>
+  );
+
+  const billing4 = [
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      key={0}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M18 10C18 14.4183 14.4183 18 10 18C5.58172 18 2 14.4183 2 10C2 5.58172 5.58172 2 10 2C14.4183 2 18 5.58172 18 10ZM12 7C12 8.10457 11.1046 9 10 9C8.89543 9 8 8.10457 8 7C8 5.89543 8.89543 5 10 5C11.1046 5 12 5.89543 12 7ZM9.99993 11C7.98239 11 6.24394 12.195 5.45374 13.9157C6.55403 15.192 8.18265 16 9.99998 16C11.8173 16 13.4459 15.1921 14.5462 13.9158C13.756 12.195 12.0175 11 9.99993 11Z"
+        fill={color}
+      ></path>
+    </svg>,
+  ];
+
+  const InternMenu = (
+    <Menu>
+      <Menu.Item key="internregister">
+        <NavLink to="/intern/register/dashboard">
+          Register
+        </NavLink>
+      </Menu.Item>
+      <Menu.Item key="fee">
+        <NavLink to="/fee/dashboard">
+          Fee
+        </NavLink>
+      </Menu.Item>
+      <Menu.Item key="job">
+        <NavLink to="/job/dashboard">
+          Job alert
+        </NavLink>
+      </Menu.Item>
+    </Menu>
+  );
+
+
+
+
+ 
   const rtl = [
     <svg
       width="20"
@@ -188,89 +303,6 @@ export default function SidenavHR({ color }) {
       />
     </svg>,
   ];
-
-  const employee = [
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="14"
-      height="14"
-      viewBox="0 0 14 14"
-      key={0}
-    >
-      <path
-        d="M0,2A2,2,0,0,1,2,0H8a2,2,0,0,1,2,2V8a2,2,0,0,1-2,2H2A2,2,0,0,1,0,8Z"
-        transform="translate(4 4)"
-        fill={color}
-      />
-      <path
-        d="M2,0A2,2,0,0,0,0,2V8a2,2,0,0,0,2,2V4A2,2,0,0,1,4,2h6A2,2,0,0,0,8,0Z"
-        fill={color}
-      />
-    </svg>,
-  ];
-
-  const employeeMenu = (
-    <Menu>
-      <Menu.Item key="employee-registration">
-        <NavLink to="/register/dashboard">
-          Register
-        </NavLink>
-       
-      </Menu.Item>
-      {/* Add more menu items for other options */}
-      <Menu.Item key="employee-registration">
-        <NavLink to="/task/dashboard">
-          Task
-        </NavLink>
-       
-      </Menu.Item>
-    </Menu>
-  );
-  const teamleadMenu = (
-    <Menu>
-      <Menu.Item key="teamlead-registration">
-        <NavLink to="/register/dashboard">
-         Register
-        </NavLink>
-       
-      </Menu.Item>
-      {/* Add more menu items for other options */}
-      <Menu.Item key="teamlead-registration">
-        <NavLink to="/task/dashboard">
-          Task
-        </NavLink>
-       
-      </Menu.Item>
-    </Menu>
-  );
-
-  const frontofficeMenu = (
-    <Menu>
-      <Menu.Item key="frontoffice-registration">
-        <NavLink to="/register/dashboard">
-         Register
-        </NavLink>
-       
-      </Menu.Item>
-    </Menu>
-  );
-
-  const internMenu = (
-    <Menu>
-      <Menu.Item key="intern-registration">
-        <NavLink to="/intern/register/dashboard">
-           Register
-        </NavLink>
-      </Menu.Item>
-      {/* Add more menu items for other options */}
-      <Menu.Item key="intern-registration">
-        <NavLink to="/fee/dashboard">
-          Fee
-        </NavLink>
-      </Menu.Item>
-    </Menu> 
-  );
-  
   return (
     <>
     <div style={{width:'20%'}}>
@@ -305,20 +337,92 @@ export default function SidenavHR({ color }) {
             </span>
             <span className="label">Tables</span>
           </NavLink>
-        </Menu.Item>
-        <Menu.Item key="3">
-          <NavLink to="/admin/billing">
-            <span
-              className="icon"
-              style={{
-                background: page === "billing" ? color : "",
-              }}
-            >
-              {billing}
-            </span>
-            <span className="label">Billing</span>
-          </NavLink>
-     </Menu.Item>
+        </Menu.Item>   
+<Menu.Item key="3" style={{marginLeft:"15px"}}>
+  <Dropdown overlay={StaffMenu}>
+    <span>
+    <span className="icon-container">
+      <span
+        className="icon"
+        style={{
+          background: page === "billing" ? color : "",
+          width: '20px', height: '30px'
+          // marginRight: '8px'
+        }}
+      >
+        {billing}
+      </span>
+      </span>
+      <span className="label">Staff</span><br />
+    </span>
+  </Dropdown>
+</Menu.Item>
+
+
+  
+<Menu.Item key="10" style={{marginLeft:"15px",marginTop:'10px'}}>
+  <Dropdown overlay={TeamLeadMenu}>
+    <span>
+    <span className="icon-container">
+      <span
+        className="icon"
+        style={{
+          background: page === "billing2" ? color : "",
+          width: '20px', height: '30px'
+          // marginRight: '8px'
+        }}
+      >
+        {billing2}
+      </span>
+      </span>
+      <span className="label">Teamlead</span>
+    </span>
+  </Dropdown>
+</Menu.Item>
+
+
+  
+<Menu.Item key="11" style={{marginLeft:"15px",marginTop:'10px'}}>
+  <Dropdown overlay={FrontofficeMenu}>
+    <span>
+    <span className="icon-container">
+      <span
+        className="icon"
+        style={{
+          background: page === "billing3" ? color : "",
+          width: '20px', height: '30px'
+          // marginRight: '8px'
+        }}
+      >
+        {billing3}
+      </span>
+      </span>
+      <span className="label">Front office</span>
+    </span>
+  </Dropdown>
+</Menu.Item>
+
+<Menu.Item key="12" style={{marginLeft:"15px",marginTop:'10px'}}>
+  <Dropdown overlay={InternMenu}>
+    <span>
+    <span className="icon-container">
+      <span
+        className="icon"
+        style={{
+          background: page === "billing4" ? color : "",
+          width: '20px', height: '30px'
+          // marginRight: '8px'
+        }}
+      >
+        {billing4}
+      </span>
+      </span>
+      <span className="label">Intern</span>
+    </span>
+  </Dropdown>
+</Menu.Item>
+
+
         {/* <Menu.Item key="4">
           <NavLink to="/rtl">
             <span
@@ -387,44 +491,6 @@ export default function SidenavHR({ color }) {
             <span className="label">Salary</span>
           </NavLink>
         </Menu.Item>
-        {/* <Menu.Item key="10">
-          <NavLink to="/register/dashboard">
-            <span
-              className="icon"
-              style={{
-                background: page === "employee" ? color : "",
-              }}
-            >
-              {leave}
-            </span>
-            <span className="label">Employee</span>
-          </NavLink>
-        </Menu.Item> */}
-      
-       
-      <Menu.Item key="employee" className="menu-item-header">
-          <Dropdown overlay={employeeMenu} trigger={['click']}>
-            <span>Staff</span>
-          </Dropdown>
-      </Menu.Item>
-
-      <Menu.Item key="teamlead" className="menu-item-header">
-          <Dropdown overlay={teamleadMenu} trigger={['click']}>
-            <span>TeamLead</span>
-          </Dropdown>
-      </Menu.Item>  
-
-      <Menu.Item key="frontoffice" className="menu-item-header">
-          <Dropdown overlay={frontofficeMenu} trigger={['click']}>
-            <span>Front Office</span>
-          </Dropdown>
-      </Menu.Item>      
-    
-     <Menu.Item key="intern" className="menu-item-header">
-          <Dropdown overlay={internMenu} trigger={['click']}>
-            <span>Intern</span>
-          </Dropdown>
-        </Menu.Item>        
      </Menu>   
        
 </div>
