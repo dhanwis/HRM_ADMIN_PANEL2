@@ -26,6 +26,7 @@ import InternLogin from "./pages/Intern-Section/InternLogin";
 import TeamLeadLogin from "./pages/TeamLead-Section/TeamLeadLogin";
 import Team_Home from "./pages/TeamLead-Section/home";
 import HR_Home from "./pages/HR-Section/Home";
+import HR_Main from "./pages/HR-Section/main";
 import HR_Tables from "./pages/HR-Section/table";
 import HR_Profile from "./pages/HR-Section/profile";
 import HR_Billing from "./pages/HR-Section/billing";
