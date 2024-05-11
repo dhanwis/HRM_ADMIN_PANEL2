@@ -1,65 +1,53 @@
 import React, { useState, useEffect } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import Table from 'react-bootstrap/Table';
 
-function Viewproject() {
-  const [projects, setProjects] = useState([]);
-  const [companyName, setCompanyName] = useState('');
+const ViewProject = () => {
+  const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    const fetchProjects = async () => {
+    const fetchPendingTasks = async () => {
       try {
-        // Fetch all projects (replace with your API endpoint)
-        const response = await fetch('https://your-api-endpoint/projects');
+        // Simulate fetching pending tasks data from the HR section or backend API
+        const response = await fetch('https://your-api-url/pending-tasks');
+        if (!response.ok) {
+          throw new Error('Failed to fetch pending tasks');
+        }
         const data = await response.json();
-        setProjects(data);
-
-        // Fetch company name (replace with your API endpoint)
-        const companyResponse = await fetch('https://your-api-endpoint/company');
-        const companyData = await companyResponse.json();
-        setCompanyName(companyData.name);
+        setTasks(data); // Update tasks state with fetched data
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Error fetching pending tasks:', error);
+        // Handle error (e.g., show error message, retry logic, etc.)
       }
     };
 
-    fetchProjects();
+    fetchPendingTasks();
   }, []);
 
-  // Define table header and rows based on project data
-  const renderProjectTable = () => (
-    <table className="table">
-      <thead>
-        <tr>
-          <th>Project Name</th>
-          <th>Project Date</th>
-          <th>Deadline</th>
-          <th>Completion Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        {projects.map(project => (
-          <tr key={project.id}>
-            <td>{project.name}</td>
-            <td>{project.date}</td>
-            <td>{project.deadline}</td>
-            <td>{project.status ? 'Complete' : 'Pending'}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
-
   return (
-    <div className="container">
-      <h1>Task Details View ({companyName})</h1>
-      <hr />
-      {projects.length > 0 ? (
-        renderProjectTable()
-      ) : (
-        <p>No projects found.</p>
-      )}
+    <div style={{paddingTop:"50px"}}>
+      <h2>View Projects</h2>
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>Project Name</th>
+            <th>Project Date</th>
+            <th>Deadline</th>
+            <th>Completion Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {tasks.map((task, index) => (
+            <tr key={index}>
+              <td>{task.projectName}</td>
+              <td>{task.projectDate}</td>
+              <td>{task.deadline}</td>
+              <td>{task.completionStatus}</td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
     </div>
   );
-}
+};
 
-export default Viewproject;
+export default ViewProject;

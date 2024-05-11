@@ -1,68 +1,90 @@
 import React, { useState } from 'react';
-import { Form, FormGroup, FormLabel, FormControl, Row, Col, Button } from 'react-bootstrap';
+import { Container, Form, Button, Row, Col } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom'; // Import useHistory for redirection
 
 const LeaveForm = () => {
   const [formData, setFormData] = useState({
-    to: '',
-    from: '',
-    details: '',
+    firstName: '',
+    department: '',
+    phoneNumber: '',
+    email: '',
+    reason: '',
+    startDate: '',
+    endDate: '',
+    description: '',
+    requestStatus: 'Pending',
   });
 
-  const [approvalStatus, setApprovalStatus] = useState('Pending'); // Track approval status
+  const history = useHistory(); // Initialize useHistory for redirection
 
-  const handleChange = (event) => {
-    setFormData({ ...formData, [event.target.name]: event.target.value });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log('Submitting leave request:', formData);
-    // Simulate API call to HR approval process
-    // For demo, let's simulate HR approval after form submission
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Your submit logic here
+    // For demonstration, let's redirect after 1 second and set the status to 'Pending'
     setTimeout(() => {
-      setApprovalStatus('Approved');
-    }, 2000); // Simulating API delay
+      setFormData({
+        ...formData,
+        requestStatus: 'Pending',
+      });
+      history.push('/'); // Redirect to homepage
+    }, 1000);
   };
 
   return (
-    <div className="container mt-3">
-      <h1>Leave Application Form</h1>
+    <Container style={{paddingTop:"50px"}}>
+      <h1>Leave Request Form</h1>
       <Form onSubmit={handleSubmit}>
+        {/* Form fields */}
         <Row>
           <Col>
-            <FormGroup>
-              <FormLabel>From</FormLabel>
-              <FormControl type="date" name="from" value={formData.from} onChange={handleChange} required />
-            </FormGroup>
-          </Col>
-          <Col>
-            <FormGroup>
-              <FormLabel>To</FormLabel>
-              <FormControl type="date" name="to" value={formData.to} onChange={handleChange} required />
-            </FormGroup>
+            <Form.Group controlId="firstName">
+              <Form.Label> Name</Form.Label>
+              <Form.Control type="text" name="firstName" value={formData.firstName} onChange={handleChange} required />
+            </Form.Group>
           </Col>
         </Row>
-        <FormGroup>
-          <FormLabel>Details</FormLabel>
-          <FormControl
-            as="textarea"
-            name="details"
-            value={formData.details}
-            onChange={handleChange}
-            rows={5}
-            required
-          />
-        </FormGroup>
-        <Button variant="primary" type="submit">
-          Submit Leave Request
+        <Form.Group controlId="department">
+          <Form.Label>Department Name</Form.Label>
+          <Form.Control type="text" name="department" value={formData.department} onChange={handleChange} required />
+        </Form.Group>
+        <Form.Group controlId="phoneNumber">
+          <Form.Label>Phone Number</Form.Label>
+          <Form.Control type="tel" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} required />
+        </Form.Group>
+        <Form.Group controlId="email">
+          <Form.Label>Email Address</Form.Label>
+          <Form.Control type="email" name="email" value={formData.email} onChange={handleChange} required />
+        </Form.Group>
+        <Row>
+          <Col>
+            <Form.Group controlId="startDate">
+              <Form.Label> Day of Absence</Form.Label>
+              <Form.Control type="text" name="startDate" value={formData.startDate} onChange={handleChange} required />
+            </Form.Group>
+          </Col>
+            <Form.Group controlId="endDate">
+              <Form.Label>Work Assigned to </Form.Label>
+              <Form.Control type="text" name="endDate" value={formData.endDate} onChange={handleChange} required />
+            </Form.Group>
+        </Row>
+        <Form.Group controlId="description">
+          <Form.Label>Description</Form.Label>
+          <Form.Control as="textarea" rows={3} name="description" value={formData.description} onChange={handleChange} />
+        </Form.Group>
+        <Button variant="primary" type="submit" style={{marginTop:"15px"}}>
+          Submit
         </Button>
       </Form>
-      <br />
-      <p>Status: {approvalStatus === 'Approved' ? 'Approved' : 'Pending'}</p>
-      {approvalStatus === 'Approved' && (
-        <p>Leave request has been approved. You're good to go!</p>
-      )}
-    </div>
+      <h3 style={{marginTop:"15px"}}>Status: {formData.requestStatus}</h3> {/* Display request status */}
+    </Container>
   );
 };
 

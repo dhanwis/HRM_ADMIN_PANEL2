@@ -32,10 +32,8 @@ const NotesSharing = () => {
       return;
     }
 
-    // Simulated backend API endpoint (replace with your actual endpoint)
     const backendEndpoint = "https://api.example.com/shareNotes";
 
-    // Simulated data to send to backend
     const data = {
       fileName: file.name,
       description: description,
@@ -51,8 +49,8 @@ const NotesSharing = () => {
       .then((response) => {
         if (response.ok) {
           message.success("File shared successfully!");
-          setDescription(""); // Clear description input
-          setFile(null); // Clear uploaded file
+          setDescription("");
+          setFile(null);
         } else {
           message.error("Failed to share file. Please try again.");
         }
@@ -64,33 +62,38 @@ const NotesSharing = () => {
   };
 
   return (
-    <div>
-      <h2>Notes Sharing to Team Lead Members</h2>
-      <Upload onChange={handleFileChange} showUploadList={false}>
-        <Button icon={<UploadOutlined />}>Upload File</Button>
-      </Upload>
+    <div style={{paddingTop:"50px"}}>
+      <h2 style={{ marginBottom: 40 }}>Notes Sharing to Team Lead Members</h2>
+
+      <div style={{ marginBottom: 40 }}>
+        <Upload onChange={handleFileChange} showUploadList={false}>
+          <Button icon={<UploadOutlined />}>Upload File</Button>
+        </Upload>
+      </div>
+
       {file && (
         <p>
-          Uploaded File: <strong>{file.name}</strong>
-          <Button
-            type="text"
-            icon={<UploadOutlined />}
-            onClick={handleRemoveFile}
-          >
+          Uploaded File: <strong>{file.name}</strong>{" "}
+          <Button type="text" icon={<UploadOutlined />} onClick={handleRemoveFile}>
             Remove
           </Button>
         </p>
       )}
-      <TextArea
-        placeholder="Enter a detailed description..."
-        value={description}
-        onChange={handleDescriptionChange}
-        autoSize={{ minRows: 3, maxRows: 6 }} // Auto size textarea based on content
-        style={{ margin: "16px 0" }}
-      />
-      <Button type="primary" onClick={handleShare}>
-        Share
-      </Button>
+
+      <div style={{ marginBottom: 30 }}>
+        <TextArea
+          placeholder="Enter a detailed description..."
+          value={description}
+          onChange={handleDescriptionChange}
+          autoSize={{ minRows: 3, maxRows: 6 }}
+        />
+      </div>
+
+      <div style={{ marginBottom: 30 }}>
+        <Button type="primary" onClick={handleShare}>
+          Share
+        </Button>
+      </div>
     </div>
   );
 };

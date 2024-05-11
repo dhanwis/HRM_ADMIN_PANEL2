@@ -5,7 +5,7 @@ import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
 import SidenavIntern from "./sidebar";
 import SidenavStaff from "./sidebar";
-
+import StaffHeader from "./header";
 const { Header: AntHeader, Content, Sider } = Layout;
 
 export default function Staff_Main({ children }) {
@@ -84,7 +84,7 @@ export default function Staff_Main({ children }) {
         <SidenavStaff color={sidenavColor} />
       </Sider>
       <Layout>
-        {fixed ? (
+        {/* {fixed ? (
           <Affix>
             <AntHeader className={`${fixed ? "ant-header-fixed" : ""}`}>
               <Header
@@ -108,9 +108,9 @@ export default function Staff_Main({ children }) {
               handleFixedNavbar={handleFixedNavbar}
             />
           </AntHeader>
-        )}
+        )} */}
         <Content className="content-ant">{children}</Content>
-        <Footer />
+        {/* <Footer /> */}
       </Layout>
     </Layout>
   );

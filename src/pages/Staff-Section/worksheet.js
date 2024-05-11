@@ -12,12 +12,14 @@ const DailyWorksheetView = () => {
   };
 
   return (
-    <div className="container-fluid">
-      <div className="row justify-content-center align-items-center min-vh-100">
+    <div className="container-fluid d-flex justify-content-center align-items-start vh-100" style={{paddingTop:"50px"}}>
+      {/* Using vh-100 to ensure full viewport height */}
+      <div className="row justify-content-center align-items-center w-100">
+        {/* Using w-100 to ensure full width within the container */}
         <div className="col-md-8">
           <div className="text-center">
-            <h2 class="mb-4">Daily Worksheet Viewer</h2>
-            <p class="mb-5">View today's worksheet by clicking the button below:</p>
+            <h2 className="mb-4">Daily Worksheet Viewer</h2>
+            <p className="mb-5">View today's worksheet by clicking the button below:</p>
             <button onClick={openGoogleSheet} className="btn btn-primary">
               View Worksheet
             </button>

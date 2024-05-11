@@ -54,7 +54,7 @@ const AttendanceTable = () => {
   ];
 
   return (
-    <div>
+    <div style={{paddingTop:"50px"}}>
       <h2>Monthly Attendance</h2>
       <RangePicker picker="month" disabledDate={(current) => current > new Date()} />
       <Table

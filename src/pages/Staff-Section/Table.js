@@ -73,19 +73,19 @@ function Tablesstaff() {
   const onChange = (e) => console.log(`Radio checked: ${e.target.value}`);
 
   return (
-    <div className="tabled">
+    <div className="tabled" style={{paddingTop:"50px"}}>
       <Row gutter={[24, 0]}>
         <Col xs={24} xl={24}>
           <Card
             bordered={false}
             className="criclebox tablespace mb-24"
             title="Task Table"
-            extra={
-              <Radio.Group onChange={onChange} defaultValue="a">
-                <Radio.Button value="a">All</Radio.Button>
-                <Radio.Button value="b">ACTIVE</Radio.Button>
-              </Radio.Group>
-            }
+            // extra={
+            //   <Radio.Group onChange={onChange} defaultValue="a">
+            //     <Radio.Button value="a">All</Radio.Button>
+            //     <Radio.Button value="b">ACTIVE</Radio.Button>
+            //   </Radio.Group>
+            // }
           >
             <div className="table-responsive">
               <Table
