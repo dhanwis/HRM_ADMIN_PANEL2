@@ -36,7 +36,6 @@ import team2 from "../../assets/images/team-2.jpg";
 import team3 from "../../assets/images/team-3.jpg";
 import team4 from "../../assets/images/team-4.jpg";
 import card from "../../assets/images/info-card-1.jpg";
-
 import SidenavHR from "./sidebar";
 import "./Home.css";
 import { Link } from "react-router-dom";
@@ -44,7 +43,6 @@ import logo1 from "../../assets/images/face-1.jpg";
 import logo2 from "../../assets/images/team-3.jpg";
 import logo3 from "../../assets/images/team-4.jpg";
 import Header from "./Header";
-
 
 
 
@@ -144,15 +142,15 @@ function HR_Home() {
   ];
   const count = [
     {
-      today: "Today’s Sales",
-      title: "$53,000",
+      today: "Total Employees",
+      title: "53",
       persent: "+30%",
-      icon: dollor,
+      icon: profile,
       bnb: "bnb2",
     },
     {
-      today: "Today’s Users",
-      title: "3,200",
+      today: "Total Interns",
+      title: "20",
       persent: "+20%",
       icon: profile,
       bnb: "bnb2",
@@ -165,7 +163,7 @@ function HR_Home() {
       bnb: "redtext",
     },
     {
-      today: "New Orders",
+      today: "New Projects",
       title: "$13,200",
       persent: "10%",
       icon: cart,
@@ -347,7 +345,6 @@ function HR_Home() {
 
     <>
 
-
     {/* <Header /> */}
 
     <Header/>
@@ -356,7 +353,6 @@ function HR_Home() {
       {/* <SidenavHR /> */}
 
     
-
       <div className="layout-content">
         <Row className="rowgap-vbox" gutter={[24, 0]}>
           {count.map((c, index) => (
@@ -569,7 +565,6 @@ function HR_Home() {
             </Card>
           </Col>
         </Row>
-
        
         <Row gutter={[24, 0]}>
         
@@ -631,8 +626,8 @@ function HR_Home() {
       </Row> 
       
       
-
       </div>
+    </div>
     </>
   );
 }
