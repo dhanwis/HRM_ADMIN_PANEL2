@@ -42,6 +42,7 @@ import { Link } from "react-router-dom";
 import logo1 from "../../assets/images/face-1.jpg";
 import logo2 from "../../assets/images/team-3.jpg";
 import logo3 from "../../assets/images/team-4.jpg";
+import Header from "./Header";
 
 
 
@@ -342,6 +343,7 @@ function HR_Home() {
 
   return (
     <>
+    <Header/>
     <div id="demo">
       {/* <SidenavHR /> */}
     
@@ -377,12 +379,12 @@ function HR_Home() {
         </Row>
 
         <Row gutter={[24, 0]}>
-          <Col xs={24} sm={24} md={12} lg={12} xl={10} className="mb-24">
+          <Col xs={24} sm={24} md={12} lg={12} xl={12} className="mb-24">
             <Card bordered={false} className="criclebox h-full">
               <Echart />
             </Card>
           </Col>
-          <Col xs={24} sm={24} md={12} lg={12} xl={14} className="mb-24">
+          <Col xs={24} sm={24} md={12} lg={12} xl={12} className="mb-24">
             <Card bordered={false} className="criclebox h-full">
               <LineChart />
             </Card>

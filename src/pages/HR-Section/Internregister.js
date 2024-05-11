@@ -47,26 +47,6 @@ const InternRegistrationForm = () => {
           </Form.Item>
         </Col>
 
-
-        <Col span={12}>
-          <Form.Item
-            label="Photo"
-            name="photo"
-            rules={[{ required: true, message: "Please upload your photo" }]}
-          >
-            <Upload maxCount={1}>
-              <Button icon={<UploadOutlined />}>Upload Photo</Button>
-            </Upload>
-          </Form.Item>
-        </Col>
-
-
-
-
-
-
-
-  
       </Row>
       <Row gutter={16}>
         <Col span={12}>
