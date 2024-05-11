@@ -53,6 +53,18 @@ import Feeform from "./pages/HR-Section/Internfee";
 import AttendanceMarkingPage from "./pages/HR-Section/Attendance";
 import SalaryForm from "./pages/HR-Section/Salary";
 import JobForm from "./pages/HR-Section/Jobalert";
+import Staffhome from "./pages/Staff-Section/Home";
+import Staff_Main from "./pages/Staff-Section/main";
+import Profilestaff from "./pages/Staff-Section/profile";
+import Tablesstaff from "./pages/Staff-Section/Table";
+import LeaveFormStaff from "./pages/Staff-Section/leaveform";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Viewprojectstaff from "./pages/Staff-Section/Task";
+import AttendanceTable from "./pages/Staff-Section/attendence";
+import NotesSharingPage from "./pages/Staff-Section/Notes";
+import DailyWorksheetView from "./pages/Staff-Section/worksheet";
+import ResetPassword from "./pages/Staff-Section/resetpassword";
+
 
 import { isFrontOfficeAuthenticated } from "./utils/isAuthenticated";
 import FrontOffice from "./pages/frontoffice/officehome.js";
@@ -124,6 +136,18 @@ const PrivateTeamLeadRoute = ({ component: Component, ...rest }) => (
         <Component {...props} />
       ) : (
         <Redirect to="/teamlead/login" />
+      )
+    }
+  />
+);
+const PrivateStaffRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={(props) =>
+      isStaffAuthenticated() ? (
+        <Component {...props} />
+      ) : (
+        <Redirect to="/staff/login" />
       )
     }
   />
@@ -287,6 +311,58 @@ function App() {
             component={PasswordForm}
           />
           </Teamlead_Main> */}
+
+
+
+          </Teamlead_Main> */}
+          
+          <Staff_Main>
+          <PrivateStaffRoute
+            path="/staff/resetpasswoord"
+            exact
+            component={ResetPassword}
+          />
+          <PrivateStaffRoute
+            path="/staff/dashboard"
+            exact
+            component={Staffhome}
+          />
+            <PrivateStaffRoute
+            path="/staff/table"
+            exact
+            component={Tablesstaff}
+          />
+            <PrivateStaffRoute
+            path="/staff/profile"
+            exact
+            component={Profilestaff}
+          />
+            <PrivateStaffRoute
+            path="/staff/leave"
+            exact
+            component={LeaveFormStaff}
+          />
+            <PrivateStaffRoute
+            path="/staff/task"
+            exact
+            component={Viewprojectstaff}
+          />
+            <PrivateStaffRoute
+            path="/staff/attendance"
+            exact
+            component={AttendanceTable}
+          />
+            <PrivateStaffRoute
+            path="/staff/notes"
+            exact
+            component={NotesSharingPage}
+          />
+            <PrivateStaffRoute
+            path="/staff/worksheet"
+            exact
+            component={DailyWorksheetView}
+          />
+          </Staff_Main>
 
 
 

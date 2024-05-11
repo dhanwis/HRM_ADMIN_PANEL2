@@ -13,7 +13,7 @@ import {
   Switch,
 } from "antd";
 
-//import signinbg from "../assets/images/img-signin.jpg";
+// import signinbg from "../assets/images/img-signin.jpg";
 
 import {
   DribbbleOutlined,
@@ -121,12 +121,12 @@ export default class StaffLogin extends Component {
       <>
         <Layout className="layout-default layout-signin">
           <Header>
-            <div className="header-col header-brand">
-              <h5>StaffLogin</h5>
+            <div className="header-col header-brand" style={{paddingTop:"50px"}}>
+              {/* <h5>StaffLogin</h5> */}
             </div>
             <div className="header-col header-nav">
               <Menu mode="horizontal" defaultSelectedKeys={["1"]}>
-                <Menu.Item key="1">
+                {/* <Menu.Item key="1">
                   <Link to="/dashboard">
                     {template}
                     <span> Dashboard</span>
@@ -137,19 +137,19 @@ export default class StaffLogin extends Component {
                     {profile}
                     <span>Profile</span>
                   </Link>
-                </Menu.Item>
+                </Menu.Item> */}
                 {/* <Menu.Item key="3">
                   <Link to="/sign-up">
                     {signup}
                     <span> Sign Up</span>
                   </Link>
                 </Menu.Item> */}
-                <Menu.Item key="4">
+                {/* <Menu.Item key="4">
                   <Link to="/sign-in">
                     {signin}
                     <span> Sign In</span>
                   </Link>
-                </Menu.Item>
+                </Menu.Item> */}
               </Menu>
             </div>
             {/* <div className="header-col header-btn">
@@ -220,9 +220,9 @@ export default class StaffLogin extends Component {
                     </Button>
                   </Form.Item>
                   <p className="font-semibold text-muted">
-                    Don't have an account?{" "}
-                    <Link to="/sign-up" className="text-dark font-bold">
-                      Sign Up
+                    forget password??{" "}
+                    <Link to="/staff/resetpasswoord" className="text-dark font-bold">
+                      Reset
                     </Link>
                   </p>
                 </Form>
@@ -239,14 +239,14 @@ export default class StaffLogin extends Component {
             </Row>
           </Content>
           <Footer>
-            <Menu mode="horizontal">
+            {/* <Menu mode="horizontal">
               <Menu.Item>Company</Menu.Item>
               <Menu.Item>About Us</Menu.Item>
               <Menu.Item>Teams</Menu.Item>
               <Menu.Item>Products</Menu.Item>
               <Menu.Item>Blogs</Menu.Item>
               <Menu.Item>Pricing</Menu.Item>
-            </Menu>
+            </Menu> */}
             <Menu mode="horizontal" className="menu-nav-social">
               <Menu.Item>
                 <Link to="#">{<DribbbleOutlined />}</Link>
