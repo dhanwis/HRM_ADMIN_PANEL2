@@ -1,7 +1,8 @@
 // import { useState } from "react";
-import { Menu, Button } from "antd";
+import { Menu, Button,Dropdown } from "antd";
 import { NavLink, useLocation } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
+import InternRegistrationForm from "./Internregister";
 
 export default function SidenavHR({ color }) {
   const { pathname } = useLocation();
@@ -263,7 +264,6 @@ export default function SidenavHR({ color }) {
     </svg>,
   ];
 
-
   const attendance = [
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -304,11 +304,11 @@ export default function SidenavHR({ color }) {
     </svg>,
   ];
  
- 
   return (
     <>
+    <div style={{width:'20%'}}>
       <div className="brand">
-        <img src={logo} alt="" />
+        <img src={logo} alt="" style={{width:'40px'}} />
         <span>HR Dashboard</span>
       </div>
       <hr />
@@ -338,7 +338,6 @@ export default function SidenavHR({ color }) {
             </span>
             <span className="label">Tables</span>
           </NavLink>
- 
         </Menu.Item>   
 <Menu.Item key="3" style={{marginLeft:"15px"}}>
   <Dropdown overlay={StaffMenu}>
@@ -424,7 +423,7 @@ export default function SidenavHR({ color }) {
   </Dropdown>
 </Menu.Item>
 
- 
+
         {/* <Menu.Item key="4">
           <NavLink to="/rtl">
             <span
@@ -455,7 +454,6 @@ export default function SidenavHR({ color }) {
           </NavLink>
         </Menu.Item>
         <Menu.Item key="7">
- 
           <NavLink to="/admin/login">
             <span
               className="icon"
@@ -498,7 +496,6 @@ export default function SidenavHR({ color }) {
      </Menu>   
        
 </div>
- 
     </>
   );
 }
