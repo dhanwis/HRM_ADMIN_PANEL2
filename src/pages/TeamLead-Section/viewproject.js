@@ -32,6 +32,8 @@ function Viewproject() {
         <li className="list-group-item">Project ID: {project.id}</li>
         <li className="list-group-item">Project Date: {project.date}</li>
         <li className="list-group-item">Deadline: {project.deadline}</li>
+        <li className="list-group-item">Deadline: {project.description}</li>
+        
       </ul>
     </div>
   );

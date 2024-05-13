@@ -124,7 +124,7 @@ const clockicon = (
 
 const data = [
   {
-    title: "New message from Sophie",
+    title: "essage from Sophie",
     description: "Someone wants to change password",
     avatar: avtar,
   },
@@ -239,10 +239,10 @@ function Header({
       showModal("Someone wants to change password", [
         <Button key="accept" style={{backgroundColor:'green',borderRadius:'10px'}} type="primary" onClick={() => handleAccept()}>
           Accept
-        </Button>,
+        </Button> ,
         <Button key="decline" style={{backgroundColor:'red',borderRadius:'10px',marginLeft:'90px',color:'white'}} onClick={() => handleDecline()}>
           Decline
-        </Button>,
+        </Button> ,
       ]);
     }
   };
@@ -366,7 +366,7 @@ function Header({
                 </Title>
               </div>
 
-              {/* <div className="sidebar-color">
+              <div className="-color">
                 <Title level={5}>Sidebar Color</Title>
                 <div className="theme-color mb-2">
                   <ButtonContainer>
@@ -454,7 +454,7 @@ function Header({
                     <Button type="black">{<FacebookFilled />}SHARE</Button>
                   </ButtonContainer>
                 </div>
-              </div> */}
+              </div>
             </div>
           </Drawer>
 

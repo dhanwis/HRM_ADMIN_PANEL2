@@ -1,15 +1,42 @@
-import React, { useState } from 'react';
-import { Table, Typography, Input, Button, Modal, Form } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Table, Typography, Input, Button, Modal, Form, Select } from 'antd';
 import moment from 'moment';
 
 const { Title } = Typography;
+const { Option } = Select;
 
 function StudentList() {
   const [students, setStudents] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   const [form] = Form.useForm();
+
+  useEffect(() => {
+    // Fetch student data and categories from the API endpoint
+    const fetchData = async () => {
+      try {
+        const studentsResponse = await fetch('/api/students'); // Replace '/api/students' with your actual API endpoint for students
+        if (!studentsResponse.ok) {
+          throw new Error('Failed to fetch student data.');
+        }
+        const studentsData = await studentsResponse.json();
+        setStudents(studentsData);
+
+        const categoriesResponse = await fetch('/api/categories'); // Replace '/api/categories' with your actual API endpoint for categories
+        if (!categoriesResponse.ok) {
+          throw new Error('Failed to fetch categories.');
+        }
+        const categoriesData = await categoriesResponse.json();
+        setCategories(categoriesData);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -49,10 +76,11 @@ function StudentList() {
       editable: true,
     },
     {
-      title: 'Student ID',
-      dataIndex: 'id',
-      key: 'id',
+      title: 'Category',
+      dataIndex: 'category',
+      key: 'category',
       editable: true,
+      render: (category) => <span>{category}</span>,
     },
     {
       title: 'Student Details',
@@ -94,8 +122,12 @@ function StudentList() {
           <Form.Item name="name" label="Student Name" rules={[{ required: true, message: 'Please enter student name' }]}>
             <Input />
           </Form.Item>
-          <Form.Item name="id" label="Student ID" rules={[{ required: true, message: 'Please enter student ID' }]}>
-            <Input />
+          <Form.Item name="category" label="Category" rules={[{ required: true, message: 'Please select category' }]}>
+            <Select>
+              {categories.map((category) => (
+                <Option key={category} value={category}>{category}</Option>
+              ))}
+            </Select>
           </Form.Item>
           <Form.Item name="details" label="Student Details" rules={[{ required: true, message: 'Please enter student details' }]}>
             <Input.TextArea rows={3} />

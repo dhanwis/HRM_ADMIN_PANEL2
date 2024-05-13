@@ -102,7 +102,7 @@ function Giveproject() {
       <Row justify="space-between" align="middle">
         <Col>
           <Button type="primary" onClick={showModal} style={{ marginBottom: 16 }}>
-            Add Customer
+            Assign project
           </Button>
         </Col>
         <Col>

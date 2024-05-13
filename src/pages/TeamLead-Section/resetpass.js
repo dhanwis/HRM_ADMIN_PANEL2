@@ -1,96 +1,121 @@
 import React, { useState } from 'react';
-import { Form, Button, Row, Col, Alert } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Container, Row, Col, Form, Button, Alert, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { BsFillEyeFill, BsFillEyeSlashFill } from 'react-icons/bs';
+import axios from 'axios';
+
+// Custom PasswordInput component with toggleable visibility
+const PasswordInput = ({ value, onChange }) => {
+    const [showPassword, setShowPassword] = useState(false);
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
+    return (
+        <div className="input-group">
+            <input
+                type={showPassword ? 'text' : 'password'}
+                value={value}
+                onChange={onChange}
+                className="form-control"
+                placeholder="Password"
+                required
+            />
+            <div className="input-group-append" onClick={togglePasswordVisibility}>
+                <span className="input-group-text">
+                    {showPassword ? <BsFillEyeSlashFill /> : <BsFillEyeFill />}
+                </span>
+            </div>
+        </div>
+    );
+};
 
 const PasswordForm = () => {
-  const [formData, setFormData] = useState({
-    password: '',
-    confirmPassword: '',
-  });
-  const [error, setError] = useState('');
+    const [newPassword, setNewPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [error, setError] = useState('');
+    const [isApproved, setIsApproved] = useState(false);
+    const [isApprovalPending, setIsApprovalPending] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
+    const handleReset = async (e) => {
+        e.preventDefault();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Check if password and confirm password match
-    if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
-      return;
-    }
-    // Add your form submission logic here
-    console.log('Form submitted:', formData);
-    // Show alert
-    alert('Form submitted successfully!');
-    // Clear error
-    setError('');
-  };
+        if (newPassword !== confirmPassword) {
+            setError('Passwords do not match');
+            return;
+        }
 
-  return (
-    <div className="container">
-        <Row style={{marginTop:"25px"}}>
-        <Col xs={5}></Col>
-        <Col>
-        <h2>RESET PASSWORD</h2>
-        </Col>
-      </Row>
-      {error && <Alert variant="danger">{error}</Alert>}
-      <Form onSubmit={handleSubmit}>
-        <Row>
-          <Col xs={3} ></Col>
-          <Col xs={4}>
-            <Form.Group controlId="password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                placeholder="Enter password"
-                required
-              />
-            </Form.Group>
-          </Col>
-        </Row>
-        <Row>
-        <Col xs={3}></Col>
-          <Col xs={4}>
-            <Form.Group controlId="confirmPassword">
-              <Form.Label>Confirm Password</Form.Label>
-              <Form.Control
-                type="password"
-                name="confirmPassword"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                placeholder="Confirm password"
-                required
-              />
-            </Form.Group>
-          </Col>
-        </Row>
-        <Row style={{marginTop:"15px"}}>
-          <Col xs={4}></Col>
-          <Col>
-            <Button variant="primary" type="submit">
-              submit to HR
-            </Button>
-          </Col>
-          </Row>
-          <Row>
-            <Col xs={4}></Col>
-          <Col>
-            <Link to="/teamlead/login" className="btn btn-link">Back to Sign In</Link>
-          </Col>
-        </Row>
-      </Form>
-    </div>
-  );
+        setIsApprovalPending(true);
+
+        try {
+            // Simulate backend approval (replace with actual API call)
+            const response = await axios.post('/api/password/reset/request', { newPassword });
+            const { approved } = response.data;
+
+            if (approved) {
+                setIsApproved(true);
+                setIsApprovalPending(false);
+            } else {
+                setIsApprovalPending(false);
+                setError('Password reset request denied by HR.');
+            }
+        } catch (error) {
+            setError('Error submitting password reset request.');
+            setIsApprovalPending(false);
+        }
+    };
+
+    return (
+        <Container className="mt-5" style={{ paddingTop: "50px" }}>
+            <Row className="justify-content-md-center">
+                <Col md="6">
+                    <Card className="shadow-sm">
+                        <Card.Body>
+                            {isApproved ? (
+                                <div className="text-center">
+                                    <h2>Password Reset Approved</h2>
+                                    <p>Your password reset request has been approved.</p>
+                                    <p>New Password: {newPassword}</p>
+                                </div>
+                            ) : isApprovalPending ? (
+                                <div className="text-center">
+                                    <h3>HR Approval Pending</h3>
+                                    <p>Please wait for HR approval...</p>
+                                </div>
+                            ) : (
+                                <Form onSubmit={handleReset}>
+                                    <h2 className="text-center mb-3">Reset Password</h2>
+                                    {error && <Alert variant="danger">{error}</Alert>}
+                                    <Form.Group controlId="newPassword">
+                                        <Form.Label>New Password</Form.Label>
+                                        <PasswordInput
+                                            value={newPassword}
+                                            onChange={(e) => setNewPassword(e.target.value)}
+                                        />
+                                    </Form.Group>
+                                    <Form.Group controlId="confirmPassword" className="mt-3">
+                                        <Form.Label>Confirm Password</Form.Label>
+                                        <PasswordInput
+                                            value={confirmPassword}
+                                            onChange={(e) => setConfirmPassword(e.target.value)}
+                                        />
+                                    </Form.Group>
+                                    <Button variant="primary" type="submit" className="d-block mx-auto mt-3">
+                                        Submit Request
+                                    </Button>
+                                    <p className="text-center mt-3">
+                                        <Link to="/teamlead/login">Sign In</Link>
+                                    </p>
+                                </Form>
+                            )}
+                        </Card.Body>
+                    </Card>
+                </Col>
+            </Row>
+        </Container>
+    );
 };
 
 export default PasswordForm;
