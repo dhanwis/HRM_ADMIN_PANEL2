@@ -1,5 +1,16 @@
- 
+/*!
+  =========================================================
+  * Muse Ant Design Dashboard - v1.0.0
+  =========================================================
+  * Product Page: https://www.creative-tim.com/product/muse-ant-design-dashboard
+  * Copyright 2021 Creative Tim (https://www.creative-tim.com)
+  * Licensed under MIT (https://github.com/creativetimofficial/muse-ant-design-dashboard/blob/main/LICENSE.md)
+  * Coded by Creative Tim
+  =========================================================
+  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+*/
 import { useState } from "react";
+import StaffHeader from "./header";
 
 import {
   Card,
@@ -13,7 +24,6 @@ import {
   Button,
   Timeline,
   Radio,
-  
 } from "antd";
 import {
   ToTopOutlined,
@@ -24,30 +34,13 @@ import Paragraph from "antd/lib/typography/Paragraph";
 
 import Echart from "../../components/chart/EChart";
 import LineChart from "../../components/chart/LineChart";
-
-import ava1 from "../../assets/images/logo-shopify.svg";
-import ava2 from "../../assets/images/logo-atlassian.svg";
-import ava3 from "../../assets/images/logo-slack.svg";
-import ava4 from "../../assets/images/logo-spotify.svg";
-import ava5 from "../../assets/images/logo-jira.svg";
-import ava6 from "../../assets/images/logo-invision.svg";
 import team1 from "../../assets/images/team-1.jpg";
 import team2 from "../../assets/images/team-2.jpg";
 import team3 from "../../assets/images/team-3.jpg";
 import team4 from "../../assets/images/team-4.jpg";
 import card from "../../assets/images/info-card-1.jpg";
-import SidenavHR from "./sidebar";
-import "./Home.css";
-import { Link } from "react-router-dom";
-import logo1 from "../../assets/images/face-1.jpg";
-import logo2 from "../../assets/images/team-3.jpg";
-import logo3 from "../../assets/images/team-4.jpg";
-import Header from "./Header";
 
-
-
-
-function HR_Home() {
+function Staffhome() {
   const { Title, Text } = Typography;
 
   const onChange = (e) => console.log(`radio checked:${e.target.value}`);
@@ -142,28 +135,28 @@ function HR_Home() {
   ];
   const count = [
     {
-      today: "Total Employees",
-      title: "53",
+      today: "monthly Attendence",
+      title: "$53,000",
       persent: "+30%",
-      icon: profile,
+      icon: dollor,
       bnb: "bnb2",
     },
     {
-      today: "Total Interns",
-      title: "20",
+      today: "Pending works",
+      title: "3,200",
       persent: "+20%",
       icon: profile,
       bnb: "bnb2",
     },
     {
-      today: "New Clients",
+      today: "project count",
       title: "+1,200",
       persent: "-20%",
       icon: heart,
       bnb: "redtext",
     },
     {
-      today: "New Projects",
+      today: "New Orders",
       title: "$13,200",
       persent: "10%",
       icon: cart,
@@ -173,7 +166,6 @@ function HR_Home() {
 
   const list = [
     {
-      img: ava1,
       Title: "Soft UI Shopify Version",
       bud: "$14,000",
       progress: <Progress percent={60} size="small" />,
@@ -195,7 +187,6 @@ function HR_Home() {
       ),
     },
     {
-      img: ava2,
       Title: "Progress Track",
       bud: "$3,000",
       progress: <Progress percent={10} size="small" />,
@@ -211,7 +202,6 @@ function HR_Home() {
       ),
     },
     {
-      img: ava3,
       Title: "Fix Platform Errors",
       bud: "Not Set",
       progress: <Progress percent={100} size="small" status="active" />,
@@ -230,7 +220,6 @@ function HR_Home() {
       ),
     },
     {
-      img: ava4,
       Title: "Launch new Mobile App",
       bud: "$20,600",
       progress: <Progress percent={100} size="small" status="active" />,
@@ -246,7 +235,6 @@ function HR_Home() {
       ),
     },
     {
-      img: ava5,
       Title: "Add the New Landing Page",
       bud: "$4,000",
       progress: <Progress percent={80} size="small" />,
@@ -269,7 +257,6 @@ function HR_Home() {
     },
 
     {
-      img: ava6,
       Title: "Redesign Online Store",
       bud: "$2,000",
       progress: (
@@ -295,29 +282,29 @@ function HR_Home() {
 
   const timelineList = [
     {
-      title: "",
+      title: "$2,400 - Redesign store",
       time: "09 JUN 7:20 PM",
       color: "green",
     },
     {
-      title: "",
+      title: "New order #3654323",
       time: "08 JUN 12:20 PM",
       color: "green",
     },
     {
-      title: "",
+      title: "Company server payments",
       time: "04 JUN 3:10 PM",
     },
     {
-      title: "",
+      title: "New card added for order #4826321",
       time: "02 JUN 2:45 PM",
     },
     {
-      title: "",
+      title: "Unlock folders for development",
       time: "18 MAY 1:30 PM",
     },
     {
-      title: "",
+      title: "New order #46282344",
       time: "14 MAY 3:30 PM",
       color: "gray",
     },
@@ -342,18 +329,9 @@ function HR_Home() {
   };
 
   return (
-
     <>
-
-    {/* <Header /> */}
-
-    <Header/>
-
-    <div id="demo">
-      {/* <SidenavHR /> */}
-
-    
-      <div className="layout-content">
+    <StaffHeader/>
+      <div className="layout-content" style={{paddingTop:"50px"}}>
         <Row className="rowgap-vbox" gutter={[24, 0]}>
           {count.map((c, index) => (
             <Col
@@ -385,12 +363,12 @@ function HR_Home() {
         </Row>
 
         <Row gutter={[24, 0]}>
-          <Col xs={24} sm={24} md={12} lg={12} xl={12} className="mb-24">
+          <Col xs={24} sm={24} md={12} lg={12} xl={10} className="mb-24">
             <Card bordered={false} className="criclebox h-full">
               <Echart />
             </Card>
           </Col>
-          <Col xs={24} sm={24} md={12} lg={12} xl={12} className="mb-24">
+          <Col xs={24} sm={24} md={12} lg={12} xl={14} className="mb-24">
             <Card bordered={false} className="criclebox h-full">
               <LineChart />
             </Card>
@@ -402,28 +380,28 @@ function HR_Home() {
             <Card bordered={false} className="criclebox cardbody h-full">
               <div className="project-ant">
                 <div>
-                  <Title level={5}>Projects</Title>
+                  <Title level={5}>Pending Task</Title>
                   <Paragraph className="lastweek">
-                    done this month<span className="blue">40%</span>
+                   This Month
                   </Paragraph>
                 </div>
-                <div className="ant-filtertabs">
-                  {/* <div className="antd-pro-pages-dashboard-analysis-style-salesExtra">
+                {/* <div className="ant-filtertabs">
+                  <div className="antd-pro-pages-dashboard-analysis-style-salesExtra">
                     <Radio.Group onChange={onChange} defaultValue="a">
                       <Radio.Button value="a">ALL</Radio.Button>
                       <Radio.Button value="b">ONLINE</Radio.Button>
                       <Radio.Button value="c">STORES</Radio.Button>
                     </Radio.Group>
-                  </div> */}
-                </div>
+                  </div>
+                </div> */}
               </div>
               <div className="ant-list-box table-responsive">
                 <table className="width-100">
                   <thead>
                     <tr>
-                      <th>COMPANIES</th>
-                      <th>MEMBERS</th>
-                      <th>BUDGET</th>
+                      <th>TASK NAME</th>
+                      <th>ASIGN DATE</th>
+                      <th>LAST DATE</th>
                       <th>COMPLETION</th>
                     </tr>
                   </thead>
@@ -454,7 +432,6 @@ function HR_Home() {
                   </tbody>
                 </table>
               </div>
-              
               <div className="uploadfile shadow-none">
                 <Upload {...uploadProps}>
                   <Button
@@ -471,9 +448,9 @@ function HR_Home() {
           <Col xs={24} sm={24} md={12} lg={12} xl={8} className="mb-24">
             <Card bordered={false} className="criclebox h-full">
               <div className="timeline-box">
-                <Title level={5}>Project History</Title>
+                <Title level={5}>Orders History</Title>
                 <Paragraph className="lastweek" style={{ marginBottom: 24 }}>
-                  {/* this month <span className="bnb2">20%</span> */}
+                  this month <span className="bnb2">20%</span>
                 </Paragraph>
 
                 <Timeline
@@ -565,71 +542,9 @@ function HR_Home() {
             </Card>
           </Col>
         </Row>
-       
-        <Row gutter={[24, 0]}>
-        
-          <Col xs={24} md={8} lg={8} xl={8} className="mb-24">
-            <Link to="/register/dashboard"  style={{textDecoration:'none'}}>
-              <Card bordered={false} className="circlebox">
-                <Title level={4}>Front Office Staff 1</Title>
-                <img src={logo1} style={{width:'400px'}}/>
-                <Paragraph>
-                Name: Emily Johnson
-                <br></br>
-                Position: Office Staff/Administrative Assistant
-                <br></br>
-                Role Overview: Emily Johnson is an indispensable member of our administrative team, 
-                ensuring the seamless operation of day-to-day activities within our office. Her role
-                encompasses a wide range of administrative duties crucial for maintaining efficiency 
-                and organization in our workplace.
-                </Paragraph>
-                <Button>View</Button>
-              </Card>
-            </Link>
-          </Col>
-         
-          <Col xs={24} md={8} lg={8} xl={8} className="mb-24">
-            <Link to="/register/dashboard"  style={{textDecoration:'none'}}>
-              <Card bordered={false} className="circlebox">
-                <Title level={4}>Front Office Staff 2</Title>
-                <img src={logo2} style={{width:'400px'}}/>
-                <Paragraph>Name: Emily Johnson
-                <br></br>
-                  Position: Office Staff/Administrative Assistant
-                  <br></br>
-                  Role Overview: Emily Johnson is an indispensable member of our administrative team, 
-                  ensuring the seamless operation of day-to-day activities within our office. Her role
-                  encompasses a wide range of administrative duties crucial for maintaining efficiency 
-                  and organization in our workplace.</Paragraph>
-                  <Button>View</Button>
-              </Card>
-            </Link>
-          </Col>
-          
-          <Col xs={24} md={8} lg={8} xl={8} className="mb-24">
-            <Link to="/register/dashboard" style={{textDecoration:'none'}}>
-              <Card bordered={false} className="circlebox">
-                <Title level={4}>Front Office Staff 3</Title>
-                <img src={logo3} style={{width:'400px'}}/>
-                <Paragraph>Name: Emily Johnson
-                <br></br>
-                Position: Office Staff/Administrative Assistant
-                  <br></br>
-                Role Overview: Emily Johnson is an indispensable member of our administrative team, 
-                ensuring the seamless operation of day-to-day activities within our office. Her role
-                encompasses a wide range of administrative duties crucial for maintaining efficiency 
-                and organization in our workplace.</Paragraph>
-                <Button>View</Button>
-              </Card>
-            </Link>
-          </Col>
-      </Row> 
-      
-      
       </div>
-    </div>
     </>
   );
 }
 
-export default HR_Home;
+export default Staffhome;
