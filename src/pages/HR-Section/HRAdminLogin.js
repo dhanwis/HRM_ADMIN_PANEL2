@@ -1,6 +1,7 @@
 
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+// import signinbg from "../../assets/images/face-1.jpg"
 
 import {
   Layout,
@@ -123,7 +124,7 @@ export default class HRSignIn extends Component {
         <Layout className="layout-default layout-signin">
           <Header>
             <div className="header-col header-brand">
-              <h5>HRAdminLogin</h5>
+               <h5>HRAdminLogin</h5> 
             </div>
             <div className="header-col header-nav">
               {/* <Menu mode="horizontal" defaultSelectedKeys={["1"]}> */}
@@ -235,7 +236,7 @@ export default class HRSignIn extends Component {
                 lg={{ span: 12 }}
                 md={{ span: 12 }}
               >
-                {/* <img src={signinbg} alt="" /> */}
+                 {/* <img src={signinbg} alt="" />  */}
               </Col>
             </Row>
           </Content>

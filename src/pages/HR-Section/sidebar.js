@@ -284,6 +284,27 @@ export default function SidenavHR({ color }) {
     </svg>,
   ];
 
+  const leave = [
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="14"
+      height="14"
+      viewBox="0 0 14 14"
+      key={0}
+    >
+      <path
+        d="M0,2A2,2,0,0,1,2,0H8a2,2,0,0,1,2,2V8a2,2,0,0,1-2,2H2A2,2,0,0,1,0,8Z"
+        transform="translate(4 4)"
+        fill={color}
+      />
+      <path
+        d="M2,0A2,2,0,0,0,0,2V8a2,2,0,0,0,2,2V4A2,2,0,0,1,4,2h6A2,2,0,0,0,8,0Z"
+        fill={color}
+      />
+    </svg>,
+  ];
+
+
   const salary = [
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -336,7 +357,7 @@ export default function SidenavHR({ color }) {
             >
               {tables}
             </span>
-            <span className="label">Tables</span>
+            <span className="label">Table</span>
           </NavLink>
         </Menu.Item>   
 <Menu.Item key="3" style={{marginLeft:"15px"}}>
@@ -492,6 +513,22 @@ export default function SidenavHR({ color }) {
             <span className="label">Salary</span>
           </NavLink>
         </Menu.Item>
+
+
+        <Menu.Item key="19">
+          <NavLink to="/leave/dashboard">
+            <span
+              className="icon"
+              style={{
+                background: page === "leave" ? color : "",
+              }}
+            >
+              {leave}
+            </span>
+            <span className="label">Leave</span>
+          </NavLink>
+        </Menu.Item>
+
 
      </Menu>   
        

@@ -52,6 +52,7 @@ import Feeform from "./pages/HR-Section/Internfee";
 import AttendanceMarkingPage from "./pages/HR-Section/Attendance";
 import SalaryForm from "./pages/HR-Section/Salary";
 import JobForm from "./pages/HR-Section/Jobalert";
+import LeaveRequest from "./pages/HR-Section/Leaveaccept.js";
 
 
 
@@ -120,6 +121,7 @@ function App() {
         <Route path="/staff/login" exact component={StaffLogin} />
         <Route path="/intern/login" exact component={InternLogin} />
         <Route path="/teamlead/login" exact component={TeamLeadLogin} />
+        <Route path="/admin/tables" component={HR_Tables} />
           
 
      <HR_Main>
@@ -143,6 +145,13 @@ function App() {
             exact
             component={HR_Billing}
           />
+
+          <PrivateHRAdminRoute
+            path="/leave/dashboard"
+            exact
+            component={LeaveRequest}
+          />
+
            <PrivateHRAdminRoute
             path="/register/dashboard"
             exact
