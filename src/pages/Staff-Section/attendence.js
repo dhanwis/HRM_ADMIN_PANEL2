@@ -24,15 +24,39 @@ const AttendanceTable = () => {
     setLoading(false);
   };
 
-  // Filter function to exclude Sundays and entries not in the current month
-  const isWorkingDay = (dateString) => {
-    const date = new Date(dateString);
-    return date.getDay() !== 0 && date.getMonth() === new Date().getMonth();
-  };
+  // Mocked sample data for demonstration
+  const sampleAttendanceData = [
+    {
+      id: 1,
+      date: '2024-05-01',
+      time: '09:00 AM',
+      present: true,
+    },
+    {
+      id: 2,
+      date: '2024-05-05',
+      time: '09:30 AM',
+      present: false,
+    },
+    {
+      id: 3,
+      date: '2024-05-10',
+      time: '10:00 AM',
+      present: true,
+    },
+    {
+      id: 4,
+      date: '2024-05-15',
+      time: '09:15 AM',
+      present: true,
+    },
+  ];
 
-  const filteredData = attendanceData.filter((record) =>
-    isWorkingDay(record.date)
-  );
+  const filteredData = sampleAttendanceData.filter((record) => {
+    const currentDate = new Date(record.date);
+    const currentMonth = new Date().getMonth();
+    return currentDate.getMonth() === currentMonth;
+  });
 
   const columns = [
     {
@@ -54,13 +78,13 @@ const AttendanceTable = () => {
   ];
 
   return (
-    <div style={{paddingTop:"50px"}}>
+    <div style={{ paddingTop: "50px" }}>
       <h2>Monthly Attendance</h2>
       <RangePicker picker="month" disabledDate={(current) => current > new Date()} />
       <Table
         dataSource={filteredData}
         columns={columns}
-        rowKey={(record) => record.id} // Adjust based on your data structure
+        rowKey={(record) => record.id.toString()} // Assuming `id` is unique and of type string/number
         loading={loading}
         pagination={{ pageSize: 10 }} // Customize pagination as needed
       />

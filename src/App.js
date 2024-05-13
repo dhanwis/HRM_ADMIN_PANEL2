@@ -281,13 +281,13 @@ function App() {
           />
 
           </Teamlead_Main> */}
-          
-          <Staff_Main>
-          <PrivateStaffRoute
+            <PrivateStaffRoute
             path="/staff/resetpasswoord"
             exact
             component={ResetPassword}
           />
+          <Staff_Main>
+
           <PrivateStaffRoute
             path="/staff/dashboard"
             exact

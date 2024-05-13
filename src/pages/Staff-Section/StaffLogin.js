@@ -13,7 +13,7 @@ import {
   Switch,
 } from "antd";
 
-// import signinbg from "../assets/images/img-signin.jpg";
+import signinbg from "../../assets/images/signinbg.png"
 
 import {
   DribbbleOutlined,
@@ -234,7 +234,7 @@ export default class StaffLogin extends Component {
                 lg={{ span: 12 }}
                 md={{ span: 12 }}
               >
-                {/* <img src={signinbg} alt="" /> */}
+                <img src={signinbg} alt="" />
               </Col>
             </Row>
           </Content>
