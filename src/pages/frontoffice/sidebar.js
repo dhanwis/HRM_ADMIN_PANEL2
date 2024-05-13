@@ -10,7 +10,7 @@ import {
   LaptopOutlined,
   SolutionOutlined,
 } from "@ant-design/icons";
-import BMW from '../frontoffice/BMW.png';
+import logos from "../../assets/images/logos.png";
 
 export default function SidenavFront({ color }) {
   const { pathname } = useLocation();
@@ -136,9 +136,9 @@ export default function SidenavFront({ color }) {
   return (
     <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
       <div style={{ padding: "20px", borderBottom: "1px solid #f0f0f0", textAlign: "center" }}>
-        <img src={BMW} alt="" style={{ width: "150px", marginBottom: "20px"}} />
-        <span style={{ color: "black", fontSize: "18px" }}>
-          <b>FrontOfficeDashboard</b>
+        <img src={logos} alt="" style={{ width: "150px", marginBottom: "20px"}} />
+        <span style={{ color: "black", fontSize: "25px" }}>
+          <b>Front Office</b>
         </span>
       </div>
       <div style={{ flex: "1", overflowY: "auto" }}>

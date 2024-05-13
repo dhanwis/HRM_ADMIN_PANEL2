@@ -79,7 +79,8 @@ import PaymentDetailsPage from "./pages/frontoffice/payment";
 import Attendanceview from "./pages/frontoffice/attendance";
 import Profile from "./pages/frontoffice/profile";
 import CallSheet from "./pages/frontoffice/callsheet";
-import ResetPassword from "./pages/frontoffice/resetpass.js"
+import FrontResetPassword from "./pages/frontoffice/resetpass.js";
+
 
 
 
@@ -316,11 +317,11 @@ function App() {
 
            
           
-          <Staff_Main>
+          {/* <Staff_Main>
           <PrivateStaffRoute
             path="/staff/resetpasswoord"
             exact
-            component={ResetPassword}
+            component={ResetPasswordFront}
           />
           <PrivateStaffRoute
             path="/staff/dashboard"
@@ -362,17 +363,19 @@ function App() {
             exact
             component={DailyWorksheetView}
           />
-          </Staff_Main>
-
+          </Staff_Main> */}
+        
+        
+        <PrivateFrontofficeRoute
+            path="/frontoffice/frontResetPassword"
+            exact
+            component={FrontResetPassword}
+          />
 
 
           
           <Main>
-          <PrivateFrontofficeRoute
-            path="/frontoffice/resetPassword"
-            exact
-            component={ResetPassword}
-          />
+
         
         <PrivateFrontofficeRoute
             path="/frontoffice/dashboard"

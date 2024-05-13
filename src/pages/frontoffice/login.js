@@ -12,7 +12,7 @@ import {
   Switch,
 } from "antd";
 
-//import signinbg from "../assets/images/img-signin.jpg";
+import signinbg from "../../assets/images/logos.png";
 
 import {
   DribbbleOutlined,
@@ -120,9 +120,9 @@ export default class login extends Component {
       <>
         <Layout className="layout-default layout-signin">
           <Header>
-            <div className="header-col header-brand">
+            {/* <div className="header-col header-brand">
               <h5>FrontofficeLogin</h5>
-            </div>
+            </div> */}
             <div className="header-col header-nav">
               <Menu mode="horizontal" defaultSelectedKeys={["1"]}>
                 <Menu.Item key="1">
@@ -131,24 +131,24 @@ export default class login extends Component {
                     <span> Dashboard</span>
                   </Link>
                 </Menu.Item>
-                <Menu.Item key="2">
+                {/* <Menu.Item key="2">
                   <Link to="/profile">
                     {profile}
                     <span>Profile</span>
                   </Link>
-                </Menu.Item>
+                </Menu.Item> */}
                 {/* <Menu.Item key="3">
                   <Link to="/sign-up">
                     {signup}
                     <span> Sign Up</span>
                   </Link>
                 </Menu.Item> */}
-                <Menu.Item key="4">
+                {/* <Menu.Item key="4">
                   <Link to="/sign-in">
                     {signin}
                     <span> Sign In</span>
                   </Link>
-                </Menu.Item>
+                </Menu.Item> */}
               </Menu>
             </div>
             {/* <div className="header-col header-btn">
@@ -220,8 +220,8 @@ export default class login extends Component {
                   </Form.Item>
                   <p className="font-semibold text-muted">
                    forget passsword{" "}
-                    <Link to="/frontoffice/resetPassword" className="text-dark font-bold">
-                      Reset
+                    <Link to="/frontoffice/frontResetPassword" className="text-dark font-bold">
+                      Reset passsword
                     </Link>
                   </p>
                 </Form>
@@ -233,7 +233,7 @@ export default class login extends Component {
                 lg={{ span: 12 }}
                 md={{ span: 12 }}
               >
-                {/* <img src={signinbg} alt="" /> */}
+                <img src={signinbg} alt="" />
               </Col>
             </Row>
           </Content>
