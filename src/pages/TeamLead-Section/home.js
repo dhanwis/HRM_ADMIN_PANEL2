@@ -339,7 +339,8 @@ function Team_Home() {
 
   return (
     <>
-    {/* <TeamHeader /> */}
+    
+    <TeamHeader/>
     {/* <Header>
     {fixed ? (
           <Affix>

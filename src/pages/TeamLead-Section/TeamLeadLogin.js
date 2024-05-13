@@ -13,7 +13,7 @@ import {
   Switch,
 } from "antd";
 
-import signinbg from "../../assets/images/img-signin.jpg";
+import signinbg from "../../assets/images/icon-1623888.jpg";
 
 import {
   DribbbleOutlined,
@@ -127,29 +127,29 @@ export default class TeamLeadLogin extends Component {
             <div className="header-col header-nav">
               <Menu mode="horizontal" defaultSelectedKeys={["1"]}>
                 <Menu.Item key="1">
-                  <Link to="/teamlead/dashboard">
+                  <Link to="/teamlead/dashboard" style={{textDecoration:"none"}}>
                     {template}
                     <span> Dashboard</span>
                   </Link>
                 </Menu.Item>
-                <Menu.Item key="2">
-                  <Link to="/profile">
+                {/* <Menu.Item key="2">
+                  <Link to="/teamlead/profile">
                     {profile}
                     <span>Profile</span>
                   </Link>
-                </Menu.Item>
+                </Menu.Item> */}
                 {/* <Menu.Item key="3">
                   <Link to="/sign-up">
                     {signup}
                     <span> Sign Up</span>
                   </Link>
                 </Menu.Item> */}
-                <Menu.Item key="4">
+                {/* <Menu.Item key="4">
                   <Link to="/sign-in">
                     {signin}
                     <span> Sign In</span>
                   </Link>
-                </Menu.Item>
+                </Menu.Item> */}
               </Menu>
             </div>
             {/* <div className="header-col header-btn">
@@ -237,8 +237,9 @@ export default class TeamLeadLogin extends Component {
               </Col>
             </Row>
           </Content>
-          <Footer>
+          {/* <Footer>
             <Menu mode="horizontal">
+            
               <Menu.Item>Company</Menu.Item>
               <Menu.Item>About Us</Menu.Item>
               <Menu.Item>Teams</Menu.Item>
@@ -273,7 +274,7 @@ export default class TeamLeadLogin extends Component {
               </Menu.Item>
             </Menu>
              
-          </Footer>
+          </Footer> */}
         </Layout>
       </>
     );

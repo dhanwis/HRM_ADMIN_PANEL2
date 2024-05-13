@@ -183,7 +183,9 @@ function App() {
         <Route path="/admin/tables" component={HR_Tables} />
           
 
+
         <Route path="/officestaff/login" exact component={login} />
+
 
 
      {/* <HR_Main>
@@ -254,17 +256,25 @@ function App() {
             component={JobForm}
           />
 
-
+    
 
       </HR_Main> */}
 
-{/* 
+ 
                 <Teamlead_Main>
+
           <PrivateTeamLeadRoute
             path="/teamlead/dashboard"
             exact
             component={Team_Home}
           />
+          
+           <PrivateTeamLeadRoute
+            path="/teamlead/changepass"
+            exact
+            component={PasswordForm}
+          />
+
 
           <PrivateTeamLeadRoute
             path="/teamlead/tables"
@@ -321,13 +331,15 @@ function App() {
             component={Uploadnote}
           />
 
+ 
                <PrivateTeamLeadRoute
             path="/teamlead/changepass"
             exact
             component={PasswordForm}
           />
-          </Teamlead_Main> */}
+          </Teamlead_Main>
  
+
 
 
 
@@ -339,8 +351,7 @@ function App() {
             exact
             component={ResetPassword}
           />
-          <Staff_Main>
-
+              
           <PrivateStaffRoute
             path="/staff/dashboard"
             exact
@@ -444,6 +455,7 @@ function App() {
             component={Profile}
           />
           </Main>
+
          
           {/* <PrivateInternRoute
             path="/intern/profile"

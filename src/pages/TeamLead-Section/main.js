@@ -97,7 +97,8 @@ export default function Teamlead_Main({ children}) {
         <SidenavTeam color={sidenavColor} />
       </Sider>
       <Layout>
-        <TeamHeader />
+        {/* 
+         */}
         {/* {fixed ? (
           <Affix>
             <AntHeader className={`${fixed ? "ant-header-fixed" : ""}`}>
