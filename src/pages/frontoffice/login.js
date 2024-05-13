@@ -1,4 +1,3 @@
-
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -12,7 +11,9 @@ import {
   Input,
   Switch,
 } from "antd";
-import signinbg from "../../assets/images/signinbg.png"
+
+//import signinbg from "../assets/images/img-signin.jpg";
+
 import {
   DribbbleOutlined,
   TwitterOutlined,
@@ -104,7 +105,9 @@ const signin = [
     />
   </svg>,
 ];
-export default class SignIn extends Component {
+
+
+export default class login extends Component {
   render() {
     const onFinish = (values) => {
       console.log("Success:", values);
@@ -118,12 +121,12 @@ export default class SignIn extends Component {
         <Layout className="layout-default layout-signin">
           <Header>
             <div className="header-col header-brand">
-              <h5>Muse Dashboard</h5>
+              <h5>FrontofficeLogin</h5>
             </div>
             <div className="header-col header-nav">
               <Menu mode="horizontal" defaultSelectedKeys={["1"]}>
                 <Menu.Item key="1">
-                  <Link to="/dashboard">
+                  <Link to="/frontoffice/dashboard">
                     {template}
                     <span> Dashboard</span>
                   </Link>
@@ -134,12 +137,12 @@ export default class SignIn extends Component {
                     <span>Profile</span>
                   </Link>
                 </Menu.Item>
-                <Menu.Item key="3">
+                {/* <Menu.Item key="3">
                   <Link to="/sign-up">
                     {signup}
                     <span> Sign Up</span>
                   </Link>
-                </Menu.Item>
+                </Menu.Item> */}
                 <Menu.Item key="4">
                   <Link to="/sign-in">
                     {signin}
@@ -148,9 +151,9 @@ export default class SignIn extends Component {
                 </Menu.Item>
               </Menu>
             </div>
-            <div className="header-col header-btn">
+            {/* <div className="header-col header-btn">
               <Button type="primary">FREE DOWNLOAD</Button>
-            </div>
+            </div> */}
           </Header>
           <Content className="signin">
             <Row gutter={[24, 0]} justify="space-around">
@@ -216,8 +219,9 @@ export default class SignIn extends Component {
                     </Button>
                   </Form.Item>
                   <p className="font-semibold text-muted">
-                    <Link to="/teamlead/changepass" className="text-dark font-bold">
-                      forgot password
+                   forget passsword{" "}
+                    <Link to="/frontoffice/resetPassword" className="text-dark font-bold">
+                      Reset
                     </Link>
                   </p>
                 </Form>
@@ -229,7 +233,7 @@ export default class SignIn extends Component {
                 lg={{ span: 12 }}
                 md={{ span: 12 }}
               >
-                <img src={signinbg} alt="" />
+                {/* <img src={signinbg} alt="" /> */}
               </Col>
             </Row>
           </Content>
@@ -268,10 +272,7 @@ export default class SignIn extends Component {
                 <Link to="#">{<GithubOutlined />}</Link>
               </Menu.Item>
             </Menu>
-            <p className="copyright">
-              {" "}
-              Copyright © 2021 Muse by <a href="#pablo">Creative Tim</a>.{" "}
-            </p>
+             
           </Footer>
         </Layout>
       </>

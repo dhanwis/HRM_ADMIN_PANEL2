@@ -1,5 +1,6 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
+
 // import StaffLogin from "./pages/StaffLogin";
 // import InternLogin from "./pages/InternLogin";
 // import TeamLeadLogin from "./pages/TeamLeadLogin";
@@ -52,7 +53,38 @@ import Feeform from "./pages/HR-Section/Internfee";
 import AttendanceMarkingPage from "./pages/HR-Section/Attendance";
 import SalaryForm from "./pages/HR-Section/Salary";
 import JobForm from "./pages/HR-Section/Jobalert";
+
 import LeaveRequest from "./pages/HR-Section/Leaveaccept.js";
+
+import Staffhome from "./pages/Staff-Section/Home";
+import Staff_Main from "./pages/Staff-Section/main";
+import Profilestaff from "./pages/Staff-Section/profile";
+import Tablesstaff from "./pages/Staff-Section/Table";
+import LeaveFormStaff from "./pages/Staff-Section/leaveform";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Viewprojectstaff from "./pages/Staff-Section/Task";
+import AttendanceTable from "./pages/Staff-Section/attendence";
+import NotesSharingPage from "./pages/Staff-Section/Notes";
+import DailyWorksheetView from "./pages/Staff-Section/worksheet";
+import ResetPassword from "./pages/Staff-Section/resetpassword";
+
+
+import { isFrontOfficeAuthenticated } from "./utils/isAuthenticated";
+import FrontOffice from "./pages/frontoffice/officehome.js";
+import login from "./pages/frontoffice/login";
+import Main from "./pages/frontoffice/main";
+import OfficeLeaveForm from "./pages/frontoffice/LeaveForm.js"
+import Customerdetails from "./pages/frontoffice/confirmed";
+import Quatation from "./pages/frontoffice/quatation";
+import DigitalMarketingPage from "./pages/frontoffice/digital";
+import WebAppDevelopmentPage from "./pages/frontoffice/webapp";
+import PaymentDetailsPage from "./pages/frontoffice/payment";
+import Attendanceview from "./pages/frontoffice/attendance";
+import Profile from "./pages/frontoffice/profile";
+import CallSheet from "./pages/frontoffice/callsheet";
+import ResetPassword from "./pages/frontoffice/resetpass.js"
+
+
 
 
 
@@ -112,6 +144,32 @@ const PrivateTeamLeadRoute = ({ component: Component, ...rest }) => (
     }
   />
 );
+const PrivateStaffRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={(props) =>
+      isStaffAuthenticated() ? (
+        <Component {...props} />
+      ) : (
+        <Redirect to="/staff/login" />
+      )
+    }
+  />
+);
+
+const PrivateFrontofficeRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={(props) =>
+      isFrontOfficeAuthenticated() ? (
+        <Component {...props} />
+      ) : (
+        <Redirect to="/officestaff/login" />
+      )
+    }
+  />
+);
+
 
 function App() {
   return (
@@ -121,10 +179,14 @@ function App() {
         <Route path="/staff/login" exact component={StaffLogin} />
         <Route path="/intern/login" exact component={InternLogin} />
         <Route path="/teamlead/login" exact component={TeamLeadLogin} />
+
         <Route path="/admin/tables" component={HR_Tables} />
           
 
-     <HR_Main>
+        <Route path="/officestaff/login" exact component={login} />
+
+
+     {/* <HR_Main>
         <PrivateHRAdminRoute
             path="/admin/dashboard"
             exact
@@ -194,9 +256,9 @@ function App() {
 
 
 
-      </HR_Main>
+      </HR_Main> */}
 
-
+{/* 
                 <Teamlead_Main>
           <PrivateTeamLeadRoute
             path="/teamlead/dashboard"
@@ -264,10 +326,124 @@ function App() {
             exact
             component={PasswordForm}
           />
+          </Teamlead_Main> */}
+ 
 
-          </Teamlead_Main>
 
-  
+
+           
+          
+          <Staff_Main>
+          <PrivateStaffRoute
+            path="/staff/resetpasswoord"
+            exact
+            component={ResetPassword}
+          />
+          <Staff_Main>
+
+          <PrivateStaffRoute
+            path="/staff/dashboard"
+            exact
+            component={Staffhome}
+          />
+            <PrivateStaffRoute
+            path="/staff/table"
+            exact
+            component={Tablesstaff}
+          />
+            <PrivateStaffRoute
+            path="/staff/profile"
+            exact
+            component={Profilestaff}
+          />
+            <PrivateStaffRoute
+            path="/staff/leave"
+            exact
+            component={LeaveFormStaff}
+          />
+            <PrivateStaffRoute
+            path="/staff/task"
+            exact
+            component={Viewprojectstaff}
+          />
+            <PrivateStaffRoute
+            path="/staff/attendance"
+            exact
+            component={AttendanceTable}
+          />
+            <PrivateStaffRoute
+            path="/staff/notes"
+            exact
+            component={NotesSharingPage}
+          />
+            <PrivateStaffRoute
+            path="/staff/worksheet"
+            exact
+            component={DailyWorksheetView}
+          />
+          </Staff_Main>
+
+
+
+          
+          <Main>
+          <PrivateFrontofficeRoute
+            path="/frontoffice/resetPassword"
+            exact
+            component={ResetPassword}
+          />
+        
+        <PrivateFrontofficeRoute
+            path="/frontoffice/dashboard"
+            exact
+            component={FrontOffice}
+          />
+          <PrivateFrontofficeRoute
+            path="/frontoffice/CallSheet"
+            exact
+            component={CallSheet}
+          />
+          <PrivateFrontofficeRoute
+            path="/frontoffice/Quatation"
+            exact
+            component={Quatation}
+          />
+          <PrivateFrontofficeRoute
+            path="/frontoffice/digitalmarket/quotation"
+            exact
+            component={DigitalMarketingPage}
+          />
+           <PrivateFrontofficeRoute
+            path="/frontoffice/mobileapp/quotation"
+            exact
+            component={WebAppDevelopmentPage}
+          />
+           <PrivateFrontofficeRoute
+            path="/frontoffice/OfficeLeaveForm"
+            exact
+            component={OfficeLeaveForm}
+          />
+          <PrivateFrontofficeRoute
+            path="/frontoffice/Attendanceview"
+            exact
+            component={Attendanceview}
+          />
+          <PrivateFrontofficeRoute
+            path="/frontoffice/Customerdetails"
+            exact
+            component={Customerdetails}
+          />
+           <PrivateFrontofficeRoute
+            path="/frontoffice/PaymentDetailsPage"
+            exact
+            component={PaymentDetailsPage}
+          />
+           <PrivateHRAdminRoute
+            path="/frontoffice/profile"
+            exact
+            component={Profile}
+          />
+          </Main>
          
           {/* <PrivateInternRoute
             path="/intern/profile"
