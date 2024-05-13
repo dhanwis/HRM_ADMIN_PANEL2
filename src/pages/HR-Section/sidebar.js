@@ -1,8 +1,8 @@
 // import { useState } from "react";
 import { Menu, Button,Dropdown } from "antd";
 import { NavLink, useLocation } from "react-router-dom";
-import logo from "../../assets/images/logo.png";
-import InternRegistrationForm from "./Internregister";
+import logo from "../../assets/images/logo1.jpg";
+
 
 export default function SidenavHR({ color }) {
   const { pathname } = useLocation();
@@ -74,12 +74,12 @@ export default function SidenavHR({ color }) {
   const StaffMenu = (
     <Menu>
       <Menu.Item key="register">
-        <NavLink to="/register/dashboard">
+        <NavLink to="/register/dashboard"style={{textDecoration:"none"}}>
           Register
         </NavLink>
       </Menu.Item>
       <Menu.Item key="task">
-        <NavLink to="/task/dashboard">
+        <NavLink to="/task/dashboard"style={{textDecoration:"none"}}>
           Task
         </NavLink>
       </Menu.Item>
@@ -107,12 +107,12 @@ export default function SidenavHR({ color }) {
   const TeamLeadMenu = (
     <Menu>
       <Menu.Item key="register">
-        <NavLink to="/register/dashboard">
+        <NavLink to="/register/dashboard"style={{textDecoration:"none"}}>
           Register
         </NavLink>
       </Menu.Item>
       <Menu.Item key="task">
-        <NavLink to="/task/dashboard">
+        <NavLink to="/task/dashboard"style={{textDecoration:"none"}}>
           Task
         </NavLink>
       </Menu.Item>
@@ -141,7 +141,7 @@ export default function SidenavHR({ color }) {
   const FrontofficeMenu = (
     <Menu>
       <Menu.Item key="register">
-        <NavLink to="/register/dashboard">
+        <NavLink to="/register/dashboard"style={{textDecoration:"none"}}>
           Register
         </NavLink>
       </Menu.Item>
@@ -169,26 +169,22 @@ export default function SidenavHR({ color }) {
   const InternMenu = (
     <Menu>
       <Menu.Item key="internregister">
-        <NavLink to="/intern/register/dashboard">
+        <NavLink to="/intern/register/dashboard" style={{textDecoration:"none"}}>
           Register
         </NavLink>
       </Menu.Item>
       <Menu.Item key="fee">
-        <NavLink to="/fee/dashboard">
+        <NavLink to="/fee/dashboard"style={{textDecoration:"none"}}>
           Fee
         </NavLink>
       </Menu.Item>
       <Menu.Item key="job">
-        <NavLink to="/job/dashboard">
+        <NavLink to="/job/dashboard"style={{textDecoration:"none"}}>
           Job alert
         </NavLink>
       </Menu.Item>
     </Menu>
   );
-
-
-
-
  
   const rtl = [
     <svg
@@ -284,6 +280,7 @@ export default function SidenavHR({ color }) {
     </svg>,
   ];
 
+
   const salary = [
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -306,15 +303,15 @@ export default function SidenavHR({ color }) {
  
   return (
     <>
-    <div style={{width:'20%'}}>
+    <div style={{width:'50%'}}>
       <div className="brand">
-        <img src={logo} alt="" style={{width:'40px'}} />
-        <span>HR Dashboard</span>
+        <img src={logo} alt="" style={{width:'200px', height:'90px'}} />
+        <span style={{fontWeight:'bolder',fontSize:'35px',color:'green',textAlign:'center'}}>HR</span>
       </div>
       <hr />
       <Menu theme="light" mode="inline">
         <Menu.Item key="1">
-          <NavLink to="/admin/dashboard">
+          <NavLink to="/admin/dashboard" style={{textDecoration:"none"}}>
             <span
               className="icon"
               style={{
@@ -327,7 +324,7 @@ export default function SidenavHR({ color }) {
           </NavLink>
         </Menu.Item>
         <Menu.Item key="2">
-          <NavLink to="/admin/tables">
+          <NavLink to="/admin/tables" style={{textDecoration:"none"}}>
             <span
               className="icon"
               style={{
@@ -348,7 +345,7 @@ export default function SidenavHR({ color }) {
         style={{
           background: page === "billing" ? color : "",
           width: '20px', height: '30px'
-          // marginRight: '8px'
+          
         }}
       >
         {billing}
@@ -441,7 +438,7 @@ export default function SidenavHR({ color }) {
           Account Pages
         </Menu.Item> */}
         <Menu.Item key="6">
-          <NavLink to="/admin/profile">
+          <NavLink to="/admin/profile" style={{textDecoration:"none"}}>
             <span
               className="icon"
               style={{
@@ -454,7 +451,7 @@ export default function SidenavHR({ color }) {
           </NavLink>
         </Menu.Item>
         <Menu.Item key="7">
-          <NavLink to="/admin/login">
+          <NavLink to="/admin/login"style={{textDecoration:"none"}}>
             <span
               className="icon"
               style={{
@@ -467,7 +464,7 @@ export default function SidenavHR({ color }) {
           </NavLink>
         </Menu.Item>
         <Menu.Item key="8">
-          <NavLink to="/admin/attendance">
+          <NavLink to="/admin/attendance"style={{textDecoration:"none"}}>
             <span
               className="icon"
               style={{
@@ -479,8 +476,10 @@ export default function SidenavHR({ color }) {
             <span className="label">Attendance</span>
           </NavLink>
         </Menu.Item>
+
+
         <Menu.Item key="9">
-          <NavLink to="/admin/salary">
+          <NavLink to="/admin/salary"style={{textDecoration:"none"}}>
             <span
               className="icon"
               style={{
@@ -492,7 +491,6 @@ export default function SidenavHR({ color }) {
             <span className="label">Salary</span>
           </NavLink>
         </Menu.Item>
-
      </Menu>   
        
 </div>

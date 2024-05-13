@@ -129,7 +129,7 @@ const data = [
   },
   {
     title: "New album by Travis Scott",
-    description: "New album by Travis Scott",
+    description: "Leave request",
     avatar: avtar,
   },
   {
@@ -245,7 +245,6 @@ function Header({
       ]);
     }
   };
-
   const showModal = (message, buttons) => {
     Modal.info({
       title: "Notification",
