@@ -311,6 +311,7 @@ function App() {
             component={PasswordForm}
           />
           </Teamlead_Main> */}
+ 
 
 
 
@@ -322,6 +323,8 @@ function App() {
             exact
             component={ResetPassword}
           />
+          <Staff_Main>
+
           <PrivateStaffRoute
             path="/staff/dashboard"
             exact

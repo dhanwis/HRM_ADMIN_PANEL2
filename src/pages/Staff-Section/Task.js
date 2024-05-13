@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
 
-const Viewprojectstaff= () => {
+const Viewprojectstaff = () => {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
@@ -24,12 +24,13 @@ const Viewprojectstaff= () => {
   }, []);
 
   return (
-    <div style={{paddingTop:"50px"}}>
+    <div className="container mt-4">
       <h2>View Projects</h2>
       <Table striped bordered hover>
-        <thead>
+        <thead className="thead-dark">
           <tr>
             <th>Project Name</th>
+            <th>Company Name</th>
             <th>Project Date</th>
             <th>Deadline</th>
             <th>Completion Status</th>
@@ -39,6 +40,7 @@ const Viewprojectstaff= () => {
           {tasks.map((task, index) => (
             <tr key={index}>
               <td>{task.projectName}</td>
+              <td>{task.companyName}</td>
               <td>{task.projectDate}</td>
               <td>{task.deadline}</td>
               <td>{task.completionStatus}</td>

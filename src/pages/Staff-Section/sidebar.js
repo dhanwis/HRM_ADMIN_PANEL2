@@ -195,8 +195,10 @@ export default function SidenavStaff({ color }) {
   return (
     <>
       <div className="brand">
-        <img src={logo} alt="" />
-        <span>Staff Dashboard</span>
+        <img src={logo} alt="" style={{width:"100px",height:"100px", marginLeft:"20px"}} />
+        <div style={{marginLeft:"40px"}}>
+        <span>STAFF</span>
+        </div>
       </div>
       <hr />
       <Menu theme="light" mode="inline">

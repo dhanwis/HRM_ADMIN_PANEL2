@@ -39,7 +39,7 @@ const ResetPassword = () => {
     const [isApproved, setIsApproved] = useState(false);
     const [isApprovalPending, setIsApprovalPending] = useState(false);
 
-    const handleReset = (e) => {
+    const handleReset = async (e) => {
         e.preventDefault();
 
         if (newPassword !== confirmPassword) {
@@ -48,30 +48,27 @@ const ResetPassword = () => {
         }
 
         setIsApprovalPending(true);
-        approvePasswordReset(newPassword)
-            .then(() => {
-                setIsApproved(true);
-                setIsApprovalPending(false);
-            })
-            .catch(() => {
-                setError('Error approving password reset');
-                setIsApprovalPending(false);
-            });
-    };
 
-    const approvePasswordReset = async (newPassword) => {
         try {
             // Simulate backend approval (replace with actual API call)
-            // Example: const response = await axios.post('/api/password/reset/approve', { newPassword });
-            console.log('HR Approved Password Reset');
-            alert('Password reset request approved!');
+            const response = await axios.post('/api/password/reset/request', { newPassword });
+            const { approved } = response.data;
+
+            if (approved) {
+                setIsApproved(true);
+                setIsApprovalPending(false);
+            } else {
+                setIsApprovalPending(false);
+                setError('Password reset request denied by HR.');
+            }
         } catch (error) {
-            throw new Error('Failed to approve password reset');
+            setError('Error submitting password reset request.');
+            setIsApprovalPending(false);
         }
     };
 
     return (
-        <Container className="mt-5" style={{paddingTop:"50px"}}>
+        <Container className="mt-5" style={{ paddingTop: "50px" }}>
             <Row className="justify-content-md-center">
                 <Col md="6">
                     <Card className="shadow-sm">
