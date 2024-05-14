@@ -95,7 +95,7 @@ export default function Intern_Main({ children }) {
         <SidenavIntern color={sidenavColor} />
       </Sider>
       <Layout>
-        {fixed ? (
+        {/* {fixed ? (
           <Affix>
             <AntHeader className={`${fixed ? "ant-header-fixed" : ""}`}>
               <Header
@@ -119,7 +119,8 @@ export default function Intern_Main({ children }) {
               handleFixedNavbar={handleFixedNavbar}
             />
           </AntHeader>
-        )}
+        )} */}
+        
         <Content className="content-ant">{children}</Content>
         <Footer />
       </Layout>

@@ -35,7 +35,8 @@ import team2 from "../../assets/images/team-2.jpg";
 import team3 from "../../assets/images/team-3.jpg";
 import team4 from "../../assets/images/team-4.jpg";
 import card from "../../assets/images/info-card-1.jpg";
-
+ 
+import Header from "./Header_intern";
 
 function Intern_Home() {
   const { Title, Text } = Typography;
@@ -333,6 +334,7 @@ function Intern_Home() {
 
   return (
     <>
+    <Header/>
       <div className="layout-content">
         <Row className="rowgap-vbox" gutter={[24, 0]}>
           {count.map((c, index) => (
