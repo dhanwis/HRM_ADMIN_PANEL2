@@ -972,7 +972,7 @@ function Header({
               </div>
             </div>
           </Drawer>
-          <Link to="/admin/login" className="btn-sign-in">
+          <Link to="/admin/login" className="btn-sign-in" style={{textDecoration:"none"}}>
  
             {profile}
             <span>Log out</span>
