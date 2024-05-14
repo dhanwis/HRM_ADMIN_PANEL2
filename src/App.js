@@ -206,7 +206,7 @@ function App() {
 
 
 
-     {/* <HR_Main>
+     <HR_Main>
         <PrivateHRAdminRoute
             path="/admin/dashboard"
             exact
@@ -280,7 +280,7 @@ function App() {
 
       </HR_Main>
 
-  
+{/*   
 
           <PrivateTeamLeadRoute
             path="/teamlead/changepass"
@@ -424,8 +424,8 @@ function App() {
 
 
           
-          <Main>
-
+          <Main> */}
+{/* 
         
         <PrivateFrontofficeRoute
             path="/frontoffice/dashboard"
@@ -479,20 +479,20 @@ function App() {
           />
           </Main> */}
 
-          <Intern_Main>
+          {/* <Intern_Main> */}
 
-
+{/* 
 <PrivateInternRoute
   path="/intern/dashboard"
   exact
   component={Intern_Home}
-/>
+/> */}
 {/* <PrivateInternRoute
   path="/intern/main"
   exact
   component={Intern_Main}
 /> */}
-<PrivateInternRoute
+{/* <PrivateInternRoute
   path="/intern/sidebar"
   exact
   component={Intern_sidebar}
@@ -556,7 +556,7 @@ function App() {
 
 
 
-</Intern_Main>
+</Intern_Main> */}
 
          
           {/* <PrivateInternRoute
