@@ -206,7 +206,7 @@ function App() {
 
 
 
-     <HR_Main>
+     {/* <HR_Main>
         <PrivateHRAdminRoute
             path="/admin/dashboard"
             exact
@@ -477,7 +477,7 @@ function App() {
             exact
             component={Profile}
           />
-          </Main>
+          </Main> */}
 
           <Intern_Main>
 
