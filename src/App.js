@@ -190,7 +190,7 @@ function App() {
 
 
 
-     {/* <HR_Main>
+     <HR_Main>
         <PrivateHRAdminRoute
             path="/admin/dashboard"
             exact
@@ -262,9 +262,16 @@ function App() {
 
     
 
-      </HR_Main> */}
+      </HR_Main>
 
- 
+  
+
+          <PrivateTeamLeadRoute
+            path="/teamlead/changepass"
+            exact
+            component={PasswordForm}
+          />
+
                 <Teamlead_Main>
 
           <PrivateTeamLeadRoute
@@ -273,12 +280,6 @@ function App() {
             component={Team_Home}
           />
           
-           <PrivateTeamLeadRoute
-            path="/teamlead/changepass"
-            exact
-            component={PasswordForm}
-          />
-
 
           <PrivateTeamLeadRoute
             path="/teamlead/tables"
@@ -341,20 +342,20 @@ function App() {
             exact
             component={PasswordForm}
           />
-          </Teamlead_Main>
+          </Teamlead_Main> 
  
 
 
 
-
-           
-          
-          {/* <Staff_Main>
           <PrivateStaffRoute
             path="/staff/resetpasswoord"
             exact
-            component={ResetPasswordFront}
+            component={ResetPassword}
           />
+           
+          
+          <Staff_Main>
+  
               
           <PrivateStaffRoute
             path="/staff/dashboard"
@@ -396,7 +397,7 @@ function App() {
             exact
             component={DailyWorksheetView}
           />
-          </Staff_Main> */}
+          </Staff_Main>
         
         
         <PrivateFrontofficeRoute
