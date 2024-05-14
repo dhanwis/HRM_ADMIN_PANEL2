@@ -1,6 +1,17 @@
- 
+/*!
+  =========================================================
+  * Muse Ant Design Dashboard - v1.0.0
+  =========================================================
+  * Product Page: https://www.creative-tim.com/product/muse-ant-design-dashboard
+  * Copyright 2021 Creative Tim (https://www.creative-tim.com)
+  * Licensed under MIT (https://github.com/creativetimofficial/muse-ant-design-dashboard/blob/main/LICENSE.md)
+  * Coded by Creative Tim
+  =========================================================
+  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+*/
 import { useState } from "react";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import StaffHeader from "./header";
+
 import {
   Card,
   Col,
@@ -23,27 +34,13 @@ import Paragraph from "antd/lib/typography/Paragraph";
 
 import Echart from "../../components/chart/EChart";
 import LineChart from "../../components/chart/LineChart";
-
-import ava1 from "../../assets/images/logo-shopify.svg";
-import ava2 from "../../assets/images/logo-atlassian.svg";
-import ava3 from "../../assets/images/logo-slack.svg";
-import ava4 from "../../assets/images/logo-spotify.svg";
-import ava5 from "../../assets/images/logo-jira.svg";
-import ava6 from "../../assets/images/logo-invision.svg";
 import team1 from "../../assets/images/team-1.jpg";
 import team2 from "../../assets/images/team-2.jpg";
 import team3 from "../../assets/images/team-3.jpg";
 import team4 from "../../assets/images/team-4.jpg";
 import card from "../../assets/images/info-card-1.jpg";
-import { Header } from "antd/lib/layout/layout";
-import TeamHeader from "./header";
 
-
-
-
-
-function Team_Home() {
-  
+function Staffhome() {
   const { Title, Text } = Typography;
 
   const onChange = (e) => console.log(`radio checked:${e.target.value}`);
@@ -138,21 +135,21 @@ function Team_Home() {
   ];
   const count = [
     {
-      today: "Today’s Sales",
+      today: "monthly Attendence",
       title: "$53,000",
       persent: "+30%",
       icon: dollor,
       bnb: "bnb2",
     },
     {
-      today: "Today’s Users",
+      today: "Pending works",
       title: "3,200",
       persent: "+20%",
       icon: profile,
       bnb: "bnb2",
     },
     {
-      today: "new ones",
+      today: "project count",
       title: "+1,200",
       persent: "-20%",
       icon: heart,
@@ -169,7 +166,6 @@ function Team_Home() {
 
   const list = [
     {
-      img: ava1,
       Title: "Soft UI Shopify Version",
       bud: "$14,000",
       progress: <Progress percent={60} size="small" />,
@@ -191,7 +187,6 @@ function Team_Home() {
       ),
     },
     {
-      img: ava2,
       Title: "Progress Track",
       bud: "$3,000",
       progress: <Progress percent={10} size="small" />,
@@ -207,7 +202,6 @@ function Team_Home() {
       ),
     },
     {
-      img: ava3,
       Title: "Fix Platform Errors",
       bud: "Not Set",
       progress: <Progress percent={100} size="small" status="active" />,
@@ -226,7 +220,6 @@ function Team_Home() {
       ),
     },
     {
-      img: ava4,
       Title: "Launch new Mobile App",
       bud: "$20,600",
       progress: <Progress percent={100} size="small" status="active" />,
@@ -242,7 +235,6 @@ function Team_Home() {
       ),
     },
     {
-      img: ava5,
       Title: "Add the New Landing Page",
       bud: "$4,000",
       progress: <Progress percent={80} size="small" />,
@@ -265,7 +257,6 @@ function Team_Home() {
     },
 
     {
-      img: ava6,
       Title: "Redesign Online Store",
       bud: "$2,000",
       progress: (
@@ -339,36 +330,8 @@ function Team_Home() {
 
   return (
     <>
-    
-    <TeamHeader/>
-    {/* <Header>
-    {fixed ? (
-          <Affix>
-            <AntHeader className={`${fixed ? "ant-header-fixed" : ""}`}>
-              <Header
-                onPress={openDrawer}
-                name={pathname}
-                subName={pathname}
-                handleSidenavColor={handleSidenavColor}
-                handleSidenavType={handleSidenavType}
-                handleFixedNavbar={handleFixedNavbar}
-              />
-            </AntHeader>
-          </Affix>
-        ) : (
-          <AntHeader className={`${fixed ? "ant-header-fixed" : ""}`}>
-            <Header
-              onPress={openDrawer}
-              name={pathname}
-              subName={pathname}
-              handleSidenavColor={handleSidenavColor}
-              handleSidenavType={handleSidenavType}
-              handleFixedNavbar={handleFixedNavbar}
-            />
-          </AntHeader>
-        )}
-      </Header> */}
-      <div className="layout-content">
+    <StaffHeader/>
+      <div className="layout-content" style={{paddingTop:"50px"}}>
         <Row className="rowgap-vbox" gutter={[24, 0]}>
           {count.map((c, index) => (
             <Col
@@ -417,12 +380,12 @@ function Team_Home() {
             <Card bordered={false} className="criclebox cardbody h-full">
               <div className="project-ant">
                 <div>
-                  <Title level={5}>Projects</Title>
+                  <Title level={5}>Pending Task</Title>
                   <Paragraph className="lastweek">
-                    done this month<span className="blue">40%</span>
+                   This Month
                   </Paragraph>
                 </div>
-                <div className="ant-filtertabs">
+                {/* <div className="ant-filtertabs">
                   <div className="antd-pro-pages-dashboard-analysis-style-salesExtra">
                     <Radio.Group onChange={onChange} defaultValue="a">
                       <Radio.Button value="a">ALL</Radio.Button>
@@ -430,15 +393,15 @@ function Team_Home() {
                       <Radio.Button value="c">STORES</Radio.Button>
                     </Radio.Group>
                   </div>
-                </div>
+                </div> */}
               </div>
               <div className="ant-list-box table-responsive">
                 <table className="width-100">
                   <thead>
                     <tr>
-                      <th>COMPANIES</th>
-                      <th>MEMBERS</th>
-                      <th>BUDGET</th>
+                      <th>TASK NAME</th>
+                      <th>ASIGN DATE</th>
+                      <th>LAST DATE</th>
                       <th>COMPLETION</th>
                     </tr>
                   </thead>
@@ -584,4 +547,4 @@ function Team_Home() {
   );
 }
 
-export default Team_Home;
+export default Staffhome;

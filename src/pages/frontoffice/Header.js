@@ -1,3 +1,15 @@
+/*!
+  =========================================================
+  * Muse Ant Design Dashboard - v1.0.0
+  =========================================================
+  * Product Page: https://www.creative-tim.com/product/muse-ant-design-dashboard
+  * Copyright 2021 Creative Tim (https://www.creative-tim.com)
+  * Licensed under MIT (https://github.com/creativetimofficial/muse-ant-design-dashboard/blob/main/LICENSE.md)
+  * Coded by Creative Tim
+  =========================================================
+  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+*/
+
 import { useState, useEffect } from "react";
 
 import {
@@ -13,7 +25,6 @@ import {
   Drawer,
   Typography,
   Switch,
-  Modal
 } from "antd";
 
 import {
@@ -114,29 +125,43 @@ const credit = [
       d="M18 9H2V14C2 15.1046 2.89543 16 4 16H16C17.1046 16 18 15.1046 18 14V9ZM4 13C4 12.4477 4.44772 12 5 12H6C6.55228 12 7 12.4477 7 13C7 13.5523 6.55228 14 6 14H5C4.44772 14 4 13.5523 4 13ZM9 12C8.44772 12 8 12.4477 8 13C8 13.5523 8.44772 14 9 14H10C10.5523 14 11 13.5523 11 13C11 12.4477 10.5523 12 10 12H9Z"
     ></path>
   </svg>,
-
 ];
-const clockicon = (
-  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" key={0}>
-    <path fillRule="evenodd" clipRule="evenodd" d="M10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18ZM11 6C11 5.44772 10.5523 5 10 5C9.44772 5 9 5.44772 9 6V10C9 10.2652 9.10536 10.5196 9.29289 10.7071L12.1213 13.5355C12.5118 13.9261 13.145 13.9261 13.5355 13.5355C13.9261 13.145 13.9261 12.5118 13.5355 12.1213L11 9.58579V6Z" fill="#111827"></path>
-  </svg>
-);
+
+const clockicon = [
+  <svg
+    width="20"
+    height="20"
+    viewBox="0 0 20 20"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    key={0}
+  >
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18ZM11 6C11 5.44772 10.5523 5 10 5C9.44772 5 9 5.44772 9 6V10C9 10.2652 9.10536 10.5196 9.29289 10.7071L12.1213 13.5355C12.5118 13.9261 13.145 13.9261 13.5355 13.5355C13.9261 13.145 13.9261 12.5118 13.5355 12.1213L11 9.58579V6Z"
+      fill="#111827"
+    ></path>
+  </svg>,
+];
 
 const data = [
   {
-    title: "essage from Sophie",
-    description: "Someone wants to change password",
+    title: "New message from Sophie",
+    description: <>{clockicon} 2 days ago</>,
+
     avatar: avtar,
   },
   {
     title: "New album by Travis Scott",
-    description: "New album by Travis Scott",
-    avatar: avtar,
+    description: <>{clockicon} 2 days ago</>,
+
+    avatar: <Avatar shape="square">{wifi}</Avatar>,
   },
   {
     title: "Payment completed",
-    description: "Payment completed",
-    avatar: avtar,
+    description: <>{clockicon} 2 days ago</>,
+    avatar: <Avatar shape="square">{credit}</Avatar>,
   },
 ];
 
@@ -224,7 +249,7 @@ const setting = [
   </svg>,
 ];
 
-function Header({
+function FrontHeader({
   placement,
   name,
   subName,
@@ -233,63 +258,6 @@ function Header({
   handleSidenavType,
   handleFixedNavbar,
 }) {
-
-  const handleNotificationClick = (title) => {
-    if (title === "New message from Sophie") {
-      showModal("Someone wants to change password", [
-        <Button key="accept" style={{backgroundColor:'green',borderRadius:'10px'}} type="primary" onClick={() => handleAccept()}>
-          Accept
-        </Button> ,
-        <Button key="decline" style={{backgroundColor:'red',borderRadius:'10px',marginLeft:'90px',color:'white'}} onClick={() => handleDecline()}>
-          Decline
-        </Button> ,
-      ]);
-    }
-  };
-
-  const showModal = (message, buttons) => {
-    Modal.info({
-      title: "Notification",
-      content: (
-        <div>
-          <p>{message}</p>
-          <div style={{ marginTop: "20px" }}>{buttons}</div>
-        </div>
-      ),
-      onOk() {},
-    });
-  };
-  
-  const handleAccept = () => {
-    Modal.success({
-      content: "Password change request accepted",
-    });
-  };
-  
-  const handleDecline = () => {
-    Modal.error({
-      content: "Password change request declined",
-    });
-  };
-
-  const menu = (
-    <List
-      min-width="100%"
-      className="header-notifications-dropdown"
-      itemLayout="horizontal"
-      dataSource={data}
-      renderItem={(item) => (
-        <List.Item onClick={() => handleNotificationClick(item.title)}>
-          <List.Item.Meta
-            avatar={<Avatar shape="square" src={item.avatar} />}
-            title={item.title}
-            description={<>{clockicon} {item.description}</>}
-          />
-        </List.Item>
-      )}
-    />
-  );
-  
   const { Title, Text } = Typography;
 
   const [visible, setVisible] = useState(false);
@@ -301,15 +269,14 @@ function Header({
   const hideDrawer = () => setVisible(false);
 
   return (
-    <>
-      <div className="setting-drwer" onClick={showDrawer} >
+    <div style={{marginTop:"20px",marginBottom:"10px"}}>
+      <div className="setting-drwer" onClick={showDrawer}>
         {setting}
       </div>
       <Row gutter={[24, 0]}>
-
-        <Col span={24} md={6}>
-          {/* <Breadcrumb>
-
+      <Col span={24} md={6}>
+        {/* <Col span={24} md={6}>
+          <Breadcrumb>
             <Breadcrumb.Item>
               <NavLink to="/">Pages</NavLink>
             </Breadcrumb.Item>
@@ -324,10 +291,9 @@ function Header({
             >
               {subName.replace("/", "")}
             </span>
-
-          </div> */}
+          </div>
+        </Col> */}
         </Col>
-
         <Col span={24} md={18} className="header-control">
           <Badge size="small" count={4}>
             <Dropdown overlay={menu} trigger={["click"]}>
@@ -366,7 +332,7 @@ function Header({
                 </Title>
               </div>
 
-              <div className="-color">
+              <div className="sidebar-color">
                 <Title level={5}>Sidebar Color</Title>
                 <div className="theme-color mb-2">
                   <ButtonContainer>
@@ -457,22 +423,19 @@ function Header({
               </div>
             </div>
           </Drawer>
-
-          <Link to="/admin/login" className="btn-sign-in"> 
+          <Link to="/officestaff/login" className="btn-sign-in">
             {profile}
-            <span>Log out</span>
-
+            <span>Logout</span>
           </Link>
           <Input
             className="header-search"
             placeholder="Type here..."
             prefix={<SearchOutlined />}
           />
-
         </Col>
       </Row>
-    </>
+    </div>
   );
 }
 
-export default Header;
+export default FrontHeader;

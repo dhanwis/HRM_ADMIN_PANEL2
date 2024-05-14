@@ -13,7 +13,7 @@
 // import { useState } from "react";
 import { Menu, Button,Dropdown } from "antd";
 import { NavLink, useLocation } from "react-router-dom";
-import logo from "../../assets/images/teamlogo.jpg";
+import logo from "../../assets/images/3d-render-camera-icon.jpg";
 // import StudentList from "./Studentlist";
 // import giveproject from "./giveproject";
 // import Viewproject from "./viewproject";
@@ -340,10 +340,10 @@ const Uploadnote = [
 )
 
   return (
-    <>
+    <div>
       <div className="brand">
-        <img src={logo} alt=""  />
-        <span>Teamlead Dashboard</span>
+        <img src={logo} alt=""  style={{width:"120x",height:"120px"}}/>
+        <span style={{marginLeft:"30px",fontSize:"20px"}}><b>TEAMLEAD</b></span>
       </div>
       <hr />
       <Menu theme="light" mode="inline">
@@ -390,7 +390,7 @@ const Uploadnote = [
             >
               {billing}
             </span>
-            <span className="label">leaveform</span>
+            <span className="label">Leave Form</span>
           </NavLink>
         </Menu.Item>
 
@@ -409,7 +409,7 @@ const Uploadnote = [
             >
               {student}
             </span>
-            <span className="label">Student list</span>
+            <span className="label">Student List</span>
           </NavLink>
         </Menu.Item>
 
@@ -444,7 +444,7 @@ const Uploadnote = [
             >
               {Viewproject}
             </span>
-            <span className="label">Project list</span>
+            <span className="label">Project List</span>
           </NavLink>
         </Menu.Item>
 
@@ -462,7 +462,7 @@ const Uploadnote = [
             >
               {Giveproject}
             </span>
-            <span className="label">assign project</span>
+            <span className="label">Assign Project</span>
           </NavLink>
         </Menu.Item>
 
@@ -517,7 +517,7 @@ const Uploadnote = [
             >
               {DigitalMarketingTable}
             </span>
-            <span className="label">digital marketing</span>
+            <span className="label">Digital Marketing</span>
           </NavLink>
         </Menu.Item>
 
@@ -594,7 +594,7 @@ const Uploadnote = [
           </Button>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

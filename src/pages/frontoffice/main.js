@@ -14,13 +14,13 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Layout, Drawer, Affix } from "antd";
 // import Header from "../../components/layout/Header";
-import TeamHeader from "./header";
+import FrontHeader from "./Header";
 import Footer from "../../components/layout/Footer";
-import SidenavTeam from "./Teamsidebar";
+import SidenavFront from "./sidebar";
 
-const { Header: AntHeader, Content, Sider,} = Layout;
+const { Header: AntHeader, Content, Sider } = Layout;
 
-export default function Teamlead_Main({ children}) {
+export default function Main({ children }) {
   const [visible, setVisible] = useState(false);
   const [placement, setPlacement] = useState("right");
   const [sidenavColor, setSidenavColor] = useState("#1890ff");
@@ -75,7 +75,7 @@ export default function Teamlead_Main({ children}) {
             }`}
             style={{ background: sidenavType }}
           >
-            <SidenavTeam color={sidenavColor} />
+            <SidenavFront color={sidenavColor} />
           </Sider>
         </Layout>
       </Drawer>
@@ -93,12 +93,9 @@ export default function Teamlead_Main({ children}) {
         }`}
         style={{ background: sidenavType }}
       >
-        
-        <SidenavTeam color={sidenavColor} />
+        <SidenavFront color={sidenavColor} />
       </Sider>
       <Layout>
-        {/* 
-         */}
         {/* {fixed ? (
           <Affix>
             <AntHeader className={`${fixed ? "ant-header-fixed" : ""}`}>
@@ -125,7 +122,7 @@ export default function Teamlead_Main({ children}) {
           </AntHeader>
         )} */}
         <Content className="content-ant">{children}</Content>
-        <Footer />
+        {/* <Footer /> */}
       </Layout>
     </Layout>
   );

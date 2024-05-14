@@ -32,7 +32,7 @@ const PasswordInput = ({ value, onChange }) => {
     );
 };
 
-const PasswordForm = () => {
+const ResetPassword = () => {
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
@@ -106,7 +106,7 @@ const PasswordForm = () => {
                                         Submit Request
                                     </Button>
                                     <p className="text-center mt-3">
-                                        <Link to="/teamlead/login">Sign In</Link>
+                                        <Link to="/staff/login">Sign In</Link>
                                     </p>
                                 </Form>
                             )}
@@ -118,4 +118,4 @@ const PasswordForm = () => {
     );
 };
 
-export default PasswordForm;
+export default ResetPassword;

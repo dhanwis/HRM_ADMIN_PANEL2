@@ -569,8 +569,8 @@ function HR_Home() {
         <Row gutter={[24, 0]}>
         
           <Col xs={24} md={8} lg={8} xl={8} className="mb-24">
-            <Link to="/register/dashboard">
-              <Card bordered={false} className="criclebox">
+            <Link to="/register/dashboard"  style={{textDecoration:'none'}}>
+              <Card bordered={false} className="circlebox">
                 <Title level={4}>Front Office Staff 1</Title>
                 <img src={logo1} style={{width:'400px'}}/>
                 <Paragraph>
@@ -589,9 +589,11 @@ function HR_Home() {
           </Col>
          
           <Col xs={24} md={8} lg={8} xl={8} className="mb-24">
-            <Link to="/register/dashboard">
-              <Card bordered={false} className="criclebox">
-                <Title level={4} >Front Office Staff 2</Title>
+ 
+            <Link to="/register/dashboard"  style={{textDecoration:'none'}}>
+              <Card bordered={false} className="circlebox">
+                <Title level={4}>Front Office Staff 2</Title>
+ 
                 <img src={logo2} style={{width:'400px'}}/>
                 <Paragraph>Name: Emily Johnson
                 <br></br>
@@ -607,8 +609,8 @@ function HR_Home() {
           </Col>
           
           <Col xs={24} md={8} lg={8} xl={8} className="mb-24">
-            <Link to="/register/dashboard">
-              <Card bordered={false} className="criclebox">
+            <Link to="/register/dashboard" style={{textDecoration:'none'}}>
+              <Card bordered={false} className="circlebox">
                 <Title level={4}>Front Office Staff 3</Title>
                 <img src={logo3} style={{width:'400px'}}/>
                 <Paragraph>Name: Emily Johnson

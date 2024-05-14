@@ -1,26 +1,14 @@
-/*!
-  =========================================================
-  * Muse Ant Design Dashboard - v1.0.0
-  =========================================================
-  * Product Page: https://www.creative-tim.com/product/muse-ant-design-dashboard
-  * Copyright 2021 Creative Tim (https://www.creative-tim.com)
-  * Licensed under MIT (https://github.com/creativetimofficial/muse-ant-design-dashboard/blob/main/LICENSE.md)
-  * Coded by Creative Tim
-  =========================================================
-  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Layout, Drawer, Affix } from "antd";
-// import Header from "../../components/layout/Header";
-import TeamHeader from "./header";
+import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
-import SidenavTeam from "./Teamsidebar";
+import SidenavIntern from "./sidebar";
+import SidenavStaff from "./sidebar";
+import StaffHeader from "./header";
+const { Header: AntHeader, Content, Sider } = Layout;
 
-const { Header: AntHeader, Content, Sider,} = Layout;
-
-export default function Teamlead_Main({ children}) {
+export default function Staff_Main({ children }) {
   const [visible, setVisible] = useState(false);
   const [placement, setPlacement] = useState("right");
   const [sidenavColor, setSidenavColor] = useState("#1890ff");
@@ -75,7 +63,7 @@ export default function Teamlead_Main({ children}) {
             }`}
             style={{ background: sidenavType }}
           >
-            <SidenavTeam color={sidenavColor} />
+            <SidenavStaff color={sidenavColor} />
           </Sider>
         </Layout>
       </Drawer>
@@ -93,12 +81,9 @@ export default function Teamlead_Main({ children}) {
         }`}
         style={{ background: sidenavType }}
       >
-        
-        <SidenavTeam color={sidenavColor} />
+        <SidenavStaff color={sidenavColor} />
       </Sider>
       <Layout>
-        {/* 
-         */}
         {/* {fixed ? (
           <Affix>
             <AntHeader className={`${fixed ? "ant-header-fixed" : ""}`}>
@@ -125,10 +110,8 @@ export default function Teamlead_Main({ children}) {
           </AntHeader>
         )} */}
         <Content className="content-ant">{children}</Content>
-        <Footer />
+        {/* <Footer /> */}
       </Layout>
     </Layout>
   );
 }
-
- 
