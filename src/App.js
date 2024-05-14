@@ -90,6 +90,7 @@ import FrontResetPassword from "./pages/frontoffice/resetpass.js";
 
 
 
+
 // Higher-order component to restrict access for HR Admin
 const PrivateHRAdminRoute = ({ component: Component, ...rest }) => (
   <Route
@@ -244,6 +245,8 @@ function App() {
             exact
             component={AttendanceMarkingPage}
           />
+
+         
            <PrivateHRAdminRoute
             path="/admin/salary"
             exact

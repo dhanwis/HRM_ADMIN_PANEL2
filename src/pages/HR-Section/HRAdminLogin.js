@@ -15,7 +15,7 @@ import {
   Switch,
 } from "antd";
 
-//import signinbg from "../assets/images/img-signin.jpg";
+import signinbg from "../../assets/images/leader-2206099.png";
 import "./HRAdminLogin.css";
 import {
   DribbbleOutlined,
@@ -120,11 +120,14 @@ export default class HRSignIn extends Component {
       console.log("Failed:", errorInfo);
     };
     return (
-      <>
+      <div style={{marginTop:'50px'}}>
+      
         <Layout className="layout-default layout-signin">
           <Header>
             <div className="header-col header-brand">
+ 
                <h5>HRAdminLogin</h5> 
+
             </div>
             <div className="header-col header-nav">
               {/* <Menu mode="horizontal" defaultSelectedKeys={["1"]}> */}
@@ -236,11 +239,13 @@ export default class HRSignIn extends Component {
                 lg={{ span: 12 }}
                 md={{ span: 12 }}
               >
-                 {/* <img src={signinbg} alt="" />  */}
+ 
+              <img src={signinbg} alt="" /> 
+ 
               </Col>
             </Row>
           </Content>
-          <Footer>
+          {/* <Footer>
             <Menu mode="horizontal">
               <Menu.Item>Company</Menu.Item>
               <Menu.Item>About Us</Menu.Item>
@@ -276,9 +281,9 @@ export default class HRSignIn extends Component {
               </Menu.Item>
             </Menu>
              
-          </Footer>
+          </Footer> */}
         </Layout>
-      </>
+      </div>
     );
   }
 }

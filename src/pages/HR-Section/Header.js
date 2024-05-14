@@ -618,8 +618,10 @@ const data = [
     avatar: avtar,
   },
   {
+ 
     title: "Leave request",
     description: "Someone request for leave",
+ 
     avatar: avtar,
   },
   {
@@ -761,7 +763,6 @@ function Header({
       ]);
     }
   };
-
   const showModal = (message, buttons) => {
     Modal.info({
       title: "Notification",

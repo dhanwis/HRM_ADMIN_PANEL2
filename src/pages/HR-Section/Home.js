@@ -589,9 +589,11 @@ function HR_Home() {
           </Col>
          
           <Col xs={24} md={8} lg={8} xl={8} className="mb-24">
+ 
             <Link to="/register/dashboard"  style={{textDecoration:'none'}}>
               <Card bordered={false} className="circlebox">
                 <Title level={4}>Front Office Staff 2</Title>
+ 
                 <img src={logo2} style={{width:'400px'}}/>
                 <Paragraph>Name: Emily Johnson
                 <br></br>
