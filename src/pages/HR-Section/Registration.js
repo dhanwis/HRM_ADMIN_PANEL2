@@ -104,6 +104,16 @@ useEffect(() => {
        key: 'name',
      },
      {
+      title: 'Username',
+      dataIndex: 'username',
+      key: 'username',
+    },
+    {
+      title: 'Password',
+      dataIndex: 'password',
+      key: 'password',
+    },
+     {
        title: 'Email',
        dataIndex: 'email',
        key: 'email',
@@ -203,7 +213,8 @@ useEffect(() => {
   ];
 
   return (
-    <div>
+    <div style={{marginTop:'60px'}}>
+      <h2 style={{marginBottom:'40px'}}> EMPLOYEE REGISTRATION</h2>
       <Form
         form={form}
         layout="vertical"
@@ -211,7 +222,7 @@ useEffect(() => {
         onFinishFailed={onFinishFailed}
       >
         {/* Form fields */}
-        <h2>Personal Information</h2>
+        {/* <h2 style={{marginTop:'20px'}}>Personal Information</h2> */}
        <Row gutter={16}>
         <Col span={12}>
            <Form.Item
@@ -222,9 +233,9 @@ useEffect(() => {
                { validator: validateName }
              ]}
            >
-             <Input placeholder="Name" />
+             <Input placeholder="name" />
            </Form.Item>
-         </Col>
+         </Col> 
          <Col span={12}>
            <Form.Item
              label="Photo"
@@ -236,6 +247,39 @@ useEffect(() => {
              </Upload>
            </Form.Item>
          </Col>
+         <Col span={12}>
+  <Form.Item
+    label="Username"
+    name="username"
+    rules={[
+      { required: true, message: "Please enter username" },
+      {
+        pattern: /^[a-zA-Z0-9_]+$/,
+        message: "Username can only contain letters, numbers, and underscores",
+      },
+    ]}
+  >
+    <Input placeholder="Username" />
+  </Form.Item>
+</Col>
+<Col span={12}>
+  <Form.Item
+    label="Password"
+    name="password"
+    rules={[
+      { required: true, message: "Please enter password" },
+      {
+        pattern:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%?&])[A-Za-z\d@$!%?&]{6,}$/,
+
+        message: "Password must be at least 6 characters long and contain at least one lowercase letter, one uppercase letter, and one number and one special character",
+      },
+    ]}
+  >
+    <Input.Password placeholder="Password" />
+  </Form.Item>
+</Col>
+
+         
        </Row>
        <Row gutter={16}>
          <Col span={12}>
@@ -281,7 +325,7 @@ useEffect(() => {
            </Form.Item>
          </Col>
          <Col span={12}>
-         <Form.Item label="dob" name="dob" rules={[{ required: true, message: "Please select DOB" }]}>
+         <Form.Item label="Dob" name="dob" rules={[{ required: true, message: "Please select DOB" }]}>
           <DatePicker style={{ width: "100%" }} />
         </Form.Item>
            
@@ -289,7 +333,7 @@ useEffect(() => {
        </Row>
       
        {/* Address Information Section */}
-       <h2>Address Information</h2>
+       {/* <h2>Address Information</h2> */}
        <Row gutter={16}>
          <Col span={8}>
            <Form.Item
@@ -347,7 +391,7 @@ useEffect(() => {
        </Row>
 
        {/* Additional Information Section */}
-       <h2>Additional Information</h2>
+       {/* <h2>Additional Information</h2> */}
        <Row gutter={16}>
          <Col span={8}>
            <Form.Item
@@ -367,7 +411,7 @@ useEffect(() => {
          </Col>
          <Col span={8}>
         
-         <Form.Item label="joinDate" name="joinDate" rules={[{ required: true, message: "Please select join date" }]}>
+         <Form.Item label="JoinDate" name="joinDate" rules={[{ required: true, message: "Please select join date" }]}>
           <DatePicker style={{ width: "100%" }} />
         </Form.Item>
          </Col>
@@ -419,7 +463,7 @@ useEffect(() => {
         </Form.Item>
       </Form>
       <div>
-        <h2>Submitted Employee Salary Information</h2>
+        <h2>Submitted Employee Information</h2>
         {/* <Table dataSource={submittedData} columns={columns} /> */}
         <Table dataSource={submittedData} columns={columns} scroll={{ x: true }} />
       </div>
@@ -427,4 +471,4 @@ useEffect(() => {
   );
 };
 
-export default EmployeeRegistrationForm
+export default EmployeeRegistrationForm;

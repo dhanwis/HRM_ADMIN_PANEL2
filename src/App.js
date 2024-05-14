@@ -190,7 +190,7 @@ function App() {
 
 
 
-      <HR_Main>
+     <HR_Main>
         <PrivateHRAdminRoute
             path="/admin/dashboard"
             exact
@@ -264,7 +264,14 @@ function App() {
 
       </HR_Main> 
 
-{/*  
+{/*   
+
+          <PrivateTeamLeadRoute
+            path="/teamlead/changepass"
+            exact
+            component={PasswordForm}
+          />
+
                 <Teamlead_Main>
 
           <PrivateTeamLeadRoute
@@ -407,8 +414,8 @@ function App() {
 
 
           
-          <Main>
-
+          <Main> */}
+{/* 
         
         <PrivateFrontofficeRoute
             path="/frontoffice/dashboard"
@@ -461,6 +468,85 @@ function App() {
             component={Profile}
           />
           </Main> */}
+
+          {/* <Intern_Main> */}
+
+{/* 
+<PrivateInternRoute
+  path="/intern/dashboard"
+  exact
+  component={Intern_Home}
+/> */}
+{/* <PrivateInternRoute
+  path="/intern/main"
+  exact
+  component={Intern_Main}
+/> */}
+{/* <PrivateInternRoute
+  path="/intern/sidebar"
+  exact
+  component={Intern_sidebar}
+/>
+<PrivateInternRoute
+  path="/intern/profile"
+  exact
+  component={Intern_Profile}
+/>
+<PrivateInternRoute
+  path="/intern/feedback"
+  exact
+  component={FeedbackForm}
+/>
+<PrivateInternRoute
+  path="/intern/leave"
+  exact
+  component={LeaveForm_Intern}
+/>
+<PrivateInternRoute
+  path="/intern/reference"
+  exact
+  component={ReferenceForm}
+/>
+<PrivateInternRoute
+  path="/intern/attendance"
+  exact
+  component={AttendanceTable_Intern}
+/>
+<PrivateInternRoute
+  path="/intern/table"
+  exact
+  component={Tables}
+/>
+<PrivateInternRoute
+  path="/intern/updatestatus"
+  exact
+  component={DailyWorksheetView_Intern}
+/>
+<PrivateInternRoute
+  path="/intern/feedetails"
+  exact
+  component={Fee_Details}
+/>
+<PrivateInternRoute
+  path="/intern/viewnotes"
+  exact
+  component={View_notes}
+/>
+<PrivateInternRoute
+  path="/intern/jobapply"
+  exact
+  component={Jobapply}
+/>
+<PrivateInternRoute
+  path="/intern/Testimonial"
+  exact
+  component={TestimonialForm}
+/>
+
+
+
+
+</Intern_Main> */}
 
          
           {/* <PrivateInternRoute
