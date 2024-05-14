@@ -31,7 +31,7 @@ import HR_Main from "./pages/HR-Section/main";
 import HR_Tables from "./pages/HR-Section/table";
 import HR_Profile from "./pages/HR-Section/profile";
 import HR_Billing from "./pages/HR-Section/billing";
-import Intern_Home from "./pages/Intern-Section/Home";
+
 
 import Teamlead_Main from "./pages/TeamLead-Section/main";
 import Team_Tables from "./pages/TeamLead-Section/Teamtable";
@@ -86,6 +86,22 @@ import FrontResetPassword from "./pages/frontoffice/resetpass.js";
 
 
 
+import Intern_Main from "./pages/Intern-Section/main";
+import Intern_Home from "./pages/Intern-Section/Home";
+
+import Intern_Profile from "./pages/Intern-Section/profile";
+import Intern_sidebar from "./pages/Intern-Section/sidebar";
+
+import FeedbackForm from "./pages/Intern-Section/Feedback";
+import LeaveForm_Intern from "./pages/Intern-Section/leave";
+import ReferenceForm from "./pages/Intern-Section/reference";
+import AttendanceTable_Intern from "./pages/Intern-Section/attendance";
+import Tables from "./pages/Intern-Section/table";
+import Fee_Details from "./pages/Intern-Section/feedetails";
+import View_notes from "./pages/Intern-Section/viewnotes";
+import DailyWorksheetView_Intern from "./pages/Intern-Section/updatestatus";
+import Jobapply from "./pages/Intern-Section/jobapply";
+import TestimonialForm from "./pages/Intern-Section/Testimonial";
 
 
 
@@ -461,6 +477,85 @@ function App() {
             component={Profile}
           />
           </Main>
+
+          <Intern_Main>
+
+
+<PrivateInternRoute
+  path="/intern/dashboard"
+  exact
+  component={Intern_Home}
+/>
+{/* <PrivateInternRoute
+  path="/intern/main"
+  exact
+  component={Intern_Main}
+/> */}
+<PrivateInternRoute
+  path="/intern/sidebar"
+  exact
+  component={Intern_sidebar}
+/>
+<PrivateInternRoute
+  path="/intern/profile"
+  exact
+  component={Intern_Profile}
+/>
+<PrivateInternRoute
+  path="/intern/feedback"
+  exact
+  component={FeedbackForm}
+/>
+<PrivateInternRoute
+  path="/intern/leave"
+  exact
+  component={LeaveForm_Intern}
+/>
+<PrivateInternRoute
+  path="/intern/reference"
+  exact
+  component={ReferenceForm}
+/>
+<PrivateInternRoute
+  path="/intern/attendance"
+  exact
+  component={AttendanceTable_Intern}
+/>
+<PrivateInternRoute
+  path="/intern/table"
+  exact
+  component={Tables}
+/>
+<PrivateInternRoute
+  path="/intern/updatestatus"
+  exact
+  component={DailyWorksheetView_Intern}
+/>
+<PrivateInternRoute
+  path="/intern/feedetails"
+  exact
+  component={Fee_Details}
+/>
+<PrivateInternRoute
+  path="/intern/viewnotes"
+  exact
+  component={View_notes}
+/>
+<PrivateInternRoute
+  path="/intern/jobapply"
+  exact
+  component={Jobapply}
+/>
+<PrivateInternRoute
+  path="/intern/Testimonial"
+  exact
+  component={TestimonialForm}
+/>
+
+
+
+
+</Intern_Main>
 
          
           {/* <PrivateInternRoute
