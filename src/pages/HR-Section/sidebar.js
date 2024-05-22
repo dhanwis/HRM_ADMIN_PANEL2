@@ -74,7 +74,7 @@ export default function SidenavHR({ color }) {
   const StaffMenu = (
     <Menu>
       <Menu.Item key="register">
-        <NavLink to="/register/dashboard"style={{textDecoration:"none"}}>
+        <NavLink to="/register/staff/dashboard"style={{textDecoration:"none"}}>
           Register
         </NavLink>
       </Menu.Item>
@@ -107,7 +107,7 @@ export default function SidenavHR({ color }) {
   const TeamLeadMenu = (
     <Menu>
       <Menu.Item key="register">
-        <NavLink to="/register/dashboard"style={{textDecoration:"none"}}>
+        <NavLink to="/register/teamlead/dashboard"style={{textDecoration:"none"}}>
           Register
         </NavLink>
       </Menu.Item>
@@ -141,7 +141,7 @@ export default function SidenavHR({ color }) {
   const FrontofficeMenu = (
     <Menu>
       <Menu.Item key="register">
-        <NavLink to="/register/dashboard"style={{textDecoration:"none"}}>
+        <NavLink to="/register/front/dashboard"style={{textDecoration:"none"}}>
           Register
         </NavLink>
       </Menu.Item>

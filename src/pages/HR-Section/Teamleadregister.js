@@ -2,9 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Form, Input, Button, DatePicker, Select, Table, Popconfirm, InputNumber,Row,Col,Upload } from "antd";
 import moment from "moment";
 import { UploadOutlined } from '@ant-design/icons';
+
+
+
 const { Option } = Select;
 
-const EmployeeRegistrationForm = () => {
+
+const TeamleadRegistrationForm = () => {
   const [form] = Form.useForm();
   const [submittedData, setSubmittedData] = useState([]);
   const [editingKey, setEditingKey] = useState(null);
@@ -96,6 +100,8 @@ useEffect(() => {
 
   
 
+  
+
   const columns = [
    
      {
@@ -138,6 +144,11 @@ useEffect(() => {
       }
     },
 
+    {
+      title: 'Address',
+      dataIndex: 'address',
+      key: 'address',
+    },
 
      {
        title: 'City',
@@ -176,9 +187,9 @@ useEffect(() => {
       }
     },
     {
-      title: 'Department',
-      dataIndex: 'department',
-      key: 'department',
+      title: 'Qualification',
+      dataIndex: 'qualification',
+      key: 'qualification',
     },
 
 
@@ -214,7 +225,7 @@ useEffect(() => {
 
   return (
     <div style={{marginTop:'60px'}}>
-      <h2 style={{marginBottom:'40px'}}> EMPLOYEE REGISTRATION</h2>
+      <h2 style={{marginBottom:'40px'}}> TEAMLEAD REGISTRATION</h2>
       <Form
         form={form}
         layout="vertical"
@@ -315,7 +326,7 @@ useEffect(() => {
            <Form.Item
              label="Marital Status"
              name="maritalStatus"
-             rules={[{ required: true, message: "Please select marital status" }]}
+            //  rules={[{ required: true, message: "Please select marital status" }]}
            >
              <Select placeholder="Select marital status">
                <Option value="Single">Single</Option>
@@ -325,7 +336,11 @@ useEffect(() => {
            </Form.Item>
          </Col>
          <Col span={12}>
-         <Form.Item label="Dob" name="dob" rules={[{ required: true, message: "Please select DOB" }]}>
+         <Form.Item label="Dob"
+          name="dob" 
+          // rules={[{ required: true, message: "Please select DOB" }]}
+          >
+
           <DatePicker style={{ width: "100%" }} />
         </Form.Item>
            
@@ -335,12 +350,24 @@ useEffect(() => {
        {/* Address Information Section */}
        {/* <h2>Address Information</h2> */}
        <Row gutter={16}>
+       <Col span={8}>
+           <Form.Item
+             label="Address"
+             name="address"
+             rules={[
+              //  { required: true, message: "Please enter city" },
+               { validator: validateNoNumbers }
+             ]}
+           >
+             <Input placeholder="Address" />
+           </Form.Item>
+         </Col>
          <Col span={8}>
            <Form.Item
              label="City"
              name="city"
              rules={[
-               { required: true, message: "Please enter city" },
+              //  { required: true, message: "Please enter city" },
                { validator: validateNoNumbers }
              ]}
            >
@@ -352,7 +379,7 @@ useEffect(() => {
              label="State"
              name="state"
              rules={[
-               { required: true, message: "Please enter state" },
+               //{ required: true, message: "Please enter state" },
                { validator: validateNoNumbers }
              ]}
            >
@@ -364,21 +391,19 @@ useEffect(() => {
              label="Country"
              name="country"
              rules={[
-               { required: true, message: "Please enter country" },
+              //  { required: true, message: "Please enter country" },
                { validator: validateNoNumbers }
              ]}
            >
              <Input placeholder="Country" />
            </Form.Item>
          </Col>
-       </Row>
-       <Row gutter={16}>
          <Col span={8}>
            <Form.Item
              label="Pin Code"
              name="pinCode"
              rules={[
-               { required: true, message: "Please enter pin code" },
+              //  { required: true, message: "Please enter pin code" },
                {
                  pattern: /^[0-9]{6}$/,
                  message: "Please enter a valid pin code",
@@ -389,45 +414,31 @@ useEffect(() => {
            </Form.Item>
          </Col>
        </Row>
+ 
 
        {/* Additional Information Section */}
        {/* <h2>Additional Information</h2> */}
        <Row gutter={16}>
-         <Col span={8}>
-           <Form.Item
-             label="Role"
-             name="role"
-             rules={[
-               { required: true, message: "Please enter role" },
-             ]}
-           >
-               <Select placeholder="Select role">
-               <Option value="Front office">Front office</Option>
-               <Option value="Staff">Staff</Option>
-               <Option value="Teamlead">Teamlead</Option>
-             </Select>
-          
-           </Form.Item>
-         </Col>
+      
          <Col span={8}>
         
-         <Form.Item label="JoinDate" name="joinDate" rules={[{ required: true, message: "Please select join date" }]}>
+         <Form.Item label="JoinDate" 
+         name="joinDate" 
+        //  rules={[{ required: true, message: "Please select join date" }]}
+         >
           <DatePicker style={{ width: "100%" }} />
         </Form.Item>
          </Col>
          <Col span={8}>
            <Form.Item
-             label="Department"
-             name="department"
+             label="Qualification"
+             name="qualification"
              rules={[
-               { required: true, message: "Please select department" },
+              //  { required: true, message: "Please select department" },
+              { validator: validateNoNumbers }
              ]}
            >
-             <Select placeholder="Select department">
-               <Option value="IT">IT</Option>
-               <Option value="HR">HR</Option>
-               <Option value="Finance">Finance</Option>
-             </Select>
+             <Input placeholder="Qualification" />
            </Form.Item>
          </Col>
      
@@ -441,7 +452,7 @@ useEffect(() => {
              label="Experience"
              name="experience"
              rules={[
-               { required: true, message: "Please select your work experience" },
+              //  { required: true, message: "Please select your work experience" },
              ]}
            >
              <Select placeholder="Select your work experience">
@@ -463,7 +474,7 @@ useEffect(() => {
         </Form.Item>
       </Form>
       <div>
-        <h2>Submitted Employee Information</h2>
+        <h2>Submitted Data</h2>
         {/* <Table dataSource={submittedData} columns={columns} /> */}
         <Table dataSource={submittedData} columns={columns} scroll={{ x: true }} />
       </div>
@@ -471,4 +482,4 @@ useEffect(() => {
   );
 };
 
-export default EmployeeRegistrationForm;
+export default TeamleadRegistrationForm;

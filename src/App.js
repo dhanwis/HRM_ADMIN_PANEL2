@@ -46,7 +46,9 @@ import Uploadnote from "./pages/TeamLead-Section/internnote";
 import PasswordForm from "./pages/TeamLead-Section/resetpass.js";
 
 //import Intern_Sidebar from "./pages/Intern-Section/sidebar";
-import EmployeeRegistrationForm from './pages/HR-Section/Registration';
+import StaffRegistrationForm from './pages/HR-Section/Staffregister';
+import TeamleadRegistrationForm from "./pages/HR-Section/Teamleadregister";
+import FrontRegistrationForm from "./pages/HR-Section/FrontRegister.js";
 import InternRegistrationForm from "./pages/HR-Section/Internregister";
 import TaskForm from "./pages/HR-Section/Task";
 import Feeform from "./pages/HR-Section/Internfee";
@@ -83,9 +85,6 @@ import Attendanceview from "./pages/frontoffice/attendance";
 import Profile from "./pages/frontoffice/profile";
 import CallSheet from "./pages/frontoffice/callsheet";
 import FrontResetPassword from "./pages/frontoffice/resetpass.js";
-
-
-
 
 
 
@@ -219,9 +218,19 @@ function App() {
           />
 
            <PrivateHRAdminRoute
-            path="/register/dashboard"
+            path="/register/staff/dashboard"
             exact
-            component={EmployeeRegistrationForm}
+            component={StaffRegistrationForm}
+          />
+          <PrivateHRAdminRoute
+            path="/register/teamlead/dashboard"
+            exact
+            component={TeamleadRegistrationForm}
+          />
+          <PrivateHRAdminRoute
+            path="/register/front/dashboard"
+            exact
+            component={FrontRegistrationForm}
           />
             <PrivateHRAdminRoute
             path="/intern/register/dashboard"
@@ -264,8 +273,8 @@ function App() {
 
       </HR_Main> 
 
-{/*   
-
+  
+{/* 
           <PrivateTeamLeadRoute
             path="/teamlead/changepass"
             exact
@@ -403,9 +412,9 @@ function App() {
             exact
             component={DailyWorksheetView}
           />
-          </Staff_Main> */}
+          </Staff_Main>
         
-{/*         
+        
         <PrivateFrontofficeRoute
             path="/frontoffice/frontResetPassword"
             exact
@@ -414,8 +423,8 @@ function App() {
 
 
           
-          <Main> */}
-{/* 
+          <Main>
+
         
         <PrivateFrontofficeRoute
             path="/frontoffice/dashboard"
@@ -467,22 +476,22 @@ function App() {
             exact
             component={Profile}
           />
-          </Main> */}
+          </Main>  */}
 
-          {/* <Intern_Main> */}
+          {/* <Intern_Main>
 
-{/* 
+
 <PrivateInternRoute
   path="/intern/dashboard"
   exact
   component={Intern_Home}
-/> */}
-{/* <PrivateInternRoute
+/> 
+<PrivateInternRoute
   path="/intern/main"
   exact
   component={Intern_Main}
-/> */}
-{/* <PrivateInternRoute
+/> 
+<PrivateInternRoute
   path="/intern/sidebar"
   exact
   component={Intern_sidebar}
