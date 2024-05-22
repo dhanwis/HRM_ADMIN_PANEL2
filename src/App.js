@@ -31,8 +31,6 @@ import HR_Main from "./pages/HR-Section/main";
 import HR_Tables from "./pages/HR-Section/table";
 import HR_Profile from "./pages/HR-Section/profile";
 import HR_Billing from "./pages/HR-Section/billing";
-import Intern_Home from "./pages/Intern-Section/Home";
-
 import Teamlead_Main from "./pages/TeamLead-Section/main";
 import Team_Tables from "./pages/TeamLead-Section/Teamtable";
 import Team_Profile from "./pages/TeamLead-Section/teamprofil";
@@ -213,7 +211,7 @@ function App() {
 
 
  
-{/* 
+ 
       <HR_Main>
  
         <PrivateHRAdminRoute
@@ -291,7 +289,7 @@ function App() {
     
 
 
-      </HR_Main> */}
+      </HR_Main> 
  
 
 
@@ -342,7 +340,7 @@ function App() {
             component={StudentList}
           /> */}
 
-          <PrivateTeamLeadRoute
+          {/* <PrivateTeamLeadRoute
             path="/teamlead/seat"
             exact
             component={SeatingChart}
@@ -378,7 +376,7 @@ function App() {
             path="/teamlead/digitalmarketing"
             exact
             component={DigitalMarketingTable}
-          />
+          /> */}
           
           {/* <PrivateTeamLeadRoute
             path="/teamlead/internnotes"
@@ -387,13 +385,13 @@ function App() {
           /> */}
 
  
-               <PrivateTeamLeadRoute
+               {/* <PrivateTeamLeadRoute
             path="/teamlead/changepass"
             exact
             component={PasswordForm}
           />
  
-          </Teamlead_Main>  */}
+          </Teamlead_Main>   */}
  
  
 
@@ -580,7 +578,7 @@ function App() {
   exact
   component={AttendanceTable_Intern}
 /> */}
-<PrivateInternRoute
+{/* <PrivateInternRoute
   path="/intern/table"
   exact
   component={Tables}
@@ -609,13 +607,13 @@ function App() {
   path="/intern/Testimonial"
   exact
   component={TestimonialForm}
-/>
+/> */}
 
 
 
 
  
-</Intern_Main> */}
+{/* </Intern_Main> */}
  
 
          
