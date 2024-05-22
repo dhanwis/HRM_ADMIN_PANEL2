@@ -212,7 +212,7 @@ function App() {
 
  
  
-      <HR_Main>
+      {/* <HR_Main>
  
         <PrivateHRAdminRoute
             path="/admin/dashboard"
@@ -289,7 +289,7 @@ function App() {
     
 
 
-      </HR_Main> 
+      </HR_Main>  */}
  
 
 
@@ -399,16 +399,15 @@ function App() {
 
            
           
-          {/* <Staff_Main>
           <PrivateStaffRoute
             path="/staff/resetpasswoord"
             exact
-            component={ResetPasswordFront}
+            component={ResetPassword}
           />
  
            
           
-          {/* <Staff_Main>
+           <Staff_Main>
   
  
               
@@ -452,7 +451,7 @@ function App() {
             exact
             component={DailyWorksheetView}
           />
-          </Staff_Main> */}
+          </Staff_Main> 
  
         
 {/*         

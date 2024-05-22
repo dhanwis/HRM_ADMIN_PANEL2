@@ -45,26 +45,6 @@ const LeaveFormStaff = () => {
         {/* Form fields */}
         <Row>
           <Col>
-            <Form.Group controlId="firstName">
-              <Form.Label> Name</Form.Label>
-              <Form.Control type="text" name="firstName" value={formData.firstName} onChange={handleChange} required />
-            </Form.Group>
-          </Col>
-        </Row>
-        <Form.Group controlId="department">
-          <Form.Label>Department Name</Form.Label>
-          <Form.Control type="text" name="department" value={formData.department} onChange={handleChange} required />
-        </Form.Group>
-        <Form.Group controlId="phoneNumber">
-          <Form.Label>Phone Number</Form.Label>
-          <Form.Control type="tel" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} required />
-        </Form.Group>
-        <Form.Group controlId="email">
-          <Form.Label>Email Address</Form.Label>
-          <Form.Control type="email" name="email" value={formData.email} onChange={handleChange} required />
-        </Form.Group>
-        <Row>
-          <Col>
             <Form.Group controlId="startDate">
               <Form.Label> Day of Absence</Form.Label>
               <Form.Control type="text" name="startDate" value={formData.startDate} onChange={handleChange} required />
