@@ -102,6 +102,9 @@ import View_notes from "./pages/Intern-Section/viewnotes";
 import DailyWorksheetView_Intern from "./pages/Intern-Section/updatestatus";
 import Jobapply from "./pages/Intern-Section/jobapply";
 import TestimonialForm from "./pages/Intern-Section/Testimonial";
+import LandingPage from "./landing.js";
+import InternRoutes from "./pages/Intern-Section/InternRoute.js";
+import HrRoutes from "./pages/HR-Section/HrRoute.js";
 
 
 
@@ -193,19 +196,13 @@ function App() {
   return (
     <div className="App">
       <Switch>
-        <Route path="/admin/login" exact component={HRSignIn} />
+        {/* <Route path="/admin/login" exact component={HRSignIn} />
         <Route path="/staff/login" exact component={StaffLogin} />
         <Route path="/intern/login" exact component={InternLogin} />
         <Route path="/teamlead/login" exact component={TeamLeadLogin} />
+     <Route path="/officestaff/login" exact component={login} /> */}
 
-        <Route path="/admin/tables" component={HR_Tables} />
-          
-
-
-        <Route path="/officestaff/login" exact component={login} />
-
-
-
+       
      {/* <HR_Main>
         <PrivateHRAdminRoute
             path="/admin/dashboard"
@@ -422,9 +419,9 @@ function App() {
             component={FrontResetPassword}
           />
 
-
+*/}
           
-          <Main>
+          {/* <Main>
 
         
         <PrivateFrontofficeRoute
@@ -477,21 +474,15 @@ function App() {
             exact
             component={Profile}
           />
-          </Main> */}
+          </Main>  */}
 
-          <Intern_Main>
-
-
+          {/* <Intern_Main>
 <PrivateInternRoute
   path="/intern/dashboard"
   exact
   component={Intern_Home}
 />
-{/* <PrivateInternRoute
-  path="/intern/main"
-  exact
-  component={Intern_Main}
-/> */}
+ 
 <PrivateInternRoute
   path="/intern/sidebar"
   exact
@@ -552,26 +543,18 @@ function App() {
   exact
   component={TestimonialForm}
 />
+ 
+</Intern_Main> */}
 
 
 
+   {/* Define routes for each section */}
+   <Route path="/intern" component={InternRoutes} />
+   <Route path="/admin" component={HrRoutes} />
+<Route path="/landing" component={LandingPage} />
 
-</Intern_Main>
 
-         
-          {/* <PrivateInternRoute
-            path="/intern/profile"
-            exact
-            component={InternProfile}
-          /> */}
-        {/* <PrivateStaffRoute path="/staff/dashboard" exact component={StaffDashboard} />
-       
-        <PrivateTeamLeadRoute path="/teamlead/dashboard" exact component={TeamLeadDashboard} />
-        <PrivateStaffRoute path="/staff/profile" exact component={StaffProfile} /><
-        
-        <PrivateTeamLeadRoute path="/teamlead/profile" exact component={TeamLeadProfile} /> */}
-       
-       <Redirect from="*" to="/admin/login" />
+<Redirect from="*" to="/landing" />
       </Switch>
     </div>
   );
