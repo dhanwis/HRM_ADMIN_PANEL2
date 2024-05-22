@@ -260,6 +260,9 @@ function App() {
             component={JobForm}
           />
 
+         
+
+
     
 
       </HR_Main> 
@@ -546,7 +549,7 @@ function App() {
 
 
 
-</Intern_Main> */}
+</Intern_Main> 
 
          
           {/* <PrivateInternRoute
