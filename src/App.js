@@ -202,6 +202,7 @@ function App() {
     <div className="App">
       <Switch>
           
+ 
       {/* <HR_Main>
  
         <PrivateHRAdminRoute
@@ -279,8 +280,10 @@ function App() {
     
 
 
+ 
       </HR_Main> 
   */}
+ 
 
 
 {/*   
@@ -389,60 +392,59 @@ function App() {
 
            
           
-          {/* <Staff_Main>
-          <PrivateStaffRoute
-            path="/staff/resetpasswoord"
-            exact
-            component={ResetPasswordFront}
-          />
+//           <PrivateStaffRoute
+//             path="/staff/resetpasswoord"
+//             exact
+//             component={ResetPassword}
+//           />
  
            
           
-          {/* <Staff_Main>
+//            <Staff_Main>
   
  
               
-          <PrivateStaffRoute
-            path="/staff/dashboard"
-            exact
-            component={Staffhome}
-          />
-            <PrivateStaffRoute
-            path="/staff/table"
-            exact
-            component={Tablesstaff}
-          />
-            <PrivateStaffRoute
-            path="/staff/profile"
-            exact
-            component={Profilestaff}
-          />
-            <PrivateStaffRoute
-            path="/staff/leave"
-            exact
-            component={LeaveFormStaff}
-          />
-            <PrivateStaffRoute
-            path="/staff/task"
-            exact
-            component={Viewprojectstaff}
-          />
-            <PrivateStaffRoute
-            path="/staff/attendance"
-            exact
-            component={AttendanceTable}
-          />
-            <PrivateStaffRoute
-            path="/staff/notes"
-            exact
-            component={NotesSharingPage}
-          />
-            <PrivateStaffRoute
-            path="/staff/worksheet"
-            exact
-            component={DailyWorksheetView}
-          />
-          </Staff_Main> */}
+//           <PrivateStaffRoute
+//             path="/staff/dashboard"
+//             exact
+//             component={Staffhome}
+//           />
+//             <PrivateStaffRoute
+//             path="/staff/table"
+//             exact
+//             component={Tablesstaff}
+//           />
+//             <PrivateStaffRoute
+//             path="/staff/profile"
+//             exact
+//             component={Profilestaff}
+//           />
+//             <PrivateStaffRoute
+//             path="/staff/leave"
+//             exact
+//             component={LeaveFormStaff}
+//           />
+//             <PrivateStaffRoute
+//             path="/staff/task"
+//             exact
+//             component={Viewprojectstaff}
+//           />
+//             <PrivateStaffRoute
+//             path="/staff/attendance"
+//             exact
+//             component={AttendanceTable}
+//           />
+//             <PrivateStaffRoute
+//             path="/staff/notes"
+//             exact
+//             component={NotesSharingPage}
+//           />
+//             <PrivateStaffRoute
+//             path="/staff/worksheet"
+//             exact
+//             component={DailyWorksheetView}
+//           />
+//           </Staff_Main> 
  
         
 {/*         
