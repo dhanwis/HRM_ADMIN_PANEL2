@@ -106,6 +106,9 @@ import Jobapply from "./pages/Intern-Section/jobapply";
 import TestimonialForm from "./pages/Intern-Section/Testimonial";
  
 import FeedbackList from "./pages/TeamLead-Section/Internfeedback.js";
+import LandingPage from "./landing.js";
+import HrRoutes from "./pages/HR-Section/HrRoute.js";
+import InternRoutes from "./pages/Intern-Section/InternRoute.js";
  
 
 
@@ -198,19 +201,7 @@ function App() {
   return (
     <div className="App">
       <Switch>
-        <Route path="/admin/login" exact component={HRSignIn} />
-        <Route path="/staff/login" exact component={StaffLogin} />
-        <Route path="/intern/login" exact component={InternLogin} />
-        <Route path="/teamlead/login" exact component={TeamLeadLogin} />
-
-        <Route path="/admin/tables" component={HR_Tables} />
           
-
-
-        <Route path="/officestaff/login" exact component={login} />
-
-
- 
  
       {/* <HR_Main>
  
@@ -289,7 +280,9 @@ function App() {
     
 
 
-      </HR_Main>  */}
+ 
+      </HR_Main> 
+  */}
  
 
 
@@ -399,59 +392,59 @@ function App() {
 
            
           
-          <PrivateStaffRoute
-            path="/staff/resetpasswoord"
-            exact
-            component={ResetPassword}
-          />
+//           <PrivateStaffRoute
+//             path="/staff/resetpasswoord"
+//             exact
+//             component={ResetPassword}
+//           />
  
            
           
-           <Staff_Main>
+//            <Staff_Main>
   
  
               
-          <PrivateStaffRoute
-            path="/staff/dashboard"
-            exact
-            component={Staffhome}
-          />
-            <PrivateStaffRoute
-            path="/staff/table"
-            exact
-            component={Tablesstaff}
-          />
-            <PrivateStaffRoute
-            path="/staff/profile"
-            exact
-            component={Profilestaff}
-          />
-            <PrivateStaffRoute
-            path="/staff/leave"
-            exact
-            component={LeaveFormStaff}
-          />
-            <PrivateStaffRoute
-            path="/staff/task"
-            exact
-            component={Viewprojectstaff}
-          />
-            <PrivateStaffRoute
-            path="/staff/attendance"
-            exact
-            component={AttendanceTable}
-          />
-            <PrivateStaffRoute
-            path="/staff/notes"
-            exact
-            component={NotesSharingPage}
-          />
-            <PrivateStaffRoute
-            path="/staff/worksheet"
-            exact
-            component={DailyWorksheetView}
-          />
-          </Staff_Main> 
+//           <PrivateStaffRoute
+//             path="/staff/dashboard"
+//             exact
+//             component={Staffhome}
+//           />
+//             <PrivateStaffRoute
+//             path="/staff/table"
+//             exact
+//             component={Tablesstaff}
+//           />
+//             <PrivateStaffRoute
+//             path="/staff/profile"
+//             exact
+//             component={Profilestaff}
+//           />
+//             <PrivateStaffRoute
+//             path="/staff/leave"
+//             exact
+//             component={LeaveFormStaff}
+//           />
+//             <PrivateStaffRoute
+//             path="/staff/task"
+//             exact
+//             component={Viewprojectstaff}
+//           />
+//             <PrivateStaffRoute
+//             path="/staff/attendance"
+//             exact
+//             component={AttendanceTable}
+//           />
+//             <PrivateStaffRoute
+//             path="/staff/notes"
+//             exact
+//             component={NotesSharingPage}
+//           />
+//             <PrivateStaffRoute
+//             path="/staff/worksheet"
+//             exact
+//             component={DailyWorksheetView}
+//           />
+//           </Staff_Main> 
  
         
 {/*         
@@ -461,10 +454,7 @@ function App() {
             component={FrontResetPassword}
           />
 
-
-          
-          <Main> */}
-{/* 
+ 
         
         <PrivateFrontofficeRoute
             path="/frontoffice/dashboard"
@@ -628,7 +618,10 @@ function App() {
         
         <PrivateTeamLeadRoute path="/teamlead/profile" exact component={TeamLeadProfile} /> */}
        
-       <Redirect from="*" to="/admin/login" />
+       <Route path="/intern" component={InternRoutes} />
+   <Route path="/admin" component={HrRoutes} />
+<Route path="/landing" component={LandingPage} />
+<Redirect from="*" to="/landing" />
       </Switch>
     </div>
   );
