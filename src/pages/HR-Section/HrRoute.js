@@ -49,6 +49,7 @@ const HrRoutes = () => (
     <PrivateHrRoute path="/admin/attendance" exact component={AttendanceMarkingPage} />
     <PrivateHrRoute path="/admin/jobapply" exact component={JobForm} />
     <PrivateHrRoute path="/admin/billing" exact component={HR_Billing} />
+    <PrivateHrRoute path="/admin/reference" exact component={HR_Billing} />
   </Switch>
 );
 

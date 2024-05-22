@@ -106,6 +106,9 @@ import Jobapply from "./pages/Intern-Section/jobapply";
 import TestimonialForm from "./pages/Intern-Section/Testimonial";
  
 import FeedbackList from "./pages/TeamLead-Section/Internfeedback.js";
+import LandingPage from "./landing.js";
+import HrRoutes from "./pages/HR-Section/HrRoute.js";
+import InternRoutes from "./pages/Intern-Section/InternRoute.js";
  
 
 
@@ -199,7 +202,7 @@ function App() {
     <div className="App">
       <Switch>
           
-      <HR_Main>
+      {/* <HR_Main>
  
         <PrivateHRAdminRoute
             path="/admin/dashboard"
@@ -277,7 +280,7 @@ function App() {
 
 
       </HR_Main> 
- 
+  */}
 
 
 {/*   
@@ -613,7 +616,10 @@ function App() {
         
         <PrivateTeamLeadRoute path="/teamlead/profile" exact component={TeamLeadProfile} /> */}
        
-       <Redirect from="*" to="/admin/login" />
+       <Route path="/intern" component={InternRoutes} />
+   <Route path="/admin" component={HrRoutes} />
+<Route path="/landing" component={LandingPage} />
+<Redirect from="*" to="/landing" />
       </Switch>
     </div>
   );

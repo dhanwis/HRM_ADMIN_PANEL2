@@ -262,7 +262,7 @@ export default function SidenavHR({ color }) {
           </NavLink>
         </Menu.Item>
         <Menu.Item key="3">
-          <NavLink to="/register/dashboard" style={{textDecoration:"none"}}>
+          <NavLink to="/admin/register" style={{textDecoration:"none"}}>
             <span
               className="icon"
               style={{
@@ -276,7 +276,7 @@ export default function SidenavHR({ color }) {
         </Menu.Item> 
 
         <Menu.Item key="4">
-          <NavLink to="/task/dashboard" style={{textDecoration:"none"}}>
+          <NavLink to="/admin/task" style={{textDecoration:"none"}}>
             <span
               className="icon"
               style={{
@@ -291,7 +291,7 @@ export default function SidenavHR({ color }) {
         </Menu.Item> 
 
         <Menu.Item key="5">
-          <NavLink to="/leave/dashboard" style={{textDecoration:"none"}}>
+          <NavLink to="/admin/leave" style={{textDecoration:"none"}}>
             <span
               className="icon"
               style={{
@@ -305,7 +305,7 @@ export default function SidenavHR({ color }) {
         </Menu.Item> 
 
         <Menu.Item key="6">
-          <NavLink to="/job/dashboard" style={{textDecoration:"none"}}>
+          <NavLink to="/admin/jobapply" style={{textDecoration:"none"}}>
             <span
               className="icon"
               style={{
