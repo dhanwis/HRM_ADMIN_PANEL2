@@ -103,7 +103,10 @@ import View_notes from "./pages/Intern-Section/viewnotes";
 import DailyWorksheetView_Intern from "./pages/Intern-Section/updatestatus";
 import Jobapply from "./pages/Intern-Section/jobapply";
 import TestimonialForm from "./pages/Intern-Section/Testimonial";
-import FeedbackList from "./pages/TeamLead-Section/Internfeedback.js";
+import FeedbackList
+ 
+
+from "./pages/TeamLead-Section/Internfeedback.js";
 
 
 
