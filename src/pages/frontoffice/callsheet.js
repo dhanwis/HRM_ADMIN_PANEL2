@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Table, Typography, Button, Modal, Form, Input } from "antd";
-import { PhoneOutlined, DownloadOutlined } from '@ant-design/icons'; // Import the PhoneOutlined and DownloadOutlined icons
+import { Table, Typography, Button, Modal, Form, Input, message } from "antd";
+import { PhoneOutlined, DownloadOutlined } from '@ant-design/icons';
 import moment from "moment";
 
 const { Title } = Typography;
 
-function CallSheet() {
+function CallSheet({ onConfirm }) {
   const [calls, setCalls] = useState([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -80,12 +80,10 @@ function CallSheet() {
     const csvData = convertToCSV(calls);
     const blob = new Blob([csvData], { type: "text/csv" });
     if (window.navigator.msSaveBlob) {
-      // For IE 10+
       window.navigator.msSaveBlob(blob, filename);
     } else {
       const link = document.createElement("a");
       if (link.download !== undefined) {
-        // For other browsers
         const url = URL.createObjectURL(blob);
         link.setAttribute("href", url);
         link.setAttribute("download", filename);
@@ -109,6 +107,12 @@ function CallSheet() {
   const rowSelection = {
     selectedRowKeys,
     onChange: onSelectChange,
+  };
+
+  const handleConfirm = (record) => {
+    onConfirm(record);
+    setCalls(calls.filter(call => call.id !== record.id));
+    message.success(`Confirmed call with ${record.customerName}`);
   };
 
   const columns = [
@@ -138,10 +142,19 @@ function CallSheet() {
       key: "date",
       render: (text) => moment(text).format("YYYY-MM-DD"),
     },
+    {
+      title: "Actions",
+      key: "actions",
+      render: (_, record) => (
+        <Button type="primary" onClick={() => handleConfirm(record)}>
+          Confirm
+        </Button>
+      ),
+    },
   ];
 
   return (
-    <div className="call-sheet"style={{paddingTop:"50px"}}>
+    <div className="call-sheet" style={{ paddingTop: "50px" }}>
       <Title level={5}>Call Sheet</Title>
       <Button type="primary" icon={<PhoneOutlined />} onClick={showModal} style={{ marginBottom: 16 }}>
         Add Call

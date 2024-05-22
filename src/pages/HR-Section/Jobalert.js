@@ -76,7 +76,8 @@ const JobForm = () => {
   };
 
   return (
-    <div>
+    <div style={{marginTop:'40px'}}>
+     
       <Form form={form} onFinish={onFinish} layout="vertical">
         <Form.Item label="Company Name" name="companyName" rules={[{ required: true, message: 'Please input company name' }]}>
           <Input />
