@@ -149,7 +149,9 @@ body {
   .active,
 .layout-dashboard .ant-layout-sider.sider-primary .ant-menu-submenu .active {
   background-color: #fff;
-  box-shadow: 0 20px 27px rgb(0 0 0 / 5%);
+  /* box-shadow: 0 20px 27px rgb(0 0 0 / 5%); */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  display: inline-block;
   font-weight: 600;
 }
 .layout-dashboard .ant-layout-sider.sider-primary .ant-menu-item a,
@@ -3046,3 +3048,4 @@ section.ant-layout.ant-layout-has-sider.layout-dashboard.layout-profile
   path {
   fill: #8c8c8c;
 }
+
