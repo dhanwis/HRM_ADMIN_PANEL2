@@ -73,10 +73,17 @@ export default function SidenavFront({ color }) {
       link: "/frontoffice/PaymentDetailsPage",
     },
     {
+      key: "InternRegistration",
+      icon: <SolutionOutlined />,
+      label: "Intern Registration",
+      link: "/frontoffice/internRegistration",
+    },
+    {
       key: "profile",
       icon: <UserOutlined />,
       label: "Profile",
       link: "/frontoffice/profile",
+      
     },
   ];
 
@@ -137,8 +144,8 @@ export default function SidenavFront({ color }) {
     <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
       <div style={{ padding: "20px", borderBottom: "1px solid #f0f0f0", textAlign: "center" }}>
         <img src={logos} alt="" style={{ width: "150px", marginBottom: "20px"}} />
-        <span style={{ color: "black", fontSize: "25px" }}>
-          <b>Front Office</b>
+        <span style={{ color: "black", fontSize: "24px" }}>
+          <b>Sales Executive</b>
         </span>
       </div>
       <div style={{ flex: "1", overflowY: "auto" }}>
