@@ -156,11 +156,7 @@ function PaymentDetailsPage() {
   return (
     <div className="payment-details" style={{ paddingTop: "50px" }}>
       <Title level={5}>Payment Details</Title>
-      <div style={{ marginBottom: "20px",textAlign: "right" }}>
-        Date: {moment().format("YYYY-MM-DD")}
-        <br />
-        Time: {moment().format("hh:mm:ss A")}
-      </div>
+
       <Button type="primary" onClick={showModal} style={{ marginBottom: 16 }}>
         Add Payment
       </Button>
