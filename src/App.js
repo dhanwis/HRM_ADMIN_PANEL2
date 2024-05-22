@@ -97,7 +97,7 @@ import Intern_sidebar from "./pages/Intern-Section/sidebar";
 import FeedbackForm from "./pages/Intern-Section/Feedback";
 import LeaveForm_Intern from "./pages/Intern-Section/leave";
 import ReferenceForm from "./pages/Intern-Section/reference";
-import AttendanceTable_Intern from "./pages/Intern-Section/attendance";
+// import AttendanceTable_Intern from "./pages/Intern-Section/attendance";
 import Tables from "./pages/Intern-Section/table";
 import Fee_Details from "./pages/Intern-Section/feedetails";
 import View_notes from "./pages/Intern-Section/viewnotes";
@@ -280,7 +280,7 @@ function App() {
 
     
 
-      </HR_Main>
+      </HR_Main> */}
 
   
 
@@ -290,7 +290,7 @@ function App() {
             component={PasswordForm}
           />
 
-                <Teamlead_Main>
+                {/* <Teamlead_Main>
 
           <PrivateTeamLeadRoute
             path="/teamlead/dashboard"
@@ -360,7 +360,7 @@ function App() {
             exact
             component={PasswordForm}
           />
-          </Teamlead_Main> 
+          </Teamlead_Main>  */}
  
 
 
@@ -372,7 +372,7 @@ function App() {
           />
            
           
-          <Staff_Main>
+          {/* <Staff_Main>
   
               
           <PrivateStaffRoute
@@ -416,8 +416,9 @@ function App() {
             component={DailyWorksheetView}
           />
           </Staff_Main> */}
+ 
         
-        
+{/*         
         <PrivateFrontofficeRoute
             path="/frontoffice/frontResetPassword"
             exact
@@ -494,13 +495,15 @@ function App() {
   path="/intern/dashboard"
   exact
   component={Intern_Home}
-/> */}
-{/* <PrivateInternRoute
+ 
+/>
+ <PrivateInternRoute
   path="/intern/main"
   exact
   component={Intern_Main}
-/> */}
-{/* <PrivateInternRoute
+/> 
+ <PrivateInternRoute
+ 
   path="/intern/sidebar"
   exact
   component={Intern_sidebar}
@@ -525,11 +528,11 @@ function App() {
   exact
   component={ReferenceForm}
 />
-<PrivateInternRoute
+{/* <PrivateInternRoute
   path="/intern/attendance"
   exact
   component={AttendanceTable_Intern}
-/>
+/> */}
 <PrivateInternRoute
   path="/intern/table"
   exact
