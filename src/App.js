@@ -392,59 +392,53 @@ function App() {
 
            
           
-//           <PrivateStaffRoute
-//             path="/staff/resetpasswoord"
-//             exact
-//             component={ResetPassword}
-//           />
- 
-           
-          
-//            <Staff_Main>
-  
- 
-              
-//           <PrivateStaffRoute
-//             path="/staff/dashboard"
-//             exact
-//             component={Staffhome}
-//           />
-//             <PrivateStaffRoute
-//             path="/staff/table"
-//             exact
-//             component={Tablesstaff}
-//           />
-//             <PrivateStaffRoute
-//             path="/staff/profile"
-//             exact
-//             component={Profilestaff}
-//           />
-//             <PrivateStaffRoute
-//             path="/staff/leave"
-//             exact
-//             component={LeaveFormStaff}
-//           />
-//             <PrivateStaffRoute
-//             path="/staff/task"
-//             exact
-//             component={Viewprojectstaff}
-//           />
-//             <PrivateStaffRoute
-//             path="/staff/attendance"
-//             exact
-//             component={AttendanceTable}
-//           />
-//             <PrivateStaffRoute
-//             path="/staff/notes"
-//             exact
-//             component={NotesSharingPage}
-//           />
-//             <PrivateStaffRoute
-//             path="/staff/worksheet"
-//             exact
-//             component={DailyWorksheetView}
-//           />
-//           </Staff_Main> 
+         {/* <PrivateStaffRoute
+           path="/staff/resetpasswoord"
+           exact
+           component={ResetPassword}
+                     
+          <Staff_Mai          
+         <PrivateStaffRoute
+           path="/staff/dashboard"
+           exact
+           component={Staffhome}
+         />
+           <PrivateStaffRoute
+           path="/staff/table"
+           exact
+           component={Tablesstaff}
+         />
+           <PrivateStaffRoute
+           path="/staff/profile"
+           exact
+           component={Profilestaff}
+         />
+           <PrivateStaffRoute
+           path="/staff/leave"
+           exact
+           component={LeaveFormStaff}
+         />
+           <PrivateStaffRoute
+           path="/staff/task"
+           exact
+           component={Viewprojectstaff}
+         />
+           <PrivateStaffRoute
+           path="/staff/attendance"
+           exact
+           component={AttendanceTable}
+         />
+           <PrivateStaffRoute
+           path="/staff/notes"
+           exact
+           component={NotesSharingPage}
+         />
+           <PrivateStaffRoute
+           path="/staff/worksheet"
+           exact
+           component={DailyWorksheetView}
+         />
+         </Staff_Main>  */}
  
         
 {/*         
@@ -618,7 +612,7 @@ function App() {
         
         <PrivateTeamLeadRoute path="/teamlead/profile" exact component={TeamLeadProfile} /> */}
        
-       <Route path="/intern" component={InternRoutes} />
+    <Route path="/intern" component={InternRoutes} />
    <Route path="/admin" component={HrRoutes} />
 <Route path="/landing" component={LandingPage} />
 <Redirect from="*" to="/landing" />
