@@ -1,16 +1,26 @@
-import React, { useState } from 'react';
-import { Table, Typography, Input, Button, Modal, Form } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Table, Typography, Button, Modal, Form, Select } from 'antd';
 import moment from 'moment';
 
 const { Title } = Typography;
+const { Option } = Select;
 
 function Team_Table() {
   const [teams, setTeams] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [editingRow, setEditingRow] = useState(null);
+  const [employees, setEmployees] = useState([]);
 
   const [form] = Form.useForm();
+
+  useEffect(() => {
+    // Fetch employees from the backend
+    fetch('/api/employees')
+      .then(response => response.json())
+      .then(data => setEmployees(data))
+      .catch(error => console.error('Error fetching employees:', error));
+  }, []);
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -63,25 +73,18 @@ function Team_Table() {
       title: 'Employee Name',
       dataIndex: 'name',
       key: 'name',
-      editable: true,
-    },
-    {
-      title: 'Employee ID',
-      dataIndex: 'id',
-      key: 'id',
-      editable: true,
-    },
-    {
-      title: 'Position',
-      dataIndex: 'position',
-      key: 'position',
-      editable: true,
-    },
-    {
-      title: 'Language',
-      dataIndex: 'language',
-      key: 'language',
-      editable: true,
+      render: (text, record) => {
+        // Render employee name dropdown
+        return (
+          <Form.Item name="name" noStyle>
+            <Select defaultValue={text} style={{ width: 200 }} onChange={(value) => form.setFieldsValue({ name: value })}>
+              {employees.map((employee) => (
+                <Option key={employee.id} value={employee.name}>{employee.name}</Option>
+              ))}
+            </Select>
+          </Form.Item>
+        );
+      },
     },
     {
       title: 'Action',
@@ -95,7 +98,7 @@ function Team_Table() {
   ];
 
   return (
-    <div className="team-table" style={{paddingTop:"50px", overflowX: "auto"}}>
+    <div className="team-table" style={{ paddingTop: "50px", overflowX: "auto" }}>
       <Title level={5}>Team List</Title>
       <Button type="primary" onClick={showModal} style={{ marginBottom: 16 }}>
         Add New
@@ -105,17 +108,12 @@ function Team_Table() {
       </Button>
       <Modal title="Add Employee" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
         <Form form={form} layout="vertical">
-          <Form.Item name="name" label="Employee Name" rules={[{ required: true, message: 'Please enter employee name' }]}>
-            <Input />
-          </Form.Item>
-          <Form.Item name="id" label="Employee ID" rules={[{ required: true, message: 'Please enter employee ID' }]}>
-            <Input />
-          </Form.Item>
-          <Form.Item name="position" label="Position" rules={[{ required: true, message: 'Please enter the employee position' }]}>
-            <Input />
-          </Form.Item>
-          <Form.Item name="language" label="Language" rules={[{ required: true, message: 'Please enter language that employee dealing with' }]}>
-            <Input />
+          <Form.Item name="name" label="Employee Name" rules={[{ required: true, message: 'Please select employee name' }]}>
+            <Select style={{ width: 200 }} placeholder="Select employee name">
+              {employees.map((employee) => (
+                <Option key={employee.id} value={employee.name}>{employee.name}</Option>
+              ))}
+            </Select>
           </Form.Item>
         </Form>
       </Modal>

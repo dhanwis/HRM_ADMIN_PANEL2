@@ -44,6 +44,7 @@ import DigitalMarketingTable from "./pages/TeamLead-Section/digitalmarket"
 import StudentTasks from "./pages/TeamLead-Section/interntask";
 import Uploadnote from "./pages/TeamLead-Section/internnote";
 import PasswordForm from "./pages/TeamLead-Section/resetpass.js";
+import SeatingChart from "./pages/TeamLead-Section/seatallocation.js";
 
 //import Intern_Sidebar from "./pages/Intern-Section/sidebar";
 import EmployeeRegistrationForm from './pages/HR-Section/Registration';
@@ -102,6 +103,7 @@ import View_notes from "./pages/Intern-Section/viewnotes";
 import DailyWorksheetView_Intern from "./pages/Intern-Section/updatestatus";
 import Jobapply from "./pages/Intern-Section/jobapply";
 import TestimonialForm from "./pages/Intern-Section/Testimonial";
+import FeedbackList from "./pages/TeamLead-Section/Internfeedback.js";
 
 
 
@@ -278,7 +280,7 @@ function App() {
 
     
 
-      </HR_Main>
+      </HR_Main> */}
 
   
 
@@ -315,10 +317,16 @@ function App() {
             component={LeaveForm}
           />
 
-          <PrivateTeamLeadRoute
+          {/* <PrivateTeamLeadRoute
             path="/teamlead/student"
             exact
             component={StudentList}
+          /> */}
+
+          <PrivateTeamLeadRoute
+            path="/teamlead/seat"
+            exact
+            component={SeatingChart}
           />
 
           <PrivateTeamLeadRoute
@@ -339,6 +347,13 @@ function App() {
             component={StudentTasks}
           />
 
+            <PrivateTeamLeadRoute
+            path="/Students/feedback"
+            exact
+            component={FeedbackList}
+          />
+          
+
           
           <PrivateTeamLeadRoute
             path="/teamlead/digitalmarketing"
@@ -346,11 +361,11 @@ function App() {
             component={DigitalMarketingTable}
           />
           
-          <PrivateTeamLeadRoute
+          {/* <PrivateTeamLeadRoute
             path="/teamlead/internnotes"
             exact
             component={Uploadnote}
-          />
+          /> */}
 
  
                <PrivateTeamLeadRoute
@@ -477,7 +492,7 @@ function App() {
             exact
             component={Profile}
           />
-          </Main> */}
+          </Main>
 
           <Intern_Main>
 
@@ -487,11 +502,11 @@ function App() {
   exact
   component={Intern_Home}
 />
-{/* <PrivateInternRoute
+<PrivateInternRoute
   path="/intern/main"
   exact
   component={Intern_Main}
-/> */}
+/>
 <PrivateInternRoute
   path="/intern/sidebar"
   exact

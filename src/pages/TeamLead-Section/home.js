@@ -368,7 +368,7 @@ function Team_Home() {
           </AntHeader>
         )}
       </Header> */}
-      <div className="layout-content">
+      <div className="layout-content" >
         <Row className="rowgap-vbox" gutter={[24, 0]}>
           {count.map((c, index) => (
             <Col

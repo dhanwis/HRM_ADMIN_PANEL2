@@ -118,11 +118,11 @@ export default class TeamLeadLogin extends Component {
       console.log("Failed:", errorInfo);
     };
     return (
-      <>
+      <div style={{backgroundColor:"white"}}>
         <Layout className="layout-default layout-signin">
           <Header>
             <div className="header-col header-brand">
-              <h5>TeamLeadLogin</h5>
+              {/* <h5>TeamLeadLogin</h5> */}
             </div>
             <div className="header-col header-nav">
               <Menu mode="horizontal" defaultSelectedKeys={["1"]}>
@@ -151,12 +151,12 @@ export default class TeamLeadLogin extends Component {
                   </Link>
                 </Menu.Item> */}
               </Menu>
-            </div>
+            </div >
             {/* <div className="header-col header-btn">
               <Button type="primary">FREE DOWNLOAD</Button>
             </div> */}
           </Header>
-          <Content className="signin">
+          <Content className="signin" style={{backgroundColor:"white"}}>
             <Row gutter={[24, 0]} justify="space-around">
               <Col
                 xs={{ span: 24, offset: 0 }}
@@ -165,7 +165,6 @@ export default class TeamLeadLogin extends Component {
               >
                 <Title className="mb-15">Sign In</Title>
                 <Title className="font-regular text-muted" level={5}>
-                  Enter your email and password to sign in
                 </Title>
                 <Form
                   onFinish={onFinish}
@@ -220,7 +219,7 @@ export default class TeamLeadLogin extends Component {
                     </Button>
                   </Form.Item>
                   <p className="font-semibold text-muted">
-                    <Link to="/teamlead/changepass" className="text-dark font-bold">
+                    <Link to="/teamlead/changepass" className="text-dark font-bold" style={{textDecoration:"none"}}>
                       Forgot password
                     </Link>
                   </p>
@@ -276,7 +275,7 @@ export default class TeamLeadLogin extends Component {
              
           </Footer> */}
         </Layout>
-      </>
+      </div>
     );
   }
 }

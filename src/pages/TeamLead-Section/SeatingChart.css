@@ -1,0 +1,51 @@
+.card {
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f5f5dc;
+    max-width: 600px;
+    margin: 0 auto;
+    margin-top: 50px;
+    box-shadow: 6px 6px 10px rgb(100, 157, 178);
+  }
+  
+  .category-selector, .time-slot-selector, .extra-seat {
+    margin-bottom: 10px;
+  }
+  
+  .seating-chart {
+    display: grid;
+    gap: 5px;
+    margin-top: 20px;
+  }
+  
+  .seat-row {
+    display: flex;
+    gap: 5px;
+    height:50px;
+  }
+  
+  .seat {
+    flex: 1;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: green;
+    color: white;
+    border-radius: 5px;
+  }
+  
+  .occupied {
+    background-color: red;
+  }
+  
+  @media (max-width: 600px) {
+    .seat {
+      font-size: 0.8rem;
+    }
+  }
+  

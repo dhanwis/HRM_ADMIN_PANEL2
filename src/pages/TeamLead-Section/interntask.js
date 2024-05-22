@@ -1,108 +1,187 @@
-import React, { useState } from 'react';
-import { Typography, Input, DatePicker, Button, Table } from 'antd';
-import moment from 'moment';
+import { useState, useEffect } from "react";
+import { Table, Typography, Input, DatePicker, Button, Modal, Form, Row, Col, Select } from "antd";
+import moment from "moment";
 
 const { Title } = Typography;
+const { Option } = Select;
 
-const StudentTasks = () => {
-  const [students, setStudents] = useState([]);
-  const [formData, setFormData] = useState({
-    task: '',
-    id: '',
-    details: '',
-    guide: '',
-    machine: '',
-    startdate: null,
-    deadline: null,
-  });
+function StudentTasks() {
+  const [taskDetails, setTaskDetails] = useState([]);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [students] = useState([
+    { id: 1, name: 'John Doe' },
+    { id: 2, name: 'Jane Smith' }
+  ]);
+  const [guides] = useState([
+    { id: 1, name: 'Dr. Brown' },
+    { id: 2, name: 'Prof. Green' }
+  ]);
+  const [editTaskId, setEditTaskId] = useState(null); // Track the id of the task being edited
+  const [form] = Form.useForm();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    form.validateFields().then((values) => {
+      const updatedTask = {
+        id: editTaskId,
+        studentName: values.studentName,
+        taskName: values.taskName,
+        taskDetails: values.taskDetails,
+        guideName: values.guideName,
+        startDate: moment(values.startDate),
+        endDate: moment(values.endDate),
+      };
+      if (editTaskId !== null) {
+        // If an edit is being performed, update the task
+        const updatedTaskList = taskDetails.map(task => (task.id === editTaskId ? updatedTask : task));
+        setTaskDetails(updatedTaskList);
+      } else {
+        // Otherwise, add a new task
+        setTaskDetails([...taskDetails, updatedTask]);
+      }
+      setIsModalVisible(false);
+      setEditTaskId(null); // Reset the editTaskId after editing
+      form.resetFields();
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setStudents([...students, formData]);
-    setFormData({
-      task: '',
-      id: '',
-      details: '',
-      guide: '',
-      machine: '',
-      startdate: null,
-      deadline: null,
-    });
+  const handleCancel = () => {
+    setIsModalVisible(false);
+    setEditTaskId(null); // Reset the editTaskId if editing is canceled
+    form.resetFields();
   };
 
-  const handleDelete = (index) => {
-    const updatedStudents = [...students];
-    updatedStudents.splice(index, 1);
-    setStudents(updatedStudents);
+  const handleDelete = () => {
+    const filteredData = taskDetails.filter((item) => !selectedRowKeys.includes(item.id));
+    setTaskDetails(filteredData);
+    setSelectedRowKeys([]);
+  };
+
+  const handleEdit = (record) => {
+    setEditTaskId(record.id);
+    form.setFieldsValue({
+      studentName: record.studentName,
+      taskName: record.taskName,
+      taskDetails: record.taskDetails,
+      guideName: record.guideName,
+      startDate: moment(record.startDate),
+      endDate: moment(record.endDate),
+    });
+    showModal();
+  };
+
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: (selectedKeys) => {
+      setSelectedRowKeys(selectedKeys);
+    },
   };
 
   const columns = [
     {
-      title: 'Task Name',
-      dataIndex: 'task',
-      key: 'task',
+      title: "Student Name",
+      dataIndex: "studentName",
+      key: "studentName",
     },
     {
-      title: 'Student ID',
-      dataIndex: 'id',
-      key: 'id',
+      title: "Task Name",
+      dataIndex: "taskName",
+      key: "taskName",
     },
     {
-      title: 'Task Details',
-      dataIndex: 'details',
-      key: 'details',
+      title: "Task Details",
+      dataIndex: "taskDetails",
+      key: "taskDetails",
     },
     {
-      title: 'Guide',
-      dataIndex: 'guide',
-      key: 'guide',
+      title: "Guide Name",
+      dataIndex: "guideName",
+      key: "guideName",
     },
     {
-      title: 'Start Date',
-      dataIndex: 'startdate',
-      key: 'startdate',
-      render: (date) => (date ? moment(date).format('YYYY-MM-DD') : '-'),
+      title: "Start Date",
+      dataIndex: "startDate",
+      key: "startDate",
+      render: (text, record) => moment(text).format("LL"),
     },
     {
-      title: 'Deadline',
-      dataIndex: 'deadline',
-      key: 'deadline',
-      render: (date) => (date ? moment(date).format('YYYY-MM-DD') : '-'),
+      title: "End Date",
+      dataIndex: "endDate",
+      key: "endDate",
+      render: (text, record) => moment(text).format("LL"),
     },
     {
-      title: 'Actions',
-      dataIndex: 'actions',
-      key: 'actions',
-      render: (text, record, index) => (
-        <Button type="danger" onClick={() => handleDelete(index)}>Delete</Button>
+      title: "Action",
+      key: "action",
+      render: (text, record) => (
+        <Button type="link" onClick={() => handleEdit(record)}>Edit</Button>
       ),
     },
   ];
 
   return (
-    <div style={{ paddingTop: "50px", overflowX: "auto" }}>
-      <Title level={4}>Student Tasks</Title>
-      <form onSubmit={handleSubmit}>
-        <Input placeholder="Task" name="task" value={formData.task} onChange={handleChange} />
-        <Input type="number" placeholder="Student ID" name="id" value={formData.id} onChange={handleChange} style={{ marginTop: "10px" }} />
-        <Input.TextArea placeholder="Task Details" name="details" value={formData.details} onChange={handleChange} style={{ marginTop: "10px" }} />
-        <Input placeholder="Assigned Guide" name="guide" value={formData.guide} onChange={handleChange} style={{ marginTop: "10px" }} />
-        <Input type="number" placeholder="Machine Number" name="machine" value={formData.machine} onChange={handleChange} style={{ marginTop: "10px" }} />
-        <DatePicker placeholder="Start Date" name="startdate" value={formData.startdate} onChange={(date) => setFormData({ ...formData, startdate: date })} style={{ marginTop: "10px" }} />
-        <DatePicker placeholder="Deadline" name="deadline" value={formData.deadline} onChange={(date) => setFormData({ ...formData, deadline: date })} style={{ marginTop: "10px", marginLeft: "10px" }} />
-        <Button type="primary" htmlType="submit" style={{ marginTop: "10px", marginLeft: "10px" }}>Add Student</Button>
-      </form>
-      <Table dataSource={students} columns={columns} rowKey={(record, index) => index} />
+    <div className="task-details" style={{ paddingTop: "50px" }}>
+      <Title level={5}>Assign Task</Title>
+      <Row justify="space-between" align="middle">
+        <Col>
+          <Button type="primary" onClick={showModal} style={{ marginBottom: 16 }}>
+            Assign Task
+          </Button>
+        </Col>
+        <Col>
+          <Button type="danger" onClick={handleDelete} style={{ marginBottom: 16, marginLeft: 16 }}>
+            Delete Selected
+          </Button>
+        </Col>
+      </Row>
+      <Modal title={editTaskId !== null ? "Edit Task" : "Add Task"} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+        <Form form={form} layout="vertical">
+          <Form.Item name="studentName" label="Student Name" rules={[{ required: true, message: "Please select student name" }]}>
+            <Select>
+              {students.map(student => (
+                <Option key={student.id} value={student.name}>{student.name}</Option>
+              ))}
+            </Select>
+          </Form.Item>
+          <Form.Item name="taskName" label="Task Name" rules={[{ required: true, message: "Please enter task name" }]}>
+            <Input />
+          </Form.Item>
+          <Form.Item name="taskDetails" label="Task Details" rules={[{ required: true, message: "Please enter task details" }]}>
+            <Input />
+          </Form.Item>
+          <Form.Item name="guideName" label="Guide Name" rules={[{ required: true, message: "Please select guide name" }]}>
+            <Select>
+              {guides.map(guide => (
+                <Option key={guide.id} value={guide.name}>{guide.name}</Option>
+              ))}
+            </Select>
+          </Form.Item>
+          <Form.Item name="startDate" label="Start Date" rules={[{ required: true, message: "Please select start date" }]}>
+            <DatePicker />
+          </Form.Item>
+          <Form.Item name="endDate" label="End Date" rules={[{ required: true, message: "Please select end date" }]}>
+            <DatePicker />
+          </Form.Item>
+        </Form>
+      </Modal>
+      <div style={{ overflowX: 'auto' }}>
+        <Table
+          dataSource={taskDetails}
+          columns={columns}
+          pagination={false}
+          rowKey="id"
+          rowSelection={{
+            type: "checkbox",
+            ...rowSelection,
+          }}
+        />
+      </div>
     </div>
   );
-};
+}
 
 export default StudentTasks;
