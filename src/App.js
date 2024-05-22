@@ -83,6 +83,8 @@ import Attendanceview from "./pages/frontoffice/attendance";
 import Profile from "./pages/frontoffice/profile";
 import CallSheet from "./pages/frontoffice/callsheet";
 import FrontResetPassword from "./pages/frontoffice/resetpass.js";
+import InternRegistration from "./pages/frontoffice/internregister.js";
+
 
 
 
@@ -205,8 +207,8 @@ function App() {
         <Route path="/officestaff/login" exact component={login} />
 
 
-
-     {/* <HR_Main>
+{/* 
+      <HR_Main>
         <PrivateHRAdminRoute
             path="/admin/dashboard"
             exact
@@ -414,6 +416,7 @@ function App() {
             component={DailyWorksheetView}
           />
           </Staff_Main> */}
+ 
         
 {/*         
         <PrivateFrontofficeRoute
@@ -477,15 +480,22 @@ function App() {
             exact
             component={Profile}
           />
-          </Main> */}
 
-          <Intern_Main>
+          <PrivateHRAdminRoute
+            path="/frontoffice/internRegistration"
+            exact
+            component={InternRegistration}
+          />
+          </Main> 
+
+          {/* <Intern_Main>
 
 
 <PrivateInternRoute
   path="/intern/dashboard"
   exact
   component={Intern_Home}
+ 
 />
  <PrivateInternRoute
   path="/intern/main"
@@ -493,6 +503,7 @@ function App() {
   component={Intern_Main}
 /> 
  <PrivateInternRoute
+ 
   path="/intern/sidebar"
   exact
   component={Intern_sidebar}
@@ -556,7 +567,7 @@ function App() {
 
 
 
-</Intern_Main>
+</Intern_Main> */}
 
          
           {/* <PrivateInternRoute
