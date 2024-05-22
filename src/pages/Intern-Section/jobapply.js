@@ -4,6 +4,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import { Container } from 'react-bootstrap';
+// import { FaRegPaperPlane } from "react-icons/fa";
 
 const Jobapply = () => {
   return (
@@ -14,15 +15,39 @@ const Jobapply = () => {
       <Col md={6} lg={5} className="mb-4">
           <Card className="h-100 shadow bg-grey">
             <Card.Body style={{ padding: '2rem' }}>
-              <Card.Title>Job Title</Card.Title>
+              <Card.Title>Data Analyst </Card.Title>
               <Card.Text>
-                Company name
+              Summit Soft Solutions
+
               </Card.Text>
               <Card.Text>
-                Location
+              Cannanore, Kerala
+              {/* <Button variant="secondary" className="float-right" >Full-time</Button> */}
               </Card.Text>
-              <Button variant="primary">Salary</Button>
-              <Button variant="primary" className="float-right" style={{marginLeft:"20px"}}>Mode of Work</Button>
+              {/* <Button variant="secondary">From ₹15,000 a month</Button> */}
+              <Button variant="secondary" className="float-right" >Full-time</Button>
+            </Card.Body>
+            <Card.Footer>
+          
+              {/* <i class="fa-solid fa-paper-plane" style={{marginLeft:"10px"}}>Apply Now</i> */}
+              <Button variant="success" style={{marginLeft:"10px"}}>Apply Now</Button>
+            </Card.Footer>
+          </Card>
+        </Col>
+
+        <Col md={6} lg={5} className="mb-4">
+          <Card className="h-100 shadow bg-grey">
+            <Card.Body style={{ padding: '2rem' }}>
+              <Card.Title>Junior SEO Analyst</Card.Title>
+              <Card.Text>
+              Mazi Diktyo International Private Limited
+
+              </Card.Text>
+              <Card.Text>
+              Cannanore, Kerala
+              </Card.Text>
+              {/* <Button variant="secondary">From ₹15,000 a month</Button> */}
+              <Button variant="secondary" className="float-right" >Full-time</Button>
             </Card.Body>
             <Card.Footer>
               <Button variant="success" style={{marginLeft:"10px"}}>Apply Now</Button>
@@ -33,15 +58,16 @@ const Jobapply = () => {
         <Col md={6} lg={5} className="mb-4">
           <Card className="h-100 shadow bg-grey">
             <Card.Body style={{ padding: '2rem' }}>
-              <Card.Title>Job Title</Card.Title>
+              <Card.Title>Junior SEO Analyst</Card.Title>
               <Card.Text>
-                Company name
+              Mazi Diktyo International Private Limited
               </Card.Text>
               <Card.Text>
-                Location
+              Cannanore, Kerala
               </Card.Text>
-              <Button variant="primary">Salary</Button>
-              <Button variant="primary" className="float-right" style={{marginLeft:"20px"}}>Mode of Work</Button>
+              
+              {/* <Button variant="secondary">From ₹15,000 a month</Button> */}
+              <Button variant="secondary" className="float-right" >Full-time</Button>
             </Card.Body>
             <Card.Footer>
               <Button variant="success" style={{marginLeft:"10px"}}>Apply Now</Button>
@@ -52,34 +78,15 @@ const Jobapply = () => {
         <Col md={6} lg={5} className="mb-4">
           <Card className="h-100 shadow bg-grey">
             <Card.Body style={{ padding: '2rem' }}>
-              <Card.Title>Job Title</Card.Title>
+              <Card.Title>Data Analyst</Card.Title>
               <Card.Text>
-                Company name
+              Summit Soft Solutions
               </Card.Text>
               <Card.Text>
-                Location
+              Cannanore, Kerala
               </Card.Text>
-              <Button variant="primary">Salary</Button>
-              <Button variant="primary" className="float-right" style={{marginLeft:"20px"}}>Mode of Work</Button>
-            </Card.Body>
-            <Card.Footer>
-              <Button variant="success" style={{marginLeft:"10px"}}>Apply Now</Button>
-            </Card.Footer>
-          </Card>
-        </Col>
-
-        <Col md={6} lg={5} className="mb-4">
-          <Card className="h-100 shadow bg-grey">
-            <Card.Body style={{ padding: '2rem' }}>
-              <Card.Title>Job Title</Card.Title>
-              <Card.Text>
-                Company name
-              </Card.Text>
-              <Card.Text>
-                Location
-              </Card.Text>
-              <Button variant="primary">Salary</Button>
-              <Button variant="primary" className="float-right" style={{marginLeft:"20px"}}>Mode of Work</Button>
+              {/* <Button variant="secondary">From ₹15,000 a month</Button> */}
+              <Button variant="secondary" className="float-right" >Full-time</Button>
             </Card.Body>
             <Card.Footer>
               <Button variant="success" style={{marginLeft:"10px"}}>Apply Now</Button>

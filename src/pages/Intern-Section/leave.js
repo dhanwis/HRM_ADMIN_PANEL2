@@ -47,15 +47,15 @@ const LeaveForm_Intern = () => {
       <h3>Leave Request Form</h3>
       <Form onSubmit={handleSubmit}>
         {/* Form fields */}
-        <Row>
+        {/* <Row>
           <Col>
             <Form.Group controlId="firstName">
               <Form.Label> Name</Form.Label>
               <Form.Control type="text" name="firstName" value={formData.firstName} onChange={handleChange} required />
             </Form.Group>
           </Col>
-        </Row>
-        <Form.Group controlId="department">
+        </Row> */}
+        {/* <Form.Group controlId="department">
           <Form.Label>Department Name</Form.Label>
           <Form.Control type="text" name="department" value={formData.department} onChange={handleChange} required />
         </Form.Group>
@@ -66,18 +66,18 @@ const LeaveForm_Intern = () => {
         <Form.Group controlId="email">
           <Form.Label>Email Address</Form.Label>
           <Form.Control type="email" name="email" value={formData.email} onChange={handleChange} required />
-        </Form.Group>
+        </Form.Group> */}
         <Row>
           <Col>
             <Form.Group controlId="startDate">
               <Form.Label>First Day of Absence</Form.Label>
-              <Form.Control type="date" name="startDate" value={formData.startDate} onChange={handleChange} required />
+              <Form.Control type="text" name="startDate" value={formData.startDate} onChange={handleChange} required />
             </Form.Group>
           </Col>
           <Col>
             <Form.Group controlId="endDate">
               <Form.Label>Last Day of Absence</Form.Label>
-              <Form.Control type="date" name="endDate" value={formData.endDate} onChange={handleChange} required />
+              <Form.Control type="text" name="endDate" value={formData.endDate} onChange={handleChange} required />
             </Form.Group>
           </Col>
         </Row>
@@ -85,7 +85,7 @@ const LeaveForm_Intern = () => {
           <Form.Label>Description</Form.Label>
           <Form.Control as="textarea" rows={3} name="description" value={formData.description} onChange={handleChange} />
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" style={{marginLeft:"50%",marginTop:"20px"}}>
           Submit
         </Button>
       </Form>

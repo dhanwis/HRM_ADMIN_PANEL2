@@ -14,7 +14,7 @@
 import { Menu, Button ,Dropdown} from "antd";
 import { NavLink, useLocation } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
-import { MenuItem } from "@material-ui/core";
+
 
 
 
@@ -387,7 +387,7 @@ export default function SidenavIntern({ color }) {
           </NavLink>
         </Menu.Item>
 
-
+{/* 
         <Menu.Item key="4">
           <NavLink to="/intern/attendance" style={{textDecoration:"none"}}>
             <span
@@ -400,7 +400,7 @@ export default function SidenavIntern({ color }) {
             </span>
             <span className="label">Attendance</span>
           </NavLink>
-        </Menu.Item>
+        </Menu.Item> */}
         
 
         <Menu.Item key="5">

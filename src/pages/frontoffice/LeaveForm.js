@@ -43,7 +43,7 @@ const OfficeLeaveForm = () => {
       <h1>Leave Request Form</h1>
       <Form onSubmit={handleSubmit}>
         {/* Form fields */}
-        <Row>
+        {/* <Row>
           <Col>
             <Form.Group controlId="firstName">
               <Form.Label> Name</Form.Label>
@@ -58,11 +58,11 @@ const OfficeLeaveForm = () => {
         <Form.Group controlId="phoneNumber">
           <Form.Label>Phone Number</Form.Label>
           <Form.Control type="tel" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} required />
-        </Form.Group>
-        <Form.Group controlId="email">
+        </Form.Group> */}
+        {/* <Form.Group controlId="email">
           <Form.Label>Email Address</Form.Label>
           <Form.Control type="email" name="email" value={formData.email} onChange={handleChange} required />
-        </Form.Group>
+        </Form.Group> */}
         <Row>
           <Col>
             <Form.Group controlId="startDate">

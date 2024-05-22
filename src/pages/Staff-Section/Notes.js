@@ -1,68 +1,69 @@
-import React, { useState } from "react";
-import { Upload, Button, Input, message } from "antd";
+import React, { useState, useEffect } from "react";
+import { Upload, Button, Input, message, Select } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 
 const { TextArea } = Input;
+const { Option } = Select;
 
 const NotesSharing = () => {
   const [description, setDescription] = useState("");
   const [file, setFile] = useState(null);
+  const [section, setSection] = useState("");
+  const [sections, setSections] = useState([]);
 
-  const handleFileChange = (info) => {
-    if (info.file.status === "done") {
-      const uploadedFile = info.file.originFileObj;
-      setFile(uploadedFile);
-      message.success(`File "${uploadedFile.name}" uploaded successfully!`);
-    } else if (info.file.status === "error") {
-      message.error("File upload failed.");
+  useEffect(() => {
+    // Fetch sections from the backend
+    const fetchSections = async () => {
+      try {
+        const response = await fetch("https://api.example.com/getSections"); // Replace with your actual API endpoint
+        if (response.ok) {
+          const data = await response.json();
+          setSections(data.sections); // Assuming the response has a `sections` field
+        } else {
+          message.error("Failed to fetch sections.");
+        }
+      } catch (error) {
+        console.error("Error fetching sections:", error);
+        message.error("An error occurred while fetching sections.");
+      }
+    };
+
+    fetchSections();
+  }, []);
+
+  const handleFileChange = info => {
+    if (info.file.status === 'done') {
+      setFile(info.file.originFileObj);
+      message.success(`${info.file.name} file uploaded successfully`);
+    } else if (info.file.status === 'error') {
+      message.error(`${info.file.name} file upload failed.`);
     }
   };
 
   const handleRemoveFile = () => {
     setFile(null);
+    message.success('File removed successfully');
   };
 
-  const handleDescriptionChange = (e) => {
+  const handleDescriptionChange = e => {
     setDescription(e.target.value);
   };
 
+  const handleSectionChange = value => {
+    setSection(value);
+  };
+
   const handleShare = () => {
-    if (!file || !description) {
-      message.error("Please upload a file and provide a description.");
+    if (!file || !description || !section) {
+      message.error('Please fill in all fields and upload a file before sharing.');
       return;
     }
-
-    const backendEndpoint = "https://api.example.com/shareNotes";
-
-    const data = {
-      fileName: file.name,
-      description: description,
-    };
-
-    fetch(backendEndpoint, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => {
-        if (response.ok) {
-          message.success("File shared successfully!");
-          setDescription("");
-          setFile(null);
-        } else {
-          message.error("Failed to share file. Please try again.");
-        }
-      })
-      .catch((error) => {
-        console.error("Error sharing file:", error);
-        message.error("An error occurred. Please try again.");
-      });
+    // Implement the share functionality here, e.g., sending data to the backend
+    message.success('Notes shared successfully!');
   };
 
   return (
-    <div style={{paddingTop:"50px"}}>
+    <div style={{ paddingTop: "50px" }}>
       <h2 style={{ marginBottom: 40 }}>Notes Sharing to Team Lead Members</h2>
 
       <div style={{ marginBottom: 40 }}>
@@ -87,6 +88,21 @@ const NotesSharing = () => {
           onChange={handleDescriptionChange}
           autoSize={{ minRows: 3, maxRows: 6 }}
         />
+      </div>
+
+      <div style={{ marginBottom: 30 }}>
+        <Select
+          placeholder="Select a student section"
+          value={section}
+          onChange={handleSectionChange}
+          style={{ width: 200 }}
+        >
+          {sections.map((sec) => (
+            <Option key={sec.id} value={sec.name}>
+              {sec.name}
+            </Option>
+          ))}
+        </Select>
       </div>
 
       <div style={{ marginBottom: 30 }}>
