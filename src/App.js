@@ -109,6 +109,7 @@ import FeedbackList from "./pages/TeamLead-Section/Internfeedback.js";
 import LandingPage from "./landing.js";
 import HrRoutes from "./pages/HR-Section/HrRoute.js";
 import InternRoutes from "./pages/Intern-Section/InternRoute.js";
+import FrontRoutes from "./pages/frontoffice/frontRoutes.js";
  
 
 
@@ -614,6 +615,7 @@ function App() {
        
     <Route path="/intern" component={InternRoutes} />
    <Route path="/admin" component={HrRoutes} />
+   <Route path="/frontoffice" component={FrontRoutes} />
 <Route path="/landing" component={LandingPage} />
 <Redirect from="*" to="/landing" />
       </Switch>
