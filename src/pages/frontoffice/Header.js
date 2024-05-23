@@ -423,7 +423,7 @@ function FrontHeader({
               </div>
             </div>
           </Drawer>
-          <Link to="/officestaff/login" className="btn-sign-in">
+          <Link to="/frontoffice/login" className="btn-sign-in">
             {profile}
             <span>Logout</span>
           </Link>
