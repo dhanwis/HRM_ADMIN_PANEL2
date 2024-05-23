@@ -45,9 +45,7 @@ import PasswordForm from "./pages/TeamLead-Section/resetpass.js";
 import SeatingChart from "./pages/TeamLead-Section/seatallocation.js";
 
 //import Intern_Sidebar from "./pages/Intern-Section/sidebar";
-import StaffRegistrationForm from './pages/HR-Section/Staffregister';
-import TeamleadRegistrationForm from "./pages/HR-Section/Teamleadregister";
-import FrontRegistrationForm from "./pages/HR-Section/FrontRegister.js";
+import EmployeeRegistrationForm from './pages/HR-Section/Registration';
 import InternRegistrationForm from "./pages/HR-Section/Internregister";
 import TaskForm from "./pages/HR-Section/Task";
 import Feeform from "./pages/HR-Section/Internfee";
@@ -235,19 +233,9 @@ function App() {
           />
 
            <PrivateHRAdminRoute
-            path="/register/staff/dashboard"
+            path="/register/dashboard"
             exact
-            component={StaffRegistrationForm}
-          />
-          <PrivateHRAdminRoute
-            path="/register/teamlead/dashboard"
-            exact
-            component={TeamleadRegistrationForm}
-          />
-          <PrivateHRAdminRoute
-            path="/register/front/dashboard"
-            exact
-            component={FrontRegistrationForm}
+            component={EmployeeRegistrationForm}
           />
             <PrivateHRAdminRoute
             path="/intern/register/dashboard"
@@ -453,6 +441,7 @@ function App() {
          </Staff_Main>  */}
  
         
+{/*         
         <PrivateFrontofficeRoute
             path="/frontoffice/frontResetPassword"
             exact
@@ -527,6 +516,7 @@ function App() {
 
 
 
+{/* 
 <PrivateInternRoute
   path="/intern/dashboard"
   exact
