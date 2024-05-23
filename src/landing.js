@@ -9,6 +9,7 @@ const LandingPage = () => (
       <li style={styles.listItem}><Link style={styles.link} to="/admin/login">HR Admin</Link></li>
       <li style={styles.listItem}><Link style={styles.link} to="/staff/login">Staff</Link></li>
       <li style={styles.listItem}><Link style={styles.link} to="/frontoffice/login">Front Office</Link></li>
+      <li style={styles.listItem}><Link style={styles.link} to="/teamlead/login">Team Lead</Link></li>
     </ul>
   </div>
 );

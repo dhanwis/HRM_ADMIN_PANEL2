@@ -219,7 +219,7 @@ export default class TeamLeadLogin extends Component {
                     </Button>
                   </Form.Item>
                   <p className="font-semibold text-muted">
-                    <Link to="/teamlead/changepass" className="text-dark font-bold" style={{textDecoration:"none"}}>
+                    <Link to="/teamlead/resetpass" className="text-dark font-bold" style={{textDecoration:"none"}}>
                       Forgot password
                     </Link>
                   </p>

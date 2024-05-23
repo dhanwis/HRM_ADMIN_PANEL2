@@ -542,7 +542,7 @@ const StudentFeedback = [
 {/* /////////////////////////////////////////// feedback /////////////////////////////////////////////////////////////////////////// */}
 
 <Menu.Item key="7">
-          <NavLink to="/Students/feedback" style={{ textDecoration: 'none' }}>
+          <NavLink to="/teamlead/feedback" style={{ textDecoration: 'none' }}>
             <span
               className="icon"
               style={{
