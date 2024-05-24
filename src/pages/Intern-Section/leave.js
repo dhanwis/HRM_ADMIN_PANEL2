@@ -2,18 +2,15 @@ import React, { useState } from 'react';
 import { Container, Form, Button, Row, Col } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom'; // Import useHistory for redirection
 
-const LeaveForm_Intern = () => {
+const LeaveForm = () => {
   const [formData, setFormData] = useState({
     firstName: '',
-    lastName: '',
     department: '',
     phoneNumber: '',
     email: '',
     reason: '',
     startDate: '',
     endDate: '',
-    numberOfDays: 0,
-    employeeId: '',
     description: '',
     requestStatus: 'Pending',
   });
@@ -43,56 +40,34 @@ const LeaveForm_Intern = () => {
 
   return (
     <div className="container mt-5">
-    <Container>
+    <Container >
       <h3>Leave Request Form</h3>
       <Form onSubmit={handleSubmit}>
         {/* Form fields */}
-        {/* <Row>
-          <Col>
-            <Form.Group controlId="firstName">
-              <Form.Label> Name</Form.Label>
-              <Form.Control type="text" name="firstName" value={formData.firstName} onChange={handleChange} required />
-            </Form.Group>
-          </Col>
-        </Row> */}
-        {/* <Form.Group controlId="department">
-          <Form.Label>Department Name</Form.Label>
-          <Form.Control type="text" name="department" value={formData.department} onChange={handleChange} required />
-        </Form.Group>
-        <Form.Group controlId="phoneNumber">
-          <Form.Label>Phone Number</Form.Label>
-          <Form.Control type="tel" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} required />
-        </Form.Group>
-        <Form.Group controlId="email">
-          <Form.Label>Email Address</Form.Label>
-          <Form.Control type="email" name="email" value={formData.email} onChange={handleChange} required />
-        </Form.Group> */}
-        <Row>
+        <Row className="justify-content-center mt-4">
           <Col>
             <Form.Group controlId="startDate">
-              <Form.Label>First Day of Absence</Form.Label>
+              <Form.Label> Day of Absence</Form.Label>
               <Form.Control type="text" name="startDate" value={formData.startDate} onChange={handleChange} required />
             </Form.Group>
           </Col>
-          <Col>
             <Form.Group controlId="endDate">
-              <Form.Label>Last Day of Absence</Form.Label>
+              <Form.Label>Work Assigned to </Form.Label>
               <Form.Control type="text" name="endDate" value={formData.endDate} onChange={handleChange} required />
             </Form.Group>
-          </Col>
         </Row>
         <Form.Group controlId="description">
           <Form.Label>Description</Form.Label>
           <Form.Control as="textarea" rows={3} name="description" value={formData.description} onChange={handleChange} />
         </Form.Group>
-        <Button variant="primary" type="submit" style={{marginLeft:"50%",marginTop:"20px"}}>
+        <Button variant="primary" type="submit" style={{marginTop:"15px",marginLeft:"50%"}}>
           Submit
         </Button>
       </Form>
-      <h3>Status: {formData.requestStatus}</h3> {/* Display request status */}
+      <h3 style={{marginTop:"15px"}}>Status: {formData.requestStatus}</h3> {/* Display request status */}
     </Container>
     </div>
   );
 };
 
-export default LeaveForm_Intern;
+export default LeaveForm;
