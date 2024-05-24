@@ -13,7 +13,7 @@ import {
   Switch,
 } from "antd";
 
-//import signinbg from "../assets/images/img-signin.jpg";
+import signinbg from "./gif2.gif";
 
 import {
   DribbbleOutlined,
@@ -234,11 +234,11 @@ export default class InternLogin extends Component {
                 lg={{ span: 12 }}
                 md={{ span: 12 }}
               >
-                {/* <img src={signinbg} alt="" /> */}
+                <img src={signinbg} alt="" />
               </Col>
             </Row>
           </Content>
-          <Footer>
+          {/* <Footer>
             <Menu mode="horizontal">
               <Menu.Item>Company</Menu.Item>
               <Menu.Item>About Us</Menu.Item>
@@ -274,7 +274,7 @@ export default class InternLogin extends Component {
               </Menu.Item>
             </Menu>
              
-          </Footer>
+          </Footer> */}
         </Layout>
       </>
     );
