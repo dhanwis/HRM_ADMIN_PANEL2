@@ -35,6 +35,12 @@ const EmployeeRegistrationForm = () => {
     ));
   };
 
+  const editEmployee = (id) => {
+    const employee = employees.find(emp => emp.id === id);
+    setSelectedEmployee(employee);
+    setIsModalVisible(true);
+  };
+
   const columns = [
     {
       title: 'ID',
@@ -57,6 +63,7 @@ const EmployeeRegistrationForm = () => {
       render: (text, record) => (
         <span>
           <Button type="primary" onClick={() => viewEmployee(record.id)}>View</Button>
+          <Button style={{ marginLeft: 8 }} onClick={() => editEmployee(record.id)}>Edit</Button>
           <Button style={{ marginLeft: 8 }} onClick={() => toggleEmployeeStatus(record.id)}>
             {record.enabled ? 'Disable' : 'Enable'}
           </Button>
@@ -127,49 +134,65 @@ const EmployeeForm = ({ visible, onCancel, onCreate }) => {
         <Form.Item
           name="name"
           label="Name"
-          rules={[{ required: true, message: 'Please input the name!' }]}
+          rules={[{ required: true, message: 'Please input the name!' },
+          {pattern: /^[A-Za-z\s]+$/,
+          message: 'Please ente valid name.'}
+        ]}
         >
           <Input />
         </Form.Item>
         <Form.Item
           name="username"
           label="User Name"
-          rules={[{ required: true, message: 'Please input the username!' }]}
+          rules={[{ required: false, message: 'Please input the username!' }]}
         >
           <Input />
         </Form.Item>
         <Form.Item
           name="password"
           label="Password"
-          rules={[{ required: true, message: 'Please input the password!' }]}
+          rules={[
+            { 
+              required: true, 
+              message: 'Please input the password!' 
+            },
+            { 
+              pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+              message: 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.'
+            }
+          ]}
         >
           <Input.Password />
         </Form.Item>
         <Form.Item
           name="photo"
           label="Photo"
-          rules={[{ required: true, message: 'Please upload a photo!' }]}
+          rules={[{ required: false, message: 'Please upload a photo!' }]}
         >
           <Input type="file" />
         </Form.Item>
         <Form.Item
           name="email"
           label="Email"
-          rules={[{ required: true, message: 'Please input the email!', type: 'email' }]}
+          rules={[{ required: false, message: 'Please input the email!', type: 'email' }]}
         >
           <Input />
         </Form.Item>
         <Form.Item
           name="phone"
           label="Phone"
-          rules={[{ required: true, message: 'Please input the phone number!' }]}
+          rules={[{ required: false, message: 'Please input the phone number!' },
+          { 
+            pattern: /^\d{10}$/,
+            message: 'Phone number should contain 10 digits.'
+          }]}
         >
           <Input />
         </Form.Item>
         <Form.Item
           name="maritalStatus"
           label="Marital Status"
-          rules={[{ required: true, message: 'Please select marital status!' }]}
+          rules={[{ required: false, message: 'Please select marital status!' }]}
         >
           <Select>
             <Select.Option value="single">Single</Select.Option>
@@ -179,49 +202,54 @@ const EmployeeForm = ({ visible, onCancel, onCreate }) => {
         <Form.Item
           name="address"
           label="Address"
-          rules={[{ required: true, message: 'Please input the address!' }]}
+          rules={[{ required: false, message: 'Please input the address!' }]}
         >
           <Input.TextArea />
         </Form.Item>
         <Form.Item
           name="city"
           label="City"
-          rules={[{ required: true, message: 'Please input the city!' }]}
+          rules={[{ required: false, message: 'Please input the city!' }]}
         >
           <Input />
         </Form.Item>
         <Form.Item
           name="state"
           label="State"
-          rules={[{ required: true, message: 'Please input the state!' }]}
+          rules={[{ required: false, message: 'Please input the state!' }]}
         >
           <Input />
         </Form.Item>
         <Form.Item
           name="country"
           label="Country"
-          rules={[{ required: true, message: 'Please input the country!' }]}
+          rules={[{ required: false, message: 'Please input the country!' }]}
         >
           <Input />
         </Form.Item>
         <Form.Item
           name="pincode"
           label="Pin Code"
-          rules={[{ required: true, message: 'Please input the pin code!' }]}
+          rules={[{ required: false, message: 'Please input the pin code!' },
+          { 
+            pattern: /^\d{6}$/,
+            message: 'Pincode should contain 6 digits.'
+          }]}
+          
         >
           <Input />
         </Form.Item>
         <Form.Item
           name="qualification"
           label="Qualification"
-          rules={[{ required: true, message: 'Please input the qualification!' }]}
+          rules={[{ required: false, message: 'Please input the qualification!' }]}
         >
           <Input />
         </Form.Item>
         <Form.Item
           name="experience"
           label="Experience"
-          rules={[{ required: true, message: 'Please input the experience!' }]}
+          rules={[{ required: false, message: 'Please input the experience!' }]}
         >
           <Select>
             <Select.Option value="0 year">0 year</Select.Option>
@@ -268,3 +296,4 @@ const EmployeeDetails = ({ employee, onClose }) => {
 };
 
 export default EmployeeRegistrationForm;
+
