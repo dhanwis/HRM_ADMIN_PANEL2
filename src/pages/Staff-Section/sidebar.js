@@ -215,7 +215,7 @@ export default function SidenavStaff({ color }) {
             <span className="label">Dashboard</span>
           </NavLink>
         </Menu.Item>
-        <Menu.Item key="2">
+        {/* <Menu.Item key="2">
           <NavLink to="/staff/table" style={{textDecoration:'none'}}>
             <span
               className="icon"
@@ -227,7 +227,7 @@ export default function SidenavStaff({ color }) {
             </span>
             <span className="label">Pending Task</span>
           </NavLink>
-        </Menu.Item>
+        </Menu.Item> */}
         <Menu.Item key="3">
           <NavLink to="/staff/leave" style={{textDecoration:'none'}}>
             <span
@@ -278,6 +278,19 @@ export default function SidenavStaff({ color }) {
         {/* <Menu.Item className="menu-item-header" key="5">
           Account Pages
         </Menu.Item> */}
+        
+        <Menu.Item key="7">
+        <NavLink to="/staff/worksheet" style={{textDecoration:'none'}}>
+            <span className="icon">{signin}</span>
+            <span className="label">Daily worksheet</span>
+        </NavLink>
+        </Menu.Item>
+        <Menu.Item key="8">
+          <NavLink to="/staff/task" style={{textDecoration:'none'}}>
+            <span className="icon">{signup}</span>
+            <span className="label">Task Details</span>
+          </NavLink>
+        </Menu.Item>
         <Menu.Item key="6">
           <NavLink to="/staff/profile" style={{textDecoration:'none'}}>
             <span
@@ -289,18 +302,6 @@ export default function SidenavStaff({ color }) {
               {profile}
             </span>
             <span className="label">Profile</span>
-          </NavLink>
-        </Menu.Item>
-        <Menu.Item key="7">
-        <NavLink to="/staff/worksheet" style={{textDecoration:'none'}}>
-            <span className="icon">{signin}</span>
-            <span className="label">Daily worksheet</span>
-        </NavLink>
-        </Menu.Item>
-        <Menu.Item key="8">
-          <NavLink to="/staff/task" style={{textDecoration:'none'}}>
-            <span className="icon">{signup}</span>
-            <span className="label">Task Details</span>
           </NavLink>
         </Menu.Item>
       </Menu>
