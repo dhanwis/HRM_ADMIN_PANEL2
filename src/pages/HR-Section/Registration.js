@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Button, Form, Input, Modal, Table,Select } from 'antd';
+import { Button, Form, Input, Modal, Table, Select } from 'antd';
 import 'antd/dist/antd.css';
 
-const EmployeeRegistrationForm  = () => {
+const EmployeeRegistrationForm = () => {
   const [employees, setEmployees] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
@@ -16,7 +16,7 @@ const EmployeeRegistrationForm  = () => {
   };
 
   const addEmployee = (employee) => {
-    setEmployees([...employees, { id: employees.length + 1, ...employee }]);
+    setEmployees([...employees, { id: employees.length + 1, enabled: true, ...employee }]);
     setIsModalVisible(false);
   };
 
@@ -28,14 +28,12 @@ const EmployeeRegistrationForm  = () => {
   const closeEmployeeDetails = () => {
     setSelectedEmployee(null);
   };
-  const enableEmployee = (id) => {
-  // Logic to enable employee with the given id
-};
 
-const disableEmployee = (id) => {
-  // Logic to disable employee with the given id
-};
-
+  const toggleEmployeeStatus = (id) => {
+    setEmployees(employees.map(emp => 
+      emp.id === id ? { ...emp, enabled: !emp.enabled } : emp
+    ));
+  };
 
   const columns = [
     {
@@ -58,18 +56,19 @@ const disableEmployee = (id) => {
       key: 'actions',
       render: (text, record) => (
         <span>
-        <Button type="primary" onClick={() => viewEmployee(record.id)}>View</Button>
-        <Button style={{ marginLeft: 8 }} onClick={() => enableEmployee(record.id)}>Enable</Button>
-        <Button style={{ marginLeft: 8 }} onClick={() => disableEmployee(record.id)}>Disable</Button>
-      </span>
-    ),
+          <Button type="primary" onClick={() => viewEmployee(record.id)}>View</Button>
+          <Button style={{ marginLeft: 8 }} onClick={() => toggleEmployeeStatus(record.id)}>
+            {record.enabled ? 'Disable' : 'Enable'}
+          </Button>
+        </span>
+      ),
     },
   ];
 
   return (
-    <div className="App" style={{marginTop:'50px'}}>
-      <h3 style={{ marginBottom:'50px'}}>Employee Registration</h3>
-      <Button type="primary" style={{marginBottom:'50px'}}onClick={showModal}>
+    <div className="App" style={{ marginTop: '50px' }}>
+      <h3 style={{ marginBottom: '50px' }}>Employee Registration</h3>
+      <Button type="primary" style={{ marginBottom: '50px' }} onClick={showModal}>
         Add New Employee
       </Button>
       <EmployeeForm
@@ -111,11 +110,10 @@ const EmployeeForm = ({ visible, onCancel, onCreate }) => {
           Submit
         </Button>,
       ]}
-       // Adjust width here
-       width={1200} // Change this value to the desired width
+      width={1200}
     >
       <Form form={form} layout="vertical" name="employee_form">
-      <Form.Item
+        <Form.Item
           name="role"
           label="Role"
           rules={[{ required: true, message: 'Please select a role!' }]}
@@ -124,7 +122,6 @@ const EmployeeForm = ({ visible, onCancel, onCreate }) => {
             <Select.Option value="Teamlead">Teamlead</Select.Option>
             <Select.Option value="Staff">Staff</Select.Option>
             <Select.Option value="Salesexecutive">Sales Executive</Select.Option>
-            {/* <Select.Option value="Student">Student</Select.Option> */}
           </Select>
         </Form.Item>
         <Form.Item
@@ -214,7 +211,6 @@ const EmployeeForm = ({ visible, onCancel, onCreate }) => {
         >
           <Input />
         </Form.Item>
-      
         <Form.Item
           name="qualification"
           label="Qualification"
@@ -230,17 +226,15 @@ const EmployeeForm = ({ visible, onCancel, onCreate }) => {
           <Select>
             <Select.Option value="0 year">0 year</Select.Option>
             <Select.Option value="1 year">1 year</Select.Option>
-          
-            <Select.Option value="2 years">2 year</Select.Option>
+            <Select.Option value="2 years">2 years</Select.Option>
             <Select.Option value="more than 2 years">More than 2 years</Select.Option>
-         
           </Select>
-         
         </Form.Item>
       </Form>
     </Modal>
   );
 };
+
 const EmployeeDetails = ({ employee, onClose }) => {
   return (
     <Modal
@@ -258,7 +252,9 @@ const EmployeeDetails = ({ employee, onClose }) => {
       <p><strong>Username:</strong> {employee.username}</p>
       <p><strong>Password:</strong> {employee.password}</p>
       <p><strong>Photo:</strong> {employee.photo}</p>
-      <p><strong>Marital Status:</strong> {employee.maritalstatus}</p>
+      <p><strong>Email:</strong> {employee.email}</p>
+      <p><strong>Phone:</strong> {employee.phone}</p>
+      <p><strong>Marital Status:</strong> {employee.maritalStatus}</p>
       <p><strong>Address:</strong> {employee.address}</p>
       <p><strong>City:</strong> {employee.city}</p>
       <p><strong>State:</strong> {employee.state}</p>
@@ -266,10 +262,9 @@ const EmployeeDetails = ({ employee, onClose }) => {
       <p><strong>Pin code:</strong> {employee.pincode}</p>
       <p><strong>Role:</strong> {employee.role}</p>
       <p><strong>Qualification:</strong> {employee.qualification}</p>
-      
-
+      <p><strong>Experience:</strong> {employee.experience}</p>
     </Modal>
   );
 };
 
-export default EmployeeRegistrationForm ;
+export default EmployeeRegistrationForm;
