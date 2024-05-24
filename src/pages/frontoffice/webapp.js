@@ -3,7 +3,9 @@ import { Container, Form, Button, Table } from "react-bootstrap";
 
 const WebAppDevelopmentPage = () => {
   const [companyName, setCompanyName] = useState("Stewart Business Academy");
-  const [introduction, setIntroduction] = useState("DHANWIS TECHINFO SOLUTIONS will provide the Dynamic Website Solution as soon as the agreement is penned. We look forward to providing solutions for your needs, with this proposal being the outline of how we intend to solve it. Based on our previous discussions and our experience working in this field, we have identified and listed below ...");
+  const [introduction, setIntroduction] = useState(
+    "DHANWIS TECHINFO SOLUTIONS will provide the Dynamic Website Solution as soon as the agreement is penned. We look forward to providing solutions for your needs, with this proposal being the outline of how we intend to solve it. Based on our previous discussions and our experience working in this field, we have identified and listed below ..."
+  );
   const [contact, setContact] = useState("8086 487 219");
   const [strategyData, setStrategyData] = useState([
     { key: "home", label: "Home", value: "Contains a search bar, Top 10 Brokers list, News, Ranking List, etc." },
@@ -40,7 +42,7 @@ const WebAppDevelopmentPage = () => {
   };
 
   const handleStrategyInputChange = (key, e) => {
-    const updatedStrategyData = strategyData.map(item => {
+    const updatedStrategyData = strategyData.map((item) => {
       if (item.key === key) {
         return { ...item, value: e.target.value };
       }
@@ -87,12 +89,16 @@ const WebAppDevelopmentPage = () => {
               </tr>
             </thead>
             <tbody>
-              ${strategyData.map((item, index) => `
+              ${strategyData
+                .map(
+                  (item, index) => `
                 <tr key=${index}>
                   <td>${item.label}</td>
                   <td>${item.value}</td>
                 </tr>
-              `).join('')}
+              `
+                )
+                .join("")}
             </tbody>
           </table>
           <h2>Payment Details</h2>
@@ -135,93 +141,53 @@ const WebAppDevelopmentPage = () => {
   };
 
   return (
-    <Container style={{paddingTop:"50px"}}>
+    <Container style={{ paddingTop: "50px" }}>
       <h1>Web App Development Services</h1>
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="companyName">
           <Form.Label>Company Name:</Form.Label>
-          <Form.Control 
-            type="text" 
-            value={companyName} 
-            onChange={handleCompanyNameChange} 
-          />
+          <Form.Control type="text" value={companyName} onChange={handleCompanyNameChange} />
         </Form.Group>
         <Form.Group controlId="introduction">
           <Form.Label>Introduction:</Form.Label>
-          <Form.Control 
-            as="textarea" 
-            rows={3} 
-            value={introduction} 
-            onChange={handleIntroductionChange} 
-          />
+          <Form.Control as="textarea" rows={3} value={introduction} onChange={handleIntroductionChange} />
         </Form.Group>
         <Form.Group controlId="contact">
           <Form.Label>Issued By:</Form.Label>
-          <Form.Control 
-            type="text" 
-            value={contact} 
-            onChange={handleContactChange} 
-          />
+          <Form.Control type="text" value={contact} onChange={handleContactChange} />
         </Form.Group>
+
+        <h2>Strategy</h2>
+        {strategyData.map((item) => (
+          <Form.Group controlId={item.key} key={item.key}>
+            <Form.Label>{item.label}:</Form.Label>
+            <Form.Control type="text" value={item.value} onChange={(e) => handleStrategyInputChange(item.key, e)} />
+          </Form.Group>
+        ))}
+
+        <h2>Payment Details</h2>
+        <Form.Group controlId="packageAmount">
+          <Form.Label>Development Charge:</Form.Label>
+          <Form.Control type="number" value={packageAmount} onChange={handlePackageAmountChange} />
+        </Form.Group>
+        <Form.Group controlId="gstAmount">
+          <Form.Label>GST Amount ({gstRate}%):</Form.Label>
+          <Form.Control type="text" value={gstAmount} readOnly />
+        </Form.Group>
+        <Form.Group controlId="totalAmount">
+          <Form.Label>Total Amount:</Form.Label>
+          <Form.Control type="text" value={totalAmount} readOnly />
+        </Form.Group>
+
+        <div style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
+          <Button variant="success" onClick={handlePrint} style={{ marginRight: "10px" }}>
+            Print
+          </Button>
+          <Button variant="primary" type="submit">
+            Save
+          </Button>
+        </div>
       </Form>
-
-      <h2>Strategy</h2>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>Key</th>
-            <th>Value</th>
-          </tr>
-        </thead>
-        <tbody>
-          {strategyData.map((item, index) => (
-            <tr key={index}>
-              <td>{item.label}</td>
-              <td>
-                <Form.Control 
-                  type="text" 
-                  value={item.value} 
-                  onChange={(e) => handleStrategyInputChange(item.key, e)} 
-                />
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-
-      <h2>Payment Details</h2>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>Key</th>
-            <th>Value</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Development Charge</td>
-            <td><input type="number" value={packageAmount} onChange={handlePackageAmountChange} /></td>
-          </tr>
-          <tr>
-            <td>GST Amount ({gstRate}%)</td>
-            <td>{gstAmount}</td>
-          </tr>
-          <tr>
-            <td>Total Amount</td>
-            <td>{totalAmount}</td>
-          </tr>
-        </tbody>
-      </Table>
-      
-      {/* Print and Save buttons */}
-      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-        <Button variant="success" onClick={handlePrint} style={{ marginRight: '10px' }}>
-          Print
-        </Button>
-        <Button variant="primary" type="submit">
-          Save
-        </Button>
-      </div>
     </Container>
   );
 };

@@ -6,7 +6,7 @@ import { isHRAdminAuthenticated } from '../../utils/isAuthenticated';
 
 import HR_Home from '../HR-Section/Home';
 import HR_Profile from '../HR-Section/profile';
-import HR_Tables from '../HR-Section/table';
+import HR_Tables from '../HR-Section/table'; 
 import HR_Billing from '../HR-Section/billing';
 import LeaveRequest from '../HR-Section/Leaveaccept';
 import EmployeeRegistrationForm from '../HR-Section/Registration';
