@@ -26,23 +26,26 @@ function StudentTasks() {
 
   const handleOk = () => {
     form.validateFields().then((values) => {
-      const updatedTask = {
-        id: editTaskId,
+      const newTask = {
+        id: editTaskId !== null ? editTaskId : taskDetails.length + 1,
         studentName: values.studentName,
         taskName: values.taskName,
         taskDetails: values.taskDetails,
         guideName: values.guideName,
         startDate: moment(values.startDate),
         endDate: moment(values.endDate),
+        status: "Pending", // Default status when creating a new task
       };
+
       if (editTaskId !== null) {
         // If an edit is being performed, update the task
-        const updatedTaskList = taskDetails.map(task => (task.id === editTaskId ? updatedTask : task));
+        const updatedTaskList = taskDetails.map(task => (task.id === editTaskId ? newTask : task));
         setTaskDetails(updatedTaskList);
       } else {
         // Otherwise, add a new task
-        setTaskDetails([...taskDetails, updatedTask]);
+        setTaskDetails([...taskDetails, newTask]);
       }
+
       setIsModalVisible(false);
       setEditTaskId(null); // Reset the editTaskId after editing
       form.resetFields();
@@ -72,6 +75,13 @@ function StudentTasks() {
       endDate: moment(record.endDate),
     });
     showModal();
+  };
+
+  const updateStatus = (record, newStatus) => {
+    const updatedTaskList = taskDetails.map(task =>
+      task.id === record.id ? { ...task, status: newStatus } : task
+    );
+    setTaskDetails(updatedTaskList);
   };
 
   const rowSelection = {
@@ -106,13 +116,25 @@ function StudentTasks() {
       title: "Start Date",
       dataIndex: "startDate",
       key: "startDate",
-      render: (text, record) => moment(text).format("LL"),
+      render: (text) => moment(text).format("LL"),
     },
     {
       title: "End Date",
       dataIndex: "endDate",
       key: "endDate",
-      render: (text, record) => moment(text).format("LL"),
+      render: (text) => moment(text).format("LL"),
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      render: (text, record) => (
+        <Select value={text} onChange={(value) => updateStatus(record, value)}>
+          <Option value="Pending">Pending</Option>
+          <Option value="In Progress">In Progress</Option>
+          <Option value="Finished">Finished</Option>
+        </Select>
+      ),
     },
     {
       title: "Action",
@@ -185,4 +207,3 @@ function StudentTasks() {
 }
 
 export default StudentTasks;
-
