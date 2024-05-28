@@ -150,7 +150,7 @@ const Taskform = () => {
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
       >
-        <h2>Task Information</h2>
+        <h2 style={{marginTop:'20px'}}>Task Information</h2>
         <Form.Item label="ID" name="id" rules={[{ required: true, message: "Please enter ID" }]}>
           <Select placeholder="Select ID">
             <Option value="1">ID 1</Option>
