@@ -110,7 +110,9 @@ const EmployeeForm = ({ visible, onCancel, onCreate }) => {
           Submit
         </Button>,
       ]}
-      width={1200}
+       // Adjust width here
+       width={1000} // Change this value to the desired width
+       maskClosable={false}
     >
       <Form form={form} layout="vertical" name="employee_form">
         <Form.Item
@@ -141,7 +143,10 @@ const EmployeeForm = ({ visible, onCancel, onCreate }) => {
         <Form.Item
           name="password"
           label="Password"
-          rules={[{ required: true, message: 'Please input the password!' }]}
+          rules={[{ required: true, message: 'Please input the password!',
+pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/
+
+          }]}
         >
           <Input.Password />
         </Form.Item>
