@@ -13,7 +13,7 @@ const Jobapply = () => {
       <h3>Apply Job</h3>
       <Row className="justify-content-center mt-4">
       <Col md={6} lg={5} className="mb-4">
-          <Card className="h-100 shadow bg-grey">
+      <Card className="h-90 shadow bg-grey"style={{ backgroundColor: 'white', color: 'black' }}>
             <Card.Body style={{ padding: '2rem' }}>
               <Card.Title>Data Analyst </Card.Title>
               <Card.Text>
@@ -24,8 +24,8 @@ const Jobapply = () => {
               Cannanore, Kerala
               {/* <Button variant="secondary" className="float-right" >Full-time</Button> */}
               </Card.Text>
-              {/* <Button variant="secondary">From ₹15,000 a month</Button> */}
-              <Button variant="secondary" className="float-right" >Full-time</Button>
+              <Button variant="secondary">From ₹15,000 a month</Button>
+              <Button variant="secondary" className="float-right" style={{marginLeft:"20px"}}>Full-time</Button>
             </Card.Body>
             <Card.Footer>
           
@@ -36,7 +36,7 @@ const Jobapply = () => {
         </Col>
 
         <Col md={6} lg={5} className="mb-4">
-          <Card className="h-100 shadow bg-grey">
+        <Card className="h-90 shadow bg-grey"style={{ backgroundColor: 'white', color: 'black' }}>
             <Card.Body style={{ padding: '2rem' }}>
               <Card.Title>Junior SEO Analyst</Card.Title>
               <Card.Text>
@@ -46,8 +46,8 @@ const Jobapply = () => {
               <Card.Text>
               Cannanore, Kerala
               </Card.Text>
-              {/* <Button variant="secondary">From ₹15,000 a month</Button> */}
-              <Button variant="secondary" className="float-right" >Full-time</Button>
+              <Button variant="secondary">From ₹15,000 a month</Button>
+              <Button variant="secondary" className="float-right" style={{marginLeft:"20px"}}>Full-time</Button>
             </Card.Body>
             <Card.Footer>
               <Button variant="success" style={{marginLeft:"10px"}}>Apply Now</Button>
@@ -56,7 +56,7 @@ const Jobapply = () => {
         </Col>
 
         <Col md={6} lg={5} className="mb-4">
-          <Card className="h-100 shadow bg-grey">
+        <Card className="h-90 shadow bg-grey"style={{ backgroundColor: 'white', color: 'black' }}>
             <Card.Body style={{ padding: '2rem' }}>
               <Card.Title>Junior SEO Analyst</Card.Title>
               <Card.Text>
@@ -66,8 +66,8 @@ const Jobapply = () => {
               Cannanore, Kerala
               </Card.Text>
               
-              {/* <Button variant="secondary">From ₹15,000 a month</Button> */}
-              <Button variant="secondary" className="float-right" >Full-time</Button>
+              <Button variant="secondary">From ₹15,000 a month</Button>
+              <Button variant="secondary" className="float-right" style={{marginLeft:"20px"}}>Full-time</Button>
             </Card.Body>
             <Card.Footer>
               <Button variant="success" style={{marginLeft:"10px"}}>Apply Now</Button>
@@ -76,7 +76,7 @@ const Jobapply = () => {
         </Col>
 
         <Col md={6} lg={5} className="mb-4">
-          <Card className="h-100 shadow bg-grey">
+          <Card className="h-90 shadow bg-grey"style={{ backgroundColor: 'white', color: 'black' }}>
             <Card.Body style={{ padding: '2rem' }}>
               <Card.Title>Data Analyst</Card.Title>
               <Card.Text>
@@ -85,8 +85,8 @@ const Jobapply = () => {
               <Card.Text>
               Cannanore, Kerala
               </Card.Text>
-              {/* <Button variant="secondary">From ₹15,000 a month</Button> */}
-              <Button variant="secondary" className="float-right" >Full-time</Button>
+              <Button variant="secondary">From ₹15,000 a month</Button>
+              <Button variant="secondary" className="float-right"  style={{marginLeft:"20px"}}>Full-time</Button>
             </Card.Body>
             <Card.Footer>
               <Button variant="success" style={{marginLeft:"10px"}}>Apply Now</Button>

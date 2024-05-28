@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Table, Typography, Input, DatePicker, Button, Modal, Form, Row, Col, Select } from "antd";
 import axios from "axios";
 import moment from "moment";
@@ -11,8 +11,8 @@ function Giveproject() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [employees, setEmployees] = useState([]);
-
   const [form] = Form.useForm();
+  const [editingRow, setEditingRow] = useState(null);
 
   useEffect(() => {
     // Fetch employees from the staff database
@@ -31,14 +31,22 @@ function Giveproject() {
 
   const handleOk = () => {
     form.validateFields().then((values) => {
-      const newCustomer = {
-        id: customerDetails.length + 1,
-        projectName: values.projectName,
-        employeeName: values.employeeName,
-        projectDate: moment(values.projectDate),
-        deadline: moment(values.deadline),
-      };
-      setCustomerDetails([...customerDetails, newCustomer]);
+      if (editingRow) {
+        const updatedData = customerDetails.map((item) =>
+          item.id === editingRow.id ? { ...item, ...values } : item
+        );
+        setCustomerDetails(updatedData);
+        setEditingRow(null);
+      } else {
+        const newCustomer = {
+          id: customerDetails.length + 1,
+          ...values,
+          projectDate: moment(values.projectDate),
+          deadline: moment(values.deadline),
+          status: "Pending",
+        };
+        setCustomerDetails([...customerDetails, newCustomer]);
+      }
       setIsModalVisible(false);
       form.resetFields();
     });
@@ -53,6 +61,20 @@ function Giveproject() {
     const filteredData = customerDetails.filter((item) => !selectedRowKeys.includes(item.id));
     setCustomerDetails(filteredData);
     setSelectedRowKeys([]);
+  };
+
+  const handleEdit = (record) => {
+    setEditingRow(record);
+    form.setFieldsValue(record);
+    showModal();
+  };
+
+  const handleStatusChange = (id, status) => {
+    setCustomerDetails((prevDetails) =>
+      prevDetails.map((item) =>
+        item.id === id ? { ...item, status } : item
+      )
+    );
   };
 
   const rowSelection = {
@@ -79,39 +101,34 @@ function Giveproject() {
       title: "Project Date",
       dataIndex: "projectDate",
       key: "projectDate",
-      render: (text, record) => moment(text).format("LL"),
+      render: (text) => moment(text).format("LL"),
     },
     {
       title: "Deadline",
       dataIndex: "deadline",
       key: "deadline",
-      render: (text, record) => moment(text).format("LL"),
+      render: (text) => moment(text).format("LL"),
     },
     {
-      title: "Print",
-      key: "print",
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
       render: (text, record) => (
-        <Button type="link" onClick={() => handlePrint(record)}>Print</Button>
+        <Select defaultValue={text} onChange={(value) => handleStatusChange(record.id, value)}>
+          <Option value="Pending">Pending</Option>
+          <Option value="In Progress">In Progress</Option>
+          <Option value="Finished">Finished</Option>
+        </Select>
+      ),
+    },
+    {
+      title: "Action",
+      key: "action",
+      render: (text, record) => (
+        <Button type="primary" onClick={() => handleEdit(record)}>Edit</Button>
       ),
     },
   ];
-
-  const handlePrint = (record) => {
-    const printWindow = window.open("", "_blank");
-    printWindow.document.write(`
-      <html>
-        <head><title>Customer Details</title></head>
-        <body>
-          <h1>${record.projectName}</h1>
-          <p>Employee Name: ${record.employeeName}</p>
-          <p>Project Date: ${moment(record.projectDate).format("LL")}</p>
-          <p>Deadline: ${moment(record.deadline).format("LL")}</p>
-        </body>
-      </html>
-    `);
-    printWindow.document.close();
-    printWindow.print();
-  };
 
   return (
     <div className="customer-details" style={{ paddingTop: "50px" }}>
@@ -128,7 +145,7 @@ function Giveproject() {
           </Button>
         </Col>
       </Row>
-      <Modal title="Add Customer" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+      <Modal title={editingRow ? "Edit Customer" : "Add Customer"} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
         <Form form={form} layout="vertical">
           <Form.Item name="projectName" label="Project Name" rules={[{ required: true, message: "Please enter project name" }]}>
             <Input />

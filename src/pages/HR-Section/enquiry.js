@@ -498,19 +498,31 @@ const EnquiryAdmissionform = () => {
       <Button type="primary" onClick={showProductionModal}>
         Add Production
       </Button>
-
+      
       <Modal
         title="Student Form"
         visible={isStudentModalVisible}
         onCancel={handleStudentCancel}
         footer={null}
+        width={1000} // Change this value to the desired width
+        maskClosable={false}
       >
+       
+
         <Form form={studentForm} onFinish={onStudentFinish} layout="vertical">
           {/* Student form fields */}
           <Form.Item
             label="Name of Student"
             name="name"
-            rules={[{ required: true, message: 'Please input the name of the student' }]}
+            // rules={[{ pattern: /^[A-Za-z]+$/,required: true, message: 'Please input the name of the student' }]}
+          rules={[  {
+            required: true,
+            message: "Please input the name of the student",
+          },
+          {
+            pattern: /^[a-zA-Z]*$/,
+            message: "Please enter a valid name",
+          },]}
           >
             <Input />
           </Form.Item>
@@ -526,25 +538,49 @@ const EnquiryAdmissionform = () => {
           <Form.Item
             label="Education Qualification"
             name="educationQualification"
-            rules={[{ required: true, message: 'Please input the education qualification' }]}
+            rules={[
+              {
+                required: true,
+                message: "Please input your educational qualification",
+              },
+              {
+                pattern: /^[a-zA-Z]*$/,
+                message: "Please enter a valid data",
+              },
+            ]}
           >
             <Input />
           </Form.Item>
           <Form.Item
             label="Course"
             name="course"
-            rules={[{ required: true, message: 'Please select a course' }]}
+            rules={[
+              {
+                required: true,
+                message: "Please input your course",
+              },
+              {
+                // pattern: /^[a-zA-Z]*$/,
+                // message: "Course should not contain numbers and special characters!",
+              },
+            ]}
           >
-            <Select>
-              <Select.Option value="course1">Course 1</Select.Option>
-              <Select.Option value="course2">Course 2</Select.Option>
-              <Select.Option value="course3">Course 3</Select.Option>
-            </Select>
+             <Input />
           </Form.Item>
+        
           <Form.Item
             label="Address"
             name="address"
-            rules={[{ required: true, message: 'Please input the address' }]}
+            rules={[
+              {
+                required: true,
+                message: "Please input your Address",
+              },
+              {
+                pattern: /^[a-zA-Z]*$/,
+               
+              },
+            ]}
           >
             <Input.TextArea />
           </Form.Item>
@@ -552,8 +588,14 @@ const EnquiryAdmissionform = () => {
             label="Contact Number"
             name="contactNumber"
             rules={[
-              { required: true, message: 'Please input the contact number' },
-              { pattern: /^\d+$/, message: 'Contact number must be a number' },
+              {
+                required: true,
+                message: 'Please input your phone number!',
+              },
+              {
+                pattern: /^\d{10}$/,
+                message: 'Please enter exactly 10 digits',
+              },
             ]}
           >
             <Input />
@@ -577,7 +619,17 @@ const EnquiryAdmissionform = () => {
           <Form.Item
             label="Customer Name"
             name="customerName"
-            rules={[{ required: true, message: 'Please input the customer name' }]}
+            rules={[
+              {
+                required: true,
+                message: "Please input the name of the customer",
+              },
+              {
+                pattern: /^[a-zA-Z]*$/,
+                message: "Please enter a valid name",
+              },
+
+            ]}
           >
             <Input />
           </Form.Item>
@@ -586,7 +638,7 @@ const EnquiryAdmissionform = () => {
             name="contact"
             rules={[
               { required: true, message: 'Please input the contact' },
-              { pattern: /^\d+$/, message: 'Contact must be a number' },
+              { pattern: /^\d{10}$/, message: 'Contact must be a number' },
             ]}
           >
             <Input />

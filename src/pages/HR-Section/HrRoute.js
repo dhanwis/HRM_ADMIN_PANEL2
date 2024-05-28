@@ -19,6 +19,9 @@ import HRSignIn from './HRAdminLogin';
 import Feeform from '../HR-Section/Internfee';
 import AdmissionForm from './admission';
 import EnquiryAdmissionform from './enquiry';
+import Testimonialform from '../HR-Section/testimonial';
+import Referenceform from '../HR-Section/reference';
+
 
 
 const PrivateHrRoute = ({ component: Component, ...rest }) => (
@@ -51,9 +54,13 @@ const HrRoutes = () => (
     <PrivateHrRoute path="/admin/attendance" exact component={AttendanceMarkingPage} />
     <PrivateHrRoute path="/admin/jobapply" exact component={JobForm} />
     <PrivateHrRoute path="/admin/billing" exact component={HR_Billing} />
-    <PrivateHrRoute path="/admin/reference" exact component={HR_Billing} />
+    {/* <PrivateHrRoute path="/admin/reference" exact component={HR_Billing} /> */}
     <PrivateHrRoute path="/admin/admission" exact component={AdmissionForm} />
     <PrivateHrRoute path="/admin/enquiry" exact component={EnquiryAdmissionform} />
+    <PrivateHrRoute path="/admin/testimonial" exact component={Testimonialform} />
+    <PrivateHrRoute path="/admin/reference" exact component={Referenceform} />
+
+
 
 
   </Switch>
