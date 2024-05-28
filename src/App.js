@@ -117,10 +117,6 @@ import FrontRoutes from "./pages/frontoffice/frontRoutes.js";
  
 import TeamRoutes from "./pages/TeamLead-Section/TeamRoutes.js";
  
- 
-
-
-
 
 
 // Higher-order component to restrict access for HR Admin

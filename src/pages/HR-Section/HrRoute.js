@@ -24,6 +24,7 @@ import Referenceform from '../HR-Section/reference';
 
 
 
+
 const PrivateHrRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
@@ -56,11 +57,10 @@ const HrRoutes = () => (
     <PrivateHrRoute path="/admin/billing" exact component={HR_Billing} />
     {/* <PrivateHrRoute path="/admin/reference" exact component={HR_Billing} /> */}
     <PrivateHrRoute path="/admin/admission" exact component={AdmissionForm} />
+
     <PrivateHrRoute path="/admin/enquiry" exact component={EnquiryAdmissionform} />
     <PrivateHrRoute path="/admin/testimonial" exact component={Testimonialform} />
     <PrivateHrRoute path="/admin/reference" exact component={Referenceform} />
-
-
 
 
   </Switch>

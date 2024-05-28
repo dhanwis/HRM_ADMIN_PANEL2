@@ -354,6 +354,7 @@ export default class  HRSignIn  extends Component {
                 onFinishFailed={onFinishFailed}
                 layout="vertical"
                 className="row-col"
+
               >
                 <Form.Item
                   className="userID"

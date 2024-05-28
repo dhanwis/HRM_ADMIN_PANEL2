@@ -227,7 +227,7 @@ export default function SidenavHR({ color }) {
     <div style={{width:'50%'}}>
       <div className="brand">
         <img src={logo} alt="" style={{width:'200px', height:'90px'}} />
-        <span style={{fontWeight:'bolder',fontSize:'35px',color:'green',textAlign:'center'}}>HR</span>
+        <span style={{fontWeight:'bolder',fontSize:'35px',color:'green',paddingLeft:'25px'}}>HR</span>
       </div>
       <hr />
       <Menu theme="light" mode="inline">
