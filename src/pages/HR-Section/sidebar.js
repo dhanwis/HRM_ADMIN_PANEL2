@@ -371,7 +371,7 @@ export default function SidenavHR({ color }) {
 
         
         <Menu.Item key="10">
-          <NavLink to="/job/dashboardddd" style={{textDecoration:"none"}}>
+          <NavLink to="/admin/enquiry" style={{textDecoration:"none"}}>
             <span
               className="icon"
               style={{

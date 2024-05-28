@@ -170,7 +170,7 @@ export default class HRSignIn extends Component {
               >
                 <Title className="mb-15">Sign In</Title>
                 <Title className="font-regular text-muted" level={5}>
-                  Enter your email and password to sign in
+                  Enter your username and password to signin
                 </Title>
                 <Form
                   onFinish={onFinish}
@@ -180,16 +180,17 @@ export default class HRSignIn extends Component {
                 >
                   <Form.Item
                     className="username"
-                    label="Email"
-                    name="email"
+                    label="Username"
+                    name="username"
                     rules={[
                       {
                         required: true,
-                        message: "Please input your email!",
+                        message: "Please input your username",
+                        pattern: /^[A-Za-z\s]+$/
                       },
                     ]}
                   >
-                    <Input placeholder="Email" />
+                    <Input placeholder="Username" />
                   </Form.Item>
 
                   <Form.Item
@@ -200,8 +201,12 @@ export default class HRSignIn extends Component {
                       {
                         required: true,
                         message: "Please input your password!",
+                        pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/
+
                       },
                     ]}
+                    validateTrigger="onBlur"
+
                   >
                     <Input placeholder="Password" />
                   </Form.Item>
