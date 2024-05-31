@@ -10,8 +10,8 @@ const FourCards = () => {
     <div className="container mt-5">
       <Container>
         <h3>Notes</h3>
-        <Row className="justify-content-center mt-4">
-          <Col md={6} lg={5} className="mb-4">
+        <Row className="justify-content-center mt-1">
+          <Col md={6}  className="mb-4">
             <Card className="h-90 shadow" style={{ backgroundColor: 'white', color: 'black' }}>
               <Card.Body style={{ padding: '4rem' }}>
                 <Card.Title>Title</Card.Title>
@@ -23,7 +23,7 @@ const FourCards = () => {
             </Card>
           </Col>
 
-          <Col md={6} lg={5} className="mb-4">
+          <Col md={6}  className="mb-4">
             <Card className="h-90 shadow" style={{ backgroundColor: 'white', color: 'black' }}>
               <Card.Body style={{ padding: '4rem' }}>
                 <Card.Title>Title</Card.Title>
@@ -35,7 +35,7 @@ const FourCards = () => {
             </Card>
           </Col>
 
-          <Col md={6} lg={5} className="mb-4">
+          <Col md={6}  className="mb-4">
             <Card className="h-90 shadow" style={{ backgroundColor: 'white', color: 'black' }}>
               <Card.Body style={{ padding: '4rem' }}>
                 <Card.Title>Title</Card.Title>
@@ -47,7 +47,7 @@ const FourCards = () => {
             </Card>
           </Col>
 
-          <Col md={6} lg={5} className="mb-4">
+          <Col md={6}  className="mb-4">
             <Card className="h-90 shadow" style={{ backgroundColor: 'white', color: 'black' }}>
               <Card.Body style={{ padding: '4rem' }}>
                 <Card.Title>Title</Card.Title>
