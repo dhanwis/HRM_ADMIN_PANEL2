@@ -6,6 +6,7 @@ import {
   InstagramOutlined,
 } from "@ant-design/icons";
 import { Container } from "react-bootstrap";
+import img from "./user.png";
 
 function ProfileInformation() {
   return (
@@ -18,13 +19,14 @@ function ProfileInformation() {
             bodyStyle={{ paddingTop: 0, textAlign: "center" }}
           >
             <div className="profile-image-container">
-              <img
+             <img src={img} alt="" style={{width:"100px" ,height:"100px",marginTop:"20px"}} />
+              {/* <img
                 src="https://via.placeholder.com/200" // Example image URL
                 alt="Profile Image"
                 className="profile-image rounded-circle"
-              />
+              /> */}
             </div>
-            <Descriptions bordered column={1} className="profile-descriptions">
+            <Descriptions bordered column={1} className="profile-descriptions mt-3">
               <Descriptions.Item label="Full Name" className="font-bold">
                 Athira
               </Descriptions.Item>
