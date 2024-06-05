@@ -39,9 +39,9 @@ import card from "../../assets/images/info-card-1.jpg";
 import SidenavHR from "./sidebar";
 import "./Home.css";
 import { Link } from "react-router-dom";
-import logo1 from "../../assets/images/face-1.jpg";
+import logo1 from "../../assets/images/face-4.jpg";
 import logo2 from "../../assets/images/team-3.jpg";
-import logo3 from "../../assets/images/team-4.jpg";
+import logo3 from "../../assets/images/team-1.jpg";
 import Header from "./Header";
 
 
@@ -157,14 +157,14 @@ function HR_Home() {
     },
     {
       today: "New Clients",
-      title: "+1,200",
+      title: "+100",
       persent: "-20%",
       icon: heart,
       bnb: "redtext",
     },
     {
       today: "New Projects",
-      title: "$13,200",
+      title: "20",
       persent: "10%",
       icon: cart,
       bnb: "bnb2",
@@ -323,6 +323,7 @@ function HR_Home() {
     },
   ];
 
+
   const uploadProps = {
     name: "file",
     action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
@@ -340,6 +341,15 @@ function HR_Home() {
       }
     },
   };
+  const followUps = [
+    { serialNo: 1, name: "John Doe", category: "Admission", contactNo: "123-456-7890" },
+    { serialNo: 2, name: "Jane Smith", category: "Production", contactNo: "987-654-3210" },
+    { serialNo: 3, name: "Jane Smith", category: "Production", contactNo: "987-654-3210" },
+    { serialNo: 4, name: "Jane Smith", category: "Production", contactNo: "987-654-3210" },
+    { serialNo: 5, name: "Jane Smith", category: "Production", contactNo: "987-654-3210" },
+    // Add more follow-ups as needed
+  ];
+ 
 
   return (
 
@@ -392,82 +402,51 @@ function HR_Home() {
           </Col>
           <Col xs={24} sm={24} md={12} lg={12} xl={12} className="mb-24">
             <Card bordered={false} className="criclebox h-full">
-              <LineChartHR />
+              <LineChart />
             </Card>
           </Col>
         </Row>
 
         <Row gutter={[24, 0]}>
-          <Col xs={24} sm={24} md={12} lg={12} xl={16} className="mb-24">
-            <Card bordered={false} className="criclebox cardbody h-full">
-              <div className="project-ant">
-                <div>
-                  <Title level={5}>Projects</Title>
-                  <Paragraph className="lastweek">
-                    done this month<span className="blue">40%</span>
-                  </Paragraph>
-                </div>
-                <div className="ant-filtertabs">
-                  {/* <div className="antd-pro-pages-dashboard-analysis-style-salesExtra">
-                    <Radio.Group onChange={onChange} defaultValue="a">
-                      <Radio.Button value="a">ALL</Radio.Button>
-                      <Radio.Button value="b">ONLINE</Radio.Button>
-                      <Radio.Button value="c">STORES</Radio.Button>
-                    </Radio.Group>
-                  </div> */}
-                </div>
-              </div>
-              <div className="ant-list-box table-responsive">
-                <table className="width-100">
-                  <thead>
-                    <tr>
-                      <th>COMPANIES</th>
-                      <th>MEMBERS</th>
-                      <th>BUDGET</th>
-                      <th>COMPLETION</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {list.map((d, index) => (
-                      <tr key={index}>
-                        <td>
-                          <h6>
-                            <img
-                              src={d.img}
-                              alt=""
-                              className="avatar-sm mr-10"
-                            />{" "}
-                            {d.Title}
-                          </h6>
-                        </td>
-                        <td>{d.member}</td>
-                        <td>
-                          <span className="text-xs font-weight-bold">
-                            {d.bud}{" "}
-                          </span>
-                        </td>
-                        <td>
-                          <div className="percent-progress">{d.progress}</div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              
-              <div className="uploadfile shadow-none">
-                <Upload {...uploadProps}>
-                  <Button
-                    type="dashed"
-                    className="ant-full-box"
-                    icon={<ToTopOutlined />}
-                  >
-                    <span className="click">Click to Upload</span>
-                  </Button>
-                </Upload>
-              </div>
-            </Card>
-          </Col>
+        <Col xs={24} sm={24} md={12} lg={12} xl={16} className="mb-24">
+      <Card bordered={false} className="criclebox cardbody h-full">
+        <div className="project-ant">
+          <div>
+            <Title level={5}>Upcoming Follow-ups</Title>
+            {/* You can add more details or filter options here if needed */}
+          </div>
+        </div>
+        <div className="ant-list-box table-responsive">
+          <table className="width-100">
+            <thead>
+              <tr>
+                <th>Serial No.</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Contact No.</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {followUps.map((followUp, index) => (
+                <tr key={index}>
+                  <td>{followUp.serialNo}</td>
+                  <td>{followUp.name}</td>
+                  <td>{followUp.category}</td>
+                  <td>{followUp.contactNo}</td>
+                  <td>
+                    <Button type="primary" >
+                      View
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+    
+      </Card>
+    </Col>
           <Col xs={24} sm={24} md={12} lg={12} xl={8} className="mb-24">
             <Card bordered={false} className="criclebox h-full">
               <div className="timeline-box">
@@ -500,7 +479,7 @@ function HR_Home() {
           </Col>
         </Row>
 
-        <Row gutter={[24, 0]}>
+        {/* <Row gutter={[24, 0]}>
           <Col xs={24} md={12} sm={24} lg={12} xl={14} className="mb-24">
             <Card bordered={false} className="criclebox h-full">
               <Row gutter>
@@ -564,7 +543,7 @@ function HR_Home() {
               </div>
             </Card>
           </Col>
-        </Row>
+        </Row> */}
        
         <Row gutter={[24, 0]}>
         
@@ -572,7 +551,7 @@ function HR_Home() {
             <Link to="/register/dashboard"  style={{textDecoration:'none'}}>
               <Card bordered={false} className="circlebox">
                 <Title level={4}>Front Office Staff 1</Title>
-                <img src={logo1} style={{width:'400px'}}/>
+                <img src={logo1} style={{width:'400px',borderRadius:'50%'}}/>
                 <Paragraph>
                 Name: Emily Johnson
                 <br></br>
@@ -594,7 +573,7 @@ function HR_Home() {
               <Card bordered={false} className="circlebox">
                 <Title level={4}>Front Office Staff 2</Title>
  
-                <img src={logo2} style={{width:'400px'}}/>
+                <img src={logo2} style={{width:'400px',borderRadius:'50%'}}/>
                 <Paragraph>Name: Emily Johnson
                 <br></br>
                   Position: Office Staff/Administrative Assistant
@@ -612,7 +591,7 @@ function HR_Home() {
             <Link to="/register/dashboard" style={{textDecoration:'none'}}>
               <Card bordered={false} className="circlebox">
                 <Title level={4}>Front Office Staff 3</Title>
-                <img src={logo3} style={{width:'400px'}}/>
+                <img src={logo3} style={{width:'400px',borderRadius:'50%'}}/>
                 <Paragraph>Name: Emily Johnson
                 <br></br>
                 Position: Office Staff/Administrative Assistant

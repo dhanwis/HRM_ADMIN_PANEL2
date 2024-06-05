@@ -309,15 +309,15 @@ const HR_Profile = () => {
   const [editMode, setEditMode] = useState(false);
   const [form] = Form.useForm();
   const [profile, setProfile] = useState({
-    name: 'Athira',
-    email: 'athira123@gmail.com',
+    name: 'Alexa',
+    email: 'alex123@gmail.com',
     dob: '13 June 2000',
-    position: 'Web developer Intern',
+    position: 'HR',
     address: 'Rose Villa',
     city: 'Kannur',
     state: 'Kerala',
     country: 'India',
-    qualification: 'B.Tech(CSE)',
+    qualification: 'MBA',
     keySkills: 'Good Communication, Planning and research skills',
     languages: 'English, German, Spanish',
     phone: '9823651425',
