@@ -1,6 +1,6 @@
  
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link,useHistory } from "react-router-dom";
 import {
   Layout,
   Menu,
@@ -12,6 +12,8 @@ import {
   Input,
   Switch,
 } from "antd";
+
+import axios from 'axios';
 
 import signinbg from "../../assets/images/signinbg.png"
 
@@ -108,10 +110,27 @@ const signin = [
 ];
 
 
+
 export default class StaffLogin extends Component {
+  
   render() {
+    
     const onFinish = (values) => {
-      console.log("Success:", values);
+      // console.log("Success:", values);
+       
+      axios.post(`http://127.0.0.1:8000/authapp/stafflogin/`, { username: values.email, password: values.password })
+      .then((ac) => { 
+        
+console.log(ac);
+        if(ac.status === 200){
+           
+          localStorage.setItem('isStaff',ac.data.user.is_staff)
+          localStorage.setItem('authToken',ac.data.token)
+          localStorage.setItem('userData',JSON.stringify(ac.data.user))
+
+          window.location.href = "/staff/dashboard"
+        } 
+       })
     };
 
     const onFinishFailed = (errorInfo) => {

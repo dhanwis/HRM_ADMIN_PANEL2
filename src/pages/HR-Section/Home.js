@@ -23,7 +23,7 @@ import {
 import Paragraph from "antd/lib/typography/Paragraph";
 
 import Echart from "../../components/chart/EChart";
-import LineChart from "../../components/chart/LineChart";
+import LineChartHR from "./LinechartHR";
 
 import ava1 from "../../assets/images/logo-shopify.svg";
 import ava2 from "../../assets/images/logo-atlassian.svg";
@@ -392,7 +392,7 @@ function HR_Home() {
           </Col>
           <Col xs={24} sm={24} md={12} lg={12} xl={12} className="mb-24">
             <Card bordered={false} className="criclebox h-full">
-              <LineChart />
+              <LineChartHR />
             </Card>
           </Col>
         </Row>
@@ -635,3 +635,8 @@ function HR_Home() {
 }
 
 export default HR_Home;
+
+
+
+
+
