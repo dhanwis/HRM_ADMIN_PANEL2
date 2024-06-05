@@ -5,6 +5,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 const ProfileStaff = () => {
   const [profileData, setProfileData] = useState(null);
 
+  let user = JSON.parse(localStorage.getItem('userData'))
+
+  console.log(user);
   // Simulated function to fetch user profile data from the backend
   const fetchUserProfile = () => {
     // Simulate API call to fetch user profile data
@@ -37,24 +40,24 @@ const ProfileStaff = () => {
           <Card.Title className="text-center mb-4">
             <h3 style={{paddingTop:"50px"}}>Profile</h3>
           </Card.Title>
-          {profileData && (
+          {user && (
             <>
               <div className="text-center mb-4">
                 <Image
-                  src={profileData.profilePhoto || "https://via.placeholder.com/150"}
+                  src={user.image && `http://127.0.0.1:8000${user.image}`}
                   roundedCircle
                   style={{ width: "120px", height: "120px", objectFit: "cover" }}
                   className="border border-light"
                 />
               </div>
               <div className="text-center">
-                <h5 className="mb-3">{profileData.userName}</h5>
-                <p className="mb-1">User ID: {profileData.userId}</p>
-                <p className="mb-1">Email: {profileData.email}</p>
-                <p className="mb-1">Phone No: {profileData.phoneNo}</p>
-                <p className="mb-1">Date of Birth: {profileData.dateOfBirth}</p>
-                <p className="mb-1">Role: {profileData.roleInCompany}</p>
-                <p className="mb-0">Join Date: {profileData.joinDate}</p>
+                <h5 className="mb-3">{user.username}</h5>
+                <p className="mb-1">User ID: {user.userId}</p>
+                <p className="mb-1">Email: {user.email}</p>
+                <p className="mb-1">Phone No: {user.phone_number}</p>
+                <p className="mb-1">Date of Birth: {user.dateOfBirth}</p>
+                <p className="mb-1">Role: {user.roleInCompany}</p>
+                <p className="mb-0">Join Date: {user.joinDate}</p>
               </div>
             </>
           )}
