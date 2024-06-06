@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Upload, Button, Input, message, Select } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
-
+import setbackg from "../../assets/images/bgall.png";
 const { TextArea } = Input;
 const { Option } = Select;
 
 const NotesSharing = () => {
+  const [title, setTitle] = useState(""); // New state for title
   const [description, setDescription] = useState("");
   const [file, setFile] = useState(null);
   const [section, setSection] = useState("");
@@ -45,6 +46,10 @@ const NotesSharing = () => {
     message.success('File removed successfully');
   };
 
+  const handleTitleChange = e => {
+    setTitle(e.target.value);
+  };
+
   const handleDescriptionChange = e => {
     setDescription(e.target.value);
   };
@@ -54,7 +59,7 @@ const NotesSharing = () => {
   };
 
   const handleShare = () => {
-    if (!file || !description || !section) {
+    if (!file || !title || !description || !section) {
       message.error('Please fill in all fields and upload a file before sharing.');
       return;
     }
@@ -63,10 +68,11 @@ const NotesSharing = () => {
   };
 
   return (
+    <div style={{ marginTop: "50px",  backgroundImage:`url(${setbackg})`}}>
     <div style={{ paddingTop: "50px" }}>
-      <h2 style={{ marginBottom: 40 }}>Notes Sharing to Team Lead Members</h2>
+      <h2 style={{ marginBottom: 40 }}>Notes Sharing to Intern</h2>
 
-      <div style={{ marginBottom: 40 }}>
+      <div style={{ marginBottom: 20 }}>
         <Upload onChange={handleFileChange} showUploadList={false}>
           <Button icon={<UploadOutlined />}>Upload File</Button>
         </Upload>
@@ -80,6 +86,14 @@ const NotesSharing = () => {
           </Button>
         </p>
       )}
+
+      <div style={{ marginBottom: 30 }}>
+        <Input
+          placeholder="Enter a title for your notes"
+          value={title}
+          onChange={handleTitleChange}
+        />
+      </div>
 
       <div style={{ marginBottom: 30 }}>
         <TextArea
@@ -110,6 +124,7 @@ const NotesSharing = () => {
           Share
         </Button>
       </div>
+    </div>
     </div>
   );
 };

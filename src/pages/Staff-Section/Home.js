@@ -166,120 +166,32 @@ function Staffhome() {
 
   const list = [
     {
-      Title: "Soft UI Shopify Version",
-      bud: "$14,000",
-      progress: <Progress percent={60} size="small" />,
-      member: (
-        <div className="avatar-group mt-2">
-          <Tooltip placement="bottom" title="Ryan Tompson">
-            <img className="tootip-img" src={team1} alt="" />
-          </Tooltip>
-          <Tooltip placement="bottom" title="Romina Hadid">
-            <img className="tootip-img" src={team2} alt="" />
-          </Tooltip>
-          <Tooltip placement="bottom" title="Alexander Smith">
-            <img className="tootip-img" src={team3} alt="" />
-          </Tooltip>
-          <Tooltip placement="bottom" title="Jessica Doe">
-            <img className="tootip-img" src={team4} alt="" />
-          </Tooltip>
-        </div>
-      ),
+      Title: "Project Alpha",
+      company: "Tech Corp",
+      deadline: "2024-06-15"
     },
     {
-      Title: "Progress Track",
-      bud: "$3,000",
-      progress: <Progress percent={10} size="small" />,
-      member: (
-        <div className="avatar-group mt-2">
-          <Tooltip placement="bottom" title="Ryan Tompson">
-            <img className="tootip-img" src={team1} alt="" />
-          </Tooltip>
-          <Tooltip placement="bottom" title="Romina Hadid">
-            <img className="tootip-img" src={team2} alt="" />
-          </Tooltip>
-        </div>
-      ),
+      Title: "Project Beta",
+      company: "Innovate Ltd",
+      deadline: "2024-07-01"
     },
     {
-      Title: "Fix Platform Errors",
-      bud: "Not Set",
-      progress: <Progress percent={100} size="small" status="active" />,
-      member: (
-        <div className="avatar-group mt-2">
-          <Tooltip placement="bottom" title="Ryan Tompson">
-            <img className="tootip-img" src={team1} alt="" />
-          </Tooltip>
-          <Tooltip placement="bottom" title="Romina Hadid">
-            <img className="tootip-img" src={team1} alt="" />
-          </Tooltip>
-          <Tooltip placement="bottom" title="Alexander Smith">
-            <img className="tootip-img" src={team3} alt="" />
-          </Tooltip>
-        </div>
-      ),
+      Title: "Project Gamma",
+      company: "Future Solutions",
+      deadline: "2024-06-30"
     },
     {
-      Title: "Launch new Mobile App",
-      bud: "$20,600",
-      progress: <Progress percent={100} size="small" status="active" />,
-      member: (
-        <div className="avatar-group mt-2">
-          <Tooltip placement="bottom" title="Ryan Tompson">
-            <img className="tootip-img" src={team1} alt="" />
-          </Tooltip>
-          <Tooltip placement="bottom" title="Romina Hadid">
-            <img className="tootip-img" src={team2} alt="" />
-          </Tooltip>
-        </div>
-      ),
+      Title: "Project Delta",
+      company: "Creative Inc",
+      deadline: "2024-08-10"
     },
     {
-      Title: "Add the New Landing Page",
-      bud: "$4,000",
-      progress: <Progress percent={80} size="small" />,
-      member: (
-        <div className="avatar-group mt-2">
-          <Tooltip placement="bottom" title="Ryan Tompson">
-            <img className="tootip-img" src={team1} alt="" />
-          </Tooltip>
-          <Tooltip placement="bottom" title="Romina Hadid">
-            <img className="tootip-img" src={team2} alt="" />
-          </Tooltip>
-          <Tooltip placement="bottom" title="Alexander Smith">
-            <img className="tootip-img" src={team3} alt="" />
-          </Tooltip>
-          <Tooltip placement="bottom" title="Jessica Doe">
-            <img className="tootip-img" src={team4} alt="" />
-          </Tooltip>
-        </div>
-      ),
-    },
-
-    {
-      Title: "Redesign Online Store",
-      bud: "$2,000",
-      progress: (
-        <Progress
-          percent={100}
-          size="small"
-          status="exception"
-          format={() => "Cancel"}
-        />
-      ),
-      member: (
-        <div className="avatar-group mt-2">
-          <Tooltip placement="bottom" title="Ryan Tompson">
-            <img className="tootip-img" src={team1} alt="" />
-          </Tooltip>
-          <Tooltip placement="bottom" title="Romina Hadid">
-            <img className="tootip-img" src={team2} alt="" />
-          </Tooltip>
-        </div>
-      ),
-    },
+      Title: "Project Epsilon",
+      company: "Enterprise Ltd",
+      deadline: "2024-07-20"
+    }
   ];
-
+  
   const timelineList = [
     {
       title: "$2,400 - Redesign store",
@@ -378,60 +290,57 @@ function Staffhome() {
         <Row gutter={[24, 0]}>
           <Col xs={24} sm={24} md={12} lg={12} xl={16} className="mb-24">
             <Card bordered={false} className="criclebox cardbody h-full">
-              <div className="project-ant">
-                <div>
-                  <Title level={5}>Pending Task</Title>
-                  <Paragraph className="lastweek">
-                   This Month
-                  </Paragraph>
-                </div>
-                {/* <div className="ant-filtertabs">
-                  <div className="antd-pro-pages-dashboard-analysis-style-salesExtra">
-                    <Radio.Group onChange={onChange} defaultValue="a">
-                      <Radio.Button value="a">ALL</Radio.Button>
-                      <Radio.Button value="b">ONLINE</Radio.Button>
-                      <Radio.Button value="c">STORES</Radio.Button>
-                    </Radio.Group>
-                  </div>
-                </div> */}
-              </div>
-              <div className="ant-list-box table-responsive">
-                <table className="width-100">
-                  <thead>
-                    <tr>
-                      <th>TASK NAME</th>
-                      <th>ASIGN DATE</th>
-                      <th>LAST DATE</th>
-                      <th>COMPLETION</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {list.map((d, index) => (
-                      <tr key={index}>
-                        <td>
-                          <h6>
-                            <img
-                              src={d.img}
-                              alt=""
-                              className="avatar-sm mr-10"
-                            />{" "}
-                            {d.Title}
-                          </h6>
-                        </td>
-                        <td>{d.member}</td>
-                        <td>
-                          <span className="text-xs font-weight-bold">
-                            {d.bud}{" "}
-                          </span>
-                        </td>
-                        <td>
-                          <div className="percent-progress">{d.progress}</div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+            <div className="project-ant">
+  <div>
+    <Title level={5}>Project Table</Title>
+    <Paragraph className="lastweek">
+      This Month
+    </Paragraph>
+  </div>
+  <div className="ant-filtertabs">
+    <div className="antd-pro-pages-dashboard-analysis-style-salesExtra">
+      <Radio.Group onChange={onChange} defaultValue="a">
+        <Radio.Button value="a">ALL</Radio.Button>
+        <Radio.Button value="b">ONLINE</Radio.Button>
+        <Radio.Button value="c">STORES</Radio.Button>
+      </Radio.Group>
+    </div>
+  </div>
+</div>
+<div className="ant-list-box table-responsive">
+  <table className="width-100">
+    <thead>
+      <tr>
+        <th>PROJECT NAME</th>
+        <th>COMPANY</th>
+        <th>DEADLINE</th>
+      </tr>
+    </thead>
+    <tbody>
+      {list.map((d, index) => (
+        <tr key={index}>
+          <td>
+            <h6>
+              <img
+                src={d.img}
+                alt=""
+                className="avatar-sm mr-10"
+              />{" "}
+              {d.Title}
+            </h6>
+          </td>
+          <td>{d.company}</td>
+          <td>
+            <span className="text-xs font-weight-bold">
+              {d.deadline}
+            </span>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
               <div className="uploadfile shadow-none">
                 <Upload {...uploadProps}>
                   <Button
