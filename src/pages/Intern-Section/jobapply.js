@@ -2,6 +2,8 @@ import React from 'react';
 import { Card, Button, Container, Row, Col } from 'react-bootstrap';
 import { BsBriefcaseFill, BsClockFill, BsGeoAltFill, BsArrowRight, BsCurrencyRupee } from 'react-icons/bs';
 
+import vector from "../../assets/images/vector_image.png";
+
 const JobCards = () => {
   const jobs = [
     {
@@ -51,7 +53,7 @@ const JobCards = () => {
   };
 
   return (
-    <div className="container mt-5">
+    <div className="container mt-5" style={{backgroundImage:`url(${vector})`}}>
       <Container>
         <h3 className="mb-4 text-center">Latest Job Openings</h3>
         <Row>
@@ -89,3 +91,12 @@ const JobCard = ({ job, applyJob }) => {
 };
 
 export default JobCards;
+
+
+
+
+
+
+
+
+
