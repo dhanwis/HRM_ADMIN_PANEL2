@@ -127,6 +127,23 @@ const LeaveForm = () => {
           showSizeChanger={false}
         />
       </div>
+      <div>
+        <h3 className="mt-5">Leave History</h3>
+        <Table
+          dataSource={currentItems}
+          columns={columns}
+          pagination={false}
+          rowKey="key"
+        />
+        <Pagination
+          className="mt-3"
+          current={currentPage}
+          total={submittedRequests.length}
+          pageSize={itemsPerPage}
+          onChange={handlePageChange}
+          showSizeChanger={false}
+        />
+      </div>
     </div>
   );
 };

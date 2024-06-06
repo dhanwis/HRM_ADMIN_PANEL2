@@ -12,6 +12,8 @@ const DailyWorksheetView_Intern = () => {
   };
 
   return (
+    // <div style={{backgroundImage:`url(${vector})`,height:"800px"}}>
+
     <div className="container-fluid">
       <div className="row justify-content-center align-items-center min-vh-100">
         <div className="col-md-8">
@@ -25,6 +27,7 @@ const DailyWorksheetView_Intern = () => {
         </div>
       </div>
     </div>
+    
   );
 };
 

@@ -1,120 +1,94 @@
-import React, { useState, useEffect } from "react";
-import { Row, Col, Card, Radio, Table, Typography } from "antd";
-import axios from "axios"; // Import Axios for making HTTP requests
+// src/components/Tablesstaff.js
+import React, { useState, useEffect } from 'react';
+import { Form, Button, Col, Row } from 'react-bootstrap';
+import axios from 'axios';
 
-const { Title } = Typography;
-
-const columns = [
-  {
-    title: "AUTHOR",
-    dataIndex: "name",
-    width: "32%",
-  },
-  {
-    title: "TASK",
-    dataIndex: "function",
-  },
-  {
-    title: "STATUS",
-    dataIndex: "status",
-  },
-  {
-    title: "DATE",
-    dataIndex: "employed",
-  },
-];
-
-const projectColumns = [
-  {
-    title: "PROJECT",
-    dataIndex: "name",
-    width: "32%",
-  },
-  {
-    title: "STATUS",
-    dataIndex: "address",
-  },
-  {
-    title: "COMPLETION",
-    dataIndex: "completion",
-  },
-];
-
-function Tablesstaff() {
-  const [taskData, setTaskData] = useState([]); // State to hold task data
-  const [projectData, setProjectData] = useState([]); // State to hold project data
+const Tablesstaff = () => {
+  const [projects, setProjects] = useState([]);
+  const [teamLeads, setTeamLeads] = useState([]);
+  const [selectedProject, setSelectedProject] = useState('');
+  const [selectedTeamLead, setSelectedTeamLead] = useState('');
+  const [statusDescription, setStatusDescription] = useState('');
+  const [images, setImages] = useState([]);
 
   useEffect(() => {
-    // Function to fetch task data from backend
-    const fetchTaskData = async () => {
-      try {
-        const response = await axios.get("your_backend_endpoint_for_tasks");
-        setTaskData(response.data); // Update taskData state with fetched data
-      } catch (error) {
-        console.error("Error fetching task data:", error);
-      }
-    };
+    // Fetch projects and team leads from the backend
+    axios.get('/api/projects')
+      .then(response => setProjects(response.data))
+      .catch(error => console.error('Error fetching projects:', error));
 
-    // Function to fetch project data from backend
-    const fetchProjectData = async () => {
-      try {
-        const response = await axios.get("your_backend_endpoint_for_projects");
-        setProjectData(response.data); // Update projectData state with fetched data
-      } catch (error) {
-        console.error("Error fetching project data:", error);
-      }
-    };
+    axios.get('/api/team-leads')
+      .then(response => setTeamLeads(response.data))
+      .catch(error => console.error('Error fetching team leads:', error));
+  }, []);
 
-    // Call the fetch functions when component mounts
-    fetchTaskData();
-    fetchProjectData();
-  }, []); // Empty dependency array ensures this effect runs only once on mount
+  const handleImageUpload = (event) => {
+    setImages([...event.target.files]);
+  };
 
-  const onChange = (e) => console.log(`Radio checked: ${e.target.value}`);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Handle form submission logic, e.g., sending data to backend
+    console.log({
+      selectedProject,
+      selectedTeamLead,
+      statusDescription,
+      images
+    });
+  };
 
   return (
-    <div className="tabled" style={{paddingTop:"50px"}}>
-      <Row gutter={[24, 0]}>
-        <Col xs={24} xl={24}>
-          <Card
-            bordered={false}
-            className="criclebox tablespace mb-24"
-            title="Task Table"
-            // extra={
-            //   <Radio.Group onChange={onChange} defaultValue="a">
-            //     <Radio.Button value="a">All</Radio.Button>
-            //     <Radio.Button value="b">ACTIVE</Radio.Button>
-            //   </Radio.Group>
-            // }
-          >
-            <div className="table-responsive">
-              <Table
-                columns={columns}
-                dataSource={taskData} // Use taskData as the dataSource
-                pagination={false}
-                className="ant-border-space"
-              />
-            </div>
-          </Card>
-
-          <Card
-            bordered={false}
-            className="criclebox tablespace mb-24"
-            title="Projects Table"
-          >
-            <div className="table-responsive">
-              <Table
-                columns={projectColumns}
-                dataSource={projectData} // Use projectData as the dataSource
-                pagination={false}
-                className="ant-border-space"
-              />
-            </div>
-          </Card>
+    <Form onSubmit={handleSubmit}>
+      <Form.Group as={Row} controlId="formProjectName">
+        <Form.Label column sm={2}>Project Name</Form.Label>
+        <Col sm={10}>
+          <Form.Control as="select" value={selectedProject} onChange={(e) => setSelectedProject(e.target.value)}>
+            <option value="">Select a project</option>
+            {projects.map(project => (
+              <option key={project.id} value={project.id}>{project.name}</option>
+            ))}
+          </Form.Control>
         </Col>
-      </Row>
-    </div>
+      </Form.Group>
+
+      <Form.Group as={Row} controlId="formTeamLead">
+        <Form.Label column sm={2}>Team Lead</Form.Label>
+        <Col sm={10}>
+          <Form.Control as="select" value={selectedTeamLead} onChange={(e) => setSelectedTeamLead(e.target.value)}>
+            <option value="">Select a team lead</option>
+            {teamLeads.map(teamLead => (
+              <option key={teamLead.id} value={teamLead.id}>{teamLead.name}</option>
+            ))}
+          </Form.Control>
+        </Col>
+      </Form.Group>
+
+      <Form.Group as={Row} controlId="formStatusDescription">
+        <Form.Label column sm={2}>Status Description</Form.Label>
+        <Col sm={10}>
+          <Form.Control
+            as="textarea"
+            rows={3}
+            value={statusDescription}
+            onChange={(e) => setStatusDescription(e.target.value)}
+          />
+        </Col>
+      </Form.Group>
+
+      <Form.Group as={Row} controlId="formImageUpload">
+        <Form.Label column sm={2}>Upload Images</Form.Label>
+        <Col sm={10}>
+          <Form.Control
+            type="file"
+            multiple
+            onChange={handleImageUpload}
+          />
+        </Col>
+      </Form.Group>
+
+      <Button type="submit">Submit</Button>
+    </Form>
   );
-}
+};
 
 export default Tablesstaff;

@@ -18,11 +18,12 @@ import {
   ToTopOutlined,
   MenuUnfoldOutlined,
   RightOutlined,
+  FontSizeOutlined,
 } from "@ant-design/icons";
 import Paragraph from "antd/lib/typography/Paragraph";
 
 import Echart from "../../components/chart/EChart";
-import LineChart from "../../components/chart/LineChart";
+import LineChart from "./TaskChart";
 
 import ava1 from "../../assets/images/logo-shopify.svg";
 import ava2 from "../../assets/images/logo-atlassian.svg";
@@ -36,7 +37,13 @@ import team3 from "../../assets/images/team-3.jpg";
 import team4 from "../../assets/images/team-4.jpg";
 import card from "../../assets/images/info-card-1.jpg";
  
-import Header from "./Header_intern";
+import InternHeader from "./Header_intern";
+import { color } from "chart.js/helpers";
+
+import { Link } from "@material-ui/core";
+
+import vector from "../../assets/images/vector_image.png"
+
 
 function Intern_Home() {
   const { Title, Text } = Typography;
@@ -131,212 +138,269 @@ function Intern_Home() {
       ></path>
     </svg>,
   ];
+
+
+
+  const tables = [
+    <svg
+      width="50"
+      height="40"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      key={0}
+    >
+      <path
+        d="M9 2C8.44772 2 8 2.44772 8 3C8 3.55228 8.44772 4 9 4H11C11.5523 4 12 3.55228 12 3C12 2.44772 11.5523 2 11 2H9Z"
+        fill="#fff"
+      ></path>
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M4 5C4 3.89543 4.89543 3 6 3C6 4.65685 7.34315 6 9 6H11C12.6569 6 14 4.65685 14 3C15.1046 3 16 3.89543 16 5V16C16 17.1046 15.1046 18 14 18H6C4.89543 18 4 17.1046 4 16V5ZM7 9C6.44772 9 6 9.44772 6 10C6 10.5523 6.44772 11 7 11H7.01C7.56228 11 8.01 10.5523 8.01 10C8.01 9.44772 7.56228 9 7.01 9H7ZM10 9C9.44772 9 9 9.44772 9 10C9 10.5523 9.44772 11 10 11H13C13.5523 11 14 10.5523 14 10C14 9.44772 13.5523 9 13 9H10ZM7 13C6.44772 13 6 13.4477 6 14C6 14.5523 6.44772 15 7 15H7.01C7.56228 15 8.01 14.5523 8.01 14C8.01 13.4477 7.56228 13 7.01 13H7ZM10 13C9.44772 13 9 13.4477 9 14C9 14.5523 9.44772 15 10 15H13C13.5523 15 14 14.5523 14 14C14 13.4477 13.5523 13 13 13H10Z"
+        fill="#fff"
+      ></path>
+    </svg>,
+  ];
+
+
+
+  const jobs = [
+    <svg
+      width="50"
+      height="40"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      key={0}
+    >
+      <path
+        d="M4 4C2.89543 4 2 4.89543 2 6V7H18V6C18 4.89543 17.1046 4 16 4H4Z"
+        fill="#fff"
+      ></path>
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M18 9H2V14C2 15.1046 2.89543 16 4 16H16C17.1046 16 18 15.1046 18 14V9ZM4 13C4 12.4477 4.44772 12 5 12H6C6.55228 12 7 12.4477 7 13C7 13.5523 6.55228 14 6 14H5C4.44772 14 4 13.5523 4 13ZM9 12C8.44772 12 8 12.4477 8 13C8 13.5523 8.44772 14 9 14H10C10.5523 14 11 13.5523 11 13C11 12.4477 10.5523 12 10 12H9Z"
+        fill="#fff"
+      ></path>
+    </svg>,
+  ];
+
+
   const count = [
     {
-      today: "Today’s Sales",
-      title: "$53,000",
-      persent: "+30%",
-      icon: dollor,
+      today: "Tasks",
+      title: "5",
+      // persent: "+30%",
+      icon: tables,
       bnb: "bnb2",
+      backgroundColor: "#98fb98", 
     },
     {
-      today: "Today’s Users",
-      title: "3,200",
-      persent: "+20%",
-      icon: profile,
+      today: "Notes",
+      title: "2",
+      // persent: "+20%",
+      icon: tables,
       bnb: "bnb2",
+      backgroundColor: "#ADD8E6", // light blue
     },
     {
-      today: "new ones",
-      title: "+1,200",
-      persent: "-20%",
-      icon: heart,
+      today: "Job",
+      title: "5",
+      // persent: "-20%",
+      icon: jobs,
       bnb: "redtext",
+      backgroundColor: "#eee8aa", // tomato
     },
-    {
-      today: "New Orders",
-      title: "$13,200",
-      persent: "10%",
-      icon: cart,
-      bnb: "bnb2",
-    },
+    // {
+    //   today: "New Orders",
+    //   title: "$13,200",
+    //   persent: "10%",
+    //   icon: cart,
+    //   bnb: "bnb2",
+    //   backgroundColor: "#98FB98", // pale green
+    // },
   ];
+  
 
-  const list = [
-    {
-      img: ava1,
-      Title: "Soft UI Shopify Version",
-      bud: "$14,000",
-      progress: <Progress percent={60} size="small" />,
-      member: (
-        <div className="avatar-group mt-2">
-          <Tooltip placement="bottom" title="Ryan Tompson">
-            <img className="tootip-img" src={team1} alt="" />
-          </Tooltip>
-          <Tooltip placement="bottom" title="Romina Hadid">
-            <img className="tootip-img" src={team2} alt="" />
-          </Tooltip>
-          <Tooltip placement="bottom" title="Alexander Smith">
-            <img className="tootip-img" src={team3} alt="" />
-          </Tooltip>
-          <Tooltip placement="bottom" title="Jessica Doe">
-            <img className="tootip-img" src={team4} alt="" />
-          </Tooltip>
-        </div>
-      ),
-    },
-    {
-      img: ava2,
-      Title: "Progress Track",
-      bud: "$3,000",
-      progress: <Progress percent={10} size="small" />,
-      member: (
-        <div className="avatar-group mt-2">
-          <Tooltip placement="bottom" title="Ryan Tompson">
-            <img className="tootip-img" src={team1} alt="" />
-          </Tooltip>
-          <Tooltip placement="bottom" title="Romina Hadid">
-            <img className="tootip-img" src={team2} alt="" />
-          </Tooltip>
-        </div>
-      ),
-    },
-    {
-      img: ava3,
-      Title: "Fix Platform Errors",
-      bud: "Not Set",
-      progress: <Progress percent={100} size="small" status="active" />,
-      member: (
-        <div className="avatar-group mt-2">
-          <Tooltip placement="bottom" title="Ryan Tompson">
-            <img className="tootip-img" src={team1} alt="" />
-          </Tooltip>
-          <Tooltip placement="bottom" title="Romina Hadid">
-            <img className="tootip-img" src={team1} alt="" />
-          </Tooltip>
-          <Tooltip placement="bottom" title="Alexander Smith">
-            <img className="tootip-img" src={team3} alt="" />
-          </Tooltip>
-        </div>
-      ),
-    },
-    {
-      img: ava4,
-      Title: "Launch new Mobile App",
-      bud: "$20,600",
-      progress: <Progress percent={100} size="small" status="active" />,
-      member: (
-        <div className="avatar-group mt-2">
-          <Tooltip placement="bottom" title="Ryan Tompson">
-            <img className="tootip-img" src={team1} alt="" />
-          </Tooltip>
-          <Tooltip placement="bottom" title="Romina Hadid">
-            <img className="tootip-img" src={team2} alt="" />
-          </Tooltip>
-        </div>
-      ),
-    },
-    {
-      img: ava5,
-      Title: "Add the New Landing Page",
-      bud: "$4,000",
-      progress: <Progress percent={80} size="small" />,
-      member: (
-        <div className="avatar-group mt-2">
-          <Tooltip placement="bottom" title="Ryan Tompson">
-            <img className="tootip-img" src={team1} alt="" />
-          </Tooltip>
-          <Tooltip placement="bottom" title="Romina Hadid">
-            <img className="tootip-img" src={team2} alt="" />
-          </Tooltip>
-          <Tooltip placement="bottom" title="Alexander Smith">
-            <img className="tootip-img" src={team3} alt="" />
-          </Tooltip>
-          <Tooltip placement="bottom" title="Jessica Doe">
-            <img className="tootip-img" src={team4} alt="" />
-          </Tooltip>
-        </div>
-      ),
-    },
+  // const list = [
+  //   {
+  //     img: ava1,
+  //     Title: "Soft UI Shopify Version",
+  //     bud: "$14,000",
+  //     progress: <Progress percent={60} size="small" />,
+  //     member: (
+  //       <div className="avatar-group mt-2">
+  //         <Tooltip placement="bottom" title="Ryan Tompson">
+  //           <img className="tootip-img" src={team1} alt="" />
+  //         </Tooltip>
+  //         <Tooltip placement="bottom" title="Romina Hadid">
+  //           <img className="tootip-img" src={team2} alt="" />
+  //         </Tooltip>
+  //         <Tooltip placement="bottom" title="Alexander Smith">
+  //           <img className="tootip-img" src={team3} alt="" />
+  //         </Tooltip>
+  //         <Tooltip placement="bottom" title="Jessica Doe">
+  //           <img className="tootip-img" src={team4} alt="" />
+  //         </Tooltip>
+  //       </div>
+  //     ),
+  //   },
+  //   {
+  //     img: ava2,
+  //     Title: "Progress Track",
+  //     bud: "$3,000",
+  //     progress: <Progress percent={10} size="small" />,
+  //     member: (
+  //       <div className="avatar-group mt-2">
+  //         <Tooltip placement="bottom" title="Ryan Tompson">
+  //           <img className="tootip-img" src={team1} alt="" />
+  //         </Tooltip>
+  //         <Tooltip placement="bottom" title="Romina Hadid">
+  //           <img className="tootip-img" src={team2} alt="" />
+  //         </Tooltip>
+  //       </div>
+  //     ),
+  //   },
+  //   {
+  //     img: ava3,
+  //     Title: "Fix Platform Errors",
+  //     bud: "Not Set",
+  //     progress: <Progress percent={100} size="small" status="active" />,
+  //     member: (
+  //       <div className="avatar-group mt-2">
+  //         <Tooltip placement="bottom" title="Ryan Tompson">
+  //           <img className="tootip-img" src={team1} alt="" />
+  //         </Tooltip>
+  //         <Tooltip placement="bottom" title="Romina Hadid">
+  //           <img className="tootip-img" src={team1} alt="" />
+  //         </Tooltip>
+  //         <Tooltip placement="bottom" title="Alexander Smith">
+  //           <img className="tootip-img" src={team3} alt="" />
+  //         </Tooltip>
+  //       </div>
+  //     ),
+  //   },
+  //   {
+  //     img: ava4,
+  //     Title: "Launch new Mobile App",
+  //     bud: "$20,600",
+  //     progress: <Progress percent={100} size="small" status="active" />,
+  //     member: (
+  //       <div className="avatar-group mt-2">
+  //         <Tooltip placement="bottom" title="Ryan Tompson">
+  //           <img className="tootip-img" src={team1} alt="" />
+  //         </Tooltip>
+  //         <Tooltip placement="bottom" title="Romina Hadid">
+  //           <img className="tootip-img" src={team2} alt="" />
+  //         </Tooltip>
+  //       </div>
+  //     ),
+  //   },
+  //   {
+  //     img: ava5,
+  //     Title: "Add the New Landing Page",
+  //     bud: "$4,000",
+  //     progress: <Progress percent={80} size="small" />,
+  //     member: (
+  //       <div className="avatar-group mt-2">
+  //         <Tooltip placement="bottom" title="Ryan Tompson">
+  //           <img className="tootip-img" src={team1} alt="" />
+  //         </Tooltip>
+  //         <Tooltip placement="bottom" title="Romina Hadid">
+  //           <img className="tootip-img" src={team2} alt="" />
+  //         </Tooltip>
+  //         <Tooltip placement="bottom" title="Alexander Smith">
+  //           <img className="tootip-img" src={team3} alt="" />
+  //         </Tooltip>
+  //         <Tooltip placement="bottom" title="Jessica Doe">
+  //           <img className="tootip-img" src={team4} alt="" />
+  //         </Tooltip>
+  //       </div>
+  //     ),
+  //   },
 
-    {
-      img: ava6,
-      Title: "Redesign Online Store",
-      bud: "$2,000",
-      progress: (
-        <Progress
-          percent={100}
-          size="small"
-          status="exception"
-          format={() => "Cancel"}
-        />
-      ),
-      member: (
-        <div className="avatar-group mt-2">
-          <Tooltip placement="bottom" title="Ryan Tompson">
-            <img className="tootip-img" src={team1} alt="" />
-          </Tooltip>
-          <Tooltip placement="bottom" title="Romina Hadid">
-            <img className="tootip-img" src={team2} alt="" />
-          </Tooltip>
-        </div>
-      ),
-    },
-  ];
+  //   {
+  //     img: ava6,
+  //     Title: "Redesign Online Store",
+  //     bud: "$2,000",
+  //     progress: (
+  //       <Progress
+  //         percent={100}
+  //         size="small"
+  //         status="exception"
+  //         format={() => "Cancel"}
+  //       />
+  //     ),
+  //     member: (
+  //       <div className="avatar-group mt-2">
+  //         <Tooltip placement="bottom" title="Ryan Tompson">
+  //           <img className="tootip-img" src={team1} alt="" />
+  //         </Tooltip>
+  //         <Tooltip placement="bottom" title="Romina Hadid">
+  //           <img className="tootip-img" src={team2} alt="" />
+  //         </Tooltip>
+  //       </div>
+  //     ),
+  //   },
+  // ];
 
-  const timelineList = [
-    {
-      title: "$2,400 - Redesign store",
-      time: "09 JUN 7:20 PM",
-      color: "green",
-    },
-    {
-      title: "New order #3654323",
-      time: "08 JUN 12:20 PM",
-      color: "green",
-    },
-    {
-      title: "Company server payments",
-      time: "04 JUN 3:10 PM",
-    },
-    {
-      title: "New card added for order #4826321",
-      time: "02 JUN 2:45 PM",
-    },
-    {
-      title: "Unlock folders for development",
-      time: "18 MAY 1:30 PM",
-    },
-    {
-      title: "New order #46282344",
-      time: "14 MAY 3:30 PM",
-      color: "gray",
-    },
-  ];
+  // const timelineList = [
+  //   {
+  //     title: "$2,400 - Redesign store",
+  //     time: "09 JUN 7:20 PM",
+  //     color: "green",
+  //   },
+  //   {
+  //     title: "New order #3654323",
+  //     time: "08 JUN 12:20 PM",
+  //     color: "green",
+  //   },
+  //   {
+  //     title: "Company server payments",
+  //     time: "04 JUN 3:10 PM",
+  //   },
+  //   {
+  //     title: "New card added for order #4826321",
+  //     time: "02 JUN 2:45 PM",
+  //   },
+  //   {
+  //     title: "Unlock folders for development",
+  //     time: "18 MAY 1:30 PM",
+  //   },
+  //   {
+  //     title: "New order #46282344",
+  //     time: "14 MAY 3:30 PM",
+  //     color: "gray",
+  //   },
+  // ];
 
-  const uploadProps = {
-    name: "file",
-    action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
-    headers: {
-      authorization: "authorization-text",
-    },
-    onChange(info) {
-      if (info.file.status !== "uploading") {
-        console.log(info.file, info.fileList);
-      }
-      if (info.file.status === "done") {
-        message.success(`${info.file.name} file uploaded successfully`);
-      } else if (info.file.status === "error") {
-        message.error(`${info.file.name} file upload failed.`);
-      }
-    },
-  };
+  // const uploadProps = {
+  //   name: "file",
+  //   action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
+  //   headers: {
+  //     authorization: "authorization-text",
+  //   },
+  //   onChange(info) {
+  //     if (info.file.status !== "uploading") {
+  //       console.log(info.file, info.fileList);
+  //     }
+  //     if (info.file.status === "done") {
+  //       message.success(`${info.file.name} file uploaded successfully`);
+  //     } else if (info.file.status === "error") {
+  //       message.error(`${info.file.name} file upload failed.`);
+  //     }
+  //   },
+  // };
 
   return (
     <>
-    <Header/>
+    <div style={{backgroundImage:`url(${vector})`,height:"700px"}}>
+    
+    <InternHeader/>
       <div className="layout-content">
-        <Row className="rowgap-vbox" gutter={[24, 0]}>
+        <Row className="rowgap-vbox" gutter={[24, 0]} style={{width:'1600px',marginTop:"50px"}}>
           {count.map((c, index) => (
             <Col
               key={index}
@@ -347,11 +411,11 @@ function Intern_Home() {
               xl={6}
               className="mb-24"
             >
-              <Card bordered={false} className="criclebox ">
+              <Card bordered={false} className="criclebox " style={{height:"150px",backgroundColor: c.backgroundColor}}>
                 <div className="number">
                   <Row align="middle" gutter={[24, 0]}>
                     <Col xs={18}>
-                      <span>{c.today}</span>
+                      <span style={{fontSize:"20px",color:"black"}}>{c.today}</span>
                       <Title level={3}>
                         {c.title} <small className={c.bnb}>{c.persent}</small>
                       </Title>
@@ -366,10 +430,10 @@ function Intern_Home() {
           ))}
         </Row>
 
-        <Row gutter={[24, 0]}>
+        {/* <Row gutter={[24, 0]}>
           <Col xs={24} sm={24} md={12} lg={12} xl={10} className="mb-24">
             <Card bordered={false} className="criclebox h-full">
-              <Echart />
+              <Echart/>
             </Card>
           </Col>
           <Col xs={24} sm={24} md={12} lg={12} xl={14} className="mb-24">
@@ -377,9 +441,9 @@ function Intern_Home() {
               <LineChart />
             </Card>
           </Col>
-        </Row>
+        </Row> */}
 
-        <Row gutter={[24, 0]}>
+        {/* <Row gutter={[24, 0]}>
           <Col xs={24} sm={24} md={12} lg={12} xl={16} className="mb-24">
             <Card bordered={false} className="criclebox cardbody h-full">
               <div className="project-ant">
@@ -479,9 +543,9 @@ function Intern_Home() {
               </div>
             </Card>
           </Col>
-        </Row>
+        </Row> */}
 
-        <Row gutter={[24, 0]}>
+        {/* <Row gutter={[24, 0]}>
           <Col xs={24} md={12} sm={24} lg={12} xl={14} className="mb-24">
             <Card bordered={false} className="criclebox h-full">
               <Row gutter>
@@ -545,10 +609,154 @@ function Intern_Home() {
               </div>
             </Card>
           </Col>
-        </Row>
+        </Row> */}
+
+
+
+
+
+ {/* <Row gutter={[24, 0]}>
+        
+        <Col xs={24} md={8} lg={8} xl={8} className="mb-24">
+          <Link to="/register/dashboard"  style={{textDecoration:'none'}}>
+            <Card bordered={false} className="circlebox">
+              <Title level={4}>Front Office Staff 1</Title>
+              <img src={logo1} style={{width:'400px',borderRadius:'50%'}}/>
+              <Paragraph>
+              Name: Emily Johnson
+              <br></br>
+              Position: Office Staff/Administrative Assistant
+              <br></br>
+              Role Overview: Emily Johnson is an indispensable member of our administrative team, 
+              ensuring the seamless operation of day-to-day activities within our office. Her role
+              encompasses a wide range of administrative duties crucial for maintaining efficiency 
+              and organization in our workplace.
+              </Paragraph>
+              <Button>View</Button>
+            </Card>
+          </Link>
+        </Col>
+       
+        <Col xs={24} md={8} lg={8} xl={8} className="mb-24">
+
+          <Link to="/register/dashboard"  style={{textDecoration:'none'}}>
+            <Card bordered={false} className="circlebox">
+              <Title level={4}>Front Office Staff 2</Title>
+
+              <img src={logo2} style={{width:'400px',borderRadius:'50%'}}/>
+              <Paragraph>Name: Emily Johnson
+              <br></br>
+                Position: Office Staff/Administrative Assistant
+                <br></br>
+                Role Overview: Emily Johnson is an indispensable member of our administrative team, 
+                ensuring the seamless operation of day-to-day activities within our office. Her role
+                encompasses a wide range of administrative duties crucial for maintaining efficiency 
+                and organization in our workplace.</Paragraph>
+                <Button>View</Button>
+            </Card>
+          </Link>
+        </Col>
+        
+        <Col xs={24} md={8} lg={8} xl={8} className="mb-24">
+          <Link to="/register/dashboard" style={{textDecoration:'none'}}>
+            <Card bordered={false} className="circlebox">
+              <Title level={4}>Front Office Staff 3</Title>
+              <img src={logo3} style={{width:'400px',borderRadius:'50%'}}/>
+              <Paragraph>Name: Emily Johnson
+              <br></br>
+              Position: Office Staff/Administrative Assistant
+                <br></br>
+              Role Overview: Emily Johnson is an indispensable member of our administrative team, 
+              ensuring the seamless operation of day-to-day activities within our office. Her role
+              encompasses a wide range of administrative duties crucial for maintaining efficiency 
+              and organization in our workplace.</Paragraph>
+              <Button>View</Button>
+            </Card>
+          </Link>
+        </Col>
+    </Row>  */}
+
+
+
+
+
+
+      </div>
       </div>
     </>
   );
 }
 
 export default Intern_Home;
+
+
+
+
+
+
+
+
+
+// import { useState } from "react";
+// import { Card, Col, Row, Typography } from "antd";
+// import { useHistory } from "react-router-dom";
+
+// import InternHeader from "./Header_intern";
+
+// function Intern_Home() {
+//   const { Title } = Typography;
+//   const history = useHistory();
+
+//   const [sections] = useState([
+//     { title: "Tasks", path: "./table" },
+//     { title: "Notes", path: "./viewnotes" },
+//     { title: "Jobs", path: "./jobapply" },
+//   ]);
+
+//   const handleSectionClick = (path) => {
+//     history.push(path);
+//   };
+
+//   return (
+//     <>
+//       <InternHeader />
+//       <div className="layout-content">
+//         <Row className="rowgap-vbox" gutter={[24, 0]} style={{ width: "1600px" }}>
+//           {sections.map((section, index) => (
+//             <Col
+//               key={index}
+//               xs={24}
+//               sm={24}
+//               md={12}
+//               lg={6}
+//               xl={6}
+//               className="mb-24"
+//               onClick={() => handleSectionClick(section.path)}
+//             >
+//               <Card bordered={false} className="criclebox " style={{ height: "150px", backgroundColor: "#98fb98" }}>
+//                 <div className="number">
+//                   <Row align="middle" gutter={[24, 0]}>
+//                     <Col xs={18}>
+//                       <span style={{ fontSize: "20px", color: "black" }}>{section.title}</span>
+//                       <Title level={3}>
+//                         {section.title === "Tasks" && "5"}
+//                         {section.title === "Notes" && "2"}
+//                         {section.title === "Jobs" && "5"}
+//                         <small className="bnb2">{/* Add your percentage here */}</small>
+//                       </Title>
+//                     </Col>
+//                     <Col xs={6}>
+//                       {/* Add your icon here */}
+//                     </Col>
+//                   </Row>
+//                 </div>
+//               </Card>
+//             </Col>
+//           ))}
+//         </Row>
+//       </div>
+//     </>
+//   );
+// }
+
+// export default Intern_Home;
