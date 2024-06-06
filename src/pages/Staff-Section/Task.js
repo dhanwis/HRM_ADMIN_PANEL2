@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
+import setbackg from "../../assets/images/bgall.png"
 
 const Viewprojectstaff = () => {
   const [tasks, setTasks] = useState([]);
@@ -60,6 +61,7 @@ const Viewprojectstaff = () => {
   };
 
   return (
+    <div style={{ marginTop: "50px",  backgroundImage:`url(${setbackg})`}}>
     <div className="container mt-4">
       <h2>View Projects</h2>
       <Table striped bordered hover>
@@ -100,6 +102,7 @@ const Viewprojectstaff = () => {
           ))}
         </tbody>
       </Table>
+    </div>
     </div>
   );
 };
