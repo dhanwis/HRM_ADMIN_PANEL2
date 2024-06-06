@@ -1,97 +1,140 @@
 import React, { useState, useEffect } from 'react';
-import { Typography, Button, Modal, Form, Select, DatePicker, Input, message } from 'antd';
+import { Form, Input, Button, Table, Pagination, DatePicker } from 'antd';
 import moment from 'moment';
+import bgleave from '../../assets/images/vectorteam3.png';
 
-const { Title } = Typography;
-const { Option } = Select;
-const { TextArea } = Input;
+const { RangePicker } = DatePicker;
 
-function LeaveForm() {
-  const [teams, setTeams] = useState([]);
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [leaveStatus, setLeaveStatus] = useState(null);
-  const [employees, setEmployees] = useState([]);
-
+const LeaveForm = () => {
   const [form] = Form.useForm();
+  const [submittedRequests, setSubmittedRequests] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   useEffect(() => {
-    // Fetch employees from the backend
-    fetch('/api/employees')
-      .then(response => response.json())
-      .then(data => setEmployees(data))
-      .catch(error => console.error('Error fetching employees:', error));
+    const savedData = JSON.parse(localStorage.getItem('submittedLeaves')) || [];
+    const formattedData = savedData.map(item => ({
+      ...item,
+      startDate: item.startDate ? moment(item.startDate, 'YYYY-MM-DD') : null,
+      endDate: item.endDate ? moment(item.endDate, 'YYYY-MM-DD') : null,
+    }));
+    setSubmittedRequests(formattedData);
   }, []);
 
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
-
-  const handleOk = () => {
-    form.validateFields().then((values) => {
-      // Simulate sending leave request to HR
-      fetch('/api/submitLeaveRequest', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(values),
-      })
-        .then(response => response.json())
-        .then(data => {
-          if (data.status === 'approved') {
-            setLeaveStatus('Leave Approved');
-            message.success('Leave request approved');
-          } else {
-            setLeaveStatus('Pending');
-            message.info('Leave request is pending approval');
-          }
-        })
-        .catch(error => {
-          console.error('Error submitting leave request:', error);
-          setLeaveStatus('Pending');
-          message.error('Error submitting leave request');
-        });
-
-      setIsModalVisible(false);
-      form.resetFields();
-    });
-  };
-
-  const handleCancel = () => {
-    setIsModalVisible(false);
+  const onFinish = values => {
+    const newRequest = {
+      ...values,
+      key: Date.now(),
+      startDate: moment(values.dateRange[0]).format('YYYY-MM-DD'),
+      endDate: moment(values.dateRange[1]).format('YYYY-MM-DD'),
+      duration: moment(values.dateRange[1]).diff(moment(values.dateRange[0]), 'days') + 1,
+      requestStatus: 'Pending',
+    };
+    const updatedRequests = [...submittedRequests, newRequest];
+    setSubmittedRequests(updatedRequests);
+    localStorage.setItem('submittedLeaves', JSON.stringify(updatedRequests));
     form.resetFields();
   };
 
+  const onFinishFailed = errorInfo => {
+    console.error('Failed:', errorInfo);
+  };
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = submittedRequests.slice(indexOfFirstItem, indexOfLastItem);
+
+  const handlePageChange = page => setCurrentPage(page);
+
+  const columns = [
+    {
+      title: 'Start Date',
+      dataIndex: 'startDate',
+      key: 'startDate',
+      render: text => <span>{moment(text).format('YYYY-MM-DD')}</span>,
+    },
+    {
+      title: 'End Date',
+      dataIndex: 'endDate',
+      key: 'endDate',
+      render: text => <span>{moment(text).format('YYYY-MM-DD')}</span>,
+    },
+    {
+      title: 'Duration (days)',
+      dataIndex: 'duration',
+      key: 'duration',
+    },
+    {
+      title: 'Description',
+      dataIndex: 'description',
+      key: 'description',
+    },
+    {
+      title: 'Status',
+      dataIndex: 'requestStatus',
+      key: 'requestStatus',
+    },
+  ];
+
   return (
-    <div className="leave-form" style={{ paddingTop: "50px", overflowX: "auto" }}>
-      <Title level={5}>Leave Request Form</Title>
-      <Button type="primary" onClick={showModal} style={{ marginBottom: 16 }}>
-        Request Leave
-      </Button>
-      <Modal title="Leave Request" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-        <Form form={form} layout="vertical">
-          <Form.Item name="date" label="Day of Absence" rules={[{ required: true, message: 'Please select the day of absence' }]}>
-            <DatePicker style={{ width: '100%' }} />
+    <div className='container mt-5'>
+      <div style={{ 
+        backgroundImage: `url(${bgleave})`, 
+        width: "500px%", 
+        height: "800px", 
+        paddingTop: '2px', 
+        paddingLeft:'-20px',
+        backgroundSize: 'cover', 
+        backgroundRepeat: 'no-repeat'
+      }}>
+        <Form
+          form={form}
+          layout="vertical"
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          style={{ margin: '0 auto', maxWidth: 600 }}
+        >
+          <h3 style={{ marginTop: '20px' }}>Leave Request Form</h3>
+          <Form.Item
+            label="Leave Duration"
+            name="dateRange"
+            rules={[{ required: true, message: 'Please select the leave duration' }]}
+          >
+            <RangePicker style={{ width: '100%' }} />
           </Form.Item>
-          <Form.Item name="workAssignment" label="Work Assignment" rules={[{ required: true, message: 'Please select a work assignment' }]}>
-            <Select placeholder="Select work assignment">
-              {employees.map((employee) => (
-                <Option key={employee.id} value={employee.name}>{employee.name}</Option>
-              ))}
-            </Select>
+          <Form.Item
+            label="Description"
+            name="description"
+            rules={[{ required: true, message: 'Please enter a description' }]}
+          >
+            <Input.TextArea rows={3} />
           </Form.Item>
-          <Form.Item name="leaveReason" label="Leave Reason" rules={[{ required: true, message: 'Please provide a reason for the leave' }]}>
-            <TextArea rows={4} placeholder="Enter the reason for your leave" />
+          <Form.Item>
+            <Button type="primary" htmlType="submit" style={{ textAlign: 'center' }}>
+              Submit
+            </Button>
           </Form.Item>
         </Form>
-      </Modal>
-      {leaveStatus && (
-        <div style={{ marginTop: 16 }}>
-          <Title level={5}>Leave Status: {leaveStatus}</Title>
+        <div>
+          <h3 className="mt-5">Leave History</h3>
+          <Table
+            dataSource={currentItems}
+            columns={columns}
+            pagination={false}
+            rowKey="key"
+          />
+          <Pagination
+            className="mt-3"
+            current={currentPage}
+            total={submittedRequests.length}
+            pageSize={itemsPerPage}
+            onChange={handlePageChange}
+            showSizeChanger={false}
+          />
         </div>
-      )}
+      </div>
     </div>
   );
-}
+};
 
 export default LeaveForm;
