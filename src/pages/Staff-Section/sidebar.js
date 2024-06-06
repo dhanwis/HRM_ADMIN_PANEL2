@@ -254,7 +254,7 @@ export default function SidenavStaff({ color }) {
             >
               {attendance}
             </span>
-            <span className="label">Attendance Table</span>
+            <span className="label">Status share</span>
           </NavLink>
         </Menu.Item>
         <Menu.Item key="5">

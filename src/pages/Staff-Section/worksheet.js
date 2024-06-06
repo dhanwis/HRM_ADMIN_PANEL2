@@ -1,5 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import setbackg from "../../assets/images/bgall.png"
 
 const DailyWorksheetView = () => {
   // Function to open the Google Sheet in a new tab
@@ -10,6 +11,7 @@ const DailyWorksheetView = () => {
   };
 
   return (
+    <div style={{ marginTop: "50px",  backgroundImage:`url(${setbackg})`}}>
     <div className="container-fluid d-flex justify-content-center align-items-center vh-100" style={{ paddingTop: '50px' }}>
       <div className="container">
         <div className="row justify-content-center">
@@ -26,6 +28,7 @@ const DailyWorksheetView = () => {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };
