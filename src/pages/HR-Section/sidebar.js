@@ -227,7 +227,7 @@ export default function SidenavHR({ color }) {
     <div style={{width:'50%'}}>
       <div className="brand">
         <img src={logo} alt="" style={{width:'200px', height:'90px'}} />
-        <span style={{fontWeight:'bolder',fontSize:'35px',color:'green',textAlign:'center'}}>HR</span>
+        <span style={{fontWeight:'bolder',fontSize:'35px',color:'green',paddingLeft:'25px'}}>HR</span>
       </div>
       <hr />
       <Menu theme="light" mode="inline">
@@ -342,7 +342,7 @@ export default function SidenavHR({ color }) {
 </Menu.Item> */}
 
         <Menu.Item key="8">
-          <NavLink to="/job/dashboardd" style={{textDecoration:"none"}}>
+          <NavLink to="/admin/testimonial" style={{textDecoration:"none"}}>
             <span
               className="icon"
               style={{
@@ -355,7 +355,7 @@ export default function SidenavHR({ color }) {
           </NavLink>
         </Menu.Item>         
       <Menu.Item key="9">
-          <NavLink to="/job/dashboarddd" style={{textDecoration:"none"}}>
+          <NavLink to="/admin/reference" style={{textDecoration:"none"}}>
             <span
               className="icon"
               style={{
@@ -371,7 +371,7 @@ export default function SidenavHR({ color }) {
 
         
         <Menu.Item key="10">
-          <NavLink to="/job/dashboardddd" style={{textDecoration:"none"}}>
+          <NavLink to="/admin/enquiry" style={{textDecoration:"none"}}>
             <span
               className="icon"
               style={{
@@ -386,7 +386,7 @@ export default function SidenavHR({ color }) {
 
         
         <Menu.Item key="11">
-          <NavLink to="/job/dashboarddddd" style={{textDecoration:"none"}}>
+          <NavLink to="/admin/admission" style={{textDecoration:"none"}}>
             <span
               className="icon"
               style={{
