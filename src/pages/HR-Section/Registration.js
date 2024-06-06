@@ -101,7 +101,7 @@ const EmployeeRegistrationForm = () => {
   ];
 
   return (
-    <div style={{backgroundImage:`url(${vector})`,height:"1000px"}}>
+    <div style={{backgroundImage:`url(${vector})`,height:"800px"}}>
     <div className="App" style={{ marginTop: '50px' }}>
       <h3 style={{ marginBottom: '50px' }}>Employee Registration</h3>
       <Button type="primary" style={{ marginBottom: '50px' }} onClick={showModal}>

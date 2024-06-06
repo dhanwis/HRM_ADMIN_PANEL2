@@ -322,7 +322,7 @@ const LeaveRequest = () => {
   ];
 
   return (
-    <div style={{ padding: '50px',backgroundImage:`url(${vector})`,height:'1000px' }}>
+    <div style={{ padding: '50px',backgroundImage:`url(${vector})`,height:'800px' }}>
       <h1 style={{ fontSize: '30px', paddingBottom: '50px' }}>Request Leave</h1>
       <Search
         placeholder="Search by candidate name"

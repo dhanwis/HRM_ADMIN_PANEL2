@@ -62,6 +62,17 @@ function StudentTasks() {
     setIsModalVisible(true);
   };
 
+  function getStudentIdByName(name) {
+  const student = students.find(student => student.name === name);
+  return student ? student.id : null;
+}
+
+
+const handleSelectID = (e)=>{
+ setSelectId(e)
+}
+
+
   const handleOk = () => {
     form.validateFields().then((values) => {
       const newTask = {
@@ -76,6 +87,10 @@ function StudentTasks() {
         status: "Pending",
       };
 
+ 
+
+axios.post("http://127.0.0.1:8000/hr/studentassign/listcreate/",newTask).then((res)=>{console.log(res.data);})
+      
       if (editTaskId !== null) {
         const updatedTaskList = taskDetails.map(task => (task.id === editTaskId ? newTask : task));
         setTaskDetails(updatedTaskList);
@@ -159,13 +174,13 @@ function StudentTasks() {
       title: "Start Date",
       dataIndex: "startDate",
       key: "startDate",
-      render: (text) => moment(text).format("LL"),
+      render: (text) => moment(text).format("YYYY-MM-DD"),
     },
     {
       title: "End Date",
       dataIndex: "endDate",
       key: "endDate",
-      render: (text) => moment(text).format("LL"),
+      render: (text) => moment(text).format("YYYY-MM-DD"),
     },
     {
       title: "Status",
