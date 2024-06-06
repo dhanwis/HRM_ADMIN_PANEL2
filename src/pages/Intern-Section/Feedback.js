@@ -1,6 +1,9 @@
 import { Container } from '@material-ui/core';
 import React, { useState } from 'react';
 
+import vector from "../../assets/images/vector_image.png"
+
+
 const FeedbackForm = () => {
   const [formData, setFormData] = useState({
     fullName: '',
@@ -29,7 +32,9 @@ const FeedbackForm = () => {
   };
 
   return (
-    <div className="container mt-5">
+    <div style={{backgroundImage:`url(${vector})`,height:"650px"}}>
+
+    <div className="container mt-5" >
       <h3>Intern Feedback Form</h3>
       
       <form onSubmit={handleSubmit} style={{marginTop:"20px"}}>
@@ -42,6 +47,7 @@ const FeedbackForm = () => {
         </div>
       </form>
      
+    </div>
     </div>
   );
 };
