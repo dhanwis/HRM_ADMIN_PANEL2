@@ -2,12 +2,11 @@
     padding: 20px;
     margin: 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: #f5f5dc;
+    border: 1px solid rgb(34, 234, 64);
     max-width: 600px;
     margin: 0 auto;
     margin-top: 50px;
-    box-shadow: 6px 6px 10px rgb(100, 157, 178);
   }
   
   .category-selector, .time-slot-selector, .extra-seat {
@@ -34,7 +33,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: green;
+    background-color: rgb(15, 103, 15);
     color: white;
     border-radius: 5px;
   }

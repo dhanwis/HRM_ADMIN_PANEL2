@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Table, Typography, message } from 'antd';
 import axios from 'axios';
 import moment from 'moment';
+import iternbg from '../../assets/images/vectorteam5.png';
 
 const { Title } = Typography;
 
@@ -45,6 +46,7 @@ function FeedbackList() {
   ];
 
   return (
+    <div style={{backgroundImage:`url(${iternbg})`,height:'700px' }}>
     <div className="feedback-list" style={{ paddingTop: '50px' }}>
       <Title level={5}>Intern Feedback</Title>
       <Table
@@ -54,6 +56,7 @@ function FeedbackList() {
         rowKey="id"
         pagination={{ pageSize: 10 }}
       />
+    </div>
     </div>
   );
 }

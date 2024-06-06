@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './SeatingChart.css';
+import setbg from "../../assets/images/vectorteam5.png";
 
 const initialRows = 5;
 const initialCols = 5;
@@ -13,7 +14,7 @@ const SeatingChart = () => {
 
   useEffect(() => {
     // Fetch categories from the backend
-    fetch('/api/categories')
+    fetch('https://fakestoreapi.com/products')
       .then(response => response.json())
       .then(data => setCategories(data))
       .catch(error => console.error('Error fetching categories:', error));
@@ -90,8 +91,9 @@ const SeatingChart = () => {
   };
 
   return (
-    <div style={{ marginTop: "50px" }}>
-      <h1>Office Seating Allocation</h1>
+    <div style={{backgroundImage:`url(${setbg})`, marginTop:"-50px",height:"800px"}} >
+    <div style={{ marginTop: "50px"}}>
+      <h1 style={{fontSize:"20px"}}>Office Seating Allocation</h1>
       <div className="card">
         <div style={{ paddingLeft: "35px" }}>
           <div className="category-selector">
@@ -99,12 +101,12 @@ const SeatingChart = () => {
               id="category"
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              style={{ borderRadius: "25px", backgroundColor: "#7fffd4", borderColor: "transparent", height: "40px", boxShadow: "6px 6px 10px rgb(100, 157, 178)" }}
+              style={{ borderRadius: "10px", backgroundColor: "#f5f5f5",  border:"1px solid rgba(15, 103, 15)", height: "40px" }}
             >
               <option value="" disabled>Student name</option>
               {categories.map((category) => (
-                <option key={category.id} value={category.name}>
-                  {category.name}
+                <option key={category.price} value={category.price}>
+                  {category.price}
                 </option>
               ))}
             </select>
@@ -115,7 +117,7 @@ const SeatingChart = () => {
               value={timeSlot}
               onChange={(e) => setTimeSlot(e.target.value)}
               placeholder="Enter time slot"
-              style={{ borderRadius: "25px", backgroundColor: "#7fffd4", borderColor: "transparent", height: "40px", boxShadow: "6px 6px 10px rgb(100, 157, 178)", marginTop: "10px", width: "calc(100% - 50px)" }}
+              style={{ borderRadius: "10px", backgroundColor: "#f5f5f5",  border:"1px solid rgba(15, 103, 15)", height: "40px", marginTop: "10px", width: "calc(100% - 50px)" }}
             />
           </div>
           <div className="extra-seat">
@@ -124,11 +126,11 @@ const SeatingChart = () => {
               value={extraSeat}
               onChange={(e) => setExtraSeat(e.target.value)}
               placeholder="Enter seat number to vacate"
-              style={{ borderRadius: "25px", backgroundColor: "#7fffd4", borderColor: "transparent", height: "40px", boxShadow: "6px 6px 10px rgb(100, 157, 178)", marginTop: "10px", width: "calc(100% - 50px)" }}
+              style={{ borderRadius: "10px", backgroundColor: "#f5f5f5",  border:"1px solid rgba(15, 103, 15)", height: "40px", marginTop: "10px", width: "calc(100% - 50px)" }}
             />
-            <button onClick={addExtraSeat} style={{ borderRadius: "25px", backgroundColor: "#7fffd4", borderColor: "transparent", height: "40px", boxShadow: "6px 6px 10px rgb(100, 157, 178)", marginLeft: "10px", marginTop:"20px"}}>Vacate Seat</button>
-            <button onClick={addNewSeat} style={{ borderRadius: "25px", backgroundColor: "#7fffd4", borderColor: "transparent", height: "40px", boxShadow: "6px 6px 10px rgb(100, 157, 178)", marginLeft: "10px" }}>Add New Seat</button>
-            <button onClick={deleteLastSeat} style={{ borderRadius: "25px", backgroundColor: "#7fffd4", borderColor: "transparent", height: "40px", boxShadow: "6px 6px 10px rgb(100, 157, 178)", marginLeft: "10px" }}>Delete Last Seat</button>
+            <button onClick={addExtraSeat} style={{ borderRadius: "10px", backgroundColor: "#f5f5f5", border:"1px solid rgba(15, 103, 15)", height: "40px", marginLeft: "10px", marginTop:"20px"}}>Vacate Seat</button>
+            <button onClick={addNewSeat} style={{ borderRadius: "10px", backgroundColor: "#f5f5f5",  border:"1px solid rgba(15, 103, 15)", height: "40px", marginLeft: "10px", marginTop:"20px"}}>Add New Seat</button>
+            <button onClick={deleteLastSeat} style={{ borderRadius: "10px", backgroundColor: "#f5f5f5",  border:"1px solid rgba(15, 103, 15)", height: "40px", marginLeft: "10px", marginTop:"20px"}}>Delete Last Seat</button>
           </div>
           <div className="seating-chart" >
             {seats.map((seatRow, rowIndex) => (
@@ -153,7 +155,9 @@ const SeatingChart = () => {
         </div>
       </div>
     </div>
+    </div>
   );
 };
 
 export default SeatingChart;
+

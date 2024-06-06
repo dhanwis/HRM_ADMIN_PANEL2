@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Table, Typography, Input, DatePicker, Button, Modal, Form, Row, Col, Select } from "antd";
+import { Table, Typography, Input, DatePicker, Button, Modal, Form, Row, Col, Select, message } from "antd";
 import axios from "axios";
 import moment from "moment";
+import projectbg from "../../assets/images/vectorteam5.png";
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -49,6 +50,8 @@ function Giveproject() {
       }
       setIsModalVisible(false);
       form.resetFields();
+    }).catch((errorInfo) => {
+      console.log('Validate Failed:', errorInfo);
     });
   };
 
@@ -65,7 +68,11 @@ function Giveproject() {
 
   const handleEdit = (record) => {
     setEditingRow(record);
-    form.setFieldsValue(record);
+    form.setFieldsValue({
+      ...record,
+      projectDate: moment(record.projectDate),
+      deadline: moment(record.deadline)
+    });
     showModal();
   };
 
@@ -131,6 +138,7 @@ function Giveproject() {
   ];
 
   return (
+    <div style={{backgroundImage:`url(${projectbg})`, height:"800px"}}>
     <div className="customer-details" style={{ paddingTop: "50px" }}>
       <Title level={5}>Assign Project</Title>
       <Row justify="space-between" align="middle">
@@ -147,10 +155,21 @@ function Giveproject() {
       </Row>
       <Modal title={editingRow ? "Edit Customer" : "Add Customer"} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
         <Form form={form} layout="vertical">
-          <Form.Item name="projectName" label="Project Name" rules={[{ required: true, message: "Please enter project name" }]}>
+          <Form.Item 
+            name="projectName" 
+            label="Project Name" 
+            rules={[
+              { required: true, message: "Please enter project name" },
+              { min: 3, message: "Project name must be at least 3 characters" }
+            ]}
+          >
             <Input />
           </Form.Item>
-          <Form.Item name="employeeName" label="Employee Name" rules={[{ required: true, message: "Please select employee name" }]}>
+          <Form.Item 
+            name="employeeName" 
+            label="Employee Name" 
+            rules={[{ required: true, message: "Please select employee name" }]}
+          >
             <Select placeholder="Select an employee">
               {employees.map((employee) => (
                 <Option key={employee.id} value={employee.name}>
@@ -159,10 +178,28 @@ function Giveproject() {
               ))}
             </Select>
           </Form.Item>
-          <Form.Item name="projectDate" label="Project Date" rules={[{ required: true, message: "Please select project date" }]}>
+          <Form.Item 
+            name="projectDate" 
+            label="Project Date" 
+            rules={[{ required: true, message: "Please select project date" }]}
+          >
             <DatePicker />
           </Form.Item>
-          <Form.Item name="deadline" label="Deadline" rules={[{ required: true, message: "Please select deadline" }]}>
+          <Form.Item 
+            name="deadline" 
+            label="Deadline" 
+            rules={[
+              { required: true, message: "Please select deadline" },
+              ({ getFieldValue }) => ({
+                validator(_, value) {
+                  if (!value || moment(value).isAfter(getFieldValue('projectDate'))) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(new Error('Deadline should be after project date'));
+                },
+              }),
+            ]}
+          >
             <DatePicker />
           </Form.Item>
         </Form>
@@ -180,6 +217,7 @@ function Giveproject() {
         />
       </div>
     </div>
+  </div>
   );
 }
 
