@@ -53,8 +53,8 @@ const dashboard = [
 
   const tables = [
     <svg
-      width="20"
-      height="20"
+      width="25"
+      height="25"
       viewBox="0 0 20 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -252,13 +252,34 @@ const seat = [
     </svg>,
   ];
 
+
+//////////////////////////////////////////////////// Staff status ///////////////////////////////////////////////////////////////////////////
+
+  const StaffStatus = [
+    <svg
+      width="15"
+      height="15"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      key={0}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zm0 13c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7zm0-12c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0 8c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"
+        fill={color}
+      ></path>
+    </svg>,
+  ];
+
 /////////////////////////////////////////////////// view project /////////////////////////////////////////////////////////////////////////////////
 
 
   const Viewproject = [
     <svg
-      width="20"
-      height="20"
+      width="25"
+      height="25"
       viewBox="0 0 20 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -276,40 +297,38 @@ const seat = [
 //////////////////////////////////////////////////////////////student tasks////////////////////////////////////////////////////////////////////
 
 const StudentTasks = [
-  <svg
-    width="20"
-    height="20"
-    viewBox="0 0 20 20"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    key={0}
-  >
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M13 2H7C5.34315 2 4 3.34315 4 5V15C4 16.6569 5.34315 18 7 18H13C14.6569 18 16 16.6569 16 15V5C16 3.34315 14.6569 2 13 2ZM7 4H13C13.5523 4 14 4.44771 14 5V15C14 15.5523 13.5523 16 13 16H7C6.44772 16 6 15.5523 6 15V5C6 4.44772 6.44772 4 7 4ZM11 6C11 6.55228 10.5523 7 10 7H7C6.44772 7 6 6.55228 6 6V5C6 4.44772 6.44772 4 7 4H10C10.5523 4 11 4.44772 11 5V6ZM11 10C11 10.5523 10.5523 11 10 11H7C6.44772 11 6 10.5523 6 10V9C6 8.44772 6.44772 8 7 8H10C10.5523 8 11 8.44772 11 9V10ZM11 14C11 14.5523 10.5523 15 10 15H7C6.44772 15 6 14.5523 6 14V13C6 12.4477 6.44772 12 7 12H10C10.5523 12 11 12.4477 11 13V14Z"
-      fill={color}
-    ></path>
-  </svg>,
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="0.5"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M12 2L2 7l10 5 10-5-10-5zM2 7v10l10 5 10-5V7m-7 4h4" />
+</svg>
+
 ];
 ////////////////////////////////////////////////////////////// Feedback ///////////////////////////////////////////////////////////////////
 
 const StudentFeedback = [
-  <svg
-    width="20"
-    height="20"
-    viewBox="0 0 20 20"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    key={0}
-  >
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M12 20V10a4 4 0 0 0-4-4H5l7-7 7 7h-3a4 4 0 0 0-4 4v10"
-      fill={color}
-    ></path>
-  </svg>,
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="0.5"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+</svg>
+
 ];
 
 /////////////////////////////////////////////////// note upload ///////////////////////////////////////////////////////////////////////////////
@@ -338,20 +357,18 @@ const StudentFeedback = [
 
   const DigitalMarketingTable = [
     <svg
-      width="25"
-      height="25"
-      viewBox="0 0 20 20"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      key={0}
-    >
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M22 12h-4l-3 9L9 3l-3 9H2"
-        fill={color}
-      ></path>
-    </svg>,
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="0.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <path d="M6 8l2 2 6-6M4 12h6M18 12h2m-5.38 3H8.38A4.26 4.26 0 0 0 4 19.38v.12A4.26 4.26 0 0 0 8.38 24h7.24A4.26 4.26 0 0 0 20 19.5v-7" />
+  </svg>  
   ];
 
 
@@ -522,6 +539,22 @@ const StudentFeedback = [
           </NavLink>
         </Menu.Item>
 
+{/* ////////////////////////////////////////////////////////staff status/////////////////////////////////////////////////////////////// */}
+
+
+<Menu.Item key="6">
+          <NavLink to="/teamlead/staffstatus" style={{ textDecoration: 'none' }}>
+            <span
+              className="icon"
+              style={{
+                background: page === "billing" ? color : "",
+              }}
+            >
+              {StaffStatus}
+            </span>
+            <span className="label">Staff Status</span>
+          </NavLink>
+        </Menu.Item>
 
 {/* ////////////////////////////////////////////// student tasks ////////////////////////////////////////////////////////////////////// */}
 

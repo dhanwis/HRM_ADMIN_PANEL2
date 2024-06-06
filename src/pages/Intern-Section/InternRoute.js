@@ -4,7 +4,7 @@ import Intern_Home from './Home';
 import ProfileInformation from './profile';
 import FeedbackForm from './Feedback';
 import InternLogin from './InternLogin';
-import LeaveForm from '../TeamLead-Section/Leaveform';
+import LeaveForm from './leave';
 import ReferenceForm from './reference';
 import AttendanceTable_Intern from './attendance';
 import Tables from './table';
@@ -49,6 +49,7 @@ const InternRoutes = () => (
     <PrivateInternRoute path="/intern/viewnotes" exact component={FourCards} />
     <PrivateInternRoute path="/intern/jobapply" exact component={Jobapply} />
     <PrivateInternRoute path="/intern/Testimonial" exact component={TestimonialForm} />
+    
   </Switch>
 );
 

@@ -1,11 +1,32 @@
-import React, { useState } from 'react';
-import { Button, Form, Input, Modal, Table,Select } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Button, Form, Input, Modal, Table, Select } from 'antd';
 import 'antd/dist/antd.css';
+import axios from 'axios';
 
-const EmployeeRegistrationForm  = () => {
+const EmployeeRegistrationForm = () => {
+
   const [employees, setEmployees] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
+
+
+  useEffect(() => {
+    let fetchData = async () => {
+
+      try {
+        let response = await axios.get('http://127.0.0.1:8000/authapp/Staff/');
+
+        if (response.status === 200) {
+          setEmployees(response.data)
+        }
+
+      } catch (err) {
+        console.error('error due to ', err);
+      }
+    }
+
+    fetchData()
+  }, [])
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -16,9 +37,11 @@ const EmployeeRegistrationForm  = () => {
   };
 
   const addEmployee = (employee) => {
-    setEmployees([...employees, { id: employees.length + 1, ...employee }]);
+    //  let x  = axios.post(`http://127.0.0.1:8000/auth/${select}`)
+    setEmployees([...employees, employee]);
     setIsModalVisible(false);
   };
+
 
   const viewEmployee = (id) => {
     const employee = employees.find(emp => emp.id === id);
@@ -28,13 +51,22 @@ const EmployeeRegistrationForm  = () => {
   const closeEmployeeDetails = () => {
     setSelectedEmployee(null);
   };
-  const enableEmployee = (id) => {
-  // Logic to enable employee with the given id
-};
 
-const disableEmployee = (id) => {
-  // Logic to disable employee with the given id
-};
+  const toggleEmployeeStatus = (id) => {
+    setEmployees(employees.map(emp =>
+      emp.id === id ? { ...emp, enabled: !emp.enabled } : emp
+    ));
+  };
+
+  const editEmployee = (id) => {
+    const employee = employees.find(emp => emp.id === id);
+    setSelectedEmployee(employee);
+    setIsModalVisible(true);
+  };
+
+  const handleSelect = (x) => {
+    console.log(x.target.value);
+  }
 
 
   const columns = [
@@ -58,30 +90,33 @@ const disableEmployee = (id) => {
       key: 'actions',
       render: (text, record) => (
         <span>
-        <Button type="primary" onClick={() => viewEmployee(record.id)}>View</Button>
-        <Button style={{ marginLeft: 8 }} onClick={() => enableEmployee(record.id)}>Enable</Button>
-        <Button style={{ marginLeft: 8 }} onClick={() => disableEmployee(record.id)}>Disable</Button>
-      </span>
-    ),
+          <Button type="primary" onClick={() => viewEmployee(record.id)}>View</Button>
+          <Button style={{ marginLeft: 8 }} onClick={() => editEmployee(record.id)}>Edit</Button>
+          {/* <Button style={{ marginLeft: 8 }} onClick={() => toggleEmployeeStatus(record.id)}>
+            {record.enabled ? 'Disable' : 'Enable'}
+          </Button> */}
+        </span>
+      ),
     },
   ];
 
   return (
-    <div className="App" style={{marginTop:'50px'}}>
-      <h3 style={{ marginBottom:'50px'}}>Employee Registration</h3>
-      <Button type="primary" style={{marginBottom:'50px'}}onClick={showModal}>
+    <div className="App" style={{ marginTop: '50px' }}>
+      <h3 style={{ marginBottom: '50px' }}>Employee Registration</h3>
+      <Button type="primary" style={{ marginBottom: '50px' }} onClick={showModal}>
         Add New Employee
       </Button>
       <EmployeeForm
+        // setEmployees={setEmployees}
         visible={isModalVisible}
         onCancel={handleCancel}
         onCreate={addEmployee}
       />
       <Table dataSource={employees} columns={columns} rowKey="id" />
       {selectedEmployee && (
-        <EmployeeDetails 
-          employee={selectedEmployee} 
-          onClose={closeEmployeeDetails} 
+        <EmployeeDetails
+          employee={selectedEmployee}
+          onClose={closeEmployeeDetails}
         />
       )}
     </div>
@@ -94,12 +129,22 @@ const EmployeeForm = ({ visible, onCancel, onCreate }) => {
   const handleSubmit = () => {
     form.validateFields().then(values => {
       form.resetFields();
-      onCreate(values);
+
+      axios.post(`http://127.0.0.1:8000/authapp/${values.role}/`, values, { method: { 'Content-Type': 'application/json' } })
+        .then((ac) => {
+          if (ac.status === 201) {
+            onCreate(ac.data.user);
+          }
+        })
     });
   };
 
+  const handleSelect = (y) => {
+
+  }
+
   return (
-    <Modal 
+    <Modal
       visible={visible}
       title="Add New Employee"
       onCancel={onCancel}
@@ -111,47 +156,53 @@ const EmployeeForm = ({ visible, onCancel, onCreate }) => {
           Submit
         </Button>,
       ]}
-       // Adjust width here
-       width={1200} // Change this value to the desired width
+      width={1000}
+      maskClosable={false}
     >
       <Form form={form} layout="vertical" name="employee_form">
-      <Form.Item
+        <Form.Item
           name="role"
           label="Role"
           rules={[{ required: true, message: 'Please select a role!' }]}
         >
-          <Select>
+          <Select onChange={handleSelect}>
             <Select.Option value="Teamlead">Teamlead</Select.Option>
             <Select.Option value="Staff">Staff</Select.Option>
-            <Select.Option value="Salesexecutive">Sales Executive</Select.Option>
-            {/* <Select.Option value="Student">Student</Select.Option> */}
+            <Select.Option value="Frontoffice">Frontoffice</Select.Option>
           </Select>
         </Form.Item>
         <Form.Item
           name="name"
           label="Name"
-          rules={[{ required: true, message: 'Please input the name!' }]}
+          rules={[{ message: 'Please input the name!' },
+          { pattern: /^[A-Za-z\s]+$/, message: 'Please enter a valid name.' }]}
         >
           <Input />
         </Form.Item>
         <Form.Item
           name="username"
           label="User Name"
-          rules={[{ required: true, message: 'Please input the username!' }]}
+          rules={[{ required: true, message: 'Please input the username!' },
+          { pattern: /^[A-Za-z\s]+$/, message: 'Please enter a valid username.' }]}
         >
-          <Input />
+          <Input autoComplete="user_name" />
         </Form.Item>
         <Form.Item
           name="password"
           label="Password"
-          rules={[{ required: true, message: 'Please input the password!' }]}
+          rules={[{
+            required: true, message: 'Please input the password!',
+            pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
+            message: 'Please enter a valid password.'
+          }]}
         >
-          <Input.Password />
+          <Input.Password autoComplete="new-password" />
         </Form.Item>
+
         <Form.Item
-          name="photo"
+          name="image"
           label="Photo"
-          rules={[{ required: true, message: 'Please upload a photo!' }]}
+          rules={[{ message: 'Please upload a photo!' }]}
         >
           <Input type="file" />
         </Form.Item>
@@ -160,19 +211,20 @@ const EmployeeForm = ({ visible, onCancel, onCreate }) => {
           label="Email"
           rules={[{ required: true, message: 'Please input the email!', type: 'email' }]}
         >
-          <Input />
+          <Input autoComplete="email" />
         </Form.Item>
         <Form.Item
           name="phone"
           label="Phone"
-          rules={[{ required: true, message: 'Please input the phone number!' }]}
+          rules={[{ message: 'Please input the phone number!' },
+          { pattern: /^\d{10}$/, message: 'Phone number should contain 10 digits.' }]}
         >
-          <Input />
+          <Input autoComplete="tel" />
         </Form.Item>
         <Form.Item
           name="maritalStatus"
           label="Marital Status"
-          rules={[{ required: true, message: 'Please select marital status!' }]}
+          rules={[{ message: 'Please select marital status!' }]}
         >
           <Select>
             <Select.Option value="single">Single</Select.Option>
@@ -182,65 +234,63 @@ const EmployeeForm = ({ visible, onCancel, onCreate }) => {
         <Form.Item
           name="address"
           label="Address"
-          rules={[{ required: true, message: 'Please input the address!' }]}
+          rules={[{ message: 'Please input the address!' }]}
         >
-          <Input.TextArea />
+          <Input.TextArea autoComplete="street-address" />
         </Form.Item>
         <Form.Item
           name="city"
           label="City"
-          rules={[{ required: true, message: 'Please input the city!' }]}
+          rules={[{ message: 'Please input the city!' }]}
         >
-          <Input />
+          <Input autoComplete="address-level2" />
         </Form.Item>
         <Form.Item
           name="state"
           label="State"
-          rules={[{ required: true, message: 'Please input the state!' }]}
+          rules={[{ message: 'Please input the state!' }]}
         >
-          <Input />
+          <Input autoComplete="address-level1" />
         </Form.Item>
         <Form.Item
           name="country"
           label="Country"
-          rules={[{ required: true, message: 'Please input the country!' }]}
+          rules={[{ message: 'Please input the country!' }]}
         >
-          <Input />
+          <Input autoComplete="country" />
         </Form.Item>
         <Form.Item
           name="pincode"
           label="Pin Code"
-          rules={[{ required: true, message: 'Please input the pin code!' }]}
+          rules={[{ message: 'Please input the pin code!' },
+          { pattern: /^\d{6}$/, message: 'Pincode should contain 6 digits.' }]}
         >
-          <Input />
+          <Input autoComplete="postal-code" />
         </Form.Item>
-      
         <Form.Item
           name="qualification"
           label="Qualification"
-          rules={[{ required: true, message: 'Please input the qualification!' }]}
+          rules={[{ message: 'Please input the qualification!' }]}
         >
           <Input />
         </Form.Item>
         <Form.Item
           name="experience"
           label="Experience"
-          rules={[{ required: true, message: 'Please input the experience!' }]}
+          rules={[{ message: 'Please input the experience!' }]}
         >
           <Select>
             <Select.Option value="0 year">0 year</Select.Option>
             <Select.Option value="1 year">1 year</Select.Option>
-          
-            <Select.Option value="2 years">2 year</Select.Option>
+            <Select.Option value="2 years">2 years</Select.Option>
             <Select.Option value="more than 2 years">More than 2 years</Select.Option>
-         
           </Select>
-         
         </Form.Item>
       </Form>
     </Modal>
   );
 };
+
 const EmployeeDetails = ({ employee, onClose }) => {
   return (
     <Modal
@@ -258,7 +308,9 @@ const EmployeeDetails = ({ employee, onClose }) => {
       <p><strong>Username:</strong> {employee.username}</p>
       <p><strong>Password:</strong> {employee.password}</p>
       <p><strong>Photo:</strong> {employee.photo}</p>
-      <p><strong>Marital Status:</strong> {employee.maritalstatus}</p>
+      <p><strong>Email:</strong> {employee.email}</p>
+      <p><strong>Phone:</strong> {employee.phone}</p>
+      <p><strong>Marital Status:</strong> {employee.maritalStatus}</p>
       <p><strong>Address:</strong> {employee.address}</p>
       <p><strong>City:</strong> {employee.city}</p>
       <p><strong>State:</strong> {employee.state}</p>
@@ -266,10 +318,9 @@ const EmployeeDetails = ({ employee, onClose }) => {
       <p><strong>Pin code:</strong> {employee.pincode}</p>
       <p><strong>Role:</strong> {employee.role}</p>
       <p><strong>Qualification:</strong> {employee.qualification}</p>
-      
-
+      <p><strong>Experience:</strong> {employee.experience}</p>
     </Modal>
   );
 };
 
-export default EmployeeRegistrationForm ;
+export default EmployeeRegistrationForm;
