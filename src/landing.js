@@ -44,7 +44,8 @@ const LandingPage = () => {
               {role === 'Student' && '🎓'}
               {role === 'TeamLead' && '👨‍🏫'}
               {role === 'Staff' && '👨🏻‍💻'}
-              {role === 'HR' && '💻'}
+              {role ===
+               'HR' && '💻'}
               {role === 'Front Office' && '☎️'}
             </div>
             <div style={styles.roleText}>{role}</div>

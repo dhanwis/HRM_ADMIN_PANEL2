@@ -1,71 +1,97 @@
-import React, { useState } from 'react';
-import { Container, Form, Button, Row, Col } from 'react-bootstrap';
-import { useHistory } from 'react-router-dom'; // Import useHistory for redirection
+import React, { useState, useEffect } from 'react';
+import { Typography, Button, Modal, Form, Select, DatePicker, Input, message } from 'antd';
+import moment from 'moment';
 
-const LeaveForm = () => {
-  const [formData, setFormData] = useState({
-    firstName: '',
-    department: '',
-    phoneNumber: '',
-    email: '',
-    reason: '',
-    startDate: '',
-    endDate: '',
-    description: '',
-    requestStatus: 'Pending',
-  });
+const { Title } = Typography;
+const { Option } = Select;
+const { TextArea } = Input;
 
-  const history = useHistory(); // Initialize useHistory for redirection
+function LeaveForm() {
+  const [teams, setTeams] = useState([]);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [leaveStatus, setLeaveStatus] = useState(null);
+  const [employees, setEmployees] = useState([]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
+  const [form] = Form.useForm();
+
+  useEffect(() => {
+    // Fetch employees from the backend
+    fetch('/api/employees')
+      .then(response => response.json())
+      .then(data => setEmployees(data))
+      .catch(error => console.error('Error fetching employees:', error));
+  }, []);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    form.validateFields().then((values) => {
+      // Simulate sending leave request to HR
+      fetch('/api/submitLeaveRequest', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === 'approved') {
+            setLeaveStatus('Leave Approved');
+            message.success('Leave request approved');
+          } else {
+            setLeaveStatus('Pending');
+            message.info('Leave request is pending approval');
+          }
+        })
+        .catch(error => {
+          console.error('Error submitting leave request:', error);
+          setLeaveStatus('Pending');
+          message.error('Error submitting leave request');
+        });
+
+      setIsModalVisible(false);
+      form.resetFields();
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Your submit logic here
-    // For demonstration, let's redirect after 1 second and set the status to 'Pending'
-    setTimeout(() => {
-      setFormData({
-        ...formData,
-        requestStatus: 'Pending',
-      });
-      history.push('/'); // Redirect to homepage
-    }, 1000);
+  const handleCancel = () => {
+    setIsModalVisible(false);
+    form.resetFields();
   };
 
   return (
-    <Container style={{paddingTop:"50px"}}>
-      <h1>Leave Request Form</h1>
-      <Form onSubmit={handleSubmit}>
-        {/* Form fields */}
-        <Row>
-          <Col>
-            <Form.Group controlId="startDate">
-              <Form.Label> Day of Absence</Form.Label>
-              <Form.Control type="text" name="startDate" value={formData.startDate} onChange={handleChange} required />
-            </Form.Group>
-          </Col>
-            <Form.Group controlId="endDate">
-              <Form.Label>Work Assigned to </Form.Label>
-              <Form.Control type="text" name="endDate" value={formData.endDate} onChange={handleChange} required />
-            </Form.Group>
-        </Row>
-        <Form.Group controlId="description">
-          <Form.Label>Description</Form.Label>
-          <Form.Control as="textarea" rows={3} name="description" value={formData.description} onChange={handleChange} />
-        </Form.Group>
-        <Button variant="primary" type="submit" style={{marginTop:"15px"}}>
-          Submit
-        </Button>
-      </Form>
-      <h3 style={{marginTop:"15px"}}>Status: {formData.requestStatus}</h3> {/* Display request status */}
-    </Container>
+    <div className="leave-form" style={{ paddingTop: "50px", overflowX: "auto" }}>
+      <Title level={5}>Leave Request Form</Title>
+      <Button type="primary" onClick={showModal} style={{ marginBottom: 16 }}>
+        Request Leave
+      </Button>
+      <Modal title="Leave Request" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+        <Form form={form} layout="vertical">
+          <Form.Item name="date" label="Day of Absence" rules={[{ required: true, message: 'Please select the day of absence' }]}>
+            <DatePicker style={{ width: '100%' }} />
+          </Form.Item>
+          <Form.Item name="workAssignment" label="Work Assignment" rules={[{ required: true, message: 'Please select a work assignment' }]}>
+            <Select placeholder="Select work assignment">
+              {employees.map((employee) => (
+                <Option key={employee.id} value={employee.name}>{employee.name}</Option>
+              ))}
+            </Select>
+          </Form.Item>
+          <Form.Item name="leaveReason" label="Leave Reason" rules={[{ required: true, message: 'Please provide a reason for the leave' }]}>
+            <TextArea rows={4} placeholder="Enter the reason for your leave" />
+          </Form.Item>
+        </Form>
+      </Modal>
+      {leaveStatus && (
+        <div style={{ marginTop: 16 }}>
+          <Title level={5}>Leave Status: {leaveStatus}</Title>
+        </div>
+      )}
+    </div>
   );
-};
+}
 
 export default LeaveForm;

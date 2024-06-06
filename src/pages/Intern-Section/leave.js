@@ -1,98 +1,134 @@
-import React, { useState } from 'react';
-import { Container, Form, Button, Row, Col } from 'react-bootstrap';
-import { useHistory } from 'react-router-dom'; // Import useHistory for redirection
+import React, { useState, useEffect } from 'react';
+import { Form, Input, Button, Table, Pagination, DatePicker, Row, Col } from 'antd';
+import moment from 'moment';
 
-const LeaveForm_Intern = () => {
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    department: '',
-    phoneNumber: '',
-    email: '',
-    reason: '',
-    startDate: '',
-    endDate: '',
-    numberOfDays: 0,
-    employeeId: '',
-    description: '',
-    requestStatus: 'Pending',
-  });
+const LeaveForm = () => {
+  const [form] = Form.useForm();
+  const [submittedRequests, setSubmittedRequests] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
-  const history = useHistory(); // Initialize useHistory for redirection
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
+  useEffect(() => {
+    const savedData = JSON.parse(localStorage.getItem('submittedLeaves')) || [];
+    savedData.forEach(item => {
+      if (item.startDate) item.startDate = moment(item.startDate, 'YYYY-MM-DD');
+      if (item.endDate) item.endDate = moment(item.endDate, 'YYYY-MM-DD');
     });
+    setSubmittedRequests(savedData);
+  }, []);
+
+  const onFinish = (values) => {
+    const newRequest = {
+      ...values,
+      key: Date.now(),
+      startDate: moment(values.startDate).format('YYYY-MM-DD'),
+      endDate: moment(values.endDate).format('YYYY-MM-DD'),
+      requestStatus: 'Pending',
+    };
+    const updatedRequests = [...submittedRequests, newRequest];
+    setSubmittedRequests(updatedRequests);
+    form.resetFields();
+    localStorage.setItem('submittedLeaves', JSON.stringify(updatedRequests));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Your submit logic here
-    // For demonstration, let's redirect after 1 second and set the status to 'Pending'
-    setTimeout(() => {
-      setFormData({
-        ...formData,
-        requestStatus: 'Pending',
-      });
-      history.push('/'); // Redirect to homepage
-    }, 1000);
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
   };
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = submittedRequests.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(submittedRequests.length / itemsPerPage);
+
+  const handlePageChange = (page) => setCurrentPage(page);
+
+  const columns = [
+    {
+      title: 'Start Date',
+      dataIndex: 'startDate',
+      key: 'startDate',
+      render: (text) => <span>{moment(text).format('YYYY-MM-DD')}</span>,
+    },
+    {
+      title: 'End Date',
+      dataIndex: 'endDate',
+      key: 'endDate',
+      render: (text) => <span>{moment(text).format('YYYY-MM-DD')}</span>,
+    },
+    {
+      title: 'Description',
+      dataIndex: 'description',
+      key: 'description',
+    },
+    {
+      title: 'Status',
+      dataIndex: 'requestStatus',
+      key: 'requestStatus',
+    },
+  ];
 
   return (
-    <div className="container mt-5">
-    <Container>
-      <h3>Leave Request Form</h3>
-      <Form onSubmit={handleSubmit}>
-        {/* Form fields */}
-        {/* <Row>
-          <Col>
-            <Form.Group controlId="firstName">
-              <Form.Label> Name</Form.Label>
-              <Form.Control type="text" name="firstName" value={formData.firstName} onChange={handleChange} required />
-            </Form.Group>
+    <div className='container mt-5'>
+      <Form
+        form={form}
+        layout="vertical"
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+        style={{ margin: '0 auto' }}
+      >
+        <h3>Leave Request Form</h3>
+        <Row gutter={16}>
+          <Col span={12}>
+            <Form.Item
+              label="Start Date"
+              name="startDate"
+              rules={[{ required: true, message: 'Please select the start date' }]}
+            >
+              <DatePicker style={{ width: '100%' }} />
+            </Form.Item>
           </Col>
-        </Row> */}
-        {/* <Form.Group controlId="department">
-          <Form.Label>Department Name</Form.Label>
-          <Form.Control type="text" name="department" value={formData.department} onChange={handleChange} required />
-        </Form.Group>
-        <Form.Group controlId="phoneNumber">
-          <Form.Label>Phone Number</Form.Label>
-          <Form.Control type="tel" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} required />
-        </Form.Group>
-        <Form.Group controlId="email">
-          <Form.Label>Email Address</Form.Label>
-          <Form.Control type="email" name="email" value={formData.email} onChange={handleChange} required />
-        </Form.Group> */}
-        <Row>
-          <Col>
-            <Form.Group controlId="startDate">
-              <Form.Label>First Day of Absence</Form.Label>
-              <Form.Control type="text" name="startDate" value={formData.startDate} onChange={handleChange} required />
-            </Form.Group>
-          </Col>
-          <Col>
-            <Form.Group controlId="endDate">
-              <Form.Label>Last Day of Absence</Form.Label>
-              <Form.Control type="text" name="endDate" value={formData.endDate} onChange={handleChange} required />
-            </Form.Group>
+          <Col span={12}>
+            <Form.Item
+              label="End Date"
+              name="endDate"
+              rules={[{ required: true, message: 'Please select the end date' }]}
+            >
+              <DatePicker style={{ width: '100%' }} />
+            </Form.Item>
           </Col>
         </Row>
-        <Form.Group controlId="description">
-          <Form.Label>Description</Form.Label>
-          <Form.Control as="textarea" rows={3} name="description" value={formData.description} onChange={handleChange} />
-        </Form.Group>
-        <Button variant="primary" type="submit" style={{marginLeft:"50%",marginTop:"20px"}}>
-          Submit
-        </Button>
+        <Form.Item
+          label="Description"
+          name="description"
+          rules={[{ required: true, message: 'Please enter a description' }]}
+        >
+          <Input.TextArea rows={3} />
+        </Form.Item>
+        <Form.Item>
+          <Button type="primary" htmlType="submit" style={{ textAlign: 'center' }}>
+            Submit
+          </Button>
+        </Form.Item>
       </Form>
-      <h3>Status: {formData.requestStatus}</h3> {/* Display request status */}
-    </Container>
+      <div>
+        <h3 className="mt-5">Leave History</h3>
+        <Table
+          dataSource={currentItems}
+          columns={columns}
+          pagination={false}
+          rowKey="key"
+        />
+        <Pagination
+          className="mt-3"
+          current={currentPage}
+          total={submittedRequests.length}
+          pageSize={itemsPerPage}
+          onChange={handlePageChange}
+          showSizeChanger={false}
+        />
+      </div>
     </div>
   );
 };
 
-export default LeaveForm_Intern;
+export default LeaveForm;

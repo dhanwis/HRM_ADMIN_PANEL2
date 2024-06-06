@@ -1,193 +1,81 @@
-import React, { useState, useEffect } from 'react';
-import { Form, Input, Button, Rate, Card, Modal, Upload, message } from 'antd';
+import React, { useState } from 'react';
+import { Card, Form, Input, Button, Upload } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
-import 'antd/dist/antd.css';
-// import './TestimonialForm.css'; // Import your custom CSS file for additional styling
 
 const TestimonialForm = () => {
-  const [form] = Form.useForm();
-  const [rating, setRating] = useState(0);
-  const [submittedData, setSubmittedData] = useState(null);
-  const [isEditVisible, setIsEditVisible] = useState(false);
-  const [fileList, setFileList] = useState([]);
+    const [form] = Form.useForm();
+    const [submittedData, setSubmittedData] = useState(null);
+    const [isSubmitted, setIsSubmitted] = useState(false);
 
-  useEffect(() => {
-    // Retrieve data from local storage if available
-    const savedData = localStorage.getItem('submittedData');
-    if (savedData) {
-      setSubmittedData(JSON.parse(savedData));
-    }
-  }, []);
+    const onFinish = (values) => {
+        const updatedData = { ...values, media: values.media?.fileList };
+        setSubmittedData(updatedData);
+        setIsSubmitted(true);
+    };
 
-  const handleRatingChange = (newRating) => {
-    setRating(newRating);
-  };
-
-  const onFinish = (values) => {
-    const testimonialData = { ...values, rating, photo: fileList[0]?.name || null };
-    setSubmittedData(testimonialData);
-    localStorage.setItem('submittedData', JSON.stringify(testimonialData));
-    form.resetFields();
-    setRating(0);
-    setFileList([]);
-  };
-
-  const handleEdit = () => {
-    setIsEditVisible(true);
-  };
-
-  const handleEditFinish = (values) => {
-    const editedData = { ...values, rating, photo: fileList[0]?.name || null };
-    setSubmittedData(editedData);
-    localStorage.setItem('submittedData', JSON.stringify(editedData));
-    setIsEditVisible(false);
-  };
-
-  const uploadProps = {
-    fileList,
-    beforeUpload: (file) => {
-      setFileList([file]);
-      return false;
-    },
-    onChange: (info) => {
-      const { status } = info.file;
-      if (status === 'done') {
-        message.success(`${info.file.name} file uploaded successfully.`);
-      } else if (status === 'error') {
-        message.error(`${info.file.name} file upload failed.`);
-      }
-    },
-  };
-
-  return (
-    
-    <div className="testimonial-form-container">
-      <h2>Submit Your Testimonial</h2>
-      <Form
-        form={form}
-        layout="vertical"
-        onFinish={onFinish}
-        initialValues={submittedData}
-      >
-        <Form.Item
-          name="name"
-          label="Your Name"
-          rules={[{ required: true, message: 'Please input your name!' }]}
-        >
-          <Input disabled={submittedData} />
-        </Form.Item>
-        <Form.Item
-          name="position"
-          label="Your Position"
-          rules={[{ required: true, message: 'Please input your position!' }]}
-        >
-          <Input disabled={submittedData} />
-        </Form.Item>
-        <Form.Item
-          name="text"
-          label="Your Review"
-          rules={[{ required: true, message: 'Please input your review!' }]}
-        >
-          <Input.TextArea disabled={submittedData} />
-        </Form.Item>
-        <Form.Item
-          name="rating"
-          label="Your Rating"
-          rules={[{ required: true, message: 'Please give a rating!' }]}
-        >
-          <Rate allowHalf onChange={handleRatingChange} disabled={submittedData} />
-        </Form.Item>
-        <Form.Item
-          name="photo"
-          label="Your Photo"
-        >
-          <Upload {...uploadProps}>
-            <Button icon={<UploadOutlined />}>Upload Photo</Button>
-          </Upload>
-        </Form.Item>
-        {!submittedData && (
-          <Form.Item>
-            <Button type="primary" htmlType="submit" className="submit-button">
-              Submit
-            </Button>
-          </Form.Item>
-        )}
-        {submittedData && (
-          <>
-            <Button type="primary" onClick={handleEdit} className="edit-button">
-              Edit
-            </Button>
-            <Modal
-              title="Edit Testimonial"
-              visible={isEditVisible}
-              onCancel={() => setIsEditVisible(false)}
-              footer={[
-                <Button key="cancel" onClick={() => setIsEditVisible(false)}>
-                  Cancel
-                </Button>,
-                <Button key="submit" type="primary" onClick={() => form.submit()}>
-                  Save
-                </Button>,
-              ]}
+    return (
+        <div style={{ width: "600px", margin: '50px auto', padding: 20, marginTop: "50px" }}>
+            <Card 
+                title={!isSubmitted && <span style={{ fontSize: '40px' }}>Submit Your Testimonial</span>}
+                bordered={false}
             >
-              <Form
-                form={form}
-                layout="vertical"
-                onFinish={handleEditFinish}
-                initialValues={submittedData}
-              >
-                <Form.Item
-                  name="name"
-                  label="Your Name"
-                  rules={[{ required: true, message: 'Please input your name!' }]}
-                >
-                  <Input />
-                </Form.Item>
-                <Form.Item
-                  name="position"
-                  label="Your Position"
-                  rules={[{ required: true, message: 'Please input your position!' }]}
-                >
-                  <Input />
-                </Form.Item>
-                <Form.Item
-                  name="text"
-                  label="Your Review"
-                  rules={[{ required: true, message: 'Please input your review!' }]}
-                >
-                  <Input.TextArea />
-                </Form.Item>
-                <Form.Item
-                  name="rating"
-                  label="Your Rating"
-                  rules={[{ required: true, message: 'Please give a rating!' }]}
-                >
-                  <Rate allowHalf onChange={handleRatingChange} />
-                </Form.Item>
-                <Form.Item
-                  name="photo"
-                  label="Your Photo"
-                >
-                  <Upload {...uploadProps}>
-                    <Button icon={<UploadOutlined />}>Upload Photo</Button>
-                  </Upload>
-                </Form.Item>
-              </Form>
-            </Modal>
-          </>
-        )}
-      </Form>
-      {submittedData && (
-        <Card className="submitted-card" title="Submitted Testimonial">
-          <img src={`https://via.placeholder.com/150/${submittedData.photo}`} alt="Profile" className="profile-image" />
-          <p><strong>Name:</strong> {submittedData.name}</p>
-          <p><strong>Position:</strong> {submittedData.position}</p>
-          <p><strong>Review:</strong> {submittedData.text}</p>
-          <p><strong>Rating:</strong> <Rate disabled defaultValue={submittedData.rating} /></p>
-        </Card>
-      )}
-    </div>
-  );
+                {!isSubmitted ? (
+                    <Form 
+                        form={form} 
+                        layout="vertical" 
+                        onFinish={onFinish} 
+                        initialValues={submittedData || { testimonial: '', media: [] }}
+                    >
+                        <Form.Item
+                            label="Your Testimonial"
+                            name="testimonial"
+                            rules={[{ required: true, message: 'Please write your testimonial!' }]}
+                        >
+                            <Input.TextArea rows={4} />
+                        </Form.Item>
+                        <Form.Item label="Optional Image/Video" name="media">
+                            <Upload beforeUpload={() => false} listType="picture">
+                                <Button icon={<UploadOutlined />}>Click to Upload</Button>
+                            </Upload>
+                        </Form.Item>
+                        <Form.Item>
+                            <Button type="primary" htmlType="submit" block>
+                                Submit
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                ) : (
+                    <div className="testimonial-display">
+                        {submittedData.media?.length > 0 && (
+                            <div className="media-display" style={{ textAlign: 'center', marginBottom: '20px' }}>
+                                {submittedData.media.map((file, index) => (
+                                    <div key={index}>
+                                        {file.type.startsWith('image') && (
+                                            <img
+                                                src={URL.createObjectURL(file.originFileObj)}
+                                                alt={file.name}
+                                                style={{ maxWidth: '150px', borderRadius: '50%' }}
+                                            />
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                        <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+                            <h3>Alice George</h3>
+                            <p>IT Team</p>
+                            {/* <p>Interests - Software Engineering and Web Development, Data Analysis</p> */}
+                        </div>
+                        <div className="testimonial-text" style={{ textAlign: 'center' }}>
+                            <blockquote style={{ fontStyle: 'italic', fontSize: '16px' }}>
+                                "{submittedData.testimonial}"
+                            </blockquote>
+                        </div>
+                    </div>
+                )}
+            </Card>
+        </div>
+    );
 };
 
 export default TestimonialForm;
