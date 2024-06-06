@@ -2,6 +2,9 @@ import React from 'react';
 import { Row, Col, Card, Radio, Table, Typography, Button } from 'antd';
 import { Container } from 'react-bootstrap';
 
+import vector from "../../assets/images/vector_image.png"
+
+
 const { Title } = Typography;
 
 const Tables = () => {
@@ -81,8 +84,11 @@ const Tables = () => {
     };
 
     return (
-        <Container>
-            <div className="tabled">
+    <div style={{backgroundImage:`url(${vector})`,height:"700px"}}>
+
+        <div   className="container mt-5"  >
+        <Container  >
+            <div className="tabled" >
                 <Row className="justify-content-center mt-4" gutter={[24, 0]}>
                     <Col xs="24" xl={24}>
                         <Card
@@ -109,6 +115,8 @@ const Tables = () => {
                 </Row>
             </div>
         </Container>
+        </div>
+        </div>
     );
 };
 
