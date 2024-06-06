@@ -1,0 +1,28 @@
+.container {
+    width: 50%;
+    margin: auto;
+    font-family: Arial, sans-serif;
+  }
+  
+  .form-section {
+    display: none;
+  }
+  
+  .form-section.active {
+    display: block;
+  }
+  
+  label {
+    display: block;
+    margin: 10px 0 5px;
+  }
+  
+  input, select, button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  button {
+    width: auto;
+  }

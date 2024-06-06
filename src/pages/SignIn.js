@@ -1,4 +1,3 @@
-
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -12,19 +11,22 @@ import {
   Input,
   Switch,
 } from "antd";
-import signinbg from "../../assets/images/signinbg.png"
+import signinbg from "../../assets/images/signinbg.png";
 import {
   DribbbleOutlined,
   TwitterOutlined,
   InstagramOutlined,
   GithubOutlined,
 } from "@ant-design/icons";
+
+const { Title } = Typography;
+const { Header, Footer, Content } = Layout;
+
 function onChange(checked) {
   console.log(`switch to ${checked}`);
 }
-const { Title } = Typography;
-const { Header, Footer, Content } = Layout;
-const template = [
+
+const template = (
   <svg
     data-v-4ebdc598=""
     width="20"
@@ -51,9 +53,10 @@ const template = [
       fill="#111827"
       className="fill-muted"
     ></path>
-  </svg>,
-];
-const profile = [
+  </svg>
+);
+
+const profile = (
   <svg
     data-v-4ebdc598=""
     width="20"
@@ -70,9 +73,10 @@ const profile = [
       fill="#111827"
       className="fill-muted"
     ></path>
-  </svg>,
-];
-const signup = [
+  </svg>
+);
+
+const signup = (
   <svg
     data-v-4ebdc598=""
     width="20"
@@ -89,9 +93,10 @@ const signup = [
       fill="#111827"
       className="fill-muted"
     ></path>
-  </svg>,
-];
-const signin = [
+  </svg>
+);
+
+const signin = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="14"
@@ -102,8 +107,9 @@ const signin = [
       className="fill-muted"
       d="M12.25,14H1.75A1.752,1.752,0,0,1,0,12.25V3.5A1.752,1.752,0,0,1,1.75,1.75h.876V.875a.875.875,0,0,1,1.75,0V1.75h5.25V.875a.875.875,0,0,1,1.75,0V1.75h.875A1.752,1.752,0,0,1,14,3.5v8.75A1.752,1.752,0,0,1,12.25,14ZM3.5,4.375a.875.875,0,0,0,0,1.75h7a.875.875,0,0,0,0-1.75Z"
     />
-  </svg>,
-];
+  </svg>
+);
+
 export default class SignIn extends Component {
   render() {
     const onFinish = (values) => {
@@ -113,6 +119,7 @@ export default class SignIn extends Component {
     const onFinishFailed = (errorInfo) => {
       console.log("Failed:", errorInfo);
     };
+
     return (
       <>
         <Layout className="layout-default layout-signin">
@@ -161,7 +168,7 @@ export default class SignIn extends Component {
               >
                 <Title className="mb-15">Sign In</Title>
                 <Title className="font-regular text-muted" level={5}>
-                  Enter your email and password to sign in
+                  Enter your username and password to sign in
                 </Title>
                 <Form
                   onFinish={onFinish}
@@ -171,20 +178,28 @@ export default class SignIn extends Component {
                 >
                   <Form.Item
                     className="username"
-                    label="Email"
-                    name="email"
+                    label="Username"
+                    name="username"
                     rules={[
                       {
                         required: true,
-                        message: "Please input your email!",
+                        message: "Please input your username!",
+                      },
+                      {
+                        min: 3,
+                        message: "Username must be at least 3 characters long!",
+                      },
+                      {
+                        pattern: /^[a-zA-Z]+$/,
+                        message: "Username must contain only letters!",
                       },
                     ]}
                   >
-                    <Input placeholder="Email" />
+                    <Input placeholder="Username" />
                   </Form.Item>
 
                   <Form.Item
-                    className="username"
+                    className="password"
                     label="Password"
                     name="password"
                     rules={[
@@ -194,7 +209,7 @@ export default class SignIn extends Component {
                       },
                     ]}
                   >
-                    <Input placeholder="Password" />
+                    <Input.Password placeholder="Password" />
                   </Form.Item>
 
                   <Form.Item

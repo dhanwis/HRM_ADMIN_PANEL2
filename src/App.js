@@ -74,9 +74,8 @@ import login from "./pages/frontoffice/login";
 import Main from "./pages/frontoffice/main";
 import OfficeLeaveForm from "./pages/frontoffice/LeaveForm.js"
 import Customerdetails from "./pages/frontoffice/confirmed";
-import Quatation from "./pages/frontoffice/quatation";
 import DigitalMarketingPage from "./pages/frontoffice/digital";
-import WebAppDevelopmentPage from "./pages/frontoffice/webapp";
+import WebAppDevelopmentPage from "./pages/frontoffice/Quotation.js";
 import PaymentDetailsPage from "./pages/frontoffice/payment";
 import Attendanceview from "./pages/frontoffice/attendance";
 import Profile from "./pages/frontoffice/profile";

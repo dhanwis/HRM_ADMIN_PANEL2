@@ -21,15 +21,14 @@ import login from '../frontoffice/login'
 import { isFrontOfficeAuthenticated } from '../../utils/isAuthenticated';
 import FrontOffice from '../frontoffice/officehome';
 import CallSheet from './callsheet';
-import DigitalMarketingPage from './digital';
-import WebAppDevelopmentPage from './webapp';
+import Quotation from './Quotation';
 import OfficeLeaveForm from './LeaveForm';
-import Attendanceview from './attendance';
 import CustomerDetails from './confirmed';
 import PaymentDetailsPage from './payment';
 import InternRegistration from './internregister';
 import Profile from './profile';
 import FrontResetPassword from './resetpass';
+import Enquiryfront from './enquiry';
 const PrivateFrontofficeRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
@@ -50,10 +49,9 @@ const FrontRoutes = () => (
     <Route path="/frontoffice/login" exact component={login} />
     <PrivateFrontofficeRoute path="/frontoffice/dashboard" exact component={FrontOffice}/>
     <PrivateFrontofficeRoute path="/frontoffice/CallSheet" exact component={CallSheet}/>
-    <PrivateFrontofficeRoute path="/frontoffice/digitalmarket/quotation" exact component={DigitalMarketingPage}/>
-    <PrivateFrontofficeRoute path="/frontoffice/mobileapp/quotation" exact component={WebAppDevelopmentPage}/>
+    <PrivateFrontofficeRoute path="/frontoffice/quotation" exact component={Quotation}/>
     <PrivateFrontofficeRoute path="/frontoffice/OfficeLeaveForm" exact component={OfficeLeaveForm}/>
-    <PrivateFrontofficeRoute path="/frontoffice/Attendanceview" exact component={Attendanceview}/>
+    <PrivateFrontofficeRoute path="/frontoffice/Enquiry" exact component={Enquiryfront}/>
     <PrivateFrontofficeRoute path="/frontoffice/Customerdetails" exact component={CustomerDetails}/>
     <PrivateFrontofficeRoute path="/frontoffice/PaymentDetailsPage" exact component={PaymentDetailsPage}/>
     <PrivateFrontofficeRoute path="/frontoffice/internRegistration" exact component={InternRegistration}/>

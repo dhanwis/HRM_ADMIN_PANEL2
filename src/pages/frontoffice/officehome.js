@@ -1,4 +1,5 @@
 import { useState } from "react";
+import bg from "../../assets/images/bgvector.png"
 
 import {
   Card,
@@ -133,7 +134,7 @@ function FrontOffice() {
   const count = [
     {
       today: "Today’s Sales",
-      title: "$53,000",
+      title: "53,000",
       persent: "+30%",
       icon: dollor,
       bnb: "bnb2",
@@ -154,11 +155,12 @@ function FrontOffice() {
     },
     {
       today: "New Orders",
-      title: "$13,200",
+      title: "13,200",
       persent: "10%",
       icon: cart,
       bnb: "bnb2",
     },
+    
   ];
 
   const list = [
@@ -333,6 +335,7 @@ function FrontOffice() {
 
   return (
     <>
+    <div style={{backgroundImage:`url(${ bg })`,height:"1700px"}}>
     <FrontHeader/> 
       <div className="layout-content">
         <Row className="rowgap-vbox" gutter={[24, 0]}>
@@ -545,6 +548,7 @@ function FrontOffice() {
             </Card>
           </Col>
         </Row>
+      </div>
       </div>
     </>
   );
