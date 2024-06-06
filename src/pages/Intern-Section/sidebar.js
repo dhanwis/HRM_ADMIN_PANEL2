@@ -13,7 +13,7 @@
 // import { useState } from "react";
 import { Menu, Button ,Dropdown} from "antd";
 import { NavLink, useLocation } from "react-router-dom";
-import logo from "../../assets/images/logo.png";
+import logo from "../../assets/images/intern.png";
 
 
 
@@ -334,8 +334,9 @@ export default function SidenavIntern({ color }) {
     <>
   
       <div className="brand">
-        <img src={logo} alt="" style={{width:"40px"}} />
-        <span>INTERN Dashboard</span>
+        <img src={logo} alt="" style={{width:"100px" ,height:"100px",marginLeft:"20px"}} />
+        
+        <span style={{fontWeight:"bolder",fontSize:"35px",textAlign:"center"}}>INTERN </span>
       </div>
       <hr />
       

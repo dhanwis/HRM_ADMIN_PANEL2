@@ -29,16 +29,17 @@ const FeedbackForm = () => {
 
   return (
     <div className="container mt-5">
-      <h1 className="text-center mb-4">Intern Feedback Form</h1>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
+      <h3>Intern Feedback Form</h3>
+      
+      <form onSubmit={handleSubmit} style={{marginTop:"20px"}}>
+        {/* <div className="mb-3">
           <label htmlFor="fullName" className="form-label">Full Name</label>
           <input type="text" className="form-control" id="fullName" name="fullName" value={formData.fullName} onChange={handleChange} required />
         </div>
         <div className="mb-3">
           <label htmlFor="email" className="form-label">Email</label>
           <input type="email" className="form-control" id="email" name="email" value={formData.email} onChange={handleChange} required />
-        </div>
+        </div> */}
         <div className="mb-3">
           <label htmlFor="feedback" className="form-label">Feedback</label>
           <textarea className="form-control" id="feedback" name="feedback" value={formData.feedback} onChange={handleChange} rows="5" required></textarea>
