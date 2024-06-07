@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Input, Button, Table, Popconfirm } from 'antd';
+import { Form, Input, Button, Table, Modal } from 'antd';
+
+import vector from "../../assets/images/vector_image.png"
+
+
 
 const ReferenceForm = () => {
   const [form] = Form.useForm();
   const [submittedData, setSubmittedData] = useState([]);
   const [editingKey, setEditingKey] = useState(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedRecord, setSelectedRecord] = useState(null);
 
   useEffect(() => {
     const savedData = JSON.parse(localStorage.getItem('submittedReferences')) || [];
@@ -12,26 +18,27 @@ const ReferenceForm = () => {
   }, []);
 
   const onFinish = (values) => {
-    const key = Date.now();
-    const newData = {
-      ...values,
-      key,
-    };
-    setSubmittedData([...submittedData, newData]);
+    if (editingKey) {
+      const newData = submittedData.map(item =>
+        item.key === editingKey ? { ...item, ...values } : item
+      );
+      setSubmittedData(newData);
+      localStorage.setItem('submittedReferences', JSON.stringify(newData));
+      setEditingKey(null);
+    } else {
+      const key = Date.now();
+      const newData = {
+        ...values,
+        key,
+      };
+      setSubmittedData([...submittedData, newData]);
+      localStorage.setItem('submittedReferences', JSON.stringify([...submittedData, newData]));
+    }
     form.resetFields();
-    const updatedData = [...submittedData, newData];
-    localStorage.setItem('submittedReferences', JSON.stringify(updatedData));
   };
 
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
-  };
-
-  const deleteRecord = (key) => {
-    const newData = submittedData.filter((item) => item.key !== key);
-    setSubmittedData(newData);
-    setEditingKey(null);
-    localStorage.setItem('submittedReferences', JSON.stringify(newData));
   };
 
   const edit = (key) => {
@@ -40,74 +47,74 @@ const ReferenceForm = () => {
     form.setFieldsValue(recordToEdit);
   };
 
-  const save = async (key) => {
-    try {
-      const row = await form.validateFields();
-      const newData = [...submittedData];
-      const index = newData.findIndex((item) => key === item.key);
-
-      if (index > -1) {
-        newData[index] = { ...newData[index], ...row };
-        setSubmittedData(newData);
-        setEditingKey(null);
-        localStorage.setItem('submittedReferences', JSON.stringify(newData));
-      }
-    } catch (errInfo) {
-      console.log('Validate Failed:', errInfo);
-    }
+  const deleteRecord = (key) => {
+    const newData = submittedData.filter((item) => item.key !== key);
+    setSubmittedData(newData);
+    localStorage.setItem('submittedReferences', JSON.stringify(newData));
+    setEditingKey(null); // Clear editingKey if the record being edited is deleted
   };
 
-  const cancel = () => {
-    setEditingKey(null);
-    form.resetFields();
+  const viewResponse = (record) => {
+    setSelectedRecord(record);
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+    setSelectedRecord(null);
   };
 
   const columns = [
     {
-      title: 'Referral First Name',
-      dataIndex: 'referralFirstName',
-      key: 'referralFirstName',
+      title: 'Name',
+      dataIndex: 'Name',
+      key: 'Name',
     },
     {
-      title: 'Referral Last Name',
-      dataIndex: 'referralLastName',
-      key: 'referralLastName',
+      title: 'Email',
+      dataIndex: 'Email',
+      key: 'Email',
     },
     {
-      title: 'Referral Email',
-      dataIndex: 'referralEmail',
-      key: 'referralEmail',
+      title: 'Phone',
+      dataIndex: 'Phone',
+      key: 'Phone',
     },
-    
+    {
+      title: 'Location',
+      dataIndex: 'location',
+      key: 'location',
+    },
+
+    {
+      title: 'Education Qualification',
+      dataIndex: 'Education',
+      key: 'Education',
+    },
+
+
     {
       title: 'Actions',
       dataIndex: 'actions',
       key: 'actions',
-      render: (_, record) => {
-        const editable = record.key === editingKey;
-        return editable ? (
-          <span>
-            <Button type="primary" onClick={() => save(record.key)} style={{ marginRight: 8 }}>
-              Save
-            </Button>
-            <Button onClick={cancel}>Cancel</Button>
-          </span>
-        ) : (
-          <span>
-            <Button type="link" onClick={() => edit(record.key)}>
-              Edit
-            </Button>
-            <Popconfirm title="Sure to delete?" onConfirm={() => deleteRecord(record.key)}>
-              <Button type="link">Delete</Button>
-            </Popconfirm>
-          </span>
-        );
-      },
+      render: (_, record) => (
+        <span>
+          <Button type="link" onClick={() => edit(record.key)}>
+            Edit
+          </Button>
+          <Button type="link" onClick={() => deleteRecord(record.key)}>
+            Delete
+          </Button>
+          <Button type="link" onClick={() => viewResponse(record)}>
+            View Response
+          </Button>
+        </span>
+      ),
     },
   ];
 
   return (
-    <div className="container mt-5">
+    <div className="container mt-5" style={{backgroundImage:`url(${vector})`}}>
       <Form
         form={form}
         layout="vertical"
@@ -115,36 +122,45 @@ const ReferenceForm = () => {
         onFinishFailed={onFinishFailed}
       >
         <h3>Referral Information</h3>
-       
         <Form.Item
-          label="Referral First Name"
-          name="referralFirstName"
-          rules={[{ required: true, message: 'Please enter referral first name', pattern: /^[a-zA-Z]+$/ }]}
+          label="Name"
+          name="Name"
+          rules={[{ required: true, message: 'Please enter name', pattern: /^[a-zA-Z]+$/ }]}
         >
-          <Input placeholder="Referral First Name" />
+          <Input placeholder="Name" />
         </Form.Item>
         <Form.Item
-          label="Referral Last Name"
-          name="referralLastName"
-          rules={[{ required: true, message: 'Please enter referral last name', pattern: /^[a-zA-Z]+$/ }]}
+          label="Email"
+          name="Email"
+          rules={[{ required: true, message: 'Please enter email', type: 'email' }]}
         >
-          <Input placeholder="Referral Last Name" />
+          <Input placeholder="Email" />
         </Form.Item>
         <Form.Item
-          label="Referral Email"
-          name="referralEmail"
-          rules={[{ required: true, message: 'Please enter referral email', type: 'email' }]}
+          label="Phone"
+          name="Phone"
+          rules={[{ required: true, message: 'Please enter phone number', pattern: /^\d{10}$/ }]}
         >
-          <Input placeholder="Referral Email" />
+          <Input placeholder="Phone" />
         </Form.Item>
-        
         <Form.Item
-          label="Referral Phone"
-          name="referralPhone"
-          rules={[{ required: true, message: 'Please enter referral phone number', pattern: /^\d{10}$/ }]}
+          label="Location"
+          name="location"
+          rules={[{ required: true, message: 'Please enter location' }]}
         >
-          <Input placeholder="Referral Phone" />
+          <Input placeholder="Location" />
         </Form.Item>
+
+
+        <Form.Item
+          label="Education"
+          name="Education"
+          rules={[{ required: true, message: 'Please enter Education Details' }]}
+        >
+          <Input placeholder="Education" />
+        </Form.Item>
+
+
         <Form.Item>
           <Button type="primary" htmlType="submit">
             Submit
@@ -155,8 +171,22 @@ const ReferenceForm = () => {
         <h2>Submitted Referral Information</h2>
         <Table dataSource={submittedData} columns={columns} />
       </div>
+      <Modal
+        title="Response Details"
+        visible={isModalVisible}
+        onOk={handleOk}
+        okText="Close"
+      >
+                {selectedRecord && (
+          <div>
+            {/* <p>{`${selectedRecord.Name} has provided the following contact details: Email - ${selectedRecord.Email}, Phone - ${selectedRecord.Phone}, Location - ${selectedRecord.location}.`}</p> */}
+            <p>Considered</p>
+          </div>
+        )}
+      </Modal>
     </div>
   );
 };
 
 export default ReferenceForm;
+

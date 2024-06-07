@@ -1,80 +1,204 @@
-import React from "react";
-import { Row, Col, Card, Button, Descriptions } from "antd";
-import {
-  TwitterOutlined,
-  FacebookOutlined,
-  InstagramOutlined,
-} from "@ant-design/icons";
-import { Container } from "react-bootstrap";
-import img from "./user.png";
 
-function ProfileInformation() {
+import React, { useState } from 'react';
+import { Card, Descriptions, Progress, Row, Col, Button, Form, Input } from 'antd';
+// import { MailOutlined, PhoneOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import { MailOutlined} from '@ant-design/icons';
+
+
+import profilePic from "./user.png";
+import BgProfile from "./bg-profile.jpg";
+
+// import vector from "../../assets/images/vector_image.png"
+
+
+
+const styles = {
+  container: {
+    padding: '20px',
+  },
+  card: {
+    marginBottom: '20px',
+    borderRadius: '10px',
+  },
+  profilePic: {
+    width: '100px',
+    height: '100px',
+    borderRadius: '50%',
+  },
+  profileInfo: {
+    fontSize: '16px',
+  },
+  profilePosition: {
+    marginLeft: '10px',
+  },
+  profileLocation: {
+    marginLeft: '10px',
+  },
+  profileDescription: {
+    fontSize: '14px',
+    color: 'gray',
+  },
+  profileProgress: {
+    textAlign: 'right',
+  },
+  profileFooter: {
+    margin: '20px 0',
+    fontSize: '16px',
+  },
+  profileActions: {
+    display: 'flex',
+    justifyContent: 'space-around',
+  },
+  fontt: {
+    fontSize: '50px',
+  },
+};
+
+const ProfileInformation = () => {
+  const [editMode, setEditMode] = useState(false);
+  const [form] = Form.useForm();
+  const [profile, setProfile] = useState({
+    name: 'Devika J',
+    email: 'Devika123@gmail.com',
+    dob: '13 June 2001',
+    position: 'Web developer Intern',
+    address: 'Sreenidhi',
+    city: 'Kannur',
+    state: 'Kerala',
+    country: 'India',
+    qualification: 'B.Tech(CSE)',
+    keySkills: 'Good Communication, Planning and research skills',
+    languages: 'English, German, Spanish',
+    phone: '9823651425',
+    industry: 'IT Software / Developer',
+    gender: 'Female',
+    maritalStatus: 'Unmarried',
+    permanentAddress: 'USA',
+    zipCode: '670694',
+  });
+
+  const handleUpdateClick = () => {
+    setEditMode(true);
+    form.setFieldsValue(profile);
+  };
+
+  const handleFormSubmit = (values) => {
+    setProfile((prevProfile) => ({
+      ...prevProfile,
+      ...values,
+    }));
+    setEditMode(false);
+  };
+
   return (
-    <div className="container mt-5">
-    <Container>
-      <Row justify="center">
-        <Col xs={24} md={16} lg={12}>
-          <Card
-            className="profile-card"
-            bodyStyle={{ paddingTop: 0, textAlign: "center" }}
-          >
-            <div className="profile-image-container">
-             <img src={img} alt="" style={{width:"100px" ,height:"100px",marginTop:"20px"}} />
-              {/* <img
-                src="https://via.placeholder.com/200" // Example image URL
-                alt="Profile Image"
-                className="profile-image rounded-circle"
-              /> */}
-            </div>
-            <Descriptions bordered column={1} className="profile-descriptions mt-3">
-              <Descriptions.Item label="Full Name" className="font-bold">
-                Athira
-              </Descriptions.Item>
-              <Descriptions.Item label="Email" className="font-bold">
-                athira123@gmail.com
-              </Descriptions.Item>
-              <Descriptions.Item label="Date of Birth" className="font-bold">
-                9625458912
-              </Descriptions.Item>
-              <Descriptions.Item label="University" className="font-bold">
-                Kannur university
-              </Descriptions.Item>
-              <Descriptions.Item label="Course" className="font-bold">
-                MCA
-              </Descriptions.Item>
-              <Descriptions.Item label="Internship Position" className="font-bold">
-                Web Developer
-              </Descriptions.Item>
-              <Descriptions.Item label="Start Date" className="font-bold">
-                01/05/2022
-              </Descriptions.Item>
-              <Descriptions.Item label="End Date" className="font-bold">
-                01/08/2022
-              </Descriptions.Item>
-              <Descriptions.Item label="Internship Type" className="font-bold">
-                Paid
-              </Descriptions.Item>
-              <Descriptions.Item label="Social" className="font-bold">
-                <a href="https://twitter.com/narendramodi" className="mx-2 px-2">
-                  <TwitterOutlined />
-                </a>
-                <a href="#pablo" className="mx-2 px-2">
-                  <FacebookOutlined style={{ color: "#3b5998" }} />
-                </a>
-                <a href="#pablo" className="mx-2 px-2">
-                  <InstagramOutlined style={{ color: "#e4405f" }} />
-                </a>
-              </Descriptions.Item>
+    <>
+    {/* <div style={{backgroundImage:`url(${vector})`,height:"900px"}}> */}
+      
+      <div className="profile-nav-bg" style={{ backgroundImage: `url(${BgProfile})` }}></div>
+      <div style={styles.container}>
+        <Card style={styles.card}>
+          <Row>
+            <Col span={4}>
+              <img src={profilePic} alt="Profile" style={styles.profilePic} />
+            </Col>
+            <Col span={16}>
+              <h2>{profile.name}</h2>
+              <p style={styles.profileInfo}>
+                <MailOutlined /> {profile.email} &nbsp;
+                <span style={styles.profilePosition}>| {profile.position}</span> &nbsp;
+                <span style={styles.profileLocation}>| {profile.city}</span>
+              </p>
+            </Col>
+            <Col span={4} style={styles.profileProgress}>
+              <span>Progress</span>
+              <Progress percent={85} status="active" />
+            </Col>
+          </Row>
+        </Card>
+
+        <Card style={styles.card}>
+          {editMode ? (
+            <Form form={form} layout="vertical" onFinish={handleFormSubmit}>
+              <Form.Item label="Address" name="address">
+                <Input />
+              </Form.Item>
+              <Form.Item label="City" name="city">
+                <Input />
+              </Form.Item>
+              <Form.Item label="State" name="state">
+                <Input />
+              </Form.Item>
+              <Form.Item label="Country" name="country">
+                <Input />
+              </Form.Item>
+              <Form.Item label="Qualification" name="qualification">
+                <Input />
+              </Form.Item>
+              <Form.Item label="Key Skills" name="keySkills">
+                <Input />
+              </Form.Item>
+              <Form.Item label="Languages" name="languages">
+                <Input />
+              </Form.Item>
+              <Form.Item label="Industry" name="industry">
+                <Input />
+              </Form.Item>
+              <Form.Item label="Marital Status" name="maritalStatus">
+                <Input />
+              </Form.Item>
+              <Form.Item label="Permanent Address" name="permanentAddress">
+                <Input />
+              </Form.Item>
+              <Form.Item label="Zip code" name="zipCode">
+                <Input />
+              </Form.Item>
+              <Form.Item>
+                <Button type="primary" htmlType="submit">Save</Button>
+                <Button type="default" onClick={() => setEditMode(false)}>Cancel</Button>
+              </Form.Item>
+            </Form>
+          ) : (
+            <Descriptions bordered column={2}>
+              <Descriptions.Item label="Name">{profile.name}</Descriptions.Item>
+              <Descriptions.Item label="Email">{profile.email}</Descriptions.Item>
+              <Descriptions.Item label="Date Of Birth">{profile.dob}</Descriptions.Item>
+              <Descriptions.Item label="Position">{profile.position}</Descriptions.Item>
+              <Descriptions.Item label="Address">{profile.address}</Descriptions.Item>
+              <Descriptions.Item label="City">{profile.city}</Descriptions.Item>
+              <Descriptions.Item label="State">{profile.state}</Descriptions.Item>
+              <Descriptions.Item label="Country">{profile.country}</Descriptions.Item>
+              <Descriptions.Item label="Qualification">{profile.qualification}</Descriptions.Item>
+              <Descriptions.Item label="Key Skills">{profile.keySkills}</Descriptions.Item>
+              <Descriptions.Item label="Languages">{profile.languages}</Descriptions.Item>
+              <Descriptions.Item label="Phone">{profile.phone}</Descriptions.Item>
+              <Descriptions.Item label="Industry">{profile.industry}</Descriptions.Item>
+              <Descriptions.Item label="Gender">{profile.gender}</Descriptions.Item>
+              <Descriptions.Item label="Marital Status">{profile.maritalStatus}</Descriptions.Item>
+              {/* <Descriptions.Item label="Permanent Address">{profile.permanentAddress}</Descriptions.Item> */}
+              <Descriptions.Item label="Zip code">{profile.zipCode}</Descriptions.Item>
             </Descriptions>
-            <Button type="primary" className="edit-profile-button mt-4">
-              Edit Profile
-            </Button>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
-    </div>
+          )}
+        </Card>
+
+        <div style={styles.profileActions}>
+          {/* <Button type="primary" icon={<MailOutlined />}>Download Resume</Button> */}
+          {/* <Button type="dashed" icon={<PhoneOutlined />}>Contact</Button> */}
+          {!editMode && (
+            <Button type="primary"  onClick={handleUpdateClick}>Update Profile</Button>
+          )}
+        </div>
+      </div>
+      {/* </div> */}
+    </>
   );
-}
+};
 
 export default ProfileInformation;
+
+
+
+
+
+
+
+
