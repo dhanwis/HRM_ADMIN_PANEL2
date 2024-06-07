@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+import {useHistory}from 'react-router-dom'
 import { Table, Typography, Button, Modal, Form, Input, message } from "antd";
 import { PhoneOutlined, DownloadOutlined } from '@ant-design/icons';
 import moment from "moment";
+import bg from "../../assets/images/bgvector.png"
 
 const { Title } = Typography;
 
@@ -11,6 +13,8 @@ function CallSheet({ onConfirm }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [editingCall, setEditingCall] = useState(null);
   const [form] = Form.useForm();
+
+  const n = useHistory()
 
   useEffect(() => {
     const storedData = localStorage.getItem("calls");
@@ -113,6 +117,8 @@ function CallSheet({ onConfirm }) {
     onConfirm(record);
     setCalls(calls.filter(call => call.id !== record.id));
     message.success(`Confirmed call with ${record.customerName}`);
+    n.push('/frontoffice/Customerdetails')
+
   };
 
   const columns = [
@@ -154,6 +160,7 @@ function CallSheet({ onConfirm }) {
   ];
 
   return (
+    <div style={{backgroundImage:`url(${ bg })`,height:"800px"}}>
     <div className="call-sheet" style={{ paddingTop: "50px" }}>
       <Title level={5}>Call Sheet</Title>
       <Button type="primary" icon={<PhoneOutlined />} onClick={showModal} style={{ marginBottom: 16 }}>
@@ -199,6 +206,7 @@ function CallSheet({ onConfirm }) {
         }}
       />
     </div>
+   </div>
   );
 }
 

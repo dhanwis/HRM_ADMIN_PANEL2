@@ -10,7 +10,7 @@ import {
   LaptopOutlined,
   SolutionOutlined,
 } from "@ant-design/icons";
-import logos from "../../assets/images/logos.png";
+import logos from "../../assets/images/call.webp";
 
 export default function SidenavFront({ color }) {
   const { pathname } = useLocation();
@@ -29,25 +29,25 @@ export default function SidenavFront({ color }) {
       label: "CallSheet",
       link: "/frontoffice/CallSheet",
     },
-    {
-      key: "quotation",
-      icon: <FileOutlined />,
-      label: "Quotation",
-      subMenu: [
-        {
-          key: "digital_marketing",
-          label: "Digital Marketing",
-          icon: <LaptopOutlined />,
-          link: "/frontoffice/digitalmarket/quotation",
-        },
+    // {
+    //   key: "quotation",
+    //   icon: <FileOutlined />,
+    //   label: "Quotation",
+    //   subMenu: [
+    //     {
+    //       key: "digital_marketing",
+    //       label: "Digital Marketing",
+    //       icon: <LaptopOutlined />,
+    //       link: "/frontoffice/digitalmarket/quotation",
+    //     },
         {
           key: "webapp_development",
-          label: "Webapp Development",
+          label: "Quotation",
           icon: <LaptopOutlined />,
-          link: "/frontoffice/mobileapp/quotation",
+          link: "/frontoffice/quotation",
         },
-      ],
-    },
+    //   ],
+    // },
     {
       key: "leave_form",
       icon: <FormOutlined />,
@@ -55,10 +55,10 @@ export default function SidenavFront({ color }) {
       link: "/frontoffice/OfficeLeaveForm",
     },
     {
-      key: "attendance_view",
+      key: "Enquiry",
       icon: <ScheduleOutlined />,
-      label: "Attendance View",
-      link: "/frontoffice/Attendanceview",
+      label: "Enquiry",
+      link: "/frontoffice/Enquiry",
     },
     {
       key: "confirmed_details",
@@ -66,18 +66,18 @@ export default function SidenavFront({ color }) {
       label: "Confirmed Details",
       link: "/frontoffice/Customerdetails",
     },
-    {
-      key: "payment_details",
-      icon: <SolutionOutlined />,
-      label: "Payment Details",
-      link: "/frontoffice/PaymentDetailsPage",
-    },
-    {
-      key: "InternRegistration",
-      icon: <SolutionOutlined />,
-      label: "Intern Registration",
-      link: "/frontoffice/internRegistration",
-    },
+    // {
+    //   key: "payment_details",
+    //   icon: <SolutionOutlined />,
+    //   label: "Payment Details",
+    //   link: "/frontoffice/PaymentDetailsPage",
+    // },
+    // {
+    //   key: "InternRegistration",
+    //   icon: <SolutionOutlined />,
+    //   label: "Intern Registration",
+    //   link: "/frontoffice/internRegistration",
+    // },
     {
       key: "profile",
       icon: <UserOutlined />,
@@ -143,9 +143,9 @@ export default function SidenavFront({ color }) {
   return (
     <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
       <div style={{ padding: "20px", borderBottom: "1px solid #f0f0f0", textAlign: "center" }}>
-        <img src={logos} alt="" style={{ width: "150px", marginBottom: "20px"}} />
-        <span style={{ color: "black", fontSize: "24px" }}>
-          <b>Sales Executive</b>
+        <img src={logos} alt="" style={{ width: "200px", marginBottom: "20px",marginRight:"10px"}} />
+        <span style={{ color: "black", fontSize: "110%" }}>
+          <b>⭕FRONT OFFICE⭕</b>
         </span>
       </div>
       <div style={{ flex: "1", overflowY: "auto" }}>
