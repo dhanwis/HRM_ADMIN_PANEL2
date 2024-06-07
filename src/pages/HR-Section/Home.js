@@ -22,8 +22,8 @@ import {
 } from "@ant-design/icons";
 import Paragraph from "antd/lib/typography/Paragraph";
 
-import Echart from "../../components/chart/EChart";
-import LineChartHR from "./LinechartHR";
+import Echart from "./Paymentchart";
+import LineChart from "./Admchart";
 
 import ava1 from "../../assets/images/logo-shopify.svg";
 import ava2 from "../../assets/images/logo-atlassian.svg";
