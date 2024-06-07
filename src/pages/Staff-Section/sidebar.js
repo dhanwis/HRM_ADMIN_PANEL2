@@ -18,9 +18,9 @@ export default function SidenavStaff({ color }) {
   const { pathname } = useLocation();
   const page = pathname.replace("/", "");
 
-  const user = JSON.parse(localStorage.getItem('userData')) 
+ // const user = JSON.parse(localStorage.getItem('userData')) 
 
-  console.log(user);
+ // console.log(user);
   const dashboard = [
     <svg
       width="20"
@@ -200,7 +200,7 @@ export default function SidenavStaff({ color }) {
       <div className="brand">
         <img src={logo} alt="" style={{width:"100px",height:"100px", marginLeft:"20px"}} />
         <div style={{marginLeft:"40px"}}>
-        <span>{user.username}</span>
+        <span>staff</span>
         </div>
       </div>
       <hr />

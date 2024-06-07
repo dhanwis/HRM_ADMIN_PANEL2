@@ -32,9 +32,7 @@ const FeedbackForm = () => {
   };
 
   return (
-    <div style={{backgroundImage:`url(${vector})`,height:"650px"}}>
-
-    <div className="container mt-5" >
+    <div className="container mt-5">
       <h3>Intern Feedback Form</h3>
       
       <form onSubmit={handleSubmit} style={{marginTop:"20px"}}>
@@ -47,7 +45,6 @@ const FeedbackForm = () => {
         </div>
       </form>
      
-    </div>
     </div>
   );
 };

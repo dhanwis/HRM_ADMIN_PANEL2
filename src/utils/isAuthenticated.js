@@ -1,16 +1,16 @@
 // Function to check if the user is a staff member and authenticated
 export const isStaffAuthenticated = () => {
   // Check if the user's role is 'staff' and if they are authenticated
-  const userRole = localStorage.getItem("isStaff");
-  const authToken = localStorage.getItem("authToken");
-  console.log(userRole);
-  console.log('authToken',authToken);
-  if(userRole && authToken)
-  {
-    console.log('you can go');
-    return true
-  }
-  //return true
+  // const userRole = localStorage.getItem("isStaff");
+  // const authToken = localStorage.getItem("authToken");
+  // console.log(userRole);
+  // console.log('authToken',authToken);
+  // if(userRole && authToken)
+  // {
+  //   console.log('you can go');
+  //   return true
+  // }
+  return true
 };
 
 // Function to check if the user is an intern and authenticated

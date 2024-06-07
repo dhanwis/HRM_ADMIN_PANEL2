@@ -5,12 +5,9 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import { Container } from 'react-bootstrap';
 
-import vector from "../../assets/images/vector_image.png"
-
-
 const FourCards = () => {
   return (
-    <div className="container mt-5" style={{backgroundImage:`url(${vector})`}}>
+    <div className="container mt-5">
       <Container>
         <h3>Notes</h3>
         <Row className="justify-content-center mt-1">
