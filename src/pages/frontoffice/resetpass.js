@@ -106,7 +106,7 @@ const  FrontResetPassword= () => {
                                         Submit Request
                                     </Button>
                                     <p className="text-center mt-3">
-                                        <Link to="/staff/login">Sign In</Link>
+                                        <Link to="/frontoffice/login">Sign In</Link>
                                     </p>
                                 </Form>
                             )}

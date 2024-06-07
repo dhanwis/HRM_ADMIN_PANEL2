@@ -18,6 +18,9 @@ export default function SidenavStaff({ color }) {
   const { pathname } = useLocation();
   const page = pathname.replace("/", "");
 
+ // const user = JSON.parse(localStorage.getItem('userData')) 
+
+ // console.log(user);
   const dashboard = [
     <svg
       width="20"
@@ -197,7 +200,7 @@ export default function SidenavStaff({ color }) {
       <div className="brand">
         <img src={logo} alt="" style={{width:"100px",height:"100px", marginLeft:"20px"}} />
         <div style={{marginLeft:"40px"}}>
-        <span>STAFF</span>
+        <span>staff</span>
         </div>
       </div>
       <hr />
@@ -215,7 +218,7 @@ export default function SidenavStaff({ color }) {
             <span className="label">Dashboard</span>
           </NavLink>
         </Menu.Item>
-        <Menu.Item key="2">
+        {/* <Menu.Item key="2">
           <NavLink to="/staff/table" style={{textDecoration:'none'}}>
             <span
               className="icon"
@@ -227,7 +230,7 @@ export default function SidenavStaff({ color }) {
             </span>
             <span className="label">Pending Task</span>
           </NavLink>
-        </Menu.Item>
+        </Menu.Item> */}
         <Menu.Item key="3">
           <NavLink to="/staff/leave" style={{textDecoration:'none'}}>
             <span
@@ -251,7 +254,7 @@ export default function SidenavStaff({ color }) {
             >
               {attendance}
             </span>
-            <span className="label">Attendance Table</span>
+            <span className="label">Status share</span>
           </NavLink>
         </Menu.Item>
         <Menu.Item key="5">
@@ -278,6 +281,19 @@ export default function SidenavStaff({ color }) {
         {/* <Menu.Item className="menu-item-header" key="5">
           Account Pages
         </Menu.Item> */}
+        
+        <Menu.Item key="7">
+        <NavLink to="/staff/worksheet" style={{textDecoration:'none'}}>
+            <span className="icon">{signin}</span>
+            <span className="label">Daily worksheet</span>
+        </NavLink>
+        </Menu.Item>
+        <Menu.Item key="8">
+          <NavLink to="/staff/task" style={{textDecoration:'none'}}>
+            <span className="icon">{signup}</span>
+            <span className="label">Task Details</span>
+          </NavLink>
+        </Menu.Item>
         <Menu.Item key="6">
           <NavLink to="/staff/profile" style={{textDecoration:'none'}}>
             <span
@@ -289,18 +305,6 @@ export default function SidenavStaff({ color }) {
               {profile}
             </span>
             <span className="label">Profile</span>
-          </NavLink>
-        </Menu.Item>
-        <Menu.Item key="7">
-        <NavLink to="/staff/worksheet" style={{textDecoration:'none'}}>
-            <span className="icon">{signin}</span>
-            <span className="label">Daily worksheet</span>
-        </NavLink>
-        </Menu.Item>
-        <Menu.Item key="8">
-          <NavLink to="/staff/task" style={{textDecoration:'none'}}>
-            <span className="icon">{signup}</span>
-            <span className="label">Task Details</span>
           </NavLink>
         </Menu.Item>
       </Menu>

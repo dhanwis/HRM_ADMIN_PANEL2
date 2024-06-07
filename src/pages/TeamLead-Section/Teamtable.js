@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Typography, Button, Modal, Form, Select } from 'antd';
+import { Table, Typography, Button, Modal, Form, Select, Row, Col } from 'antd';
 import moment from 'moment';
+import teamimage from '../../assets/images/vectorteam5.png';
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -16,7 +17,7 @@ function Team_Table() {
 
   useEffect(() => {
     // Fetch employees from the backend
-    fetch('/api/employees')
+    fetch('https://fakestoreapi.com/products')
       .then(response => response.json())
       .then(data => setEmployees(data))
       .catch(error => console.error('Error fetching employees:', error));
@@ -98,15 +99,22 @@ function Team_Table() {
   ];
 
   return (
+    <div style={{backgroundImage:`url(${teamimage})`,backgroundSize:"100%",width:"100%",height:"730px"}}>
     <div className="team-table" style={{ paddingTop: "50px", overflowX: "auto" }}>
       <Title level={5}>Team List</Title>
-      <Button type="primary" onClick={showModal} style={{ marginBottom: 16 }}>
-        Add New
-      </Button>
-      <Button type="danger" onClick={handleDelete} style={{ marginBottom: 16, marginLeft: 16 }}>
-        Delete Selected
-      </Button>
-      <Modal title="Add Employee" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+      <Row justify="space-between" align="middle" style={{ marginBottom: 16 }}>
+        <Col>
+          <Button type="primary" onClick={showModal}>
+            Add New
+          </Button>
+        </Col>
+        <Col>
+          <Button type="danger" onClick={handleDelete}>
+            Delete Selected
+          </Button>
+        </Col>
+      </Row>
+      <Modal title={editingRow !== null ? "Edit Employee" : "Add Employee"} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
         <Form form={form} layout="vertical">
           <Form.Item name="name" label="Employee Name" rules={[{ required: true, message: 'Please select employee name' }]}>
             <Select style={{ width: 200 }} placeholder="Select employee name">
@@ -127,6 +135,7 @@ function Team_Table() {
           ...rowSelection,
         }}
       />
+    </div>
     </div>
   );
 }
