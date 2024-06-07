@@ -174,16 +174,16 @@ const ProfileInformation = () => {
           )}
         </Card>
 
-        <div style={styles.profileActions}>
-          {/* <Button type="primary" icon={<MailOutlined />}>Download Resume</Button> */}
-          {/* <Button type="dashed" icon={<PhoneOutlined />}>Contact</Button> */}
-          {!editMode && (
-            <Button type="primary"  onClick={handleUpdateClick}>Update Profile</Button>
-          )}
-        </div>
-      </div>
-    </>
-  );
-};
-
+         <div style={styles.profileActions}>
+           {/* <Button type="primary" icon={<MailOutlined />}>Download Resume</Button> */}
+           {/* <Button type="dashed" icon={<PhoneOutlined />}>Contact</Button> */}
+           {!editMode && (
+             <Button type="primary"  onClick={handleUpdateClick}>Update Profile</Button>
+           )}
+         </div>
+       </div>
+     </>
+   );
+ }
+ 
 export default ProfileInformation;
