@@ -13,7 +13,7 @@
 // import { useState } from "react";
 import { Menu, Button ,Dropdown} from "antd";
 import { NavLink, useLocation } from "react-router-dom";
-import logo from "../../assets/images/logo.png";
+import logo from "../../assets/images/user.png";
 
 
 
@@ -308,34 +308,37 @@ export default function SidenavIntern({ color }) {
     </svg>,
   ];
 
-  const task = (
-    <Menu>
-      <Menu.Item key="task">
-        <NavLink to="/intern/table" style={{textDecoration:"none"}}>
-          <span className="icon">{tables}</span>
-          Task
-        </NavLink>
-      </Menu.Item>
-      <Menu.Item key="task">
-          <NavLink to="/intern/updatestatus" style={{textDecoration:"none"}}>
-          {/* <a href="https://docs.google.com/spreadsheets/d/1rPTzvgLtt6jcWNUFskW0K6IxjfSzF22chsYUlZazPPw/edit?usp=sharing" target="_blank" style={{textDecoration:"none"}} > */}
-          <span className="icon">{StatusUpdate}</span>
-          <span className="label">Update Status</span>
-          </NavLink>
+  // const task = (
+  //   <Menu>
+  //     <Menu.Item key="task">
+  //       <NavLink to="/intern/table" style={{textDecoration:"none"}}>
+  //         <span className="icon">{tables}</span>
+  //         Task
+  //       </NavLink>
+  //     </Menu.Item>
+  //     <Menu.Item key="task">
+  //         <NavLink to="/intern/updatestatus" style={{textDecoration:"none"}}>
+  //         {/* <a href="https://docs.google.com/spreadsheets/d/1rPTzvgLtt6jcWNUFskW0K6IxjfSzF22chsYUlZazPPw/edit?usp=sharing" target="_blank" style={{textDecoration:"none"}} > */}
+  //         <span className="icon">{StatusUpdate}</span>
+  //         <span className="label">Update Status</span>
+  //         </NavLink>
         
-      </Menu.Item>
-    </Menu>
+  //     </Menu.Item>
+  //   </Menu>
 
 
 
 
-  );
+  // );
+
+  
   return (
     <>
   
       <div className="brand">
-        <img src={logo} alt="" style={{width:"40px"}} />
-        <span>INTERN Dashboard</span>
+        <img src={logo} alt="" style={{width:"100px" ,height:"100px",marginLeft:"20px"}} />
+        
+        <span style={{fontSize:"20px",textAlign:"center",marginLeft:"35px"}}>INTERN </span>
       </div>
       <hr />
       
@@ -354,11 +357,47 @@ export default function SidenavIntern({ color }) {
           </NavLink>
         </Menu.Item>
 
-        <Menu.Item key="task" className="menu-item-header">
+
+
+
+        {/* <Menu.Item key="task" className="menu-item-header">
           <Dropdown overlay={task} trigger={['click']}>
             <span>Task</span>
           </Dropdown>
+        </Menu.Item> */}
+
+
+
+        <Menu.Item key="4">
+          <NavLink to="/intern/table" style={{textDecoration:"none"}}>
+            <span
+              className="icon"
+              style={{
+                background: page === "table" ? color : "",
+              }}
+            >
+              {notes}
+            </span>
+            <span className="label">Task</span>
+          </NavLink>
         </Menu.Item>
+
+
+        <Menu.Item key="4">
+          <NavLink to="/intern/updatestatus" style={{textDecoration:"none"}}>
+            <span
+              className="icon"
+              style={{
+                background: page === "table" ? color : "",
+              }}
+            >
+              {notes}
+            </span>
+            <span className="label">Task Status</span>
+          </NavLink>
+        </Menu.Item>
+
+
         <Menu.Item key="4">
           <NavLink to="/intern/viewnotes" style={{textDecoration:"none"}}>
             <span
@@ -507,9 +546,16 @@ export default function SidenavIntern({ color }) {
             <span className="label">Sign in</span>
           </NavLink>
         </Menu.Item>
-      </Menu>
+      
+
+      
+      
+        </Menu>
+      
+
+      
    
-      <div className="aside-footer">
+      {/* <div className="aside-footer">
         <div
           className="footer-box"
           style={{
@@ -525,7 +571,9 @@ export default function SidenavIntern({ color }) {
             DOCUMENTATION
           </Button>
         </div>
-      </div>
+      </div> */}
+
+      <div></div>
     {/* </div> */}
     </>
   );

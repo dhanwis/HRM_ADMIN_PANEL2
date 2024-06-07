@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Form, Input, Radio, Button, Table, Space, Modal } from 'antd';
+import { Form, Input, Radio, Button, Table, Space, Modal, Select, DatePicker } from 'antd';
 import 'antd/dist/antd.css'; // Import Ant Design styles
+import moment from 'moment';
 
 const JobForm = () => {
   const [form] = Form.useForm();
@@ -36,6 +37,19 @@ const JobForm = () => {
       key: 'location',
     },
     {
+      title: 'Experience',
+      dataIndex: 'experience',
+      key: 'experience',
+    },
+    {
+      title: 'Last Date',
+      dataIndex: 'lastDate',
+      key: 'lastDate',
+      render: (text, record) => {
+        return <span>{moment(record.lastDate).format('YYYY-MM-DD')}</span>;
+      },
+    },
+    {
       title: 'Action',
       key: 'action',
       render: (text, record) => (
@@ -50,7 +64,7 @@ const JobForm = () => {
   const handleEdit = (record) => {
     setSelectedJob(record);
     setIsModalVisible(true);
-    form.setFieldsValue(record);
+    form.setFieldsValue({ ...record, lastDate: moment(record.lastDate) });
   };
 
   const handleDelete = (record) => {
@@ -76,8 +90,7 @@ const JobForm = () => {
   };
 
   return (
-    <div style={{marginTop:'40px'}}>
-     
+    <div style={{ marginTop: '40px' }}>
       <Form form={form} onFinish={onFinish} layout="vertical">
         <Form.Item label="Company Name" name="companyName" rules={[{ required: true, message: 'Please input company name' }]}>
           <Input />
@@ -85,7 +98,7 @@ const JobForm = () => {
         <Form.Item label="Job Title" name="jobTitle" rules={[{ required: true, message: 'Please input job title' }]}>
           <Input />
         </Form.Item>
-        <Form.Item label="Salary" name="salary" rules={[{ required: true, message: 'Please input salary' }]}>
+        <Form.Item label="Salary" name="salary" rules={[{ required: true, message: 'Please input salary' }, { pattern: /^\d+$/, message: 'Salary must be a number' }]}>
           <Input />
         </Form.Item>
         <Form.Item label="Mode of working" name="workLocation" initialValue="Work from Home">
@@ -99,14 +112,29 @@ const JobForm = () => {
             <Input />
           </Form.Item>
         )}
+        <Form.Item
+          name="experience"
+          label="Experience"
+          rules={[{ required: true, message: 'Please input the experience!' }]}
+        >
+          <Select>
+            <Select.Option value="0 year">0 year</Select.Option>
+            <Select.Option value="1 year">1 year</Select.Option>
+            <Select.Option value="2 years">2 years</Select.Option>
+            <Select.Option value="more than 2 years">More than 2 years</Select.Option>
+          </Select>
+        </Form.Item>
+        <Form.Item label="Last Date" name="lastDate" rules={[{ required: true, message: 'Please select last date' }]}>
+          <DatePicker style={{ width: '100%' }} />
+        </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit">
             {selectedJob ? 'Update' : 'Apply'}
           </Button>
         </Form.Item>
       </Form>
-      <Table columns={columns} dataSource={jobData} />
-      <Modal title="Edit Job" visible={isModalVisible} onOk={handleEdit} onCancel={handleCancel}>
+      <Table columns={columns} dataSource={jobData} rowKey={(record) => record.companyName + record.jobTitle} />
+      <Modal title="Edit Job" visible={isModalVisible} onCancel={handleCancel} footer={null}>
         <Form form={form} onFinish={onFinish} layout="vertical">
           <Form.Item label="Company Name" name="companyName" rules={[{ required: true, message: 'Please input company name' }]}>
             <Input />
@@ -114,7 +142,7 @@ const JobForm = () => {
           <Form.Item label="Job Title" name="jobTitle" rules={[{ required: true, message: 'Please input job title' }]}>
             <Input />
           </Form.Item>
-          <Form.Item label="Salary" name="salary" rules={[{ required: true, message: 'Please input salary' }]}>
+          <Form.Item label="Salary" name="salary" rules={[{ required: true, message: 'Please input salary' },{ pattern: /^\d+$/, message: 'Salary must be a number' }]}>
             <Input />
           </Form.Item>
           <Form.Item label="Mode of working" name="workLocation">
@@ -128,6 +156,21 @@ const JobForm = () => {
               <Input />
             </Form.Item>
           )}
+          <Form.Item
+            name="experience"
+            label="Experience"
+            rules={[{ required: true, message: 'Please input the experience!' }]}
+          >
+            <Select>
+              <Select.Option value="0 year">0 year</Select.Option>
+              <Select.Option value="1 year">1 year</Select.Option>
+              <Select.Option value="2 years">2 years</Select.Option>
+              <Select.Option value="more than 2 years">More than 2 years</Select.Option>
+            </Select>
+          </Form.Item>
+          <Form.Item label="Last Date" name="lastDate" rules={[{ required: true, message: 'Please select last date' }]}>
+            <DatePicker style={{ width: '100%' }} />
+          </Form.Item>
           <Form.Item>
             <Button type="primary" htmlType="submit">
               Update

@@ -17,7 +17,7 @@ import { Layout, Drawer, Affix } from "antd";
 import TeamHeader from "./header";
 import Footer from "../../components/layout/Footer";
 import SidenavTeam from "./Teamsidebar";
-
+import bgimage from "../../assets/images/vectorteam.png"
 const { Header: AntHeader, Content, Sider,} = Layout;
 
 export default function Teamlead_Main({ children}) {
@@ -44,6 +44,7 @@ export default function Teamlead_Main({ children}) {
   }, [pathname]);
 
   return (
+    
     <Layout
       className={`layout-dashboard ${
         pathname === "profile" ? "layout-profile" : ""

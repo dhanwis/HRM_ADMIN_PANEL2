@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Include Bootstrap CSS
 // import './Viewproject.css'; // Optional: Include your custom CSS for styling
+import viewbg from "../../assets/images/vectorteam5.png";
 
 function Viewproject() {
   const [projects, setProjects] = useState([]);
@@ -10,11 +11,11 @@ function Viewproject() {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await fetch('https://your-api-endpoint/projects'); // Replace with API URL for projects
+        const response = await fetch('https://fakestoreapi.com/products/category/jewelery'); // Replace with API URL for projects
         const data = await response.json();
         setProjects(data);
 
-        const companyResponse = await fetch('https://your-api-endpoint/company'); // Replace with API URL for company name
+        const companyResponse = await fetch('https://fakestoreapi.com/products/categories'); // Replace with API URL for company name
         const companyData = await companyResponse.json();
         setCompanyName(companyData.name); // Assuming the retrieved data has a "name" property
       } catch (error) {
@@ -39,12 +40,14 @@ function Viewproject() {
   );
 
   return (
+    <div style={{backgroundImage:`url(${viewbg})`,height:"800px"}}>
     <div className="container" style={{paddingTop:"50px"}}>
       <h1>Team Lead Project Assignments ({companyName})</h1>
       <hr />
       <div className="row">
         {projects.map(renderProjectCard)}
       </div>
+    </div>
     </div>
   );
 }
