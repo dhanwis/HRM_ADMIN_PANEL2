@@ -146,7 +146,7 @@ const ReferenceForm = () => {
         <Form.Item
           label="Location"
           name="location"
-          rules={[{ required: true, message: 'Please enter location' }]}
+          // rules={[{ required: true, message: 'Please enter location' }]}
         >
           <Input placeholder="Location" />
         </Form.Item>
@@ -155,7 +155,7 @@ const ReferenceForm = () => {
         <Form.Item
           label="Education"
           name="Education"
-          rules={[{ required: true, message: 'Please enter Education Details' }]}
+          // rules={[{ required: true, message: 'Please enter Education Details' }]}
         >
           <Input placeholder="Education" />
         </Form.Item>

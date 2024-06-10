@@ -2,6 +2,8 @@ import React from 'react';
 import { Card, Button, Container, Row, Col } from 'react-bootstrap';
 import { BsBriefcaseFill, BsClockFill, BsGeoAltFill, BsArrowRight, BsCurrencyRupee } from 'react-icons/bs';
 
+import vector from "../../assets/images/vector_image.png";
+
 const JobCards = () => {
   const jobs = [
     {
@@ -51,40 +53,36 @@ const JobCards = () => {
   };
 
   return (
+    <div style={{backgroundImage:`url(${vector})`,height:"900px"}}>
     <div className="container mt-5">
       <Container>
         <h3 className="mb-4 text-center">Latest Job Openings</h3>
         <Row>
           {jobs.map((job) => (
             <Col key={job.id} md={6} className="d-flex align-items-stretch mb-4">
-              <JobCard job={job} applyJob={applyJob} />
+              <Card className="h-100 shadow job-card" style={{ backgroundColor: '#f8f9fa', width: '100%' }}>
+                <Card.Body>
+                  <Card.Title>{job.title}</Card.Title>
+                  <Card.Subtitle className="mb-4 text-muted">{job.company}</Card.Subtitle>
+                  <Card.Text style={{ fontSize: '16px' }}>
+                    <BsGeoAltFill /> {job.location}<br />
+                    <BsBriefcaseFill /> {job.mode}<br />
+                    <BsClockFill /> {job.experience}<br />
+                    <BsCurrencyRupee /> {job.salary}
+                  </Card.Text>
+                </Card.Body>
+                <Card.Footer>
+                  <Button variant="primary" onClick={() => applyJob(job.applyLink)}>
+                    <BsArrowRight /> Apply Now
+                  </Button>
+                </Card.Footer>
+              </Card>
             </Col>
           ))}
         </Row>
       </Container>
     </div>
-  );
-};
-
-const JobCard = ({ job, applyJob }) => {
-  return (
-    <Card className="h-100 shadow job-card" style={{ backgroundColor: '#f8f9fa', width: '100%' }}>
-      <Card.Body>
-        <Card.Title>{job.title}</Card.Title>
-        <Card.Subtitle className="mb-4 text-muted">{job.company}</Card.Subtitle>
-        <Card.Text style={{ fontSize: '16px' }}>
-          <BsGeoAltFill /> {job.location}<br />
-          <BsBriefcaseFill /> {job.mode}<br />
-          <BsClockFill /> {job.experience}
-          <BsCurrencyRupee /> {job.salary}
-        </Card.Text>
-      </Card.Body>
-      <Card.Footer>
-        <Button variant="primary" onClick={() => applyJob(job.applyLink)}>
-          <BsArrowRight /> Apply Now
-        </Button>
-      </Card.Footer>
-    </Card>
+    </div>
   );
 };
 

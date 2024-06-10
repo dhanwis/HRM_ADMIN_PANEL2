@@ -535,7 +535,8 @@ export default function SidenavIntern({ color }) {
 
         <Menu.Item key="9">
           <NavLink to="/intern/login" style={{textDecoration:"none"}}>
-            <span
+          
+            {/* <span
               className="icon"
               style={{
                 background: page === "login" ? color : "",
@@ -543,11 +544,10 @@ export default function SidenavIntern({ color }) {
             >
               {profile}
             </span>
-            <span className="label">Sign in</span>
+            <span className="label">Sign in</span> */}
           </NavLink>
         </Menu.Item>
-      
-
+        
       
       
         </Menu>
