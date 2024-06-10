@@ -16,12 +16,7 @@ function LineChart() {
             than last week <span className="bnb2">+30%</span>
           </Paragraph> */}
         </div>
-        {/* <div className="sales">
-          <ul>
-            <li>{<MinusOutlined />} Traffic</li>
-            <li>{<MinusOutlined />} Sales</li>
-          </ul>
-        </div> */}
+        
       </div>
 
       <ReactApexChart
