@@ -143,7 +143,7 @@ export default function SidenavFront({ color }) {
   return (
     <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
       <div style={{ padding: "20px", borderBottom: "1px solid #f0f0f0", textAlign: "center" }}>
-        <img src={logos} alt="" style={{ width: "100px", marginBottom: "20px"}} />
+        <img src={logos} alt="" style={{ width: "150px", marginBottom: "20px"}} />
         <span style={{ color: "black", fontSize: "100%" }}>
           <b>⭕FRONT OFFICE⭕</b>
         </span>
