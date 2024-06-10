@@ -86,75 +86,52 @@
 
 
 import React, { useState } from 'react';
-import { Container } from '@material-ui/core';
-
-import vector from "../../assets/images/vector_image.png"
-
+import vector from "../../assets/images/vector_image.png";
 
 const TestimonialForm = () => {
   const [formData, setFormData] = useState({
     testimonial: '',
   });
 
-  const [errors, setErrors] = useState({});
-
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
-  const validateForm = () => {
-    const errors = {};
-    if (!formData.testimonial) errors.testimonial = 'Testimonial is required';
-    return errors;
-  };
-
   const handleSubmit = (event) => {
     event.preventDefault();
-    const validationErrors = validateForm();
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      return;
-    }
 
     // Simulate form submission (replace with your actual submission logic)
-    console.log('Submitting feedback:', formData);
+    console.log('Submitting testimonial:', formData);
 
     // Reset form after submission
     setFormData({
       testimonial: '',
     });
-    setErrors({});
   };
 
   return (
-
-    <div style={{backgroundImage:`url(${vector})`,height:"650px"}}>
-
-    <Container className="container mt-5" style={{backgroundImage:`url(${vector})`}}>
-    
-      <h3>Intern Testimonial</h3>
-      
-      <form onSubmit={handleSubmit} style={{ marginTop: "20px" }}>
-        <div className="mb-3">
-          <label htmlFor="testimonial" className="form-label">Testimonial</label>
-          <textarea
-            className={`form-control ${errors.testimonial ? 'is-invalid' : ''}`}
-            id="testimonial"
-            name="testimonial"
-            value={formData.testimonial}
-            onChange={handleChange}
-            rows="5"
-            required
-          ></textarea>
-          {errors.testimonial && <div className="invalid-feedback">{errors.testimonial}</div>}
-        </div>
-        <div className="text-center">
-          <button type="submit" className="btn btn-primary">Submit</button>
-        </div>
-      </form>
-    </Container>
+    <div style={{ backgroundImage: `url(${vector})`, height: "750px" }}>
+      <div className="container mt-5">
+        <h3>Testimonial</h3>
+        <form onSubmit={handleSubmit} style={{ marginTop: "20px" }}>
+          <div className="mb-3">
+            <label htmlFor="testimonial" className="form-label">Testimonial</label>
+            <textarea
+              className="form-control"
+              id="testimonial"
+              name="testimonial"
+              value={formData.testimonial}
+              onChange={handleChange}
+              rows="5"
+              required
+            ></textarea>
+          </div>
+          <div className="text-center">
+            <button type="submit" className="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      </div>
     </div>
-    
   );
 };
 
