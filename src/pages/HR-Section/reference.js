@@ -1,68 +1,101 @@
-import { Container } from '@material-ui/core';
 import React, { useState } from 'react';
+import vector from '../../assets/images/vectorhr.png';
 
-const Referenceform = () => {
-  const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    feedback: '',
-    rating: '',
-  });
+function ReferenceCard({ title, content }) {
+  const [showTextbox, setShowTextbox] = useState(false);
+  const [response, setResponse] = useState('');
 
-  const handleChange = (event) => {
-    setFormData({ ...formData, [event.target.name]: event.target.value });
+  const handleRespondClick = () => {
+    setShowTextbox(true);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(`${title} Response:`, response);
+    // Clear the response and hide the textbox after submitting
+    setResponse('');
+    setShowTextbox(false);
+  };
+const body={
+  backgroundImage:` url($(vector))`
+}
+  const cardStyle = {
+    border: '1px solid #ddd',
+    borderRadius: '5px',
+    padding: '20px',
+    marginBottom: '20px',
+  };
 
-    // Simulate form submission (replace with your actual submission logic)
-    console.log('Submitting feedback:', formData);
+  const buttonStyle = {
+    backgroundColor: '#007bff',
+    color: 'white',
+    border: 'none',
+    padding: '10px 20px',
+    borderRadius: '5px',
+    cursor: 'pointer',
+  };
 
-    // Reset form after submission
-    setFormData({
-      fullName: '',
-      email: '',
-      feedback: '',
-      rating: '',
-    });
+  const textareaStyle = {
+    width: '100%',
+    height: '100px',
+    marginTop: '10px',
+    marginBottom: '10px',
+    padding: '10px',
+    border: '1px solid #ddd',
+    borderRadius: '5px',
+    fontSize: '16px',
+  };
+
+  const submitButtonStyle = {
+    ...buttonStyle,
+    backgroundColor: '#6f42c1',
   };
 
   return (
-    <div className="container mt-5">
-      <h3>Intern Feedback Form</h3>
-      
-      <form onSubmit={handleSubmit} style={{marginTop:"20px"}}>
-        {/* <div className="mb-3">
-          <label htmlFor="fullName" className="form-label">Full Name</label>
-          <input type="text" className="form-control" id="fullName" name="fullName" value={formData.fullName} onChange={handleChange} required />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="email" className="form-label">Email</label>
-          <input type="email" className="form-control" id="email" name="email" value={formData.email} onChange={handleChange} required />
-        </div> */}
-        <div className="mb-3">
-          <label htmlFor="feedback" className="form-label">Feedback</label>
-          <textarea className="form-control" id="feedback" name="feedback" value={formData.feedback} onChange={handleChange} rows="5" required></textarea>
-        </div>
-        <div className="mb-3">
-          <label htmlFor="rating" className="form-label">Rating</label>
-          <select className="form-select" id="rating" name="rating" value={formData.rating} onChange={handleChange} required>
-            <option value="">Select Rating</option>
-            <option value="5">5 - Excellent</option>
-            <option value="4">4 - Very Good</option>
-            <option value="3">3 - Good</option>
-            <option value="2">2 - Fair</option>
-            <option value="1">1 - Poor</option>
-          </select>
-        </div>
-        <div className="text-center">
-          <button type="submit" className="btn btn-primary">Submit</button>
-        </div>
-      </form>
-     
+    
+      <div style={cardStyle}>
+      <h2>{title}</h2>
+      <p>{content}</p>
+      <button style={buttonStyle} onClick={handleRespondClick}>RESPOND</button>
+      {showTextbox && (
+        <form onSubmit={handleSubmit}>
+          <textarea
+            style={textareaStyle}
+            value={response}
+            onChange={(e) => setResponse(e.target.value)}
+            placeholder="Your Response"
+          />
+          <button type="submit" style={submitButtonStyle}>SUBMIT RESPONSE</button>
+        </form>
+      )}
     </div>
+  
+    
   );
-};
+}
 
-export default Referenceform;
+function App() {
+  const appStyle = {
+    fontFamily: 'Arial, sans-serif',
+    margin: '20px',
+    marginTop:'80px'
+   
+  };
+
+  const headerStyle = {
+    textAlign: 'center',
+  };
+
+  return (
+    // <div  style={{backgroundImage:`url(${vector})`,height:'1000px'}}>
+    <div style={appStyle} >
+      {/* <h1 style={headerStyle}>Intern References</h1> */}
+      <ReferenceCard title="Reference 1" content="This is the first reference." />
+      <ReferenceCard title="Reference 2" content="This is the second reference." />
+      <ReferenceCard title="Reference 3" content="This is the third reference." />
+    </div>
+    // </div>
+  );
+}
+
+export default App;
