@@ -608,8 +608,6 @@ const EnquiryAdmissionForm = () => {
         </FormContainer>
     );
 };
-
-
 export default EnquiryAdmissionForm;
 
 
