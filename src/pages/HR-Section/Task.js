@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Form, Input, Button, DatePicker, Table, Popconfirm, Select } from "antd";
 import moment from "moment";
+import vector from "../../assets/images/vectorhr.png";
 
 const { Option } = Select;
 
@@ -143,23 +144,26 @@ const Taskform = () => {
   ];
 
   return (
-    <div>
+    <div style={{marginTop:'100px',backgroundImage:`url(${vector})`,height:'800px'}}>
       <Form
+      
         form={form}
         layout="vertical"
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
       >
-        <h2 style={{marginTop:'20px'}}>Task Information</h2>
-        <Form.Item label="ID" name="id" rules={[{ required: true, message: "Please enter ID" }]}>
-          <Select placeholder="Select ID">
-            <Option value="1">ID 1</Option>
-            <Option value="2">ID 2</Option>
-            <Option value="3">ID 3</Option>
+        {/* <h2>Task Information</h2> */}
+        <Form.Item label="Name" name="id" rules={[{ required: true, message: "Please enter name" }]}>
+          <Select placeholder="Select name">
+            <Option value="1">Name 1</Option>
+            <Option value="2">Name 2</Option>
+            <Option value="3">Name 3</Option>
             {/* Add more options as needed */}
           </Select>
         </Form.Item>
-        <Form.Item label="Task Title" name="taskTitle" rules={[{ required: true, message: "Please enter task title" }]}>
+        <Form.Item label="Task Title" name="taskTitle" rules={[{ required: true, message: "Please enter task title" }]}labelCol={{ span: 24 }} // Adjust the span value as needed
+  wrapperCol={{ span: 24 }} // Adjust the span value as needed
+ >
           <Input placeholder="Task Title" />
         </Form.Item>
         <Form.Item label="Start Date" name="startDate" rules={[{ required: true, message: "Please select start date" }]}>
@@ -179,7 +183,7 @@ const Taskform = () => {
         </Form.Item>
       </Form>
       <div>
-        <h2>Submitted Task Information</h2>
+        {/* <h2>Submitted Task Information</h2> */}
         <Table dataSource={submittedData} columns={columns} />
       </div>
     </div>

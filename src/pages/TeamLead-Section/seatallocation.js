@@ -7,34 +7,59 @@ const initialCols = 5;
 
 const SeatingChart = () => {
   const [seats, setSeats] = useState(Array(initialRows).fill().map(() => Array(initialCols).fill(null)));
-  const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [students, setStudents] = useState([]);
+  const [courses, setCourses] = useState([]);
+  const [timeSlots, setTimeSlots] = useState([]);
+  const [selectedStudent, setSelectedStudent] = useState('');
+  const [selectedCourse, setSelectedCourse] = useState('');
+  const [selectedTimeSlot, setSelectedTimeSlot] = useState('');
   const [extraSeat, setExtraSeat] = useState('');
-  const [timeSlot, setTimeSlot] = useState('');
+  const [allocations, setAllocations] = useState([]);
 
   useEffect(() => {
-    // Fetch categories from the backend
-    fetch('https://fakestoreapi.com/products')
+    // Fetch students from the backend
+    fetch('https://api.example.com/students')
       .then(response => response.json())
-      .then(data => setCategories(data))
-      .catch(error => console.error('Error fetching categories:', error));
+      .then(data => setStudents(data))
+      .catch(error => console.error('Error fetching students:', error));
+
+    // Fetch courses from the backend
+    fetch('https://api.example.com/courses')
+      .then(response => response.json())
+      .then(data => setCourses(data))
+      .catch(error => console.error('Error fetching courses:', error));
+
+    // Fetch time slots from the backend
+    fetch('https://api.example.com/timeslots')
+      .then(response => response.json())
+      .then(data => setTimeSlots(data))
+      .catch(error => console.error('Error fetching time slots:', error));
   }, []);
 
   const allocateSeat = (row, col) => {
-    if (selectedCategory === '') {
-      alert('Please select a category before allocating a seat.');
+    if (selectedStudent === '') {
+      alert('Please select a student before allocating a seat.');
       return;
     }
-    if (timeSlot === '') {
+    if (selectedCourse === '') {
+      alert('Please select a course before allocating a seat.');
+      return;
+    }
+    if (selectedTimeSlot === '') {
       alert('Please select a time slot before allocating a seat.');
       return;
     }
     if (seats[row][col] === null) {
       const newSeats = seats.map((seatRow, r) =>
-        seatRow.map((seat, c) => (r === row && c === col ? `${selectedCategory} (${timeSlot})` : seat))
+        seatRow.map((seat, c) => (r === row && c === col ? `${selectedStudent} - ${selectedCourse} (${selectedTimeSlot})` : seat))
       );
       setSeats(newSeats);
-      alert(`Seat (${row * initialCols + col + 1}) has been allocated to ${selectedCategory} for ${timeSlot}.`);
+      alert(`Seat (${row * initialCols + col + 1}) has been allocated to ${selectedStudent} for ${selectedCourse} at ${selectedTimeSlot}.`);
+      setAllocations([...allocations, { seatNumber: row * initialCols + col + 1, student: selectedStudent, course: selectedCourse, timeSlot: selectedTimeSlot }]);
+      // Clear the input fields after alert
+      setSelectedStudent('');
+      setSelectedCourse('');
+      setSelectedTimeSlot('');
     } else {
       alert(`Seat (${row * initialCols + col + 1}) is already occupied.`);
     }
@@ -60,6 +85,7 @@ const SeatingChart = () => {
       );
       setSeats(newSeats);
       alert(`Seat (${seatNumber}) has been made vacant.`);
+      setAllocations(allocations.filter(allocation => allocation.seatNumber !== seatNumber));
     }
   };
 
@@ -91,73 +117,126 @@ const SeatingChart = () => {
   };
 
   return (
-    <div style={{backgroundImage:`url(${setbg})`, marginTop:"-50px",height:"800px"}} >
-    <div style={{ marginTop: "50px"}}>
-      <h1 style={{fontSize:"20px"}}>Office Seating Allocation</h1>
-      <div className="card">
-        <div style={{ paddingLeft: "35px" }}>
-          <div className="category-selector">
-            <select
-              id="category"
-              value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
-              style={{ borderRadius: "10px", backgroundColor: "#f5f5f5",  border:"1px solid rgba(15, 103, 15)", height: "40px" }}
-            >
-              <option value="" disabled>Student name</option>
-              {categories.map((category) => (
-                <option key={category.price} value={category.price}>
-                  {category.price}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="time-slot-selector">
-            <input
-              type="text"
-              value={timeSlot}
-              onChange={(e) => setTimeSlot(e.target.value)}
-              placeholder="Enter time slot"
-              style={{ borderRadius: "10px", backgroundColor: "#f5f5f5",  border:"1px solid rgba(15, 103, 15)", height: "40px", marginTop: "10px", width: "calc(100% - 50px)" }}
-            />
-          </div>
-          <div className="extra-seat">
-            <input
-              type="text"
-              value={extraSeat}
-              onChange={(e) => setExtraSeat(e.target.value)}
-              placeholder="Enter seat number to vacate"
-              style={{ borderRadius: "10px", backgroundColor: "#f5f5f5",  border:"1px solid rgba(15, 103, 15)", height: "40px", marginTop: "10px", width: "calc(100% - 50px)" }}
-            />
-            <button onClick={addExtraSeat} style={{ borderRadius: "10px", backgroundColor: "#f5f5f5", border:"1px solid rgba(15, 103, 15)", height: "40px", marginLeft: "10px", marginTop:"20px"}}>Vacate Seat</button>
-            <button onClick={addNewSeat} style={{ borderRadius: "10px", backgroundColor: "#f5f5f5",  border:"1px solid rgba(15, 103, 15)", height: "40px", marginLeft: "10px", marginTop:"20px"}}>Add New Seat</button>
-            <button onClick={deleteLastSeat} style={{ borderRadius: "10px", backgroundColor: "#f5f5f5",  border:"1px solid rgba(15, 103, 15)", height: "40px", marginLeft: "10px", marginTop:"20px"}}>Delete Last Seat</button>
-          </div>
-          <div className="seating-chart" >
-            {seats.map((seatRow, rowIndex) => (
-              <div key={rowIndex} className="seat-row">
-                {seatRow.map((seat, colIndex) => {
-                  const seatNumber = rowIndex * initialCols + colIndex + 1;
-                  return (
-                    <button
-                      key={colIndex}
-                      className={`seat ${seat === null ? 'vacant' : 'occupied'}`}
-                      onClick={() => allocateSeat(rowIndex, colIndex)}
+    <div style={{ backgroundImage: `url(${setbg})`, marginTop: "-50px", height: "800px" }}>
+      <div style={{ marginTop: "50px" }}>
+        <h1 style={{ fontSize: "20px" }}>Office Seating Allocation</h1>
+        <div className="card">
+          <div style={{ paddingLeft: "35px" }}>
+            <table className="input-table">
+              <tbody>
+                <tr>
+                  <td>
+                    <select
+                      id="student"
+                      value={selectedStudent}
+                      onChange={(e) => setSelectedStudent(e.target.value)}
+                      style={{ borderRadius: "10px", backgroundColor: "#f5f5f5", border: "1px solid rgba(15, 103, 15)", height: "40px" }}
                     >
-                      {seatNumber}
-                   
-
-                    </button>
-                  );
-                })}
-              </div>
-            ))}
+                      <option value="" disabled>Select Student</option>
+                      {students.map((student) => (
+                        <option key={student.id} value={student.name}>
+                          {student.name}
+                        </option>
+                      ))}
+                    </select>
+                  </td>
+                  <td>
+                    <select
+                      id="course"
+                      value={selectedCourse}
+                      onChange={(e) => setSelectedCourse(e.target.value)}
+                      style={{ borderRadius: "10px", backgroundColor: "#f5f5f5", border: "1px solid rgba(15, 103, 15)", height: "40px" }}
+                    >
+                      <option value="" disabled>Select Course</option>
+                      {courses.map((course) => (
+                        <option key={course.id} value={course.name}>
+                          {course.name}
+                        </option>
+                      ))}
+                    </select>
+                  </td>
+                  <td>
+                    <select
+                      id="timeSlot"
+                      value={selectedTimeSlot}
+                      onChange={(e) => setSelectedTimeSlot(e.target.value)}
+                      style={{ borderRadius: "10px", backgroundColor: "#f5f5f5", border: "1px solid rgba(15, 103, 15)", height: "40px" }}
+                    >
+                      <option value="" disabled>Select Time Slot</option>
+                      {timeSlots.map((timeSlot) => (
+                        <option key={timeSlot.id} value={timeSlot.slot}>
+                          {timeSlot.slot}
+                        </option>
+                      ))}
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td colSpan="3">
+                    <input
+                      type="text"
+                      value={extraSeat}
+                      onChange={(e) => setExtraSeat(e.target.value)}
+                      placeholder="Enter seat number to vacate"
+                      style={{ borderRadius: "10px", backgroundColor: "#f5f5f5", border: "1px solid rgba(15, 103, 15)", height: "40px", width: "calc(100% - 20px)" }}
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td colSpan="3">
+                    <button onClick={addExtraSeat} style={{ borderRadius: "10px", backgroundColor: "#f5f5f5", border: "1px solid rgba(15, 103, 15)", height: "40px", marginLeft: "10px", marginTop: "20px" }}>Vacate Seat</button>
+                    <button onClick={addNewSeat} style={{ borderRadius: "10px", backgroundColor: "#f5f5f5", border: "1px solid rgba(15, 103, 15)", height: "40px", marginLeft: "10px", marginTop: "20px" }}>Add New Seat</button>
+                    <button onClick={deleteLastSeat} style={{ borderRadius: "10px", backgroundColor: "#f5f5f5", border: "1px solid rgba(15, 103, 15)", height: "40px", marginLeft: "10px", marginTop: "20px" }}>Delete Last Seat</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div className="seating-chart">
+              {seats.map((seatRow, rowIndex) => (
+                <div key={rowIndex} className="seat-row">
+                  {seatRow.map((seat, colIndex) => {
+                    const seatNumber = rowIndex * initialCols + colIndex + 1;
+                    return (
+                      <button
+                        key={colIndex}
+                        className={`seat ${seat === null ? 'vacant' : 'occupied'}`}
+                        onClick={() => allocateSeat(rowIndex, colIndex)}
+                      >
+                        {seatNumber}
+                      </button>
+                    );
+                  })}
+                </div>
+              ))}
+            </div>
+            <div className="allocation-table">
+              <h2>Allocations</h2>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Seat Number</th>
+                    <th>Student Name</th>
+                    <th>Course</th>
+                    <th>Time Slot</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {allocations.map((allocation, index) => (
+                    <tr key={index}>
+                      <td>{allocation.seatNumber}</td>
+                      <td>{allocation.student}</td>
+                      <td>{allocation.course}</td>
+                      <td>{allocation.timeSlot}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
-    </div>
     </div>
   );
 };
 
 export default SeatingChart;
-

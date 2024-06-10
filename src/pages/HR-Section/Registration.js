@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Form, Input, Modal, Table, Select } from 'antd';
 import 'antd/dist/antd.css';
-import axios from 'axios';
+import vector from "../../assets/images/vectorhr.png"
 
 const EmployeeRegistrationForm = () => {
 
@@ -11,21 +11,21 @@ const EmployeeRegistrationForm = () => {
 
 
   useEffect(() => {
-    let fetchData = async () => {
+    // let fetchData = async () => {
 
-      try {
-        let response = await axios.get('http://127.0.0.1:8000/authapp/Staff/');
+    //   try {
+    //     let response = await axios.get('http://127.0.0.1:8000/authapp/Staff/');
 
-        if (response.status === 200) {
-          setEmployees(response.data)
-        }
+    //     if (response.status === 200) {
+    //       setEmployees(response.data)
+    //     }
 
-      } catch (err) {
-        console.error('error due to ', err);
-      }
-    }
+    //   } catch (err) {
+    //     console.error('error due to ', err);
+    //   }
+    // }
 
-    fetchData()
+    // fetchData()
   }, [])
 
   const showModal = () => {
@@ -101,6 +101,7 @@ const EmployeeRegistrationForm = () => {
   ];
 
   return (
+    <div style={{backgroundImage:`url(${vector})`,height:"800px"}}>
     <div className="App" style={{ marginTop: '50px' }}>
       <h3 style={{ marginBottom: '50px' }}>Employee Registration</h3>
       <Button type="primary" style={{ marginBottom: '50px' }} onClick={showModal}>
@@ -120,6 +121,7 @@ const EmployeeRegistrationForm = () => {
         />
       )}
     </div>
+    </div>
   );
 };
 
@@ -130,12 +132,12 @@ const EmployeeForm = ({ visible, onCancel, onCreate }) => {
     form.validateFields().then(values => {
       form.resetFields();
 
-      axios.post(`http://127.0.0.1:8000/authapp/${values.role}/`, values, { method: { 'Content-Type': 'application/json' } })
-        .then((ac) => {
-          if (ac.status === 201) {
-            onCreate(ac.data.user);
-          }
-        })
+      // axios.post(`http://127.0.0.1:8000/authapp/${values.role}/`, values, { method: { 'Content-Type': 'application/json' } })
+      //   .then((ac) => {
+      //     if (ac.status === 201) {
+      //       onCreate(ac.data.user);
+      //     }
+      //   })
     });
   };
 
@@ -144,7 +146,8 @@ const EmployeeForm = ({ visible, onCancel, onCreate }) => {
   }
 
   return (
-    <Modal
+    <Modal 
+    
       visible={visible}
       title="Add New Employee"
       onCancel={onCancel}

@@ -17,7 +17,7 @@ function Giveproject() {
 
   useEffect(() => {
     // Fetch employees from the staff database
-    axios.get("/api/staff")
+    axios.get("https://fakestoreapi.com/products")
       .then((response) => {
         setEmployees(response.data);
       })
