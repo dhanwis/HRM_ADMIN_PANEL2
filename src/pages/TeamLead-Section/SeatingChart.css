@@ -1,50 +1,73 @@
 .card {
-    padding: 20px;
-    margin: 20px;
-    border-radius: 10px;
-    background-color: #f5f5dc;
-    border: 1px solid rgb(34, 234, 64);
-    max-width: 600px;
-    margin: 0 auto;
-    margin-top: 50px;
-  }
-  
-  .category-selector, .time-slot-selector, .extra-seat {
-    margin-bottom: 10px;
-  }
-  
-  .seating-chart {
-    display: grid;
-    gap: 5px;
-    margin-top: 20px;
-  }
-  
-  .seat-row {
-    display: flex;
-    gap: 5px;
-    height:50px;
-  }
-  
+  padding: 20px;
+  margin: 20px;
+  border-radius: 10px;
+  background-color: #f5f5dc;
+  border: 1px solid rgb(34, 234, 64);
+  max-width: 600px;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+
+.category-selector, .time-slot-selector, .extra-seat {
+  margin-bottom: 10px;
+}
+
+.seating-chart {
+  display: grid;
+  gap: 5px;
+  margin-top: 20px;
+}
+
+.seat-row {
+  display: flex;
+  gap: 5px;
+  height: 50px;
+}
+
+.seat {
+  flex: 1;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(15, 103, 15);
+  color: white;
+  border-radius: 5px;
+}
+
+.occupied {
+  background-color: red;
+}
+
+@media (max-width: 600px) {
   .seat {
-    flex: 1;
-    border: 1px solid #ccc;
-    cursor: pointer;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgb(15, 103, 15);
-    color: white;
-    border-radius: 5px;
+    font-size: 0.8rem;
   }
-  
-  .occupied {
-    background-color: red;
-  }
-  
-  @media (max-width: 600px) {
-    .seat {
-      font-size: 0.8rem;
-    }
-  }
-  
+}
+
+.input-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.input-table td {
+  padding: 10px;
+}
+
+.allocation-table {
+  margin-top: 20px;
+}
+
+.allocation-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.allocation-table th, .allocation-table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
