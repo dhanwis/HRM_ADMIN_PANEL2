@@ -17,22 +17,22 @@ const SeatingChart = () => {
   const [allocations, setAllocations] = useState([]);
 
   useEffect(() => {
-    // Fetch students from the backend
-    fetch('https://api.example.com/students')
+    // Fetch students from the fake API
+    fetch('https://jsonplaceholder.typicode.com/users')
       .then(response => response.json())
       .then(data => setStudents(data))
       .catch(error => console.error('Error fetching students:', error));
 
-    // Fetch courses from the backend
-    fetch('https://api.example.com/courses')
+    // Fetch courses from the fake API
+    fetch('https://jsonplaceholder.typicode.com/posts')
       .then(response => response.json())
-      .then(data => setCourses(data))
+      .then(data => setCourses(data.map(course => ({ id: course.id, name: `Course ${course.id}` }))))
       .catch(error => console.error('Error fetching courses:', error));
 
-    // Fetch time slots from the backend
-    fetch('https://api.example.com/timeslots')
+    // Fetch time slots from the fake API
+    fetch('https://jsonplaceholder.typicode.com/todos')
       .then(response => response.json())
-      .then(data => setTimeSlots(data))
+      .then(data => setTimeSlots(data.map(slot => ({ id: slot.id, slot: `Time Slot ${slot.id}` }))))
       .catch(error => console.error('Error fetching time slots:', error));
   }, []);
 
