@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Form, Input, Radio, Button, Table, Space, Modal, Select, DatePicker } from 'antd';
 import 'antd/dist/antd.css'; // Import Ant Design styles
 import moment from 'moment';
+import vector from '../../assets/images/vectorhr.png';
 
 const JobForm = () => {
   const [form] = Form.useForm();
@@ -90,7 +91,8 @@ const JobForm = () => {
   };
 
   return (
-    <div style={{ marginTop: '40px' }}>
+    <div style={{marginTop:'100px',marginBottom:'500px',backgroundImage:`url(${vector})`,height:'800px'}}>
+     
       <Form form={form} onFinish={onFinish} layout="vertical">
         <Form.Item label="Company Name" name="companyName" rules={[{ required: true, message: 'Please input company name' }]}>
           <Input />

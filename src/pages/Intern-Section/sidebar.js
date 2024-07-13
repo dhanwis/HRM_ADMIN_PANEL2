@@ -13,7 +13,7 @@
 // import { useState } from "react";
 import { Menu, Button ,Dropdown} from "antd";
 import { NavLink, useLocation } from "react-router-dom";
-import logo from "../../assets/images/intern.png";
+import logo from "../../assets/images/user.png";
 
 
 
@@ -338,7 +338,7 @@ export default function SidenavIntern({ color }) {
       <div className="brand">
         <img src={logo} alt="" style={{width:"100px" ,height:"100px",marginLeft:"20px"}} />
         
-        <span style={{fontWeight:"bolder",fontSize:"35px",textAlign:"center"}}>INTERN </span>
+        <span style={{fontSize:"20px",textAlign:"center",marginLeft:"35px"}}>INTERN </span>
       </div>
       <hr />
       
@@ -535,7 +535,8 @@ export default function SidenavIntern({ color }) {
 
         <Menu.Item key="9">
           <NavLink to="/intern/login" style={{textDecoration:"none"}}>
-            <span
+          
+            {/* <span
               className="icon"
               style={{
                 background: page === "login" ? color : "",
@@ -543,12 +544,18 @@ export default function SidenavIntern({ color }) {
             >
               {profile}
             </span>
-            <span className="label">Sign in</span>
+            <span className="label">Sign in</span> */}
           </NavLink>
         </Menu.Item>
-      </Menu>
+        
+      
+      
+        </Menu>
+      
+
+      
    
-      <div className="aside-footer">
+      {/* <div className="aside-footer">
         <div
           className="footer-box"
           style={{
@@ -564,7 +571,9 @@ export default function SidenavIntern({ color }) {
             DOCUMENTATION
           </Button>
         </div>
-      </div>
+      </div> */}
+
+      <div></div>
     {/* </div> */}
     </>
   );

@@ -1,68 +1,115 @@
-import { Container } from '@material-ui/core';
-import React, { useState } from 'react';
+import React from 'react';
+import propic from '../../assets/images/face-2.jpg'
+import vector from '../../assets/images/vectorhr.png'
 
-const Testimonialform = () => {
-  const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    feedback: '',
-    rating: '',
-  });
-
-  const handleChange = (event) => {
-    setFormData({ ...formData, [event.target.name]: event.target.value });
+const TestimonialCard = () => {
+  const cardStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    padding: '20px',
+    border: '1px solid #ddd',
+    borderRadius: '10px',
+    width: '1400px',
+    margin: '50px auto',
+    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+    fontFamily: 'Arial, sans-serif',
+    textAlign: 'left',
+    marginRight:'500px',
+    height:'200px',
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const textContainerStyle = {
+    marginLeft: '20px',
+  };
 
-    // Simulate form submission (replace with your actual submission logic)
-    console.log('Submitting feedback:', formData);
+  const quoteStyle = {
+    fontStyle: 'italic',
+    marginBottom: '10px',
+  };
 
-    // Reset form after submission
-    setFormData({
-      fullName: '',
-      email: '',
-      feedback: '',
-      rating: '',
-    });
+  const authorStyle = {
+    fontWeight: 'bold',
+    marginTop: '10px',
+  };
+
+  const imageStyle = {
+    width: '80px',
+    height: '80px',
+    borderRadius: '50%',
+  };
+
+  const quotesStyle = {
+    color: '#3F51B5',
+    fontSize: '40px',
+    fontWeight: 'bold',
+    lineHeight: '1',
+    marginRight: '10px',
   };
 
   return (
-    <div className="container mt-5">
-      <h3>Intern Feedback Form</h3>
-      
-      <form onSubmit={handleSubmit} style={{marginTop:"20px"}}>
-        {/* <div className="mb-3">
-          <label htmlFor="fullName" className="form-label">Full Name</label>
-          <input type="text" className="form-control" id="fullName" name="fullName" value={formData.fullName} onChange={handleChange} required />
+    <div>
+    <div style={cardStyle}>
+      <img
+        src={propic}
+        alt="Stefano Petrangeli"
+        style={imageStyle}
+      />
+      <div style={textContainerStyle}>
+        <div style={{ display: 'flex', alignItems: 'flex-start' }}>
+          <div style={quotesStyle}>&ldquo;</div>
+          <p style={quoteStyle}>
+            Everybody at Adobe Research wants interns to have a fantastic experience.
+            We’re thinking, ‘What kind of project are we going to do? How are we going
+            to structure this project so we can make progress in three months?’
+          </p>
         </div>
-        <div className="mb-3">
-          <label htmlFor="email" className="form-label">Email</label>
-          <input type="email" className="form-control" id="email" name="email" value={formData.email} onChange={handleChange} required />
-        </div> */}
-        <div className="mb-3">
-          <label htmlFor="feedback" className="form-label">Feedback</label>
-          <textarea className="form-control" id="feedback" name="feedback" value={formData.feedback} onChange={handleChange} rows="5" required></textarea>
-        </div>
-        <div className="mb-3">
-          <label htmlFor="rating" className="form-label">Rating</label>
-          <select className="form-select" id="rating" name="rating" value={formData.rating} onChange={handleChange} required>
-            <option value="">Select Rating</option>
-            <option value="5">5 - Excellent</option>
-            <option value="4">4 - Very Good</option>
-            <option value="3">3 - Good</option>
-            <option value="2">2 - Fair</option>
-            <option value="1">1 - Poor</option>
-          </select>
-        </div>
-        <div className="text-center">
-          <button type="submit" className="btn btn-primary">Submit</button>
-        </div>
-      </form>
-     
+        <p style={authorStyle}>– Stefano Petrangeli, Research Scientist</p>
+      </div>
     </div>
+    <div style={cardStyle}>
+      <img
+        src={propic}
+        alt="Stefano Petrangeli"
+        style={imageStyle}
+      />
+      <div style={textContainerStyle}>
+        <div style={{ display: 'flex', alignItems: 'flex-start' }}>
+          <div style={quotesStyle}>&ldquo;</div>
+          <p style={quoteStyle}>
+            Everybody at Adobe Research wants interns to have a fantastic experience.
+            We’re thinking, ‘What kind of project are we going to do? How are we going
+            to structure this project so we can make progress in three months?’
+          </p>
+        </div>
+        <p style={authorStyle}>– Stefano Petrangeli, Research Scientist</p>
+      </div>
+    </div>
+    <div style={cardStyle}>
+      <img
+        src={propic}
+        alt="Stefano Petrangeli"
+        style={imageStyle}
+      />
+      <div style={textContainerStyle}>
+        <div style={{ display: 'flex', alignItems: 'flex-start' }}>
+          <div style={quotesStyle}>&ldquo;</div>
+          <p style={quoteStyle}>
+            Everybody at Adobe Research wants interns to have a fantastic experience.
+            We’re thinking, ‘What kind of project are we going to do? How are we going
+            to structure this project so we can make progress in three months?’
+          </p>
+        </div>
+        <p style={authorStyle}>– Stefano Petrangeli, Research Scientist</p>
+      </div>
+    </div>
+   
+    </div>
+    
   );
-};
+}
 
-export default Testimonialform;
+export default TestimonialCard;
+
+
+
+

@@ -12,7 +12,7 @@ import {
   Switch,
 } from "antd";
 
-import signinbg from "../../assets/images/logos.png";
+import signinbg from "../../assets/images/call.webp";
 
 import {
   DribbbleOutlined,

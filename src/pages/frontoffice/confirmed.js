@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Table, Typography, Input, DatePicker, Button, Select, Modal, Form } from "antd";
 import moment from "moment";
+import bg from "../../assets/images/bgvector.png"
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -132,6 +133,7 @@ function CustomerDetails() {
   };
 
   return (
+    <div style={{backgroundImage:`url(${ bg })`,height:"800px"}}>
     <div className="customer-details"style={{paddingTop:"50px"}}>
       <Title level={5}>Confirmed Customer Details</Title>
       <Button type="primary" onClick={showModal} style={{ marginBottom: 16 }}>
@@ -172,6 +174,7 @@ function CustomerDetails() {
           ...rowSelection,
         }}
       />
+    </div>
     </div>
   );
 }

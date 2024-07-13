@@ -30,6 +30,7 @@ import DigitalMarketingTable from './digitalmarket';
 import FeedbackList from './Internfeedback';
 import Team_Profile from './teamprofil';
 import PasswordForm from './resetpass';
+import ProjectDetailsViewer from './staffstatus'
 
 const PrivateTeamLeadRoute = ({ component: Component, ...rest }) => (
   <Route
@@ -54,12 +55,14 @@ const TeamRoutes = () => (
     <PrivateTeamLeadRoute path="/teamlead/leave" exact component={LeaveForm} />
     <PrivateTeamLeadRoute path="/teamlead/seat" exact component={SeatingChart} />
     <PrivateTeamLeadRoute path="/teamlead/projectview" exact component={Viewproject} />
+    <PrivateTeamLeadRoute path="/teamlead/staffstatus" exact component={ProjectDetailsViewer} />
     <PrivateTeamLeadRoute path="/teamlead/giveproject" exact component={Giveproject} />
     <PrivateTeamLeadRoute path="/teamlead/studenttask" exact component={StudentTasks} />
     <PrivateTeamLeadRoute path="/teamlead/feedback" exact component={FeedbackList} />
     <PrivateTeamLeadRoute path="/teamlead/digitalmarketing" exact component={DigitalMarketingTable} />
     <PrivateTeamLeadRoute path="/teamlead/profile" exact component={Team_Profile}/>
     <Route path="/teamlead/resetpass" exact component={PasswordForm} />
+
   </Switch>
 );
 
