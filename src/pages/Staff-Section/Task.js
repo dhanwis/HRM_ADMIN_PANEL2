@@ -8,42 +8,26 @@ const Viewprojectstaff = () => {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    const fetchPendingTasks = async () => {
-      try {
-        // Simulate fetching pending tasks data from the backend API
-        const response = await fetch('https://your-api-url/pending-tasks');
-        if (!response.ok) {
-          throw new Error('Failed to fetch pending tasks');
-        }
-        const data = await response.json();
-        setTasks(data); // Update tasks state with fetched data
-      } catch (error) {
-        console.error('Error fetching pending tasks:', error);
-        // Handle error (e.g., show error message, retry logic, etc.)
-      }
-    };
+    // Sample data for tasks
+    const sampleTasks = [
+      { id: '1', projectName: 'Project Alpha', projectDate: '2024-01-01', deadline: '2024-06-01', status: 'Pending' },
+      { id: '2', projectName: 'Project Beta', projectDate: '2024-02-01', deadline: '2024-07-01', status: 'Pending' },
+      { id: '3', projectName: 'Project Gamma', projectDate: '2024-03-01', deadline: '2024-08-01', status: 'In Progress' }
+    ];
 
-    fetchPendingTasks();
+    // Set sample data
+    setTasks(sampleTasks);
   }, []);
 
   const updateTaskStatus = async (index, status) => {
     try {
       const taskToUpdate = tasks[index];
-      const response = await fetch(`https://your-api-url/update-task/${taskToUpdate.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ status }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to update task status');
-      }
-
-      const updatedTask = await response.json();
+      
+      // Simulate a successful response from backend API
+      const updatedTask = { ...taskToUpdate, status };
+      
       const updatedTasks = tasks.map((task, i) =>
-        i === index ? { ...task, status: updatedTask.status } : task
+        i === index ? updatedTask : task
       );
       setTasks(updatedTasks);
     } catch (error) {
@@ -61,48 +45,52 @@ const Viewprojectstaff = () => {
   };
 
   return (
-    <div style={{ marginTop: "50px",  backgroundImage:`url(${setbackg})`}}>
-    <div className="container mt-4">
-      <h2>View Projects</h2>
-      <Table striped bordered hover>
-        <thead className="thead-dark">
-          <tr>
-            <th>Project Name</th>
-            <th>Project Date</th>
-            <th>Deadline</th>
-            <th>Action</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {tasks.map((task, index) => (
-            <tr key={index}>
-              <td>{task.projectName}</td>
-              <td>{task.projectDate}</td>
-              <td>{task.deadline}</td>
-              <td>
-                <Button 
-                  variant="warning" 
-                  onClick={() => handleStart(index)} 
-                  disabled={task.status !== 'Pending'}
-                  className="mr-2"
-                >
-                  Start
-                </Button>
-                <Button 
-                  variant="success" 
-                  onClick={() => handleFinish(index)} 
-                  disabled={task.status !== 'In Progress'}
-                >
-                  Finish
-                </Button>
-              </td>
-              <td>{task.status}</td>
+    <div style={{ marginTop: "50px", backgroundImage: `url(${setbackg})` }}>
+      <div className="container mt-4">
+        <h2>View Projects</h2>
+        <Table striped bordered hover>
+          <thead className="thead-dark">
+            <tr>
+              <th>Project Name</th>
+              <th>Project Date</th>
+              <th>Deadline</th>
+              <th>Action</th>
+              <th>Status</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
-    </div>
+          </thead>
+          <tbody>
+            {tasks.map((task, index) => (
+              <tr key={index}>
+                <td>{task.projectName}</td>
+                <td>{task.projectDate}</td>
+                <td>{task.deadline}</td>
+                <td className="d-flex align-items-center">
+  <Button
+    variant="primary"
+    onClick={() => handleStart(index)}
+    disabled={task.status !== 'Pending'}
+    className="me-2 btn-lg"
+  >
+    Start
+  </Button>
+  <Button
+    variant="danger"
+    onClick={() => handleFinish(index)}
+    disabled={task.status !== 'In Progress'}
+    className="btn-lg"
+  >
+    Finish
+  </Button>
+</td>
+
+
+
+                <td>{task.status}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </div>
     </div>
   );
 };
