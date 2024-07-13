@@ -23,6 +23,7 @@ function App() {
     <div className="App">
       <Switch>
        
+       
     <Route path="/intern" component={InternRoutes} />
    <Route path="/admin" component={HrRoutes} />
 
