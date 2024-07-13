@@ -24,6 +24,19 @@ function Giveproject() {
       .catch((error) => {
         console.error("There was an error fetching the employees!", error);
       });
+
+    // Fetch customer details from the backend
+    axios.get("https://your-backend-api.com/customer-details")
+      .then((response) => {
+        const fetchedData = response.data.map(item => ({
+          ...item,
+          status: item.status || "Pending", // Default status to "Pending" if not provided
+        }));
+        setCustomerDetails(fetchedData);
+      })
+      .catch((error) => {
+        console.error("There was an error fetching the customer details!", error);
+      });
   }, []);
 
   const showModal = () => {
@@ -44,7 +57,7 @@ function Giveproject() {
           ...values,
           projectDate: moment(values.projectDate),
           deadline: moment(values.deadline),
-          status: "Pending",
+          status: "Pending", // Set default status to "Pending"
         };
         setCustomerDetails([...customerDetails, newCustomer]);
       }
@@ -74,14 +87,6 @@ function Giveproject() {
       deadline: moment(record.deadline)
     });
     showModal();
-  };
-
-  const handleStatusChange = (id, status) => {
-    setCustomerDetails((prevDetails) =>
-      prevDetails.map((item) =>
-        item.id === id ? { ...item, status } : item
-      )
-    );
   };
 
   const rowSelection = {
@@ -120,13 +125,7 @@ function Giveproject() {
       title: "Status",
       dataIndex: "status",
       key: "status",
-      render: (text, record) => (
-        <Select defaultValue={text} onChange={(value) => handleStatusChange(record.id, value)}>
-          <Option value="Pending">Pending</Option>
-          <Option value="In Progress">In Progress</Option>
-          <Option value="Finished">Finished</Option>
-        </Select>
-      ),
+      render: (text) => text,
     },
     {
       title: "Action",
@@ -138,86 +137,86 @@ function Giveproject() {
   ];
 
   return (
-    <div style={{backgroundImage:`url(${projectbg})`, height:"800px"}}>
-    <div className="customer-details" style={{ paddingTop: "50px" }}>
-      <Title level={5}>Assign Project</Title>
-      <Row justify="space-between" align="middle">
-        <Col>
-          <Button type="primary" onClick={showModal} style={{ marginBottom: 16 }}>
-            Assign project
-          </Button>
-        </Col>
-        <Col>
-          <Button type="danger" onClick={handleDelete} style={{ marginBottom: 16, marginLeft: 16 }}>
-            Delete Selected
-          </Button>
-        </Col>
-      </Row>
-      <Modal title={editingRow ? "Edit Customer" : "Add Customer"} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-        <Form form={form} layout="vertical">
-          <Form.Item 
-            name="projectName" 
-            label="Project Name" 
-            rules={[
-              { required: true, message: "Please enter project name" },
-              { min: 3, message: "Project name must be at least 3 characters" }
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item 
-            name="employeeName" 
-            label="Employee Name" 
-            rules={[{ required: true, message: "Please select employee name" }]}
-          >
-            <Select placeholder="Select an employee">
-              {employees.map((employee) => (
-                <Option key={employee.id} value={employee.name}>
-                  {employee.name}
-                </Option>
-              ))}
-            </Select>
-          </Form.Item>
-          <Form.Item 
-            name="projectDate" 
-            label="Project Date" 
-            rules={[{ required: true, message: "Please select project date" }]}
-          >
-            <DatePicker />
-          </Form.Item>
-          <Form.Item 
-            name="deadline" 
-            label="Deadline" 
-            rules={[
-              { required: true, message: "Please select deadline" },
-              ({ getFieldValue }) => ({
-                validator(_, value) {
-                  if (!value || moment(value).isAfter(getFieldValue('projectDate'))) {
-                    return Promise.resolve();
-                  }
-                  return Promise.reject(new Error('Deadline should be after project date'));
-                },
-              }),
-            ]}
-          >
-            <DatePicker />
-          </Form.Item>
-        </Form>
-      </Modal>
-      <div style={{ overflowX: 'auto' }}>
-        <Table
-          dataSource={customerDetails}
-          columns={columns}
-          pagination={false}
-          rowKey="id"
-          rowSelection={{
-            type: "checkbox",
-            ...rowSelection,
-          }}
-        />
+    <div style={{ backgroundImage: `url(${projectbg})`, height: "800px" }}>
+      <div className="customer-details" style={{ paddingTop: "50px" }}>
+        <Title level={5}>Assign Project</Title>
+        <Row justify="space-between" align="middle">
+          <Col>
+            <Button type="primary" onClick={showModal} style={{ marginBottom: 16 }}>
+              Assign project
+            </Button>
+          </Col>
+          <Col>
+            <Button type="danger" onClick={handleDelete} style={{ marginBottom: 16, marginLeft: 16 }}>
+              Delete Selected
+            </Button>
+          </Col>
+        </Row>
+        <Modal title={editingRow ? "Edit Customer" : "Add Customer"} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+          <Form form={form} layout="vertical">
+            <Form.Item 
+              name="projectName" 
+              label="Project Name" 
+              rules={[
+                { required: true, message: "Please enter project name" },
+                { min: 3, message: "Project name must be at least 3 characters" }
+              ]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item 
+              name="employeeName" 
+              label="Employee Name" 
+              rules={[{ required: true, message: "Please select employee name" }]}
+            >
+              <Select placeholder="Select an employee">
+                {employees.map((employee) => (
+                  <Option key={employee.id} value={employee.title}>
+                    {employee.title}
+                  </Option>
+                ))}
+              </Select>
+            </Form.Item>
+            <Form.Item 
+              name="projectDate" 
+              label="Project Date" 
+              rules={[{ required: true, message: "Please select project date" }]}
+            >
+              <DatePicker />
+            </Form.Item>
+            <Form.Item 
+              name="deadline" 
+              label="Deadline" 
+              rules={[
+                { required: true, message: "Please select deadline" },
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (!value || moment(value).isAfter(getFieldValue('projectDate'))) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(new Error('Deadline should be after project date'));
+                  },
+                }),
+              ]}
+            >
+              <DatePicker />
+            </Form.Item>
+          </Form>
+        </Modal>
+        <div style={{ overflowX: 'auto' }}>
+          <Table
+            dataSource={customerDetails}
+            columns={columns}
+            pagination={false}
+            rowKey="id"
+            rowSelection={{
+              type: "checkbox",
+              ...rowSelection,
+            }}
+          />
+        </div>
       </div>
     </div>
-  </div>
   );
 }
 
