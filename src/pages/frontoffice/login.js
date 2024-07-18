@@ -20,6 +20,8 @@ import {
   InstagramOutlined,
   GithubOutlined,
 } from "@ant-design/icons";
+import axios from "axios";
+import { baseUrl } from "../../url";
 function onChange(checked) {
   console.log(`switch to ${checked}`);
 }
@@ -106,11 +108,28 @@ const signin = [
   </svg>,
 ];
 
-
 export default class login extends Component {
   render() {
-    const onFinish = (values) => {
-      console.log("Success:", values);
+    const onFinish = async (values) => {
+      console.log(values);
+      try {
+        let response = await axios.post(`${baseUrl}/frontofficelogin/`, values);
+
+        console.log("response", response);
+
+        if (response.status === 200) {
+          localStorage.setItem(
+            "is_frontoffice",
+            response.data.user.is_frontoffice
+          );
+          localStorage.setItem("authToken", response.data.token);
+          this.props.history.push("/frontoffice/dashboard"); // Redirect to /admin/dashboard
+        } else if (response.status === 400) {
+          console.error("Error", response.data.message);
+        }
+      } catch (error) {
+        console.error("Login error:", error);
+      }
     };
 
     const onFinishFailed = (errorInfo) => {
@@ -175,7 +194,7 @@ export default class login extends Component {
                   <Form.Item
                     className="username"
                     label="Email"
-                    name="email"
+                    name="username"
                     rules={[
                       {
                         required: true,
@@ -200,15 +219,6 @@ export default class login extends Component {
                     <Input placeholder="Password" />
                   </Form.Item>
 
-                  <Form.Item
-                    name="remember"
-                    className="aligin-center"
-                    valuePropName="checked"
-                  >
-                    <Switch defaultChecked onChange={onChange} />
-                    Remember me
-                  </Form.Item>
-
                   <Form.Item>
                     <Button
                       type="primary"
@@ -219,8 +229,11 @@ export default class login extends Component {
                     </Button>
                   </Form.Item>
                   <p className="font-semibold text-muted">
-                   forget passsword{" "}
-                    <Link to="/frontoffice/frontResetPassword" className="text-dark font-bold">
+                    forget passsword{" "}
+                    <Link
+                      to="/frontoffice/frontResetPassword"
+                      className="text-dark font-bold"
+                    >
                       Reset passsword
                     </Link>
                   </p>
@@ -272,7 +285,6 @@ export default class login extends Component {
                 <Link to="#">{<GithubOutlined />}</Link>
               </Menu.Item>
             </Menu>
-             
           </Footer>
         </Layout>
       </>
