@@ -11,30 +11,25 @@ import InternRoutes from "./pages/Intern-Section/InternRoute.js";
 
 import StaffRoutes from "./pages/Staff-Section/StaffRoute.js";
 
-
 import FrontRoutes from "./pages/frontoffice/frontRoutes.js";
- 
+
 import TeamRoutes from "./pages/TeamLead-Section/TeamRoutes.js";
-
-
 
 function App() {
   return (
     <div className="App">
       <Switch>
-       
-    <Route path="/intern" component={InternRoutes} />
-   <Route path="/admin" component={HrRoutes} />
+        <Route path="/intern" component={InternRoutes} />
+        <Route path="/admin" component={HrRoutes} />
 
-   <Route path="/staff" component={StaffRoutes} />
+        <Route path="/staff" component={StaffRoutes} />
 
+        <Route path="/frontoffice" component={FrontRoutes} />
 
-   <Route path="/frontoffice" component={FrontRoutes} />
- 
-   <Route path="/Teamlead" component={TeamRoutes} />
+        <Route path="/Teamlead" component={TeamRoutes} />
 
-<Route path="/landing" component={LandingPage} />
-<Redirect from="*" to="/landing" />
+        <Route path="/landing" component={LandingPage} />
+        <Redirect from="*" to="/landing" />
       </Switch>
     </div>
   );

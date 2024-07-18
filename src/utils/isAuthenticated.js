@@ -10,7 +10,7 @@ export const isStaffAuthenticated = () => {
   //   console.log('you can go');
   //   return true
   // }
-  return true
+  return true;
 };
 
 // Function to check if the user is an intern and authenticated
@@ -20,18 +20,16 @@ export const isInternAuthenticated = () => {
   // const authToken = localStorage.getItem("authToken");
   // return userRole === "intern" && authToken;
 
-  return true
+  return true;
 };
-
 
 // Function to check if the user is an HR admin and authenticated
 export const isHRAdminAuthenticated = () => {
   //Check if the user's role is 'hradmin' and if they are authenticated
 
-  // const userRole = localStorage.getItem("userRole");
-  // const authToken = localStorage.getItem("authToken");
-  // return userRole === "hr_admin" && authToken;
-  return true
+  const userRole = localStorage.getItem("is_hr");
+  const authToken = localStorage.getItem("authToken");
+  return userRole && authToken;
 };
 
 // Function to check if the user is an HR admin and authenticated
@@ -40,7 +38,7 @@ export const isTeamLeadAuthenticated = () => {
   // const userRole = localStorage.getItem("userRole");
   // const authToken = localStorage.getItem("authToken");
   // return userRole === "team_lead" && authToken;
-  return true
+  return true;
 };
 
 // Function to check if the user is an HR admin and authenticated
@@ -49,5 +47,5 @@ export const isFrontOfficeAuthenticated = () => {
   // const userRole = localStorage.getItem("userRole");
   // const authToken = localStorage.getItem("authToken");
   // return userRole === "Front_office" && authToken;
-  return true
+  return true;
 };
