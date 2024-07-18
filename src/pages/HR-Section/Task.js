@@ -5,21 +5,26 @@ import {
   Button,
   DatePicker,
   Table,
+  message,
   Popconfirm,
   Select,
 } from "antd";
 import moment from "moment";
 import vector from "../../assets/images/vectorhr.png";
 import axios from "axios";
-import { baseUrl } from "../../url";
+import { baseUrl, baseUrlHr } from "../../url";
 
 const { Option } = Select;
 
 const Taskform = () => {
   const [form] = Form.useForm();
   const [submittedData, setSubmittedData] = useState([]);
+  const [TeamLeads, setTeamLeads] = useState([]);
+
   const [editingKey, setEditingKey] = useState(null);
   const token = localStorage.getItem("authToken");
+
+  console.log(token)
 
   useEffect(() => {
     const savedData = JSON.parse(localStorage.getItem("submittedData")) || [];
@@ -43,7 +48,10 @@ const Taskform = () => {
           headers: { Authorization: `Token ${token}` },
         });
 
-        console.log("here the reponse ", response);
+        if (response.status === 200) {
+          setTeamLeads(response.data.map((user) => user.username));
+        }
+        console.log("here the response ", response);
       } catch (error) {
         console.error("Error due to", error);
       }
@@ -52,20 +60,64 @@ const Taskform = () => {
     fetchTeamLead();
   }, [token]);
 
-  const onFinish = (values) => {
-    console.log("vale", values);
-    const key = Date.now();
-    const newData = {
-      ...values,
-      key,
-      startDate: moment(values.startDate).format("YYYY-MM-DD"), // Convert moment object to string
-      endDate: moment(values.endDate).format("YYYY-MM-DD"), // Convert moment object to string
-    };
-    setSubmittedData([...submittedData, newData]);
-    form.resetFields();
-    const updatedData = [...submittedData, newData];
-    localStorage.setItem("submittedData", JSON.stringify(updatedData));
-    console.log("Updated Data:", updatedData);
+  const onFinish = async (values) => {
+    // console.log("vale", values);
+    // const key = Date.now();
+    // const newData = {
+    //   ...values,
+    //   key,
+    //   startDate: moment(values.startDate).format("YYYY-MM-DD"), // Convert moment object to string
+    //   endDate: moment(values.endDate).format("YYYY-MM-DD"), // Convert moment object to string
+    // };
+    // setSubmittedData([...submittedData, newData]);
+    // form.resetFields();
+    // const updatedData = [...submittedData, newData];
+    // localStorage.setItem("submittedData", JSON.stringify(updatedData));
+    // console.log("Updated Data:", updatedData);
+
+    try {
+      const values = await form.validateFields();
+
+      console.log("values", values);
+
+      // Convert the date format
+      if (values.startdate || values.enddate) {
+        const startdate = new Date(values.startdate);
+        const formattedDate1 = startdate.toISOString().split("T")[0]; // YYYY-MM-DD
+        values.startdate = formattedDate1;
+
+        const enddate = new Date(values.enddate);
+        const formattedDate2 = enddate.toISOString().split("T")[0]; // YYYY-MM-DD
+        values.enddate = formattedDate2;
+      }
+
+      const response = await axios.post(`${baseUrlHr}/teamleadassign/`, values, {
+        headers: {
+          "Content-Type": "application/json", // Ensure this header is set for FormData
+          Authorization: `Token ${token}`,
+        },
+      });
+
+      console.log("response", response);
+
+      if (response.status === 201) {
+        // onCreate(response.data.user);
+        console.log("response data", response.data);
+        message.success("Task created successfully!");
+      } else {
+        message.error("Failed to create user. Please try again later.");
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        console.error("Validation error:", error.response.data.message);
+        message.error(
+          error.response.data.message || "Validation error occurred."
+        );
+      } else {
+        console.error("Submission error:", error);
+        message.error("An error occurred while submitting the form.");
+      }
+    }
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -114,6 +166,8 @@ const Taskform = () => {
       console.log("Validate Failed:", errInfo);
     }
   };
+
+  console.log("teams", TeamLeads);
 
   const cancel = () => {
     setEditingKey(null);
@@ -203,13 +257,16 @@ const Taskform = () => {
         {/* <h2>Task Information</h2> */}
         <Form.Item
           label="Name"
-          name="id"
+          name="user"
           rules={[{ required: true, message: "Please enter name" }]}
         >
           <Select placeholder="Select name">
-            <Option value="1">Name 1</Option>
-            <Option value="2">Name 2</Option>
-            <Option value="3">Name 3</Option>
+            {TeamLeads &&
+              TeamLeads.map((name, index) => (
+                <Option value={`${name}`} key={index}>
+                  {name}
+                </Option>
+              ))}
           </Select>
         </Form.Item>
         <Form.Item
