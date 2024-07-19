@@ -45,7 +45,7 @@ const EnquiryAdmissionForm = () => {
     date: "",
     lastDate: "",
     password: "",
-    photo: null,
+    image: null,
     paymentOption: "",
     totalAmount: "",
     totalDate: "",
@@ -191,7 +191,7 @@ const EnquiryAdmissionForm = () => {
       lastDate: "",
 
       password: "",
-      photo: null,
+      image: null,
       paymentOption: "",
       totalAmount: "",
       totalDate: "",
@@ -563,13 +563,13 @@ const EnquiryAdmissionForm = () => {
                 onChange={handleChange}
                 required
               />
-              <Label>Upload Photo</Label>
+              {/* <Label>Upload Photo</Label>
               <Input
                 type="file"
                 name="photo"
                 onChange={handleFileChange}
                 required
-              />
+              /> */}
               <Button type="button" onClick={prevStep}>
                 Previous
               </Button>
