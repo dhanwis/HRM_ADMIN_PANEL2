@@ -23,11 +23,13 @@ import {
   Title,
   TwoColumnRow,
 } from "./enquiryStyle";
+import axios from "axios";
+import { baseUrl } from "../../url";
 
 const EnquiryAdmissionForm = () => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
-    name: "",
+    username: "",
     phoneNumber: "",
     dateOfBirth: "",
     email: "",
@@ -35,7 +37,7 @@ const EnquiryAdmissionForm = () => {
     city: "",
     state: "",
     country: "",
-    zipCode: "",
+    pincode: "",
     category: "",
     requirement: "",
     educationalQualification: "",
@@ -121,15 +123,25 @@ const EnquiryAdmissionForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (currentEnquiry !== null) {
+      console.log("currentEnquiry", currentEnquiry);
       const updatedEnquiries = enquiries.map((enquiry) =>
         enquiry.id === currentEnquiry.id ? { ...enquiry, ...formData } : enquiry
       );
       setEnquiries(updatedEnquiries);
     } else {
+      console.log("before", enquiries);
       const newEnquiry = {
         ...formData,
         id: enquiries.length + 1,
       };
+      //let x = axios.post(`${baseUrl}/intern-reg/`, newEnquiry);
+      fetch(`${baseUrl}/intern-reg/`, {
+        method: "POST",
+        body: JSON.stringify(newEnquiry),
+      })
+        .then((res) => res.json())
+        .then((data) => console.log(data));
+      // console.log("x", x);
       setEnquiries([...enquiries, newEnquiry]);
     }
     setShowForm(false);
@@ -138,7 +150,6 @@ const EnquiryAdmissionForm = () => {
 
   const handleSave = () => {
     if (currentEnquiry) {
-      console.log("currentEnquiry", currentEnquiry);
       const updatedEnquiries = enquiries.map((enquiry) =>
         enquiry.id === currentEnquiry.id ? { ...enquiry, ...formData } : enquiry
       );
@@ -163,7 +174,7 @@ const EnquiryAdmissionForm = () => {
 
   const resetForm = () => {
     setFormData({
-      name: "",
+      username: "",
       phoneNumber: "",
       dateOfBirth: "",
       email: "",
@@ -171,7 +182,7 @@ const EnquiryAdmissionForm = () => {
       city: "",
       state: "",
       country: "",
-      zipCode: "",
+      pincode: "",
       category: "",
       requirement: "",
       educationalQualification: "",
@@ -259,10 +270,10 @@ const EnquiryAdmissionForm = () => {
           {step === 1 && (
             <TwoColumnRow>
               <Column>
-                <Label>Name</Label>
+                <Label>UserName</Label>
                 <Input
                   type="text"
-                  name="name"
+                  name="username"
                   value={formData.name}
                   onChange={handleChange}
                   required
@@ -333,11 +344,11 @@ const EnquiryAdmissionForm = () => {
                 />
               </Column>
               <Column>
-                <Label>ZIP Code</Label>
+                <Label>Pin Code</Label>
                 <Input
                   type="text"
-                  name="zipCode"
-                  value={formData.zipCode}
+                  name="pincode"
+                  value={formData.pincode}
                   onChange={handleChange}
                   required
                 />
@@ -434,7 +445,7 @@ const EnquiryAdmissionForm = () => {
                 required
               />
 
-              <FollowupContainer>
+              {/* <FollowupContainer>
                 <Button type="button" onClick={addFollowup}>
                   Add Followup
                 </Button>
@@ -450,7 +461,7 @@ const EnquiryAdmissionForm = () => {
                     />
                   </FollowupRow>
                 ))}
-              </FollowupContainer>
+              </FollowupContainer> */}
               <Button type="button" onClick={prevStep}>
                 Previous
               </Button>
@@ -524,16 +535,10 @@ const EnquiryAdmissionForm = () => {
                 type="date"
                 name="dateOfBirth"
                 value={formData.dateOfBirth}
-                readOnly
-              />
-              <Label>Password</Label>
-              <Input
-                type="text"
-                name="password"
-                value={formData.password}
                 onChange={handleChange}
                 required
               />
+
               <Label>Date of Join</Label>
               <Input
                 type="date"
@@ -547,6 +552,14 @@ const EnquiryAdmissionForm = () => {
                 type="date"
                 name="lastDate"
                 value={formData.lastDate}
+                onChange={handleChange}
+                required
+              />
+              <Label>Password</Label>
+              <Input
+                type="password"
+                name="password"
+                value={formData.password}
                 onChange={handleChange}
                 required
               />
