@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Form,
   Input,
@@ -24,6 +24,22 @@ const JobForm = () => {
   const [selectedJob, setSelectedJob] = useState(null);
 
   const token = localStorage.getItem("authToken");
+
+  useEffect(() => {
+    if (jobData.length === 0) {
+      let fetchJobs = async () => {
+        let response = await axios.get(`${baseUrlHr}/hr/jobapply/`, {
+          headers: { Authorization: `Token ${token}` },
+        });
+
+        if (response.status === 200) {
+          setJobData(response.data);
+        }
+      };
+
+      fetchJobs();
+    }
+  }, [jobData.length, token]);
 
   const columns = [
     {

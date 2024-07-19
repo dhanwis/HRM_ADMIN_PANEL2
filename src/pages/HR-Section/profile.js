@@ -176,10 +176,12 @@ const HR_Profile = () => {
               </Descriptions.Item>
 
               <Descriptions.Item label="Phone">
-                {profile.phone_number}
+                <a href={`tel:+91${profile.phone_number}`}>
+                  +91 {profile.phone_number}
+                </a>
               </Descriptions.Item>
 
-              <Descriptions.Item label="Zip code">
+              <Descriptions.Item label="Pin code">
                 {profile.pincode}
               </Descriptions.Item>
             </Descriptions>

@@ -19,12 +19,11 @@ const { Option } = Select;
 const Taskform = () => {
   const [form] = Form.useForm();
   const [submittedData, setSubmittedData] = useState([]);
+
   const [TeamLeads, setTeamLeads] = useState([]);
 
   const [editingKey, setEditingKey] = useState(null);
   const token = localStorage.getItem("authToken");
-
-  console.log(token)
 
   useEffect(() => {
     const savedData = JSON.parse(localStorage.getItem("submittedData")) || [];
@@ -41,6 +40,7 @@ const Taskform = () => {
     setSubmittedData(savedData);
   }, []);
 
+  //Team lead data fetching for assign task
   useEffect(() => {
     let fetchTeamLead = async () => {
       try {
@@ -49,9 +49,28 @@ const Taskform = () => {
         });
 
         if (response.status === 200) {
-          setTeamLeads(response.data.map((user) => user.username));
+          setTeamLeads(response.data);
         }
-        console.log("here the response ", response);
+      } catch (error) {
+        console.error("Error due to", error);
+      }
+    };
+
+    fetchTeamLead();
+  }, [token]);
+
+  // All Task listing
+  useEffect(() => {
+    let fetchTeamLead = async () => {
+      try {
+        let response = await axios.get(`${baseUrlHr}/teamleadassign/`, {
+          headers: { Authorization: `Token ${token}` },
+        });
+
+        if (response.status === 200) {
+          setSubmittedData(response.data);
+        }
+        console.log("All task ", response);
       } catch (error) {
         console.error("Error due to", error);
       }
@@ -78,8 +97,6 @@ const Taskform = () => {
     try {
       const values = await form.validateFields();
 
-      console.log("values", values);
-
       // Convert the date format
       if (values.startdate || values.enddate) {
         const startdate = new Date(values.startdate);
@@ -91,19 +108,23 @@ const Taskform = () => {
         values.enddate = formattedDate2;
       }
 
-      const response = await axios.post(`${baseUrlHr}/teamleadassign/`, values, {
-        headers: {
-          "Content-Type": "application/json", // Ensure this header is set for FormData
-          Authorization: `Token ${token}`,
-        },
-      });
-
-      console.log("response", response);
+      const response = await axios.post(
+        `${baseUrlHr}/teamleadassign/`,
+        values,
+        {
+          headers: {
+            "Content-Type": "application/json", // Ensure this header is set for FormData
+            Authorization: `Token ${token}`,
+          },
+        }
+      );
 
       if (response.status === 201) {
         // onCreate(response.data.user);
         console.log("response data", response.data);
         message.success("Task created successfully!");
+        setSubmittedData([...submittedData, response.data]);
+        form.resetFields();
       } else {
         message.error("Failed to create user. Please try again later.");
       }
@@ -167,8 +188,6 @@ const Taskform = () => {
     }
   };
 
-  console.log("teams", TeamLeads);
-
   const cancel = () => {
     setEditingKey(null);
     form.resetFields();
@@ -176,18 +195,18 @@ const Taskform = () => {
 
   const columns = [
     {
-      title: "ID",
-      dataIndex: "id",
-      key: "id",
+      title: "TeamLead",
+      dataIndex: "user",
+      key: "username",
     },
     {
       title: "Task Title",
-      dataIndex: "taskTitle",
+      dataIndex: "tasktitle",
       key: "taskTitle",
     },
     {
       title: "Start Date",
-      dataIndex: "startDate",
+      dataIndex: "startdate",
       key: "startDate",
       render: (text, record) => {
         return <span>{moment(record.startDate).format("YYYY-MM-DD")}</span>;
@@ -195,7 +214,7 @@ const Taskform = () => {
     },
     {
       title: "End Date",
-      dataIndex: "endDate",
+      dataIndex: "enddate",
       key: "endDate",
       render: (text, record) => {
         return <span>{moment(record.endDate).format("YYYY-MM-DD")}</span>;
@@ -203,7 +222,7 @@ const Taskform = () => {
     },
     {
       title: "Task Description",
-      dataIndex: "taskDescription",
+      dataIndex: "task_description",
       key: "taskDescription",
     },
     {
@@ -263,8 +282,8 @@ const Taskform = () => {
           <Select placeholder="Select name">
             {TeamLeads &&
               TeamLeads.map((name, index) => (
-                <Option value={`${name}`} key={index}>
-                  {name}
+                <Option value={name.id} key={index}>
+                  {name.username}
                 </Option>
               ))}
           </Select>

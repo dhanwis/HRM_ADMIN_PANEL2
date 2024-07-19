@@ -13,10 +13,13 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
+import { SnackbarProvider } from "notistack";
 
 ReactDOM.render(
   <BrowserRouter>
-    <App />
+    <SnackbarProvider maxSnack={3} autoHideDuration={1000}>
+      <App />
+    </SnackbarProvider>
   </BrowserRouter>,
-  document.getElementById("root"),
+  document.getElementById("root")
 );

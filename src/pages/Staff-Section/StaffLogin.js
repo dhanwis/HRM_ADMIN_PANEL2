@@ -1,16 +1,6 @@
 import React, { Component } from "react";
 import { Link, useHistory } from "react-router-dom";
-import {
-  Layout,
-  Menu,
-  Button,
-  Row,
-  Col,
-  Typography,
-  Form,
-  Input,
-  Switch,
-} from "antd";
+import { Layout, Menu, Button, Row, Col, Typography, Form, Input } from "antd";
 
 import axios from "axios";
 
@@ -23,6 +13,7 @@ import {
   GithubOutlined,
 } from "@ant-design/icons";
 import { baseUrl } from "../../url";
+import { enqueueSnackbar } from "notistack";
 
 const { Title } = Typography;
 const { Header, Footer, Content } = Layout;
@@ -34,21 +25,35 @@ function onChange(checked) {
 export default class StaffLogin extends Component {
   render() {
     const onFinish = async (values) => {
-      console.log(values);
       try {
         let response = await axios.post(`${baseUrl}/stafflogin/`, values);
 
-        console.log("response", response);
-
         if (response.status === 200) {
+          this.props.enqueueSnackbar("HR Login success", {
+            variant: "success",
+          });
           localStorage.setItem("is_staff", response.data.user.is_staff);
           localStorage.setItem("authToken", response.data.token);
           this.props.history.push("/staff/dashboard"); // Redirect to /admin/dashboard
-        } else if (response.status === 400) {
-          console.error("Error", response.data.message);
         }
       } catch (error) {
-        console.error("Login error:", error);
+        if (error.response) {
+          // The request was made and the server responded with a status code that falls out of the range of 2xx
+          enqueueSnackbar(error.response.data.details, {
+            variant: "warning",
+          });
+        } else if (error.request) {
+          // The request was made but no response was received
+          enqueueSnackbar(
+            "No response from the server. Please try again later.",
+            { variant: "error" }
+          );
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          enqueueSnackbar("An error occurred. Please try again later.", {
+            variant: "error",
+          });
+        }
       }
     };
 
