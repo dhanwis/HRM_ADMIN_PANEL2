@@ -1,21 +1,8 @@
-/*!
-  =========================================================
-  * Muse Ant Design Dashboard - v1.0.0
-  =========================================================
-  * Product Page: https://www.creative-tim.com/product/muse-ant-design-dashboard
-  * Copyright 2021 Creative Tim (https://www.creative-tim.com)
-  * Licensed under MIT (https://github.com/creativetimofficial/muse-ant-design-dashboard/blob/main/LICENSE.md)
-  * Coded by Creative Tim
-  =========================================================
-  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { useState, useEffect } from "react";
 
 import {
   Row,
   Col,
-  Breadcrumb,
   Badge,
   Dropdown,
   Button,
@@ -34,7 +21,7 @@ import {
   FacebookFilled,
 } from "@ant-design/icons";
 
-import { NavLink, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import avtar from "../../assets/images/team-2.jpg";
 
@@ -125,7 +112,6 @@ const credit = [
       d="M18 9H2V14C2 15.1046 2.89543 16 4 16H16C17.1046 16 18 15.1046 18 14V9ZM4 13C4 12.4477 4.44772 12 5 12H6C6.55228 12 7 12.4477 7 13C7 13.5523 6.55228 14 6 14H5C4.44772 14 4 13.5523 4 13ZM9 12C8.44772 12 8 12.4477 8 13C8 13.5523 8.44772 14 9 14H10C10.5523 14 11 13.5523 11 13C11 12.4477 10.5523 12 10 12H9Z"
     ></path>
   </svg>,
-
 ];
 
 const clockicon = [
@@ -260,6 +246,7 @@ function TeamHeader({
   handleFixedNavbar,
 }) {
   const { Title, Text } = Typography;
+  const history = useHistory();
 
   const [visible, setVisible] = useState(false);
   const [sidenavType, setSidenavType] = useState("transparent");
@@ -269,14 +256,26 @@ function TeamHeader({
   const showDrawer = () => setVisible(true);
   const hideDrawer = () => setVisible(false);
 
+  const handlelogout = () => {
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("is_teamlead");
+    history.push("/teamlead/login");
+  };
+
   return (
-    <div  style={{marginTop:"20px", marginBottom:"10px",marginRight:"10px"}}>
-      <div className="setting-drwer" onClick={showDrawer} style={{marginTop:"10px"}} >
+    <div
+      style={{ marginTop: "20px", marginBottom: "10px", marginRight: "10px" }}
+    >
+      <div
+        className="setting-drwer"
+        onClick={showDrawer}
+        style={{ marginTop: "10px" }}
+      >
         {setting}
       </div>
       <Row gutter={[24, 0]}>
-      <Col span={24} md={6}>
-        {/* <Col span={24} md={6}>
+        <Col span={24} md={6}>
+          {/* <Col span={24} md={6}>
           <Breadcrumb>
             <Breadcrumb.Item>
               <NavLink to="/">Pages</NavLink>
@@ -294,8 +293,8 @@ function TeamHeader({
             </span>
           </div>
         </Col> */}
-        </Col> 
-        
+        </Col>
+
         <Col span={24} md={18} className="header-control">
           <Badge size="small" count={4}>
             <Dropdown overlay={menu} trigger={["click"]}>
@@ -425,16 +424,20 @@ function TeamHeader({
               </div>
             </div>
           </Drawer>
-          <Link to="/teamlead/login" className="btn-sign-in">
+
+          <span
+            style={{ cursor: "pointer" }}
+            onClick={handlelogout}
+            className=" btn-sign-in"
+          >
             {profile}
             <span>Logout</span>
-          </Link>
+          </span>
           <Input
             className="header-search"
             placeholder="Type here..."
             prefix={<SearchOutlined />}
           />
-
         </Col>
       </Row>
     </div>

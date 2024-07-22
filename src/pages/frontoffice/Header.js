@@ -1,15 +1,3 @@
-/*!
-  =========================================================
-  * Muse Ant Design Dashboard - v1.0.0
-  =========================================================
-  * Product Page: https://www.creative-tim.com/product/muse-ant-design-dashboard
-  * Copyright 2021 Creative Tim (https://www.creative-tim.com)
-  * Licensed under MIT (https://github.com/creativetimofficial/muse-ant-design-dashboard/blob/main/LICENSE.md)
-  * Coded by Creative Tim
-  =========================================================
-  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { useState, useEffect } from "react";
 
 import {
@@ -37,6 +25,7 @@ import {
 import { NavLink, Link } from "react-router-dom";
 import styled from "styled-components";
 import avtar from "../../assets/images/team-2.jpg";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const ButtonContainer = styled.div`
   .ant-btn-primary {
@@ -262,6 +251,13 @@ function FrontHeader({
 
   const [visible, setVisible] = useState(false);
   const [sidenavType, setSidenavType] = useState("transparent");
+  const history = useHistory();
+
+  const handlelogout = () => {
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("is_frontoffice");
+    history.push("/frontoffice/login");
+  };
 
   useEffect(() => window.scrollTo(0, 0));
 
@@ -269,13 +265,13 @@ function FrontHeader({
   const hideDrawer = () => setVisible(false);
 
   return (
-    <div style={{marginTop:"20px",marginBottom:"10px"}}>
+    <div style={{ marginTop: "20px", marginBottom: "10px" }}>
       <div className="setting-drwer" onClick={showDrawer}>
         {setting}
       </div>
       <Row gutter={[24, 0]}>
-      <Col span={24} md={6}>
-        {/* <Col span={24} md={6}>
+        <Col span={24} md={6}>
+          {/* <Col span={24} md={6}>
           <Breadcrumb>
             <Breadcrumb.Item>
               <NavLink to="/">Pages</NavLink>
@@ -423,10 +419,11 @@ function FrontHeader({
               </div>
             </div>
           </Drawer>
-          <Link to="/frontoffice/login" className="btn-sign-in">
+
+          <span style={{ cursor: "pointer" }} onClick={handlelogout} className="btn-sign-in">
             {profile}
             <span>Logout</span>
-          </Link>
+          </span>
           <Input
             className="header-search"
             placeholder="Type here..."
