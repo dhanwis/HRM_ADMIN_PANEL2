@@ -106,7 +106,7 @@ export default class login extends Component {
         let response = await axios.post(`${baseUrl}/frontofficelogin/`, values);
 
         if (response.status === 200) {
-          this.props.enqueueSnackbar("HR Login success", {
+          enqueueSnackbar("FrontOffice Login success", {
             variant: "success",
           });
           localStorage.setItem(

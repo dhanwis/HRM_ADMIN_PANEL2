@@ -21,7 +21,8 @@ class HRSignIn extends Component {
       let response = await axios.post(`${baseUrl}/hrlogin/`, values);
 
       if (response.status === 200) {
-        this.props.enqueueSnackbar("HR Login success", { variant: "success" });
+        enqueueSnackbar("HR Login success", { variant: "success" });
+
         localStorage.setItem("is_hr", response.data.user.is_hr);
         localStorage.setItem("authToken", response.data.token);
         this.props.history.push("/admin/dashboard"); // Redirect to /admin/dashboard

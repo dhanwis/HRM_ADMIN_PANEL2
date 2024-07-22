@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import {
   Button,
   Column,
-  FollowupContainer,
-  FollowupRow,
   Form,
   FormContainer,
   Input,
@@ -46,6 +44,8 @@ const EnquiryAdmissionForm = () => {
       end_date: "",
       category: "",
       payment: "",
+      total_amount: "",
+      payment_date:"",
       no_of_installments: 0,
       installments: [
         { amount: "", date: "" },
@@ -93,7 +93,10 @@ const EnquiryAdmissionForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log("name", name);
+    console.log("value", value);
     const keys = name.split("."); // Support nested keys
+    console.log("key", keys);
     const newFormData = { ...formData };
 
     let current = newFormData;
@@ -105,7 +108,8 @@ const EnquiryAdmissionForm = () => {
     }
 
     current[keys[keys.length - 1]] = value;
-    console.log("formdata", newFormData);
+
+    console.log("herethedata", newFormData);
     setFormData(newFormData);
   };
 
@@ -164,7 +168,7 @@ const EnquiryAdmissionForm = () => {
       setEnquiries([...enquiries, newEnquiry]);
     }
     setShowForm(false);
-   // resetForm();
+    resetForm();
   };
 
   const handleSave = () => {
@@ -181,7 +185,7 @@ const EnquiryAdmissionForm = () => {
       };
       setEnquiries([...enquiries, newEnquiry]);
     }
-    //resetForm();
+    resetForm();
     setShowForm(false);
   };
 
@@ -249,7 +253,7 @@ const EnquiryAdmissionForm = () => {
                 <tr key={index}>
                   <TableCell>{enquiry.username}</TableCell>
                   <TableCell>{enquiry.phone_number}</TableCell>
-                  <TableCell>{enquiry.category}</TableCell>
+                  <TableCell>{enquiry.profile.category}</TableCell>
                   <TableCell>
                     <Button onClick={() => handleView(index)}>View</Button>
                   </TableCell>
@@ -273,7 +277,7 @@ const EnquiryAdmissionForm = () => {
             <Step>
               <StepNumber active={step >= 3}>3</StepNumber>
               <StepLabel>
-                {formData.category === "product"
+                {formData.profile.category === "Product"
                   ? "Work Confirmation"
                   : "Admission"}
               </StepLabel>
@@ -305,7 +309,7 @@ const EnquiryAdmissionForm = () => {
                   required
                 />
               </Column>
-              
+
               <Column>
                 <Label>Email</Label>
                 <Input
@@ -369,16 +373,17 @@ const EnquiryAdmissionForm = () => {
               <Column>
                 <Label>Category</Label>
                 <Select
-                  name="category"
-                  value={formData.category}
+                  name="profile.category" // Use dot notation to match nested structure
+                  value={formData.profile.category}
                   onChange={handleChange}
                   required
                 >
                   <option value="">Please select</option>
-                  <option value="product">Product</option>
-                  <option value="student">Student</option>
+                  <option value="Product">Product</option>
+                  <option value="Student">Student</option>
                 </Select>
               </Column>
+
               <Column
                 style={{
                   display: "flex",
@@ -398,7 +403,7 @@ const EnquiryAdmissionForm = () => {
             </TwoColumnRow>
           )}
 
-          {step === 2 && formData.category === "product" && (
+          {step === 2 && formData.profile.category === "Product" && (
             <div>
               <Label>Product Requirement</Label>
               <Textarea
@@ -438,12 +443,12 @@ const EnquiryAdmissionForm = () => {
               </Button>
             </div>
           )}
-          {step === 2 && formData.category === "student" && (
+          {step === 2 && formData.profile.category === "Student" && (
             <div>
               <Label>Educational Qualification</Label>
               <Input
                 type="text"
-                name="educationalQualification"
+                name="profile.educationalQualification"
                 value={formData.educationalQualification}
                 onChange={handleChange}
                 required
@@ -452,7 +457,7 @@ const EnquiryAdmissionForm = () => {
               {/* <Input type="text" name="name" value={formData.name} readOnly /> */}
               <Input
                 type="text"
-                name="course"
+                name="profile.course"
                 value={formData.course}
                 onChange={handleChange}
                 required
@@ -489,7 +494,7 @@ const EnquiryAdmissionForm = () => {
               </Button>
             </div>
           )}
-          {step === 3 && formData.category === "product" && (
+          {step === 3 && formData.profile.category === "Product" && (
             <div>
               <Label>Confirm Date</Label>
               <Input
@@ -541,7 +546,7 @@ const EnquiryAdmissionForm = () => {
               </Button>
             </div>
           )}
-          {step === 3 && formData.category === "student" && (
+          {step === 3 && formData.profile.category === "Student" && (
             <div>
               <Label>Date of Birth</Label>
               <Input
@@ -555,7 +560,7 @@ const EnquiryAdmissionForm = () => {
               <Label>Date of Join</Label>
               <Input
                 type="date"
-                name="start_date"
+                name="profile.start_date"
                 value={formData.date}
                 onChange={handleChange}
                 required
@@ -563,7 +568,7 @@ const EnquiryAdmissionForm = () => {
               <Label>Last Date</Label>
               <Input
                 type="date"
-                name="end_date"
+                name="profile.end_date"
                 value={formData.lastDate}
                 onChange={handleChange}
                 required
@@ -598,42 +603,42 @@ const EnquiryAdmissionForm = () => {
             <div>
               <Label>Payment Method</Label>
               <Select
-                name="payment"
+                name="profile.payment"
                 value={formData.profile.payment}
                 onChange={handleChange}
                 required
               >
                 <option value="">Please select</option>
-                <option value="installment">Installment</option>
-                <option value="total">Total</option>
+                <option value="Installment">Installment</option>
+                <option value="Total Amount">Total</option>
               </Select>
-              {formData.paymentOption === "total" && (
+              {formData.profile.payment === "Total Amount" && (
                 <div>
                   <Label>Total Amount</Label>
                   <Input
                     type="text"
-                    name="totalAmount"
-                    value={formData.totalAmount}
+                    name="profile.total_amount"
+                    value={formData.profile.total_amount}
                     onChange={handleChange}
                     required
                   />
-                  <Label>Date</Label>
+                  <Label>Payment Date</Label>
                   <Input
                     type="date"
-                    name="totalDate"
+                    name="payment_date"
                     value={formData.totalDate}
                     onChange={handleChange}
                     required
                   />
                 </div>
               )}
-              {formData.paymentOption === "installment" && (
+              {formData.profile.payment === "installment" && (
                 <InstallmentContainer>
                   <Label>Number of Installments</Label>
                   <Input
                     type="number"
-                    name="installmentCount"
-                    value={formData.installmentCount}
+                    name="profile.no_of_installments"
+                    value={formData.profile.no_of_installments}
                     onChange={handleChange}
                     required
                   />
