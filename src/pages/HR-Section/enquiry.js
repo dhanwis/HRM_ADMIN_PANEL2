@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import {
   Button,
   Column,
-  FollowupContainer,
-  FollowupRow,
   Form,
   FormContainer,
   Input,
@@ -30,68 +28,41 @@ const EnquiryAdmissionForm = () => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     username: "",
-    phoneNumber: "",
-    dateOfBirth: "",
+    phone_number: "",
+    dob: "",
     email: "",
     address: "",
     city: "",
     state: "",
     country: "",
     pincode: "",
-    category: "",
-    requirement: "",
-    educationalQualification: "",
-    course: "",
-    date: "",
-    lastDate: "",
     password: "",
-    image: null,
-    paymentOption: "",
-    totalAmount: "",
-    totalDate: "",
-    installmentCount: "",
-    installments: [],
-    followups: [],
-    confirmDate: "",
-    contactPerson: "",
-    workFinishingDate: "",
-    finalRequirement: "",
-    finalAmount: "",
+    profile: {
+      educationalQualification: "",
+      course: "",
+      start_date: "",
+      end_date: "",
+      category: "",
+      payment: "",
+      total_amount: "",
+      payment_date:"",
+      no_of_installments: 0,
+      installments: [
+        { amount: "", date: "" },
+        { amount: "", date: "" },
+      ],
+    },
   });
+
   const [enquiries, setEnquiries] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [currentEnquiry, setCurrentEnquiry] = useState(null);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
 
   const handleFileChange = (e) => {
     const { name, files } = e.target;
     setFormData({
       ...formData,
       [name]: files[0],
-    });
-  };
-
-  const addInstallment = () => {
-    setFormData({
-      ...formData,
-      installments: [...formData.installments, { amount: "", date: "" }],
-    });
-  };
-
-  const handleInstallmentChange = (index, e) => {
-    const { name, value } = e.target;
-    const updatedInstallments = [...formData.installments];
-    updatedInstallments[index][name] = value;
-    setFormData({
-      ...formData,
-      installments: updatedInstallments,
     });
   };
 
@@ -120,29 +91,81 @@ const EnquiryAdmissionForm = () => {
     setStep(step - 1);
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    console.log("name", name);
+    console.log("value", value);
+    const keys = name.split("."); // Support nested keys
+    console.log("key", keys);
+    const newFormData = { ...formData };
+
+    let current = newFormData;
+    for (let i = 0; i < keys.length - 1; i++) {
+      console.log("i", i);
+      if (!current[keys[i]]) current[keys[i]] = {};
+      current = current[keys[i]];
+      console.log("current", current);
+    }
+
+    current[keys[keys.length - 1]] = value;
+
+    console.log("herethedata", newFormData);
+    setFormData(newFormData);
+  };
+
+  const addInstallment = () => {
+    setFormData((prevState) => ({
+      ...prevState,
+      profile: {
+        ...prevState.profile,
+        installments: [
+          ...prevState.profile.installments,
+          { amount: "", date: "" },
+        ],
+      },
+    }));
+  };
+
+  const handleInstallmentChange = (index, e) => {
+    const { name, value } = e.target;
+    const updatedInstallments = [...formData.profile.installments];
+    updatedInstallments[index][name] = value;
+    console.log(
+      "updatedInstallments[index][name]",
+      updatedInstallments[index][name]
+    );
+    setFormData((prevState) => ({
+      ...prevState,
+      profile: {
+        ...prevState.profile,
+        installments: updatedInstallments,
+      },
+    }));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (currentEnquiry !== null) {
-      console.log("currentEnquiry", currentEnquiry);
       const updatedEnquiries = enquiries.map((enquiry) =>
         enquiry.id === currentEnquiry.id ? { ...enquiry, ...formData } : enquiry
       );
       setEnquiries(updatedEnquiries);
     } else {
-      console.log("before", enquiries);
       const newEnquiry = {
         ...formData,
         id: enquiries.length + 1,
       };
-      //let x = axios.post(`${baseUrl}/intern-reg/`, newEnquiry);
+      console.log("new en", newEnquiry);
       fetch(`${baseUrl}/intern-reg/`, {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(newEnquiry),
         headers: { "Content-Type": "application/json" },
       })
         .then((res) => res.json())
         .then((data) => console.log(data));
-      // console.log("x", x);
       setEnquiries([...enquiries, newEnquiry]);
     }
     setShowForm(false);
@@ -155,6 +178,7 @@ const EnquiryAdmissionForm = () => {
         enquiry.id === currentEnquiry.id ? { ...enquiry, ...formData } : enquiry
       );
       setEnquiries(updatedEnquiries);
+      console.log("en", enquiries);
     } else {
       const newEnquiry = {
         ...formData,
@@ -176,34 +200,29 @@ const EnquiryAdmissionForm = () => {
   const resetForm = () => {
     setFormData({
       username: "",
-      phoneNumber: "",
-      dateOfBirth: "",
+      phone_number: "",
+      dob: "",
       email: "",
       address: "",
       city: "",
       state: "",
       country: "",
       pincode: "",
-      category: "",
-      requirement: "",
-      educationalQualification: "",
-      course: "",
-      date: "",
-      lastDate: "",
-
       password: "",
-      image: null,
-      paymentOption: "",
-      totalAmount: "",
-      totalDate: "",
-      installmentCount: "",
-      installments: [],
-      followups: [],
-      confirmDate: "",
-      contactPerson: "",
-      workFinishingDate: "",
-      finalRequirement: "",
-      finalAmount: "",
+      profile: {
+        university: "",
+        degree_program: "",
+        internship_position: "",
+        start_date: "",
+        end_date: "",
+        category: "",
+        payment: "",
+        no_of_installments: 0,
+        installments: [
+          { amount: "", date: "" },
+          { amount: "", date: "" },
+        ],
+      },
     });
     setCurrentEnquiry(null);
     setStep(1);
@@ -230,16 +249,17 @@ const EnquiryAdmissionForm = () => {
             </tr>
           </thead>
           <tbody>
-            {enquiries.map((enquiry, index) => (
-              <tr key={index}>
-                <TableCell>{enquiry.name}</TableCell>
-                <TableCell>{enquiry.phoneNumber}</TableCell>
-                <TableCell>{enquiry.category}</TableCell>
-                <TableCell>
-                  <Button onClick={() => handleView(index)}>View</Button>
-                </TableCell>
-              </tr>
-            ))}
+            {enquiries &&
+              enquiries.map((enquiry, index) => (
+                <tr key={index}>
+                  <TableCell>{enquiry.username}</TableCell>
+                  <TableCell>{enquiry.phone_number}</TableCell>
+                  <TableCell>{enquiry.profile.category}</TableCell>
+                  <TableCell>
+                    <Button onClick={() => handleView(index)}>View</Button>
+                  </TableCell>
+                </tr>
+              ))}
           </tbody>
         </Table>
       </TableContainer>
@@ -258,7 +278,7 @@ const EnquiryAdmissionForm = () => {
             <Step>
               <StepNumber active={step >= 3}>3</StepNumber>
               <StepLabel>
-                {formData.category === "product"
+                {formData.profile.category === "Product"
                   ? "Work Confirmation"
                   : "Admission"}
               </StepLabel>
@@ -275,7 +295,7 @@ const EnquiryAdmissionForm = () => {
                 <Input
                   type="text"
                   name="username"
-                  value={formData.name}
+                  value={formData.username}
                   onChange={handleChange}
                   required
                 />
@@ -284,16 +304,13 @@ const EnquiryAdmissionForm = () => {
                 <Label>Phone Number</Label>
                 <Input
                   type="text"
-                  name="phoneNumber"
-                  value={formData.phoneNumber}
+                  name="phone_number"
+                  value={formData.phone_number}
                   onChange={handleChange}
                   required
                 />
               </Column>
-              {/* <Column> */}
-              {/* <Label>Date of Birth</Label>
-                                <Input type="date" name="dateOfBirth" value={formData.dateOfBirth} onChange={handleChange} required /> */}
-              {/* </Column> */}
+
               <Column>
                 <Label>Email</Label>
                 <Input
@@ -357,16 +374,17 @@ const EnquiryAdmissionForm = () => {
               <Column>
                 <Label>Category</Label>
                 <Select
-                  name="category"
-                  value={formData.category}
+                  name="profile.category" // Use dot notation to match nested structure
+                  value={formData.profile.category}
                   onChange={handleChange}
                   required
                 >
                   <option value="">Please select</option>
-                  <option value="product">Product</option>
-                  <option value="student">Student</option>
+                  <option value="Product">Product</option>
+                  <option value="Student">Student</option>
                 </Select>
               </Column>
+
               <Column
                 style={{
                   display: "flex",
@@ -386,7 +404,7 @@ const EnquiryAdmissionForm = () => {
             </TwoColumnRow>
           )}
 
-          {step === 2 && formData.category === "product" && (
+          {step === 2 && formData.profile.category === "Product" && (
             <div>
               <Label>Product Requirement</Label>
               <Textarea
@@ -395,7 +413,7 @@ const EnquiryAdmissionForm = () => {
                 onChange={handleChange}
                 required
               />
-              <FollowupContainer>
+              {/* <FollowupContainer>
                 <Button type="button" onClick={addFollowup}>
                   Add Followup
                 </Button>
@@ -411,7 +429,7 @@ const EnquiryAdmissionForm = () => {
                     />
                   </FollowupRow>
                 ))}
-              </FollowupContainer>
+              </FollowupContainer> */}
               <Button type="button" onClick={prevStep}>
                 Previous
               </Button>
@@ -426,12 +444,12 @@ const EnquiryAdmissionForm = () => {
               </Button>
             </div>
           )}
-          {step === 2 && formData.category === "student" && (
+          {step === 2 && formData.profile.category === "Student" && (
             <div>
               <Label>Educational Qualification</Label>
               <Input
                 type="text"
-                name="educationalQualification"
+                name="profile.educationalQualification"
                 value={formData.educationalQualification}
                 onChange={handleChange}
                 required
@@ -440,7 +458,7 @@ const EnquiryAdmissionForm = () => {
               {/* <Input type="text" name="name" value={formData.name} readOnly /> */}
               <Input
                 type="text"
-                name="course"
+                name="profile.course"
                 value={formData.course}
                 onChange={handleChange}
                 required
@@ -477,7 +495,7 @@ const EnquiryAdmissionForm = () => {
               </Button>
             </div>
           )}
-          {step === 3 && formData.category === "product" && (
+          {step === 3 && formData.profile.category === "Product" && (
             <div>
               <Label>Confirm Date</Label>
               <Input
@@ -529,12 +547,12 @@ const EnquiryAdmissionForm = () => {
               </Button>
             </div>
           )}
-          {step === 3 && formData.category === "student" && (
+          {step === 3 && formData.profile.category === "Student" && (
             <div>
               <Label>Date of Birth</Label>
               <Input
                 type="date"
-                name="dateOfBirth"
+                name="dob"
                 value={formData.dateOfBirth}
                 onChange={handleChange}
                 required
@@ -543,7 +561,7 @@ const EnquiryAdmissionForm = () => {
               <Label>Date of Join</Label>
               <Input
                 type="date"
-                name="date"
+                name="profile.start_date"
                 value={formData.date}
                 onChange={handleChange}
                 required
@@ -551,7 +569,7 @@ const EnquiryAdmissionForm = () => {
               <Label>Last Date</Label>
               <Input
                 type="date"
-                name="lastDate"
+                name="profile.end_date"
                 value={formData.lastDate}
                 onChange={handleChange}
                 required
@@ -586,49 +604,49 @@ const EnquiryAdmissionForm = () => {
             <div>
               <Label>Payment Method</Label>
               <Select
-                name="paymentOption"
-                value={formData.paymentOption}
+                name="profile.payment"
+                value={formData.profile.payment}
                 onChange={handleChange}
                 required
               >
                 <option value="">Please select</option>
-                <option value="installment">Installment</option>
-                <option value="total">Total</option>
+                <option value="Installment">Installment</option>
+                <option value="Total Amount">Total</option>
               </Select>
-              {formData.paymentOption === "total" && (
+              {formData.profile.payment === "Total Amount" && (
                 <div>
                   <Label>Total Amount</Label>
                   <Input
                     type="text"
-                    name="totalAmount"
-                    value={formData.totalAmount}
+                    name="profile.total_amount"
+                    value={formData.profile.total_amount}
                     onChange={handleChange}
                     required
                   />
-                  <Label>Date</Label>
+                  <Label>Payment Date</Label>
                   <Input
                     type="date"
-                    name="totalDate"
+                    name="payment_date"
                     value={formData.totalDate}
                     onChange={handleChange}
                     required
                   />
                 </div>
               )}
-              {formData.paymentOption === "installment" && (
+              {formData.profile.payment === "installment" && (
                 <InstallmentContainer>
                   <Label>Number of Installments</Label>
                   <Input
                     type="number"
-                    name="installmentCount"
-                    value={formData.installmentCount}
+                    name="profile.no_of_installments"
+                    value={formData.profile.no_of_installments}
                     onChange={handleChange}
                     required
                   />
                   <Button type="button" onClick={addInstallment}>
                     Add Installment
                   </Button>
-                  {formData.installments.map((installment, index) => (
+                  {formData.profile.installments?.map((installment, index) => (
                     <InstallmentRow key={index}>
                       <Column>
                         <Label>Installment {index + 1} Amount</Label>

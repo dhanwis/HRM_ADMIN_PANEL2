@@ -28,8 +28,11 @@ export default class StaffLogin extends Component {
       try {
         let response = await axios.post(`${baseUrl}/stafflogin/`, values);
 
+        console.log("response.data.user.is_staff", response.data.user.is_staff);
+
         if (response.status === 200) {
-          this.props.enqueueSnackbar("HR Login success", {
+          console.log("true man");
+          enqueueSnackbar("Staff Login success", {
             variant: "success",
           });
           localStorage.setItem("is_staff", response.data.user.is_staff);
