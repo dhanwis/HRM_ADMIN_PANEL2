@@ -1,26 +1,13 @@
-/*!
-  =========================================================
-  * Muse Ant Design Dashboard - v1.0.0
-  =========================================================
-  * Product Page: https://www.creative-tim.com/product/muse-ant-design-dashboard
-  * Copyright 2021 Creative Tim (https://www.creative-tim.com)
-  * Licensed under MIT (https://github.com/creativetimofficial/muse-ant-design-dashboard/blob/main/LICENSE.md)
-  * Coded by Creative Tim
-  =========================================================
-  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 // import { useState } from "react";
-import { Menu, Button } from "antd";
+import { Menu } from "antd";
 import { NavLink, useLocation } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
 export default function SidenavStaff({ color }) {
   const { pathname } = useLocation();
   const page = pathname.replace("/", "");
 
- // const user = JSON.parse(localStorage.getItem('userData')) 
+  const user = JSON.parse(localStorage.getItem("staff"));
 
- // console.log(user);
   const dashboard = [
     <svg
       width="20"
@@ -134,24 +121,29 @@ export default function SidenavStaff({ color }) {
       key={0}
     >
       <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M8.224 14.886C8.053 14.723 7.818 14.636 7.584 14.636C7.35 14.636 7.115 14.723 6.944 14.886L2.003 19.625V0H0V20H19.984V0H17.982V19.625L8.224 14.886ZM6.584 13.047L4.546 11.009L3.263 12.292L6.584 15.614L16.176 6.019L14.893 4.736L6.584 13.047Z"
-    fill={color}
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M8.224 14.886C8.053 14.723 7.818 14.636 7.584 14.636C7.35 14.636 7.115 14.723 6.944 14.886L2.003 19.625V0H0V20H19.984V0H17.982V19.625L8.224 14.886ZM6.584 13.047L4.546 11.009L3.263 12.292L6.584 15.614L16.176 6.019L14.893 4.736L6.584 13.047Z"
+        fill={color}
       ></path>
     </svg>
   );
   const notes = (
-    <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" key={0}>
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      xmlns="http://www.w3.org/2000/svg"
+      key={0}
+    >
       {/* SVG path for notes icon */}
       <path
-    fill-rule="evenodd"
-    clip-rule="evenodd"
-    d="M15 2H5C3.89543 2 3 2.89543 3 4V16C3 17.1046 3.89543 18 5 18H15C16.1046 18 17 17.1046 17 16V6.414L15.586 5H15V2ZM5 4H13V6H5V4ZM13 8H7C6.44772 8 6 8.44772 6 9V10H8C8.55228 10 9 10.4477 9 11V13H11C11.5523 13 12 12.5523 12 12V11C12 10.4477 12.4477 10 13 10H14V9C14 8.44772 13.5523 8 13 8Z"
-    fill={color}
-  />
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M15 2H5C3.89543 2 3 2.89543 3 4V16C3 17.1046 3.89543 18 5 18H15C16.1046 18 17 17.1046 17 16V6.414L15.586 5H15V2ZM5 4H13V6H5V4ZM13 8H7C6.44772 8 6 8.44772 6 9V10H8C8.55228 10 9 10.4477 9 11V13H11C11.5523 13 12 12.5523 12 12V11C12 10.4477 12.4477 10 13 10H14V9C14 8.44772 13.5523 8 13 8Z"
+        fill={color}
+      />
     </svg>
-    
   );
 
   const signin = [
@@ -163,17 +155,14 @@ export default function SidenavStaff({ color }) {
       xmlns="http://www.w3.org/2000/svg"
       key={0}
     >
-  <path
-    fill-rule="evenodd"
-    clip-rule="evenodd"
-    d="M15 2H5C3.89543 2 3 2.89543 3 4V16C3 17.1046 3.89543 18 5 18H15C16.1046 18 17 17.1046 17 16V4C17 2.89543 16.1046 2 15 2ZM15 16H5V4H15V16ZM6 6H14V8H6V6ZM6 10H14V12H6V10ZM6 14H10V16H6V14Z"
-    fill={color}
-  />
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M15 2H5C3.89543 2 3 2.89543 3 4V16C3 17.1046 3.89543 18 5 18H15C16.1046 18 17 17.1046 17 16V4C17 2.89543 16.1046 2 15 2ZM15 16H5V4H15V16ZM6 6H14V8H6V6ZM6 10H14V12H6V10ZM6 14H10V16H6V14Z"
+        fill={color}
+      />
     </svg>,
   ];
-
-
-  
 
   const signup = [
     <svg
@@ -198,15 +187,19 @@ export default function SidenavStaff({ color }) {
   return (
     <>
       <div className="brand">
-        <img src={logo} alt="" style={{width:"100px",height:"100px", marginLeft:"20px"}} />
-        <div style={{marginLeft:"40px"}}>
-        <span>staff</span>
+        <img
+          src={logo}
+          alt=""
+          style={{ width: "100px", height: "100px", marginLeft: "20px" }}
+        />
+        <div style={{ marginLeft: "40px" }}>
+          <span>{user.username}</span>
         </div>
       </div>
       <hr />
       <Menu theme="light" mode="inline">
         <Menu.Item key="1">
-          <NavLink to="/staff/dashboard" style={{textDecoration:'none'}}>
+          <NavLink to="/staff/dashboard" style={{ textDecoration: "none" }}>
             <span
               className="icon"
               style={{
@@ -232,7 +225,7 @@ export default function SidenavStaff({ color }) {
           </NavLink>
         </Menu.Item> */}
         <Menu.Item key="3">
-          <NavLink to="/staff/leave" style={{textDecoration:'none'}}>
+          <NavLink to="/staff/leave" style={{ textDecoration: "none" }}>
             <span
               className="icon"
               style={{
@@ -245,7 +238,7 @@ export default function SidenavStaff({ color }) {
           </NavLink>
         </Menu.Item>
         <Menu.Item key="4">
-          <NavLink to="/staff/attendance" style={{textDecoration:'none'}}>
+          <NavLink to="/staff/attendance" style={{ textDecoration: "none" }}>
             <span
               className="icon"
               style={{
@@ -258,8 +251,11 @@ export default function SidenavStaff({ color }) {
           </NavLink>
         </Menu.Item>
         <Menu.Item key="5">
-          <NavLink to="/staff/notes" style={{textDecoration:'none'}}>
-            <span className="icon" style={{ background: page === 'notes' ? color : '' }}>
+          <NavLink to="/staff/notes" style={{ textDecoration: "none" }}>
+            <span
+              className="icon"
+              style={{ background: page === "notes" ? color : "" }}
+            >
               {notes}
             </span>
             <span className="label">Notes Sharing</span>
@@ -281,21 +277,21 @@ export default function SidenavStaff({ color }) {
         {/* <Menu.Item className="menu-item-header" key="5">
           Account Pages
         </Menu.Item> */}
-        
+
         <Menu.Item key="7">
-        <NavLink to="/staff/worksheet" style={{textDecoration:'none'}}>
+          <NavLink to="/staff/worksheet" style={{ textDecoration: "none" }}>
             <span className="icon">{signin}</span>
             <span className="label">Daily worksheet</span>
-        </NavLink>
+          </NavLink>
         </Menu.Item>
         <Menu.Item key="8">
-          <NavLink to="/staff/task" style={{textDecoration:'none'}}>
+          <NavLink to="/staff/task" style={{ textDecoration: "none" }}>
             <span className="icon">{signup}</span>
             <span className="label">Task Details</span>
           </NavLink>
         </Menu.Item>
         <Menu.Item key="6">
-          <NavLink to="/staff/profile" style={{textDecoration:'none'}}>
+          <NavLink to="/staff/profile" style={{ textDecoration: "none" }}>
             <span
               className="icon"
               style={{
@@ -329,5 +325,3 @@ export default function SidenavStaff({ color }) {
     </>
   );
 }
-
- 

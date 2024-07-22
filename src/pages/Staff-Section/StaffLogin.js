@@ -31,12 +31,12 @@ export default class StaffLogin extends Component {
         console.log("response.data.user.is_staff", response.data.user.is_staff);
 
         if (response.status === 200) {
-          console.log("true man");
           enqueueSnackbar("Staff Login success", {
             variant: "success",
           });
           localStorage.setItem("is_staff", response.data.user.is_staff);
           localStorage.setItem("authToken", response.data.token);
+          localStorage.setItem("staff", JSON.stringify(response.data.user));
           this.props.history.push("/staff/dashboard"); // Redirect to /admin/dashboard
         }
       } catch (error) {
