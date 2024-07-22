@@ -138,6 +138,7 @@ const EnquiryAdmissionForm = () => {
       fetch(`${baseUrl}/intern-reg/`, {
         method: "POST",
         body: JSON.stringify(newEnquiry),
+        headers: { "Content-Type": "application/json" },
       })
         .then((res) => res.json())
         .then((data) => console.log(data));
