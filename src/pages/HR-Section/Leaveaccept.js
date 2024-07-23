@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table, Button, Input, Avatar, Modal } from "antd";
+import { Table, Button, Input, Modal } from "antd";
 import "antd/dist/antd.css";
 import vector from "../../assets/images/vectorhr.png";
 import axios from "axios";
@@ -15,24 +15,32 @@ const LeaveRequest = () => {
 
   const token = localStorage.getItem("authToken");
 
+  // Initial setup: Filter out pending requests
+  useEffect(() => {
+    setFilteredRequests(
+      leaveRequests.filter((request) => request.status === "pending")
+    );
+  }, [leaveRequests]);
+
+  // Example function to fetch leave requests (initial data load)
   const fetchLeaveRequests = async () => {
     try {
-      let response = await axios.get(`${baseUrlHr}/leave/list/`, {
+      let response = await axios.get(`${baseUrlHr}/leave/requests/`, {
         headers: { Authorization: `Token ${token}` },
       });
-
-      console.log("response", response.data);
-
-      if (response.status === 200) {
-        setLeaveRequests(response.data);
-        setFilteredRequests(response.data);
-      }
+      setLeaveRequests(response.data);
+      setFilteredRequests(
+        response.data.filter((request) => request.status === "pending")
+      );
     } catch (error) {
-      console.error("Error fetching leave requests:", error);
+      console.error(
+        "Error fetching leave requests:",
+        error.response ? error.response.data : error.message
+      );
     }
   };
 
-  
+  // Fetch leave requests when component mounts
   useEffect(() => {
     fetchLeaveRequests();
   }, []);
@@ -47,24 +55,38 @@ const LeaveRequest = () => {
   const handleAction = async (id, action) => {
     console.log(`Leave request with ID ${id} ${action}.`);
 
-    let response = await axios.put(
-      `${baseUrlHr}/leave/update/${id}/`,
-      { status: action },
-      {
-        headers: { Authorization: `Token ${token}` },
-      }
-    );
-
-    if (response.status === 200) {
-      setLeaveRequests((prevRequests) =>
-        prevRequests.map((request) =>
-          request.id === id ? { ...request, status: action } : request
-        )
+    try {
+      let response = await axios.put(
+        `${baseUrlHr}/leave/update/${id}/`,
+        { status: action },
+        {
+          headers: { Authorization: `Token ${token}` },
+        }
       );
-      setFilteredRequests((prevRequests) =>
-        prevRequests.map((request) =>
-          request.id === id ? { ...request, status: action } : request
-        )
+
+      console.log("resforleave", response.data);
+
+      if (response.status === 200) {
+        // Update the main leave requests state
+        setLeaveRequests((prevRequests) =>
+          prevRequests.map((request) =>
+            request.id === id ? { ...request, status: action } : request
+          )
+        );
+
+        // Update the filtered requests state
+        setFilteredRequests((prevRequests) =>
+          prevRequests
+            .map((request) =>
+              request.id === id ? { ...request, status: action } : request
+            )
+            .filter((request) => request.status === "pending")
+        );
+      }
+    } catch (error) {
+      console.error(
+        "Error updating leave request:",
+        error.response ? error.response.data : error.message
       );
     }
   };

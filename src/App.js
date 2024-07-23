@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 
 import "antd/dist/antd.css";
@@ -16,6 +16,26 @@ import FrontRoutes from "./pages/frontoffice/frontRoutes.js";
 import TeamRoutes from "./pages/TeamLead-Section/TeamRoutes.js";
 
 function App() {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const observer = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        console.log("Size changed:", entry.contentRect);
+      }
+    });
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
+  }, []);
+  
   return (
     <div className="App">
       <Switch>

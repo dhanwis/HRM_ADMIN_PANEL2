@@ -25,21 +25,6 @@ const Taskform = () => {
   const [editingKey, setEditingKey] = useState(null);
   const token = localStorage.getItem("authToken");
 
-  useEffect(() => {
-    const savedData = JSON.parse(localStorage.getItem("submittedData")) || [];
-
-    // Convert date strings back to moment objects
-    savedData.forEach((item) => {
-      if (item.startDate) {
-        item.startDate = moment(item.startDate, "YYYY-MM-DD");
-      }
-      if (item.endDate) {
-        item.endDate = moment(item.endDate, "YYYY-MM-DD");
-      }
-    });
-    setSubmittedData(savedData);
-  }, []);
-
   //Team lead data fetching for assign task
   useEffect(() => {
     let fetchTeamLead = async () => {
@@ -48,8 +33,20 @@ const Taskform = () => {
           headers: { Authorization: `Token ${token}` },
         });
 
+        console.log("all teamleads", response.data);
+
         if (response.status === 200) {
           setTeamLeads(response.data);
+
+          let x = response.data?.forEach((item) => {
+            if (item.startDate) {
+              item.startDate = moment(item.startDate, "YYYY-MM-DD");
+            }
+            if (item.endDate) {
+              item.endDate = moment(item.endDate, "YYYY-MM-DD");
+            }
+          });
+          setSubmittedData(x);
         }
       } catch (error) {
         console.error("Error due to", error);
@@ -67,6 +64,8 @@ const Taskform = () => {
           headers: { Authorization: `Token ${token}` },
         });
 
+        console.log("fetchtem", response);
+
         if (response.status === 200) {
           setSubmittedData(response.data);
         }
@@ -79,33 +78,43 @@ const Taskform = () => {
     fetchTeamLead();
   }, [token]);
 
-  const onFinish = async (values) => {
-    // console.log("vale", values);
-    // const key = Date.now();
-    // const newData = {
-    //   ...values,
-    //   key,
-    //   startDate: moment(values.startDate).format("YYYY-MM-DD"), // Convert moment object to string
-    //   endDate: moment(values.endDate).format("YYYY-MM-DD"), // Convert moment object to string
-    // };
-    // setSubmittedData([...submittedData, newData]);
-    // form.resetFields();
-    // const updatedData = [...submittedData, newData];
-    // localStorage.setItem("submittedData", JSON.stringify(updatedData));
-    // console.log("Updated Data:", updatedData);
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
 
+  const deleteRecord = async (key) => {
+    try {
+      let x = await axios.delete(`${baseUrlHr}/teamleadassign/${key}`, {
+        headers: { Authorization: `Token ${token}` },
+      });
+
+      if (x.status === 200) {
+        setSubmittedData((prevData) =>
+          prevData.filter((item) => item.id !== key)
+        );
+        setEditingKey(null);
+      }
+    } catch (error) {
+      console.error(
+        "Error deleting record:",
+        error.response ? error.response.data : error.message
+      );
+    }
+  };
+
+  const onFinish = async (formValues) => {
     try {
       const values = await form.validateFields();
 
       // Convert the date format
-      if (values.startdate || values.enddate) {
+      if (values.startdate) {
         const startdate = new Date(values.startdate);
-        const formattedDate1 = startdate.toISOString().split("T")[0]; // YYYY-MM-DD
-        values.startdate = formattedDate1;
+        values.startdate = startdate.toISOString().split("T")[0]; // YYYY-MM-DD
+      }
 
+      if (values.enddate) {
         const enddate = new Date(values.enddate);
-        const formattedDate2 = enddate.toISOString().split("T")[0]; // YYYY-MM-DD
-        values.enddate = formattedDate2;
+        values.enddate = enddate.toISOString().split("T")[0]; // YYYY-MM-DD
       }
 
       const response = await axios.post(
@@ -113,17 +122,18 @@ const Taskform = () => {
         values,
         {
           headers: {
-            "Content-Type": "application/json", // Ensure this header is set for FormData
+            "Content-Type": "application/json",
             Authorization: `Token ${token}`,
           },
         }
       );
 
       if (response.status === 201) {
-        // onCreate(response.data.user);
         console.log("response data", response.data);
         message.success("Task created successfully!");
-        setSubmittedData([...submittedData, response.data]);
+
+        // Ensure submittedData is updated correctly as an array
+        setSubmittedData((prevData) => [...prevData, response.data]);
         form.resetFields();
       } else {
         message.error("Failed to create user. Please try again later.");
@@ -141,27 +151,26 @@ const Taskform = () => {
     }
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
+  const edit = async (key) => {
+    let x = await axios.patch(
+      `${baseUrlHr}/teamleadupdate/${key}`,
+      {},
+      {
+        headers: { Authorization: `Token ${token}` },
+      }
+    );
 
-  const deleteRecord = (key) => {
-    const newData = submittedData.filter((item) => item.key !== key);
-    setSubmittedData(newData);
-    setEditingKey(null);
-    localStorage.setItem("submittedData", JSON.stringify(newData));
-  };
+    if (x.status === 200) {
+      setEditingKey(key);
+      submittedData.find((record) => record.user === key);
 
-  const edit = (key) => {
-    setEditingKey(key);
-    const recordToEdit = submittedData.find((record) => record.key === key);
+      // Convert date strings to moment objects before setting form fields
+      const initialValues = { ...x.data };
+      initialValues.startdate = moment(x.data.startdate);
+      initialValues.enddate = moment(x.data.enddate);
 
-    // Convert date strings to moment objects before setting form fields
-    const initialValues = { ...recordToEdit };
-    initialValues.startDate = moment(recordToEdit.startDate);
-    initialValues.endDate = moment(recordToEdit.endDate);
-
-    form.setFieldsValue(initialValues);
+      form.setFieldsValue(initialValues);
+    }
   };
 
   const save = async (key) => {
@@ -244,12 +253,12 @@ const Taskform = () => {
           </span>
         ) : (
           <span>
-            <Button type="link" onClick={() => edit(record.key)}>
+            <Button type="link" onClick={() => edit(record.id)}>
               Edit
             </Button>
             <Popconfirm
               title="Sure to delete?"
-              onConfirm={() => deleteRecord(record.key)}
+              onConfirm={() => deleteRecord(record.id)}
             >
               <Button type="link">Delete</Button>
             </Popconfirm>

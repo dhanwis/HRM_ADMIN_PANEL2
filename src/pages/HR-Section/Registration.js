@@ -13,7 +13,7 @@ import {
 import "antd/dist/antd.css";
 import vector from "../../assets/images/vectorhr.png";
 import axios from "axios";
-import { baseUrl, baseUrlImg } from "../../url";
+import { baseUrl, baseUrlHr, baseUrlImg } from "../../url";
 
 const EmployeeRegistrationForm = () => {
   const [employees, setEmployees] = useState([]);
@@ -52,7 +52,7 @@ const EmployeeRegistrationForm = () => {
   useEffect(() => {
     console.log(employees.length);
     if (employees.length === 0) {
-      fetch(`${baseUrl}/Teamlead/`, {
+      fetch(`${baseUrl}/users/`, {
         method: "GET",
       })
         .then((response) => response.json())
@@ -138,9 +138,6 @@ const EmployeeRegistrationForm = () => {
           >
             Edit
           </Button>
-          {/* <Button style={{ marginLeft: 8 }} onClick={() => toggleEmployeeStatus(record.id)}>
-            {record.enabled ? 'Disable' : 'Enable'}
-          </Button> */}
         </span>
       ),
     },
