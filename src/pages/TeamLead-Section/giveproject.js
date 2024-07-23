@@ -1,8 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { Table, Typography, Input, DatePicker, Button, Modal, Form, Row, Col, Select, message } from "antd";
+import {
+  Table,
+  Typography,
+  Input,
+  DatePicker,
+  Button,
+  Modal,
+  Form,
+  Row,
+  Col,
+  Select,
+} from "antd";
 import axios from "axios";
 import moment from "moment";
 import projectbg from "../../assets/images/vectorteam5.png";
+import { baseUrl, baseUrlHr } from "../../url";
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -15,27 +27,39 @@ function Giveproject() {
   const [form] = Form.useForm();
   const [editingRow, setEditingRow] = useState(null);
 
+  const token = localStorage.getItem("authToken");
+
   useEffect(() => {
     // Fetch employees from the staff database
-    axios.get("https://fakestoreapi.com/products")
+    axios
+      .get(`${baseUrl}/Staff/`, {
+        headers: { Authorization: `Token ${token}` },
+      })
       .then((response) => {
-        setEmployees(response.data);
+        console.log(response);
+        if (response.status === 200) {
+          setEmployees(response.data);
+        }
       })
       .catch((error) => {
         console.error("There was an error fetching the employees!", error);
       });
 
     // Fetch customer details from the backend
-    axios.get("https://your-backend-api.com/customer-details")
+    axios
+      .get("https://your-backend-api.com/customer-details")
       .then((response) => {
-        const fetchedData = response.data.map(item => ({
+        const fetchedData = response.data.map((item) => ({
           ...item,
           status: item.status || "Pending", // Default status to "Pending" if not provided
         }));
         setCustomerDetails(fetchedData);
       })
       .catch((error) => {
-        console.error("There was an error fetching the customer details!", error);
+        console.error(
+          "There was an error fetching the customer details!",
+          error
+        );
       });
   }, []);
 
@@ -44,28 +68,41 @@ function Giveproject() {
   };
 
   const handleOk = () => {
-    form.validateFields().then((values) => {
-      if (editingRow) {
-        const updatedData = customerDetails.map((item) =>
-          item.id === editingRow.id ? { ...item, ...values } : item
-        );
-        setCustomerDetails(updatedData);
-        setEditingRow(null);
-      } else {
-        const newCustomer = {
-          id: customerDetails.length + 1,
-          ...values,
-          projectDate: moment(values.projectDate),
-          deadline: moment(values.deadline),
-          status: "Pending", // Set default status to "Pending"
-        };
-        setCustomerDetails([...customerDetails, newCustomer]);
-      }
-      setIsModalVisible(false);
-      form.resetFields();
-    }).catch((errorInfo) => {
-      console.log('Validate Failed:', errorInfo);
-    });
+    console.log("hai");
+    form
+      .validateFields()
+      .then((values) => {
+        if (editingRow) {
+          const updatedData = customerDetails.map((item) =>
+            item.id === editingRow.id ? { ...item, ...values } : item
+          );
+          setCustomerDetails(updatedData);
+          setEditingRow(null);
+        } else {
+          const newCustomer = {
+            id: customerDetails.length + 1,
+            ...values,
+            projectDate: moment(values.projectDate),
+            deadline: moment(values.deadline),
+            status: "Pending", // Set default status to "Pending"
+          };
+          axios
+            .post(`${baseUrlHr}/projectassign/`, newCustomer, {
+              headers: { Authorization: `Token ${token}` },
+            })
+            .then((res) => {
+              console.log(res);
+              if (res.status === 201) {
+                //setCustomerDetails([...customerDetails, newCustomer]);
+              }
+            });
+        }
+        setIsModalVisible(false);
+        form.resetFields();
+      })
+      .catch((errorInfo) => {
+        console.log("Validate Failed:", errorInfo);
+      });
   };
 
   const handleCancel = () => {
@@ -74,7 +111,9 @@ function Giveproject() {
   };
 
   const handleDelete = () => {
-    const filteredData = customerDetails.filter((item) => !selectedRowKeys.includes(item.id));
+    const filteredData = customerDetails.filter(
+      (item) => !selectedRowKeys.includes(item.id)
+    );
     setCustomerDetails(filteredData);
     setSelectedRowKeys([]);
   };
@@ -84,7 +123,7 @@ function Giveproject() {
     form.setFieldsValue({
       ...record,
       projectDate: moment(record.projectDate),
-      deadline: moment(record.deadline)
+      deadline: moment(record.deadline),
     });
     showModal();
   };
@@ -103,9 +142,10 @@ function Giveproject() {
       key: "projectName",
       editable: true,
     },
+
     {
       title: "Employee Name",
-      dataIndex: "employeeName",
+      dataIndex: "username",
       key: "employeeName",
       editable: true,
     },
@@ -131,7 +171,9 @@ function Giveproject() {
       title: "Action",
       key: "action",
       render: (text, record) => (
-        <Button type="primary" onClick={() => handleEdit(record)}>Edit</Button>
+        <Button type="primary" onClick={() => handleEdit(record)}>
+          Edit
+        </Button>
       ),
     },
   ];
@@ -142,59 +184,85 @@ function Giveproject() {
         <Title level={5}>Assign Project</Title>
         <Row justify="space-between" align="middle">
           <Col>
-            <Button type="primary" onClick={showModal} style={{ marginBottom: 16 }}>
+            <Button
+              type="primary"
+              onClick={showModal}
+              style={{ marginBottom: 16 }}
+            >
               Assign project
             </Button>
           </Col>
           <Col>
-            <Button type="danger" onClick={handleDelete} style={{ marginBottom: 16, marginLeft: 16 }}>
+            <Button
+              type="danger"
+              onClick={handleDelete}
+              style={{ marginBottom: 16, marginLeft: 16 }}
+            >
               Delete Selected
             </Button>
           </Col>
         </Row>
-        <Modal title={editingRow ? "Edit Customer" : "Add Customer"} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+        <Modal
+          title={editingRow ? "Edit Customer" : "Add Customer"}
+          visible={isModalVisible}
+          onOk={handleOk}
+          onCancel={handleCancel}
+        >
           <Form form={form} layout="vertical">
-            <Form.Item 
-              name="projectName" 
-              label="Project Name" 
+            <Form.Item
+              name="projectName"
+              label="Project Name"
               rules={[
                 { required: true, message: "Please enter project name" },
-                { min: 3, message: "Project name must be at least 3 characters" }
+                {
+                  min: 3,
+                  message: "Project name must be at least 3 characters",
+                },
               ]}
             >
               <Input />
             </Form.Item>
-            <Form.Item 
-              name="employeeName" 
-              label="Employee Name" 
-              rules={[{ required: true, message: "Please select employee name" }]}
+
+            <Form.Item
+              name="guide_name"
+              label="Employee Name"
+              rules={[
+                { required: true, message: "Please select employee name" },
+              ]}
             >
               <Select placeholder="Select an employee">
                 {employees.map((employee) => (
-                  <Option key={employee.id} value={employee.title}>
-                    {employee.title}
+                  <Option key={employee.id} value={employee.username}>
+                    {employee.username}
                   </Option>
                 ))}
               </Select>
             </Form.Item>
-            <Form.Item 
-              name="projectDate" 
-              label="Project Date" 
-              rules={[{ required: true, message: "Please select project date" }]}
+            <Form.Item
+              name="projectdate"
+              label="Project Date"
+              rules={[
+                { required: true, message: "Please select project date" },
+              ]}
             >
               <DatePicker />
             </Form.Item>
-            <Form.Item 
-              name="deadline" 
-              label="Deadline" 
+            <Form.Item
+              name="deadline"
+              label="Deadline"
               rules={[
                 { required: true, message: "Please select deadline" },
                 ({ getFieldValue }) => ({
                   validator(_, value) {
-                    if (!value || moment(value).isAfter(getFieldValue('projectDate'))) {
+                    if (
+                      !value ||
+                      moment(value).isAfter(getFieldValue("projectDate"))
+                    ) {
                       return Promise.resolve();
                     }
-                    return Promise.reject(new Error('Deadline should be after project date'));
+                    return Promise.reject(
+                      new Error("Deadline should be after project date")
+                    );
                   },
                 }),
               ]}
@@ -203,7 +271,7 @@ function Giveproject() {
             </Form.Item>
           </Form>
         </Modal>
-        <div style={{ overflowX: 'auto' }}>
+        <div style={{ overflowX: "auto" }}>
           <Table
             dataSource={customerDetails}
             columns={columns}
