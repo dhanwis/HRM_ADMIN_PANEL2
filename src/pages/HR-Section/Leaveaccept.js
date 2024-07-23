@@ -18,19 +18,20 @@ const LeaveRequest = () => {
   // Initial setup: Filter out pending requests
   useEffect(() => {
     setFilteredRequests(
-      leaveRequests.filter((request) => request.status === "pending")
+      leaveRequests.filter((request) => request.status === "Pending")
     );
   }, [leaveRequests]);
 
   // Example function to fetch leave requests (initial data load)
   const fetchLeaveRequests = async () => {
     try {
-      let response = await axios.get(`${baseUrlHr}/leave/requests/`, {
+      let response = await axios.get(`${baseUrlHr}/leave/list/`, {
         headers: { Authorization: `Token ${token}` },
       });
+      console.log(response);
       setLeaveRequests(response.data);
       setFilteredRequests(
-        response.data.filter((request) => request.status === "pending")
+        response.data.filter((request) => request.status === "Pending")
       );
     } catch (error) {
       console.error(
@@ -80,7 +81,7 @@ const LeaveRequest = () => {
             .map((request) =>
               request.id === id ? { ...request, status: action } : request
             )
-            .filter((request) => request.status === "pending")
+            .filter((request) => request.status === "Pending")
         );
       }
     } catch (error) {

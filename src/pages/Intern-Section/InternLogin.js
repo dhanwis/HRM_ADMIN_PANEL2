@@ -44,6 +44,7 @@ export default class StaffLogin extends Component {
           localStorage.setItem("authToken", response.data.token);
           this.props.history.push("/intern/dashboard"); // Redirect to /admin/dashboard
         }
+        
       } catch (error) {
         if (error.response) {
           // The request was made and the server responded with a status code that falls out of the range of 2xx

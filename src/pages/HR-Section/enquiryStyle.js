@@ -143,6 +143,31 @@ export const Button = styled.button`
   }
 `;
 
+
+export const ButtonDlt = styled.button`
+  padding: 10px 20px;
+  margin: 10px 5px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+
+  ${({ primary }) =>
+    primary
+      ? `
+        background-color: #4caf50;
+        color: white;
+    `
+      : `
+        background-color: #ff0000 ;
+        color: white;
+    `}
+
+  &:hover {
+    opacity: 0.9;
+  }
+`;
+
 export const StepIndicators = styled.div`
   display: flex;
   justify-content: space-around;

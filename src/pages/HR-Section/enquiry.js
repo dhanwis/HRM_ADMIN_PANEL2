@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
+  ButtonDlt,
   Column,
   Form,
   FormContainer,
@@ -21,7 +22,6 @@ import {
   Title,
   TwoColumnRow,
 } from "./enquiryStyle";
-import axios from "axios";
 import { baseUrl } from "../../url";
 
 const EnquiryAdmissionForm = () => {
@@ -45,7 +45,7 @@ const EnquiryAdmissionForm = () => {
       category: "",
       payment: "",
       total_amount: "",
-      payment_date:"",
+      payment_date: "",
       no_of_installments: 0,
       installments: [
         { amount: "", date: "" },
@@ -162,7 +162,6 @@ const EnquiryAdmissionForm = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(newEnquiry),
-        headers: { "Content-Type": "application/json" },
       })
         .then((res) => res.json())
         .then((data) => console.log(data));
@@ -171,6 +170,31 @@ const EnquiryAdmissionForm = () => {
     setShowForm(false);
     resetForm();
   };
+
+  const getEnquiries = async () => {
+    try {
+      const response = await fetch(`${baseUrl}/intern-reg/`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch enquiries");
+      }
+
+      const data = await response.json();
+      console.log('data',data)
+      setEnquiries(data);
+    } catch (error) {
+      console.error("Error fetching enquiries:", error.message);
+    }
+  };
+
+  useEffect(() => {
+    getEnquiries();
+  }, []);
 
   const handleSave = () => {
     if (currentEnquiry) {
@@ -195,6 +219,10 @@ const EnquiryAdmissionForm = () => {
     setFormData(enquiry);
     setCurrentEnquiry(enquiry);
     setShowForm(true);
+  };
+
+  const handleDelete = (index) => {
+    console.log("index", index);
   };
 
   const resetForm = () => {
@@ -245,7 +273,8 @@ const EnquiryAdmissionForm = () => {
               <TableHeader>Name</TableHeader>
               <TableHeader>Phone Number</TableHeader>
               <TableHeader>Category</TableHeader>
-              <TableHeader>Action</TableHeader>
+              <TableHeader>View</TableHeader>
+              <TableHeader>Delete</TableHeader>
             </tr>
           </thead>
           <tbody>
@@ -257,6 +286,12 @@ const EnquiryAdmissionForm = () => {
                   <TableCell>{enquiry.profile.category}</TableCell>
                   <TableCell>
                     <Button onClick={() => handleView(index)}>View</Button>
+                  </TableCell>
+
+                  <TableCell>
+                    <ButtonDlt onClick={() => handleDelete(index)}>
+                      Delete
+                    </ButtonDlt>
                   </TableCell>
                 </tr>
               ))}
