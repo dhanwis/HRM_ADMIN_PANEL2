@@ -59,11 +59,55 @@ const Tables = () => {
     setFilter(e.target.value);
   };
 
+
+  const handleStart = async (taskId, status) => {
+    let response = await axios.patch(
+      `${baseUrlHr}/studentassign/${taskId}/update-status/`,
+      { action: status },
+      { headers: { Authorization: `Token ${token}` } }
+    );
+
+    console.log("response when start", response);
+
+    if (response.status === 200) {
+      const updatedTasksData = tasksData.map((task) => {
+        if (task.id === taskId) {
+          return { ...task, status: "In Progress" };
+        }
+        return task;
+      });
+      console.log('taskdata',tasksData)
+      setTasksData(updatedTasksData);
+    }
+  };
+
+  const handleFinish = async (taskId, status) => {
+    let response = await axios.patch(
+      `${baseUrlHr}/studentassign/${taskId}/update-status/`,
+      { action: status },
+      { headers: { Authorization: `Token ${token}` } }
+    );
+
+    console.log("response when start", response);
+
+    if (response.status === 200) {
+      const updatedTasksData = tasksData.map((task) => {
+        if (task.id === taskId) {
+          return { ...task, status: "In Progress" };
+        }
+        return task;
+      });
+      console.log('taskdata',tasksData)
+      setTasksData(updatedTasksData);
+    }
+  };
+
+
   const filteredTasksData = tasksData.filter((task) => {
     if (filter === "all") return true;
     if (filter === "Pending") return task.status === "Pending";
     if (filter === "In progress") return task.status === "In progress";
-    if (filter === "Complete") return task.status === "Complete";
+    if (filter === "Complete") return task.status === "Completed";
     return true;
   });
 
@@ -104,7 +148,7 @@ const Tables = () => {
           <Button
             type="warning"
             onClick={() => handleFinish(record.id, "end")}
-            disabled={record.status === "In Progress"}
+            disabled={record.status === "Completed"}
           >
             Finish
           </Button>
@@ -113,46 +157,7 @@ const Tables = () => {
     },
   ];
 
-  const handleStart = async (taskId, status) => {
-    let response = await axios.patch(
-      `${baseUrlHr}/studentassign/${taskId}/update-status/`,
-      { action: status },
-      { headers: { Authorization: `Token ${token}` } }
-    );
-
-    console.log("response when start", response);
-
-    if (response.status === 200) {
-      const updatedTasksData = tasksData.map((task) => {
-        if (task.id === taskId) {
-          return { ...task, status: "In Progress" };
-        }
-        return task;
-      });
-      setTasksData(updatedTasksData);
-    }
-  };
-
-  const handleFinish = async (taskId, status) => {
-    let response = await axios.patch(
-      `${baseUrlHr}/studentassign/${taskId}/update-status/`,
-      { action: status },
-      { headers: { Authorization: `Token ${token}` } }
-    );
-
-    console.log("response when start", response);
-
-    if (response.status === 200) {
-      const updatedTasksData = tasksData.map((task) => {
-        if (task.id === taskId) {
-          return { ...task, status: "In Progress" };
-        }
-        return task;
-      });
-      setTasksData(updatedTasksData);
-    }
-  };
-
+  
   return (
     <div style={{ backgroundImage: `url(${vector})`, height: "700px" }}>
       <div className="container mt-5">

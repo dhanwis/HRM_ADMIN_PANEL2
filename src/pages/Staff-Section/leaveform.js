@@ -60,7 +60,6 @@ const LeaveFormStaff = () => {
       setSubmittedRequests(updatedRequests);
     }
 
-    //  localStorage.setItem("submittedLeaves", JSON.stringify(updatedRequests));
     form.resetFields();
   };
 

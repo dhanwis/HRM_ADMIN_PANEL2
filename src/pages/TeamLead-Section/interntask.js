@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Table,
   Typography,
@@ -15,6 +15,7 @@ import moment from "moment";
 import axios from "axios";
 import internbgg from "../../assets/images/vectorteam5.png";
 import { baseUrl, baseUrlHr } from "../../url";
+import "./interntask.css";
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -50,7 +51,7 @@ function StudentTasks() {
   }, [token]);
 
   useEffect(() => {
-    //setting students
+    // Setting students
     axios
       .get(`${baseUrl}/intern-reg/`)
       .then((response) => {
@@ -62,25 +63,19 @@ function StudentTasks() {
         console.error("There was an error fetching the employees!", error);
       });
 
-    //fetching task
+    // Fetching tasks
     axios
       .get(`${baseUrlHr}/studentassign/`, {
         headers: { Authorization: `Token ${token}` },
       })
       .then((response) => {
         if (response.status === 200) {
-          if (editTaskId !== null) {
-            const updatedTaskList = taskDetails.map((task) =>
-              task.id === editTaskId ? response.data : task
-            );
-            setTaskDetails(updatedTaskList);
-          } else {
-            setTaskDetails([...taskDetails, response.data]);
-          }
+          setTaskDetails(response.data); // Directly set the response data
+          console.log("Tasks", response.data); // Verify the fetched data
         }
       })
       .catch((error) => {
-        console.error("There was an error fetching the employees!", error);
+        console.error("There was an error fetching the tasks!", error);
       });
   }, []);
 
@@ -149,27 +144,32 @@ function StudentTasks() {
     form.resetFields();
   };
 
-  const handleDelete = () => {
-    const filteredData = taskDetails.filter(
-      (item) => !selectedRowKeys.includes(item.id)
-    );
-    setTaskDetails(filteredData);
-    setSelectedRowKeys([]);
+  const handleDelete = async (id) => {
+    console.log("id", id);
+    let res = await axios.delete(`${baseUrlHr}/studentassigndelete/${id}/`, {
+      headers: { Authorization: `Token ${token}` },
+    });
+
+    if (res.status === 200) {
+      console.log(res.data);
+      const filteredData = taskDetails.filter((item) => item.id !== id);
+      setTaskDetails(filteredData);
+    }
   };
 
-  const handleEdit = (record) => {
-    setEditTaskId(record.id);
-    form.setFieldsValue({
-      student_name: record.student_name,
-      task_name: record.task_name,
-      task_details: record.task_details,
-      guide_name: record.guide_name,
-      time_slot: record.time_slot,
-      start_date: moment(record.start_date),
-      end_date: moment(record.end_date),
-    });
-    showModal();
-  };
+  // const handleEdit = (record) => {
+  //   setEditTaskId(record.id);
+  //   form.setFieldsValue({
+  //     student_name: record.student_name,
+  //     task_name: record.task_name,
+  //     task_details: record.task_details,
+  //     guide_name: record.guide_name,
+  //     time_slot: record.time_slot,
+  //     start_date: moment(record.start_date),
+  //     end_date: moment(record.end_date),
+  //   });
+  //   showModal();
+  // };
 
   const updateStatus = (record, newStatus) => {
     const updatedTaskList = taskDetails.map((task) =>
@@ -178,12 +178,14 @@ function StudentTasks() {
     setTaskDetails(updatedTaskList);
   };
 
-  const rowSelection = {
-    selectedRowKeys,
-    onChange: (selectedKeys) => {
-      setSelectedRowKeys(selectedKeys);
-    },
-  };
+  // const rowSelection = {
+  //   selectedRowKeys,
+  //   onChange: (selectedKeys) => {
+  //     setSelectedRowKeys(selectedKeys);
+  //   },
+  // };
+
+  // console.log('rowselect',rowSelection)
 
   const columns = [
     {
@@ -239,9 +241,19 @@ function StudentTasks() {
       title: "Action",
       key: "action",
       render: (text, record) => (
-        <Button type="link" onClick={() => handleEdit(record)}>
-          Edit
-        </Button>
+        <React.Fragment>
+          {/* <Button type="link" onClick={() => handleEdit(record)}>
+            Edit
+          </Button> */}
+
+          <Button
+            type="primary"
+            className="ant-btn-primary"
+            onClick={() => handleDelete(record.id)}
+          >
+            Delete
+          </Button>
+        </React.Fragment>
       ),
     },
   ];
@@ -260,15 +272,15 @@ function StudentTasks() {
               Assign Task
             </Button>
           </Col>
-          <Col>
+          {/* <Col>
             <Button
               type="danger"
-              onClick={handleDelete}
+              onClick={() => handleDelete}
               style={{ marginBottom: 16, marginLeft: 16 }}
             >
               Delete Selected
             </Button>
-          </Col>
+          </Col> */}
         </Row>
         <Modal
           title={editTaskId !== null ? "Edit Task" : "Add Task"}
@@ -386,10 +398,10 @@ function StudentTasks() {
             columns={columns}
             pagination={false}
             rowKey="id"
-            rowSelection={{
-              type: "checkbox",
-              ...rowSelection,
-            }}
+            // rowSelection={{
+            //   type: "checkbox",
+            //   ...rowSelection,
+            // }}
           />
         </div>
       </div>
