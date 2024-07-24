@@ -29,17 +29,7 @@ export default function SidenavFront({ color }) {
       label: "CallSheet",
       link: "/frontoffice/CallSheet",
     },
-    // {
-    //   key: "quotation",
-    //   icon: <FileOutlined />,
-    //   label: "Quotation",
-    //   subMenu: [
-    //     {
-    //       key: "digital_marketing",
-    //       label: "Digital Marketing",
-    //       icon: <LaptopOutlined />,
-    //       link: "/frontoffice/digitalmarket/quotation",
-    //     },
+    
         {
           key: "webapp_development",
           label: "Quotation",
@@ -54,30 +44,19 @@ export default function SidenavFront({ color }) {
       label: "Leave Application",
       link: "/frontoffice/OfficeLeaveForm",
     },
-    {
-      key: "Enquiry",
-      icon: <ScheduleOutlined />,
-      label: "Enquiry",
-      link: "/frontoffice/Enquiry",
-    },
+    // {
+    //   key: "Enquiry",
+    //   icon: <ScheduleOutlined />,
+    //   label: "Enquiry",
+    //   link: "/frontoffice/Enquiry",
+    // },
     {
       key: "confirmed_details",
       icon: <SolutionOutlined />,
       label: "Confirmed Details",
       link: "/frontoffice/Customerdetails",
     },
-    // {
-    //   key: "payment_details",
-    //   icon: <SolutionOutlined />,
-    //   label: "Payment Details",
-    //   link: "/frontoffice/PaymentDetailsPage",
-    // },
-    // {
-    //   key: "InternRegistration",
-    //   icon: <SolutionOutlined />,
-    //   label: "Intern Registration",
-    //   link: "/frontoffice/internRegistration",
-    // },
+    
     {
       key: "profile",
       icon: <UserOutlined />,

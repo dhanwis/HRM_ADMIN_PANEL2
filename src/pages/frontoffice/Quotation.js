@@ -3,8 +3,12 @@ import { Container, Form, Button, Table, Row, Col } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import bg from "../../assets/images/bgvector.png";
+import axios from "axios";
+import { baseUrlHr } from "../../url";
+import moment from "moment";
 
 const Quotation = () => {
+  const token = localStorage.getItem("authToken");
   const [companyName, setCompanyName] = useState("");
   const [introduction, setIntroduction] = useState("");
   const [contact, setContact] = useState("");
@@ -31,10 +35,22 @@ const Quotation = () => {
   }, [packageAmount, gstRate]);
 
   useEffect(() => {
-    const storedQuotations = localStorage.getItem("quotations");
-    if (storedQuotations) {
-      setQuotations(JSON.parse(storedQuotations));
-    }
+    const fetchQuotations = async () => {
+      let y = await axios.get(`${baseUrlHr}/frontoffice/quotationcreate/`, {
+        headers: { Authorization: `Token ${token}` },
+      });
+
+      console.log(y);
+
+      if (y.status === 200) {
+        console.log("data useeff", y.data);
+        setQuotations(y.data);
+        console.log("sdquotations", quotations);
+        setShowForm(false); // Hide form after submission
+      }
+    };
+
+    fetchQuotations();
   }, []);
 
   useEffect(() => {
@@ -104,37 +120,65 @@ const Quotation = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!validateForm()) return;
 
     const formData = {
       id: quotations.length + 1,
-      companyName,
+      company_name: companyName,
       introduction,
-      contact,
-      customerName,
-      quotationType,
-      addon,
-      expiredOn,
-      strategyData,
-      packageAmount,
-      gstAmount,
-      totalAmount,
+      customer_name: customerName,
+      quatation_type: quotationType,
+      add_on: moment(addon).format("YYYY-MM-DD"),
+      expired_on: moment(expiredOn).format("YYYY-MM-DD"),
+      gst_amount: gstAmount,
+      total_amount: totalAmount,
     };
-    setQuotations([...quotations, formData]);
-    setShowForm(false); // Hide form after submission
+
+    console.log(formData);
+
+    try {
+      const response = await axios.post(
+        `${baseUrlHr}/frontoffice/quotationcreate/`,
+        formData,
+        { headers: { Authorization: `Token ${token}` } }
+      );
+
+      if (response.status === 201) {
+        setQuotations((prevQuotations) => [...prevQuotations, response.data]);
+        setShowForm(false); // Hide form after submission
+      } else {
+        console.error("Failed to create quotation:", response);
+      }
+    } catch (error) {
+      console.error("Error submitting quotation:", error);
+    }
   };
 
+  // frontoffice/quotationcreate/
+
   const handleViewQuotation = (id) => {
+    console.log("quId", id);
     const quotation = quotations.find((q) => q.id === id);
+    console.log("quaationsfind", quotation);
     setViewingQuotation(quotation);
   };
 
-  const handleDeleteQuotation = (id) => {
-    const updatedQuotations = quotations.filter((q) => q.id !== id);
-    setQuotations(updatedQuotations);
-    setViewingQuotation(null);
+  const handleDeleteQuotation = async (id) => {
+    let response = await axios.delete(
+      `${baseUrlHr}/frontoffice/quotationdelete/${id}/`,
+      { headers: { Authorization: `Token ${token}` } }
+    );
+
+    console.log(response);
+
+    if (response.status === 200) {
+      const updatedQuotations = quotations.filter((q) => q.id !== id);
+      setQuotations(updatedQuotations);
+      setViewingQuotation(null);
+    }
   };
 
   const handlePrint = () => {
@@ -192,23 +236,23 @@ const Quotation = () => {
           <h1>Quotation</h1>
           <div class="field-container">
             <p class="field-name">Company Name:</p>
-            <p>${viewingQuotation.companyName}</p>
+            <p>${viewingQuotation.company_name}</p>
           </div>
           <div class="field-container">
             <p class="field-name">Customer Name:</p>
-            <p>${viewingQuotation.customerName}</p>
+            <p>${viewingQuotation.customer_name}</p>
           </div>
           <div class="field-container">
             <p class="field-name">Quotation Type:</p>
-            <p>${viewingQuotation.quotationType}</p>
+            <p>${viewingQuotation.quatation_type}</p>
           </div>
           <div class="field-container">
             <p class="field-name">Addon:</p>
-            <p>${new Date(viewingQuotation.addon).toDateString()}</p>
+            <p>${new Date(viewingQuotation.add_on).toDateString()}</p>
           </div>
           <div class="field-container">
             <p class="field-name">Expired On:</p>
-            <p>${new Date(viewingQuotation.expiredOn).toDateString()}</p>
+            <p>${new Date(viewingQuotation.expired_on).toDateString()}</p>
           </div>
           <div class="field-container">
             <p class="field-name">Introduction:</p>
@@ -250,11 +294,11 @@ const Quotation = () => {
               </tr>
               <tr>
                 <td>GST Amount (${gstRate}%)</td>
-                <td>${viewingQuotation.gstAmount}</td>
+                <td>${viewingQuotation.gst_amount}</td>
               </tr>
               <tr>
                 <td>Total Amount</td>
-                <td>${viewingQuotation.totalAmount}</td>
+                <td>${viewingQuotation.total_amount}</td>
               </tr>
             </tbody>
           </table>
@@ -277,69 +321,148 @@ const Quotation = () => {
   return (
     <div style={{ backgroundImage: `url(${bg})`, height: "750px" }}>
       <Container style={{ paddingTop: "50px" }}>
-        <Button variant="primary" onClick={() => setShowForm(!showForm)} style={{ marginBottom: "30px" }}>
+        <Button
+          variant="primary"
+          onClick={() => setShowForm(!showForm)}
+          style={{ marginBottom: "30px" }}
+        >
           {showForm ? "Hide Quotation Form" : "Add Quotation"}
         </Button>
 
         {showForm && (
           <Form onSubmit={handleSubmit} style={{ marginTop: "20px" }}>
-            <Form.Group controlId="companyName" className="mb-3">
+            <Form.Group controlId="company_name" className="mb-3">
               <Form.Label>Company Name:</Form.Label>
-              <Form.Control type="text" value={companyName} onChange={handleCompanyNameChange} isInvalid={!!errors.companyName} />
-              <Form.Control.Feedback type="invalid">{errors.companyName}</Form.Control.Feedback>
+              <Form.Control
+                type="text"
+                value={companyName}
+                onChange={handleCompanyNameChange}
+                isInvalid={!!errors.companyName}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.companyName}
+              </Form.Control.Feedback>
             </Form.Group>
             <Form.Group controlId="introduction" className="mb-3">
               <Form.Label>Introduction:</Form.Label>
-              <Form.Control as="textarea" rows={3} value={introduction} onChange={handleIntroductionChange} isInvalid={!!errors.introduction} />
-              <Form.Control.Feedback type="invalid">{errors.introduction}</Form.Control.Feedback>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                value={introduction}
+                onChange={handleIntroductionChange}
+                isInvalid={!!errors.introduction}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.introduction}
+              </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group controlId="contact" className="mb-3">
+            <Form.Group controlId="issued_by" className="mb-3">
               <Form.Label>Issued By:</Form.Label>
-              <Form.Control type="text" value={contact} onChange={handleContactChange} isInvalid={!!errors.contact} />
-              <Form.Control.Feedback type="invalid">{errors.contact}</Form.Control.Feedback>
+              <Form.Control
+                type="text"
+                value={contact}
+                onChange={handleContactChange}
+                isInvalid={!!errors.contact}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.contact}
+              </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group controlId="customerName" className="mb-3">
+            <Form.Group controlId="customer_name" className="mb-3">
               <Form.Label>Customer Name:</Form.Label>
-              <Form.Control type="text" value={customerName} onChange={handleCustomerNameChange} isInvalid={!!errors.customerName} />
-              <Form.Control.Feedback type="invalid">{errors.customerName}</Form.Control.Feedback>
+              <Form.Control
+                type="text"
+                value={customerName}
+                onChange={handleCustomerNameChange}
+                isInvalid={!!errors.customerName}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.customerName}
+              </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group controlId="quotationType" className="mb-3">
+            <Form.Group controlId="quotation_type" className="mb-3">
               <Form.Label>Quotation Type:</Form.Label>
-              <Form.Control as="select" value={quotationType} onChange={handleQuotationTypeChange} isInvalid={!!errors.quotationType}>
+              <Form.Control
+                as="select"
+                value={quotationType}
+                onChange={handleQuotationTypeChange}
+                isInvalid={!!errors.quotationType}
+              >
                 <option value="">Select...</option>
-                <option value="webappdevelopment">Web App Development</option>
-                <option value="mobileappdevelopment">Mobile App Development</option>
-                <option value="digitalmarket">Digital Marketing</option>
+                <option value="web_app_development">Web App Development</option>
+                <option value="mobile_app_development">
+                  Mobile App Development
+                </option>
+                <option value="digital_market">Digital Marketing</option>
               </Form.Control>
-              <Form.Control.Feedback type="invalid">{errors.quotationType}</Form.Control.Feedback>
+              <Form.Control.Feedback type="invalid">
+                {errors.quotationType}
+              </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group controlId="addon" className="mb-3">
+            <Form.Group controlId="add_on" className="mb-3">
               <Form.Label>Addon:</Form.Label>
-              <DatePicker selected={addon} onChange={handleAddonChange} className={`form-control ${errors.addon && 'is-invalid'}`} />
-              {errors.addon && <div className="invalid-feedback d-block">{errors.addon}</div>}
+              <DatePicker
+                selected={addon}
+                onChange={handleAddonChange}
+                className={`form-control ${errors.addon && "is-invalid"}`}
+              />
+              {errors.addon && (
+                <div className="invalid-feedback d-block">{errors.addon}</div>
+              )}
             </Form.Group>
-            <Form.Group controlId="expiredOn" className="mb-3">
+            <Form.Group controlId="expired_on" className="mb-3">
               <Form.Label>Expired On:</Form.Label>
-              <DatePicker selected={expiredOn} onChange={handleExpiredOnChange} className={`form-control ${errors.expiredOn && 'is-invalid'}`} />
-              {errors.expiredOn && <div className="invalid-feedback d-block">{errors.expiredOn}</div>}
+              <DatePicker
+                selected={expiredOn}
+                onChange={handleExpiredOnChange}
+                className={`form-control ${errors.expiredOn && "is-invalid"}`}
+              />
+              {errors.expiredOn && (
+                <div className="invalid-feedback d-block">
+                  {errors.expiredOn}
+                </div>
+              )}
             </Form.Group>
 
-            {strategyData.map((item, index) => (
+            {/* {strategyData.map((item, index) => (
               <div key={index} className="mb-3 d-flex align-items-center">
-                <Form.Group controlId={`strategyKey${index}`} className="me-2 flex-fill">
+                <Form.Group
+                  controlId={`strategyKey${index}`}
+                  className="me-2 flex-fill"
+                >
                   <Form.Label>Key:</Form.Label>
-                  <Form.Control type="text" value={item.key} onChange={(e) => handleStrategyInputChange(index, 'key', e)} />
+                  <Form.Control
+                    type="text"
+                    value={item.key}
+                    onChange={(e) => handleStrategyInputChange(index, "key", e)}
+                  />
                 </Form.Group>
-                <Form.Group controlId={`strategyValue${index}`} className="me-2 flex-fill">
+                <Form.Group
+                  controlId={`strategyValue${index}`}
+                  className="me-2 flex-fill"
+                >
                   <Form.Label>Value:</Form.Label>
-                  <Form.Control type="text" value={item.value} onChange={(e) => handleStrategyInputChange(index, 'value', e)} />
+                  <Form.Control
+                    type="text"
+                    value={item.value}
+                    onChange={(e) =>
+                      handleStrategyInputChange(index, "value", e)
+                    }
+                  />
                 </Form.Group>
-                <Button variant="danger" onClick={() => handleDeleteStrategy(index)}>
+                <Button
+                  variant="danger"
+                  onClick={() => handleDeleteStrategy(index)}
+                >
                   Delete
                 </Button>
               </div>
-            ))}
-            <Button variant="secondary" onClick={handleAddStrategy} className="mb-3">
+            ))} */}
+            <Button
+              variant="secondary"
+              onClick={handleAddStrategy}
+              className="mb-3"
+            >
               Add Strategy
             </Button>
 
@@ -348,8 +471,15 @@ const Quotation = () => {
               <Col md={6}>
                 <Form.Group controlId="packageAmount">
                   <Form.Label>Development Charge:</Form.Label>
-                  <Form.Control type="number" value={packageAmount} onChange={handlePackageAmountChange} isInvalid={!!errors.packageAmount} />
-                  <Form.Control.Feedback type="invalid">{errors.packageAmount}</Form.Control.Feedback>
+                  <Form.Control
+                    type="number"
+                    value={packageAmount}
+                    onChange={handlePackageAmountChange}
+                    isInvalid={!!errors.packageAmount}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.packageAmount}
+                  </Form.Control.Feedback>
                 </Form.Group>
               </Col>
             </Row>
@@ -370,8 +500,18 @@ const Quotation = () => {
               </Col>
             </Row>
 
-            <div style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
-              <Button variant="primary" type="submit" style={{ marginRight: "10px", marginBottom: "15px" }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "20px",
+              }}
+            >
+              <Button
+                variant="primary"
+                type="submit"
+                style={{ marginRight: "10px", marginBottom: "15px" }}
+              >
                 Save
               </Button>
             </div>
@@ -386,11 +526,14 @@ const Quotation = () => {
             </tr>
           </thead>
           <tbody>
-            {quotations.map((quotation) => (
-              <tr key={quotation.id}>
-                <td>{quotation.id}</td>
+            {quotations.map((x) => (
+              <tr key={x.id}>
+                <td>{x.id}</td>
                 <td>
-                  <Button variant="link" onClick={() => handleViewQuotation(quotation.id)}>
+                  <Button
+                    variant="link"
+                    onClick={() => handleViewQuotation(x.id)}
+                  >
                     View Quotation
                   </Button>
                 </td>
@@ -403,60 +546,85 @@ const Quotation = () => {
           <div style={{ marginTop: "20px" }}>
             <h2>Quotation Details</h2>
             <div className="field-container">
-              <p className="field-name"><strong>Company Name:</strong></p>
-              <p>{viewingQuotation.companyName}</p>
+              <p className="field-name">
+                <strong>Company Name:</strong>
+              </p>
+              <p>{viewingQuotation.company_name}</p>
             </div>
             <div className="field-container">
-              <p className="field-name"><strong>Customer Name:</strong></p>
-              <p>{viewingQuotation.customerName}</p>
+              <p className="field-name">
+                <strong>Customer Name:</strong>
+              </p>
+              <p>{viewingQuotation.customer_name}</p>
             </div>
             <div className="field-container">
-              <p className="field-name"><strong>Quotation Type:</strong></p>
-              <p>{viewingQuotation.quotationType}</p>
+              <p className="field-name">
+                <strong>Quotation Type:</strong>
+              </p>
+              <p>{viewingQuotation.quatation_type}</p>
             </div>
             <div className="field-container">
-              <p className="field-name"><strong>Addon:</strong></p>
-              <p>{new Date(viewingQuotation.addon).toDateString()}</p>
+              <p className="field-name">
+                <strong>Addon:</strong>
+              </p>
+              <p>{new Date(viewingQuotation.add_on).toDateString()}</p>
             </div>
             <div className="field-container">
-              <p className="field-name"><strong>Expired On:</strong></p>
-              <p>{new Date(viewingQuotation.expiredOn).toDateString()}</p>
+              <p className="field-name">
+                <strong>Expired On:</strong>
+              </p>
+              <p>{new Date(viewingQuotation.expired_on).toDateString()}</p>
             </div>
             <div className="field-container">
-              <p className="field-name"><strong>Introduction:</strong></p>
+              <p className="field-name">
+                <strong>Introduction:</strong>
+              </p>
               <p>{viewingQuotation.introduction}</p>
             </div>
             <h3>Strategy</h3>
-            <ul>
+            {/* <ul>
               {viewingQuotation.strategyData.map((item, index) => (
-                <li key={index}><strong>{item.key}:</strong> {item.value}</li>
+                <li key={index}>
+                  <strong>{item.key}:</strong> {item.value}
+                </li>
               ))}
-            </ul>
+            </ul> */}
             <h3>Payment Details</h3>
             <Table striped bordered>
               <tbody>
                 <tr>
-                  <td>Development Charge</td>
-                  <td>{viewingQuotation.packageAmount}</td>
+                  {/* <td>Development Charge</td>
+                  <td>{viewingQuotation.packageAmount}</td> */}
                 </tr>
                 <tr>
                   <td>GST Amount (${gstRate}%):</td>
-                  <td>{viewingQuotation.gstAmount}</td>
+                  <td>{viewingQuotation.gst_amount}</td>
                 </tr>
                 <tr>
                   <td>Total Amount</td>
-                  <td>{viewingQuotation.totalAmount}</td>
+                  <td>{viewingQuotation.total_amount}</td>
                 </tr>
               </tbody>
             </Table>
             <div>
-              <Button variant="success" onClick={handlePrint} style={{ marginRight: "10px" }}>
+              <Button
+                variant="success"
+                onClick={handlePrint}
+                style={{ marginRight: "10px" }}
+              >
                 Print Quotation
               </Button>
-              <Button variant="danger" onClick={() => handleDeleteQuotation(viewingQuotation.id)}>
+              <Button
+                variant="danger"
+                onClick={() => handleDeleteQuotation(viewingQuotation.id)}
+              >
                 Delete Quotation
               </Button>
-              <Button variant="secondary" onClick={() => setViewingQuotation(null)} style={{ marginLeft: "10px" }}>
+              <Button
+                variant="secondary"
+                onClick={() => setViewingQuotation(null)}
+                style={{ marginLeft: "10px" }}
+              >
                 Close
               </Button>
             </div>
