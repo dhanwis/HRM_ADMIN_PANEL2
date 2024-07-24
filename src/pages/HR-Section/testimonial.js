@@ -49,13 +49,16 @@ const quotesStyle = {
 
 const TestimonialCard = () => {
   const [feedback, setFeedback] = useState([]);
+  const token = localStorage.getItem("authToken");
 
   useEffect(() => {
     let fetchFeedback = async () => {
-      let x = await axios.get(`${baseUrl}/intern/feedback/`);
-      console.log("all feed", x);
+      let x = await axios.get(`${baseUrl}/intern/feedback/`, {
+        headers: { Authorization: `Token ${token}` },
+      });
 
       if (x.status === 200) {
+        console.log("feedback", x.data);
         setFeedback(x.data);
       }
     };
@@ -66,20 +69,24 @@ const TestimonialCard = () => {
   return (
     <div>
       <div style={cardStyle}>
-        {feedback?.map((data, index) => (
-          <React.Fragment>
-            <img src={propic} alt="Stefano Petrangeli" style={imageStyle} />
-            <div style={textContainerStyle}>
-              <div style={{ display: "flex", alignItems: "flex-start" }}>
-                <div style={quotesStyle}>&ldquo;</div>
-                <p style={quoteStyle}>{data.feedback}</p>
+        {feedback.length > 0 ? (
+          feedback.map((data, index) => (
+            <React.Fragment>
+              <img src={propic} alt="Stefano Petrangeli" style={imageStyle} />
+              <div style={textContainerStyle}>
+                <div style={{ display: "flex", alignItems: "flex-start" }}>
+                  <div style={quotesStyle}>&ldquo;</div>
+                  <p style={quoteStyle}>{data.feedback}</p>
+                </div>
+                <p style={authorStyle}>
+                  – Stefano Petrangeli, Research Scientist
+                </p>
               </div>
-              <p style={authorStyle}>
-                – Stefano Petrangeli, Research Scientist
-              </p>
-            </div>
-          </React.Fragment>
-        ))}
+            </React.Fragment>
+          ))
+        ) : (
+          <h1>Currently no feedback</h1>
+        )}
       </div>
     </div>
   );

@@ -333,6 +333,7 @@ const EmployeeForm = ({ visible, onCancel, onCreate }) => {
               message: "Please input the password!",
               pattern:
                 /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
+              // eslint-disable-next-line no-dupe-keys
               message: "Please enter a valid password.",
             },
           ]}

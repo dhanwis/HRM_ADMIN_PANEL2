@@ -4,6 +4,7 @@ import axios from "axios";
 import { baseUrl } from "../../url";
 
 const FeedbackForm = () => {
+  const token = localStorage.getItem("authToken");
   const [formData, setFormData] = useState({
     feedback: "",
   });
@@ -15,7 +16,9 @@ const FeedbackForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    let x = await axios.post(`${baseUrl}/intern/feedback/`, formData);
+    let x = await axios.post(`${baseUrl}/intern/feedback/`, formData, {
+      headers: { Authorization: `Token ${token}` },
+    });
     console.log(x);
 
     setFormData({
