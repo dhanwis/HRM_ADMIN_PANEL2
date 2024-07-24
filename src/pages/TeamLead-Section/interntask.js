@@ -40,7 +40,6 @@ function StudentTasks() {
         headers: { Authorization: `Token ${token}` },
       })
       .then((response) => {
-        console.log(response);
         if (response.status === 200) {
           setGuides(response.data);
         }
@@ -56,7 +55,6 @@ function StudentTasks() {
       .get(`${baseUrl}/intern-reg/`)
       .then((response) => {
         if (response.status === 200) {
-          console.log("studnets", response.data);
           setStudents(response.data);
         }
       })
@@ -71,8 +69,14 @@ function StudentTasks() {
       })
       .then((response) => {
         if (response.status === 200) {
-          console.log("data", response.data);
-          setTaskDetails([...taskDetails, response.data]);
+          if (editTaskId !== null) {
+            const updatedTaskList = taskDetails.map((task) =>
+              task.id === editTaskId ? response.data : task
+            );
+            setTaskDetails(updatedTaskList);
+          } else {
+            setTaskDetails([...taskDetails, response.data]);
+          }
         }
       })
       .catch((error) => {

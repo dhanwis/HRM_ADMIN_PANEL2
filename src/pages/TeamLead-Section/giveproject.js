@@ -20,7 +20,7 @@ const { Title } = Typography;
 const { Option } = Select;
 
 function Giveproject() {
-  const [customerDetails, setCustomerDetails] = useState([]);
+  const [projectDetails, setProjectDetails] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [employees, setEmployees] = useState([]);
@@ -45,15 +45,18 @@ function Giveproject() {
         console.error("There was an error fetching the employees!", error);
       });
 
-    // Fetch customer details from the backend
+    // Fetch project details from the backend
     axios
-      .get("https://your-backend-api.com/customer-details")
+      .get(`${baseUrlHr}/projectassign/`, {
+        headers: { Authorization: `Token ${token}` },
+      })
       .then((response) => {
         const fetchedData = response.data.map((item) => ({
           ...item,
           status: item.status || "Pending", // Default status to "Pending" if not provided
         }));
-        setCustomerDetails(fetchedData);
+        console.log("project", fetchedData);
+        setProjectDetails(fetchedData);
       })
       .catch((error) => {
         console.error(
@@ -61,7 +64,7 @@ function Giveproject() {
           error
         );
       });
-  }, []);
+  }, [token]);
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -73,27 +76,27 @@ function Giveproject() {
       .validateFields()
       .then((values) => {
         if (editingRow) {
-          const updatedData = customerDetails.map((item) =>
+          const updatedData = projectDetails.map((item) =>
             item.id === editingRow.id ? { ...item, ...values } : item
           );
-          setCustomerDetails(updatedData);
+          setProjectDetails(updatedData);
           setEditingRow(null);
         } else {
-          const newCustomer = {
-            id: customerDetails.length + 1,
+          const newProject = {
+            id: projectDetails.length + 1,
             ...values,
-            projectDate: moment(values.projectDate),
-            deadline: moment(values.deadline),
+            projectdate: moment(values.projectDate).format('YYYY-MM-DD'),
+            deadline: moment(values.deadline).format('YYYY-MM-DD'),
             status: "Pending", // Set default status to "Pending"
           };
           axios
-            .post(`${baseUrlHr}/projectassign/`, newCustomer, {
+            .post(`${baseUrlHr}/projectassign/`, newProject, {
               headers: { Authorization: `Token ${token}` },
             })
             .then((res) => {
               console.log(res);
               if (res.status === 201) {
-                //setCustomerDetails([...customerDetails, newCustomer]);
+                setProjectDetails([...projectDetails, res.data]);
               }
             });
         }
@@ -111,22 +114,22 @@ function Giveproject() {
   };
 
   const handleDelete = () => {
-    const filteredData = customerDetails.filter(
+    const filteredData = projectDetails.filter(
       (item) => !selectedRowKeys.includes(item.id)
     );
-    setCustomerDetails(filteredData);
+    setProjectDetails(filteredData);
     setSelectedRowKeys([]);
   };
 
-  const handleEdit = (record) => {
-    setEditingRow(record);
-    form.setFieldsValue({
-      ...record,
-      projectDate: moment(record.projectDate),
-      deadline: moment(record.deadline),
-    });
-    showModal();
-  };
+  // const handleEdit = (record) => {
+  //   setEditingRow(record);
+  //   form.setFieldsValue({
+  //     ...record,
+  //     projectDate: moment(record.projectDate),
+  //     deadline: moment(record.deadline),
+  //   });
+  //   showModal();
+  // };
 
   const rowSelection = {
     selectedRowKeys,
@@ -138,20 +141,20 @@ function Giveproject() {
   const columns = [
     {
       title: "Project Name",
-      dataIndex: "projectName",
+      dataIndex: "projectname",
       key: "projectName",
       editable: true,
     },
 
     {
       title: "Employee Name",
-      dataIndex: "username",
+      dataIndex: "employeename",
       key: "employeeName",
       editable: true,
     },
     {
       title: "Project Date",
-      dataIndex: "projectDate",
+      dataIndex: "projectdate",
       key: "projectDate",
       render: (text) => moment(text).format("LL"),
     },
@@ -167,15 +170,15 @@ function Giveproject() {
       key: "status",
       render: (text) => text,
     },
-    {
-      title: "Action",
-      key: "action",
-      render: (text, record) => (
-        <Button type="primary" onClick={() => handleEdit(record)}>
-          Edit
-        </Button>
-      ),
-    },
+    // {
+    //   title: "Action",
+    //   key: "action",
+    //   render: (text, record) => (
+    //     <Button type="primary" onClick={() => handleEdit(record)}>
+    //       Edit
+    //     </Button>
+    //   ),
+    // },
   ];
 
   return (
@@ -210,7 +213,7 @@ function Giveproject() {
         >
           <Form form={form} layout="vertical">
             <Form.Item
-              name="projectName"
+              name="projectname"
               label="Project Name"
               rules={[
                 { required: true, message: "Please enter project name" },
@@ -224,7 +227,7 @@ function Giveproject() {
             </Form.Item>
 
             <Form.Item
-              name="guide_name"
+              name="employeename"
               label="Employee Name"
               rules={[
                 { required: true, message: "Please select employee name" },
@@ -273,7 +276,7 @@ function Giveproject() {
         </Modal>
         <div style={{ overflowX: "auto" }}>
           <Table
-            dataSource={customerDetails}
+            dataSource={projectDetails}
             columns={columns}
             pagination={false}
             rowKey="id"
