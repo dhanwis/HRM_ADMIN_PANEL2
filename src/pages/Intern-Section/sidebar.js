@@ -1,26 +1,13 @@
-/*!
-  =========================================================
-  * Muse Ant Design Dashboard - v1.0.0
-  =========================================================
-  * Product Page: https://www.creative-tim.com/product/muse-ant-design-dashboard
-  * Copyright 2021 Creative Tim (https://www.creative-tim.com)
-  * Licensed under MIT (https://github.com/creativetimofficial/muse-ant-design-dashboard/blob/main/LICENSE.md)
-  * Coded by Creative Tim
-  =========================================================
-  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 // import { useState } from "react";
-import { Menu, Button ,Dropdown} from "antd";
+import { Menu } from "antd";
 import { NavLink, useLocation } from "react-router-dom";
 import logo from "../../assets/images/user.png";
-
-
-
 
 export default function SidenavIntern({ color }) {
   const { pathname } = useLocation();
   const page = pathname.replace("/", "");
+  const user = JSON.parse(localStorage.getItem("intern"));
+  console.log("user", user);
 
   const dashboard = [
     <svg
@@ -183,7 +170,6 @@ export default function SidenavIntern({ color }) {
     </svg>,
   ];
 
-
   const leave = [
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -322,29 +308,32 @@ export default function SidenavIntern({ color }) {
   //         <span className="icon">{StatusUpdate}</span>
   //         <span className="label">Update Status</span>
   //         </NavLink>
-        
+
   //     </Menu.Item>
   //   </Menu>
 
-
-
-
   // );
 
-  
   return (
     <>
-  
       <div className="brand">
-        <img src={logo} alt="" style={{width:"100px" ,height:"100px",marginLeft:"20px"}} />
-        
-        <span style={{fontSize:"20px",textAlign:"center",marginLeft:"35px"}}>INTERN </span>
+        <img
+          src={logo}
+          alt=""
+          style={{ width: "100px", height: "100px", marginLeft: "20px" }}
+        />
+
+        <span
+          style={{ fontSize: "20px", textAlign: "center", marginLeft: "35px" }}
+        >
+          {user.username}{" "}
+        </span>
       </div>
       <hr />
-      
-      <Menu theme="light" mode="inline" >
+
+      <Menu theme="light" mode="inline">
         <Menu.Item key="1">
-          <NavLink to="/intern/dashboard" style={{textDecoration:"none"}}>
+          <NavLink to="/intern/dashboard" style={{ textDecoration: "none" }}>
             <span
               className="icon"
               style={{
@@ -357,19 +346,14 @@ export default function SidenavIntern({ color }) {
           </NavLink>
         </Menu.Item>
 
-
-
-
         {/* <Menu.Item key="task" className="menu-item-header">
           <Dropdown overlay={task} trigger={['click']}>
             <span>Task</span>
           </Dropdown>
         </Menu.Item> */}
 
-
-
         <Menu.Item key="4">
-          <NavLink to="/intern/table" style={{textDecoration:"none"}}>
+          <NavLink to="/intern/table" style={{ textDecoration: "none" }}>
             <span
               className="icon"
               style={{
@@ -382,9 +366,8 @@ export default function SidenavIntern({ color }) {
           </NavLink>
         </Menu.Item>
 
-
         <Menu.Item key="4">
-          <NavLink to="/intern/updatestatus" style={{textDecoration:"none"}}>
+          <NavLink to="/intern/updatestatus" style={{ textDecoration: "none" }}>
             <span
               className="icon"
               style={{
@@ -397,9 +380,8 @@ export default function SidenavIntern({ color }) {
           </NavLink>
         </Menu.Item>
 
-
         <Menu.Item key="4">
-          <NavLink to="/intern/viewnotes" style={{textDecoration:"none"}}>
+          <NavLink to="/intern/viewnotes" style={{ textDecoration: "none" }}>
             <span
               className="icon"
               style={{
@@ -413,7 +395,7 @@ export default function SidenavIntern({ color }) {
         </Menu.Item>
 
         <Menu.Item key="4">
-          <NavLink to="/intern/jobapply" style={{textDecoration:"none"}}>
+          <NavLink to="/intern/jobapply" style={{ textDecoration: "none" }}>
             <span
               className="icon"
               style={{
@@ -426,7 +408,7 @@ export default function SidenavIntern({ color }) {
           </NavLink>
         </Menu.Item>
 
-{/* 
+        {/* 
         <Menu.Item key="4">
           <NavLink to="/intern/attendance" style={{textDecoration:"none"}}>
             <span
@@ -440,10 +422,9 @@ export default function SidenavIntern({ color }) {
             <span className="label">Attendance</span>
           </NavLink>
         </Menu.Item> */}
-        
 
         <Menu.Item key="5">
-          <NavLink to="/intern/leave" style={{textDecoration:"none"}}>
+          <NavLink to="/intern/leave" style={{ textDecoration: "none" }}>
             <span
               className="icon"
               style={{
@@ -457,7 +438,7 @@ export default function SidenavIntern({ color }) {
         </Menu.Item>
 
         <Menu.Item key="6">
-          <NavLink to="/intern/reference" style={{textDecoration:"none"}}>
+          <NavLink to="/intern/reference" style={{ textDecoration: "none" }}>
             <span
               className="icon"
               style={{
@@ -471,7 +452,7 @@ export default function SidenavIntern({ color }) {
         </Menu.Item>
 
         <Menu.Item key="3">
-          <NavLink to="/intern/feedetails" style={{textDecoration:"none"}}>
+          <NavLink to="/intern/feedetails" style={{ textDecoration: "none" }}>
             <span
               className="icon"
               style={{
@@ -485,7 +466,7 @@ export default function SidenavIntern({ color }) {
         </Menu.Item>
 
         <Menu.Item key="7">
-          <NavLink to="/intern/feedback" style={{textDecoration:"none"}}>
+          <NavLink to="/intern/feedback" style={{ textDecoration: "none" }}>
             <span
               className="icon"
               style={{
@@ -497,7 +478,6 @@ export default function SidenavIntern({ color }) {
             <span className="label">Feedback</span>
           </NavLink>
         </Menu.Item>
-        
 
         {/* <Menu.Item key="7">
           <NavLink to="/intern/Testimonial" style={{textDecoration:"none"}}>
@@ -513,13 +493,11 @@ export default function SidenavIntern({ color }) {
           </NavLink>
         </Menu.Item> */}
 
-  
-
         <Menu.Item className="menu-item-header" key="5">
           Account Pages
         </Menu.Item>
         <Menu.Item key="8">
-          <NavLink to="/intern/profile" style={{textDecoration:"none"}}>
+          <NavLink to="/intern/profile" style={{ textDecoration: "none" }}>
             <span
               className="icon"
               style={{
@@ -532,10 +510,8 @@ export default function SidenavIntern({ color }) {
           </NavLink>
         </Menu.Item>
 
-
         <Menu.Item key="9">
-          <NavLink to="/intern/login" style={{textDecoration:"none"}}>
-          
+          <NavLink to="/intern/login" style={{ textDecoration: "none" }}>
             {/* <span
               className="icon"
               style={{
@@ -547,14 +523,8 @@ export default function SidenavIntern({ color }) {
             <span className="label">Sign in</span> */}
           </NavLink>
         </Menu.Item>
-        
-      
-      
-        </Menu>
-      
+      </Menu>
 
-      
-   
       {/* <div className="aside-footer">
         <div
           className="footer-box"
@@ -574,9 +544,7 @@ export default function SidenavIntern({ color }) {
       </div> */}
 
       <div></div>
-    {/* </div> */}
+      {/* </div> */}
     </>
   );
 }
-
- 

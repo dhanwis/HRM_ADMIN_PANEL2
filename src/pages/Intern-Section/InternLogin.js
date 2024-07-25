@@ -42,6 +42,7 @@ export default class StaffLogin extends Component {
           });
           localStorage.setItem("is_intern", response.data.user.is_intern);
           localStorage.setItem("authToken", response.data.token);
+          localStorage.setItem("intern", JSON.stringify(response.data.user));
           this.props.history.push("/intern/dashboard"); // Redirect to /admin/dashboard
         }
         

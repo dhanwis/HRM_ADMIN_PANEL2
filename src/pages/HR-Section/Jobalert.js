@@ -46,47 +46,56 @@ const JobForm = () => {
       title: "Company Name",
       dataIndex: "company_name",
       key: "companyName",
+      width: 150,
     },
     {
       title: "Job Title",
       dataIndex: "job_title",
       key: "jobTitle",
+      width: 150,
     },
     {
       title: "Salary",
       dataIndex: "salary",
       key: "salary",
+      width: 100,
     },
     {
       title: "Mode of working",
       dataIndex: "mode_of_work",
       key: "workLocation",
+      width: 150,
     },
     {
       title: "Location",
       dataIndex: "location",
       key: "location",
+      width: 150,
     },
     {
       title: "Experience",
       dataIndex: "experience",
       key: "experience",
+      width: 100,
     },
     {
       title: "Last Date",
       dataIndex: "last_date",
       key: "lastDate",
+      width: 120,
       render: (text, record) => {
-        return <span>{moment(record.lastDate).format("YYYY-MM-DD")}</span>;
+        return <span>{moment(record.last_date).format("YYYY-MM-DD")}</span>;
       },
     },
     {
       title: "Action",
       key: "action",
+      width: 150,
+      fixed: "right",
       render: (text, record) => (
         <Space size="middle">
-          <Button onClick={() => handleEdit(record)}>Edit</Button>
-          <Button onClick={() => handleDelete(record)}>Delete</Button>
+          {/* <Button onClick={() => handleEdit(record)}>Edit</Button> */}
+          <Button onClick={() => handleDelete(record.id)}>Delete</Button>
         </Space>
       ),
     },
@@ -98,29 +107,17 @@ const JobForm = () => {
     form.setFieldsValue({ ...record, lastDate: moment(record.lastDate) });
   };
 
-  const handleDelete = async (record) => {
-    // let res = await axios.delete();
+  const handleDelete = async (id) => {
+    let res = await axios.delete(`${baseUrlHr}/hr/jobapplydelete/${id}`, {
+      headers: { Authorization: `Token ${token}` },
+    });
 
-    // if (res.status === 200) {
-    //   setJobData(jobData.filter((job) => job !== record));
-    // }
-    setJobData(jobData.filter((job) => job !== record));
+    console.log("res", res);
+
+    if (res.status === 200) {
+      setJobData(jobData.filter((job) => job.id !== id));
+    }
   };
-
-  // const onFinish = (values) => {
-  //   console.log("Received values:", values);
-  //   if (selectedJob) {
-  //     const updatedJobs = jobData.map((job) =>
-  //       job === selectedJob ? values : job
-  //     );
-  //     setJobData(updatedJobs);
-  //     setSelectedJob(null);
-  //   } else {
-  //     setJobData([...jobData, values]);
-  //   }
-  //   form.resetFields();
-  //   setIsModalVisible(false);
-  // };
 
   const onFinish = async (values) => {
     console.log("Received values:", values);
@@ -242,7 +239,8 @@ const JobForm = () => {
       <Table
         columns={columns}
         dataSource={jobData}
-        rowKey={(record) => record.companyName + record.jobTitle}
+        rowKey={(record) => record.company_name + record.job_title}
+        scroll={{ x: 1200 }}
       />
       <Modal
         title="Edit Job"

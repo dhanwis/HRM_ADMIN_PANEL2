@@ -64,7 +64,7 @@ const TestimonialCard = () => {
     };
 
     fetchFeedback();
-  }, []);
+  }, [token]);
 
   return (
     <div>
@@ -72,15 +72,14 @@ const TestimonialCard = () => {
         {feedback.length > 0 ? (
           feedback.map((data, index) => (
             <React.Fragment>
-              <img src={propic} alt="Stefano Petrangeli" style={imageStyle} />
+              {/* <img src={propic} alt="Stefano Petrangeli" style={imageStyle} /> */}
               <div style={textContainerStyle}>
                 <div style={{ display: "flex", alignItems: "flex-start" }}>
                   <div style={quotesStyle}>&ldquo;</div>
                   <p style={quoteStyle}>{data.feedback}</p>
                 </div>
-                <p style={authorStyle}>
-                  – Stefano Petrangeli, Research Scientist
-                </p>
+                <p style={authorStyle}>Username :{data.username}</p>
+                <p style={authorStyle}>ID: {data.id}</p>
               </div>
             </React.Fragment>
           ))

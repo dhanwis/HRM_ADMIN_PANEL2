@@ -2,6 +2,7 @@
 import { Menu } from "antd";
 import { NavLink, useLocation } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
+import { baseUrlImg } from "../../url";
 export default function SidenavStaff({ color }) {
   const { pathname } = useLocation();
   const page = pathname.replace("/", "");
@@ -188,7 +189,7 @@ export default function SidenavStaff({ color }) {
     <>
       <div className="brand">
         <img
-          src={logo}
+          src={`${baseUrlImg}${user.image}`}
           alt=""
           style={{ width: "100px", height: "100px", marginLeft: "20px" }}
         />

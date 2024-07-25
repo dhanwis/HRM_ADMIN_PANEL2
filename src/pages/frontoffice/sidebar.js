@@ -11,10 +11,12 @@ import {
   SolutionOutlined,
 } from "@ant-design/icons";
 import logos from "../../assets/images/call.webp";
+import { baseUrlImg } from "../../url";
 
 export default function SidenavFront({ color }) {
   const { pathname } = useLocation();
   const page = pathname.replace("/", "");
+  const user = JSON.parse(localStorage.getItem("frontoffice"));
 
   const menuItems = [
     {
@@ -29,13 +31,13 @@ export default function SidenavFront({ color }) {
       label: "CallSheet",
       link: "/frontoffice/CallSheet",
     },
-    
-        {
-          key: "webapp_development",
-          label: "Quotation",
-          icon: <LaptopOutlined />,
-          link: "/frontoffice/quotation",
-        },
+
+    {
+      key: "webapp_development",
+      label: "Quotation",
+      icon: <LaptopOutlined />,
+      link: "/frontoffice/quotation",
+    },
     //   ],
     // },
     {
@@ -56,20 +58,22 @@ export default function SidenavFront({ color }) {
       label: "Confirmed Details",
       link: "/frontoffice/Customerdetails",
     },
-    
+
     {
       key: "profile",
       icon: <UserOutlined />,
       label: "Profile",
       link: "/frontoffice/profile",
-      
     },
   ];
 
   const generateMenuItem = (item) => {
     if (item.subMenu) {
       const subMenuItems = item.subMenu.map((subItem) => (
-        <Menu.Item key={subItem.key} style={{ paddingLeft: "32px", textAlign: "left" }}>
+        <Menu.Item
+          key={subItem.key}
+          style={{ paddingLeft: "32px", textAlign: "left" }}
+        >
           <NavLink to={subItem.link} style={{ textDecoration: "none" }}>
             <span className="icon">{subItem.icon}</span>
             <span
@@ -100,7 +104,10 @@ export default function SidenavFront({ color }) {
       if (isExternalLink) {
         return (
           <Menu.Item key={item.key}>
-            <a href={item.link} style={{ textDecoration: "none", textAlign: "left" }}>
+            <a
+              href={item.link}
+              style={{ textDecoration: "none", textAlign: "left" }}
+            >
               <span className="icon">{item.icon}</span>
               <span className="label">{item.label}</span>
             </a>
@@ -108,7 +115,13 @@ export default function SidenavFront({ color }) {
         );
       } else {
         return (
-          <Menu.Item key={item.key} style={{ textAlign: "left", paddingLeft: item.key === "quotation" ? "15px" : "0" }}>
+          <Menu.Item
+            key={item.key}
+            style={{
+              textAlign: "left",
+              paddingLeft: item.key === "quotation" ? "15px" : "0",
+            }}
+          >
             <NavLink to={item.link} style={{ textDecoration: "none" }}>
               <span className="icon">{item.icon}</span>
               <span className="label">{item.label}</span>
@@ -121,10 +134,20 @@ export default function SidenavFront({ color }) {
 
   return (
     <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
-      <div style={{ padding: "20px", borderBottom: "1px solid #f0f0f0", textAlign: "center" }}>
-        <img src={logos} alt="" style={{ width: "150px", marginBottom: "20px"}} />
+      <div
+        style={{
+          padding: "20px",
+          borderBottom: "1px solid #f0f0f0",
+          textAlign: "center",
+        }}
+      >
+        <img
+          src={`${baseUrlImg}${user.image}`}
+          alt=""
+          style={{ width: "150px", marginBottom: "20px" }}
+        />
         <span style={{ color: "black", fontSize: "100%" }}>
-          <b>⭕FRONT OFFICE⭕</b>
+          <b>{user.username}</b>
         </span>
       </div>
       <div style={{ flex: "1", overflowY: "auto" }}>

@@ -356,7 +356,7 @@ export default function SidenavHR({ color }) {
                 {testimonial}
               </span>
               <span className="label" style={{ fontSize: "17px" }}>
-                Testimonial
+                Feedback
               </span>
             </NavLink>
           </Menu.Item>

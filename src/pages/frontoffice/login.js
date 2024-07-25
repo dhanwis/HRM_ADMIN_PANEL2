@@ -114,6 +114,7 @@ export default class login extends Component {
             response.data.user.is_frontoffice
           );
           localStorage.setItem("authToken", response.data.token);
+          localStorage.setItem("frontoffice", JSON.stringify(response.data.user));
           this.props.history.push("/frontoffice/dashboard"); // Redirect to /admin/dashboard
         }
       } catch (error) {
