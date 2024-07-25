@@ -74,11 +74,11 @@ const InternRoutes = () => (
     />
     <PrivateInternRoute path="/intern/viewnotes" exact component={FourCards} />
     <PrivateInternRoute path="/intern/jobapply" exact component={Jobapply} />
-    <PrivateInternRoute
+    {/* <PrivateInternRoute
       path="/intern/Testimonial"
       exact
       component={TestimonialForm}
-    />
+    /> */}
   </Switch>
 );
 

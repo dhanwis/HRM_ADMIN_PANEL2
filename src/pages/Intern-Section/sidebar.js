@@ -499,7 +499,7 @@ export default function SidenavIntern({ color }) {
         </Menu.Item>
         
 
-        <Menu.Item key="7">
+        {/* <Menu.Item key="7">
           <NavLink to="/intern/Testimonial" style={{textDecoration:"none"}}>
             <span
               className="icon"
@@ -511,7 +511,7 @@ export default function SidenavIntern({ color }) {
             </span>
             <span className="label">Testimonial</span>
           </NavLink>
-        </Menu.Item>
+        </Menu.Item> */}
 
   
 

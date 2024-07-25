@@ -17,6 +17,8 @@ const LeaveForm = () => {
 
   const token = localStorage.getItem("authToken");
 
+  console.log('token from team',token)
+
   useEffect(() => {
     const fetchLeaveData = async () => {
       let response = await axios.get(`${baseUrlHr}/leaverequest/`, {
@@ -42,30 +44,31 @@ const LeaveForm = () => {
     };
 
     fetchLeaveData();
-  }, []);
+  }, [token]);
 
   const onFinish = async (values) => {
+    const { dateRange, ...rest } = values;
+
     const newRequest = {
-      ...values,
-      key: Date.now(),
-      start_date: moment(values.dateRange[0]).format("YYYY-MM-DD"),
-      end_date: moment(values.dateRange[1]).format("YYYY-MM-DD"),
-      duration:
-        moment(values.dateRange[1]).diff(moment(values.dateRange[0]), "days") +
-        1,
+      ...rest,
+      //key: Date.now(),
+      start_date: moment(dateRange[0]).format("YYYY-MM-DD"),
+      end_date: moment(dateRange[1]).format("YYYY-MM-DD"),
+      duration: moment(dateRange[1]).diff(moment(dateRange[0]), "days") + 1,
       status: "Pending",
     };
+
     let response = await axios.post(`${baseUrlHr}/leaverequest/`, newRequest, {
       headers: { Authorization: `Token ${token}` },
     });
     console.log("response", response);
 
-    if (response.status === 201) {
-      const updatedRequests = [...submittedRequests, response.data];
-      setSubmittedRequests(updatedRequests);
-    }
+    // if (response.status === 201) {
+    //   const updatedRequests = [...submittedRequests, response.data];
+    //   setSubmittedRequests(updatedRequests);
+    // }
 
-    form.resetFields();
+    // form.resetFields();
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -163,6 +166,7 @@ const LeaveForm = () => {
             </Button>
           </Form.Item>
         </Form>
+
         <div>
           <h3 className="mt-5">Leave History</h3>
           <Table

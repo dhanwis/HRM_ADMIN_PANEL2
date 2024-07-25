@@ -17,6 +17,8 @@ const LeaveForm = () => {
 
   const token = localStorage.getItem("authToken");
 
+  console.log('token from Intern',token)
+
   useEffect(() => {
     const fetchLeaveData = async () => {
       let response = await axios.get(`${baseUrlHr}/leaverequest/`, {
@@ -42,7 +44,7 @@ const LeaveForm = () => {
     };
 
     fetchLeaveData();
-  }, []);
+  }, [token]);
 
   const onFinish = async (values) => {
     const newRequest = {

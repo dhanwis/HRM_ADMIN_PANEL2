@@ -35,7 +35,7 @@ const LeaveFormStaff = () => {
     };
 
     fetchLeaveData();
-  }, []);
+  }, [token]);
 
   const onFinish = async (values) => {
     const newRequest = {
