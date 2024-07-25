@@ -93,10 +93,9 @@ const EnquiryAdmissionForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log("name", name);
-    console.log("value", value);
+
     const keys = name.split("."); // Support nested keys
-    console.log("key", keys);
+
     const newFormData = { ...formData };
 
     let current = newFormData;
@@ -109,7 +108,6 @@ const EnquiryAdmissionForm = () => {
 
     current[keys[keys.length - 1]] = value;
 
-    console.log("herethedata", newFormData);
     setFormData(newFormData);
   };
 
@@ -185,7 +183,7 @@ const EnquiryAdmissionForm = () => {
       }
 
       const data = await response.json();
-      console.log('data',data)
+      console.log("data", data);
       setEnquiries(data);
     } catch (error) {
       console.error("Error fetching enquiries:", error.message);
@@ -196,23 +194,23 @@ const EnquiryAdmissionForm = () => {
     getEnquiries();
   }, []);
 
-  const handleSave = () => {
-    if (currentEnquiry) {
-      const updatedEnquiries = enquiries.map((enquiry) =>
-        enquiry.id === currentEnquiry.id ? { ...enquiry, ...formData } : enquiry
-      );
-      setEnquiries(updatedEnquiries);
-      console.log("en", enquiries);
-    } else {
-      const newEnquiry = {
-        ...formData,
-        id: enquiries.length + 1,
-      };
-      setEnquiries([...enquiries, newEnquiry]);
-    }
-    resetForm();
-    setShowForm(false);
-  };
+  // const handleSave = () => {
+  //   if (currentEnquiry) {
+  //     const updatedEnquiries = enquiries.map((enquiry) =>
+  //       enquiry.id === currentEnquiry.id ? { ...enquiry, ...formData } : enquiry
+  //     );
+  //     setEnquiries(updatedEnquiries);
+  //     console.log("en", enquiries);
+  //   } else {
+  //     const newEnquiry = {
+  //       ...formData,
+  //       id: enquiries.length + 1,
+  //     };
+  //     setEnquiries([...enquiries, newEnquiry]);
+  //   }
+  //   resetForm();
+  //   setShowForm(false);
+  // };
 
   const handleView = (index) => {
     const enquiry = enquiries[index];
@@ -432,9 +430,9 @@ const EnquiryAdmissionForm = () => {
                 <Button type="button" onClick={nextStep} primary>
                   Next
                 </Button>
-                <Button type="button" onClick={handleSave} primary>
+                {/* <Button type="button" onClick={handleSave} primary>
                   Save
-                </Button>
+                </Button> */}
               </Column>
             </TwoColumnRow>
           )}
@@ -468,9 +466,9 @@ const EnquiryAdmissionForm = () => {
               <Button type="button" onClick={prevStep}>
                 Previous
               </Button>
-              <Button type="button" onClick={handleSave} primary>
+              {/* <Button type="button" onClick={handleSave} primary>
                 Save
-              </Button>
+              </Button> */}
               <Button type="button" onClick={() => setShowForm(false)}>
                 Reject
               </Button>
@@ -519,9 +517,9 @@ const EnquiryAdmissionForm = () => {
               <Button type="button" onClick={prevStep}>
                 Previous
               </Button>
-              <Button type="button" onClick={handleSave} primary>
+              {/* <Button type="button" onClick={handleSave} primary>
                 Save
-              </Button>
+              </Button> */}
               <Button type="button" onClick={() => setShowForm(false)}>
                 Reject
               </Button>
@@ -574,9 +572,9 @@ const EnquiryAdmissionForm = () => {
               <Button type="button" onClick={prevStep}>
                 Previous
               </Button>
-              <Button type="button" onClick={handleSave} primary>
+              {/* <Button type="button" onClick={handleSave} primary>
                 Save
-              </Button>
+              </Button> */}
               <Button type="button" onClick={nextStep} primary>
                 Next
               </Button>
@@ -627,9 +625,9 @@ const EnquiryAdmissionForm = () => {
               <Button type="button" onClick={prevStep}>
                 Previous
               </Button>
-              <Button type="button" onClick={handleSave} primary>
+              {/* <Button type="button" onClick={handleSave} primary>
                 Save
-              </Button>
+              </Button> */}
               <Button type="button" onClick={nextStep} primary>
                 Next
               </Button>
@@ -710,9 +708,9 @@ const EnquiryAdmissionForm = () => {
               <Button type="button" onClick={prevStep}>
                 Previous
               </Button>
-              <Button type="button" onClick={handleSave} primary>
+              {/* <Button type="button" onClick={handleSave} primary>
                 Save
-              </Button>
+              </Button> */}
               <Button type="submit" primary>
                 Submit
               </Button>

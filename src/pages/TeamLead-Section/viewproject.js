@@ -71,7 +71,7 @@ function Viewproject() {
   return (
     <div style={{ backgroundImage: `url(${viewbg})`, height: "800px" }}>
       <div className="container" style={{ paddingTop: "50px" }}>
-        <h1>Team Lead Project Assignments ({companyName})</h1>
+        <h1>Team Lead Project Assignments</h1>
         <hr />
         <div className="row">{projects.map(renderProjectCard)}</div>
       </div>

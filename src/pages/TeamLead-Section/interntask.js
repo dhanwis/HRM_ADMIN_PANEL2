@@ -145,13 +145,11 @@ function StudentTasks() {
   };
 
   const handleDelete = async (id) => {
-    console.log("id", id);
     let res = await axios.delete(`${baseUrlHr}/studentassigndelete/${id}/`, {
       headers: { Authorization: `Token ${token}` },
     });
 
     if (res.status === 200) {
-      console.log(res.data);
       const filteredData = taskDetails.filter((item) => item.id !== id);
       setTaskDetails(filteredData);
     }
@@ -229,13 +227,7 @@ function StudentTasks() {
       title: "Status",
       dataIndex: "status",
       key: "status",
-      render: (text, record) => (
-        <Select value={text} onChange={(value) => updateStatus(record, value)}>
-          <Option value="Pending">Pending</Option>
-          <Option value="In Progress">In Progress</Option>
-          <Option value="Finished">Finished</Option>
-        </Select>
-      ),
+      render: (text) => text,
     },
     {
       title: "Action",

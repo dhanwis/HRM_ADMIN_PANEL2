@@ -85,8 +85,8 @@ function Giveproject() {
           const newProject = {
             id: projectDetails.length + 1,
             ...values,
-            projectdate: moment(values.projectDate).format('YYYY-MM-DD'),
-            deadline: moment(values.deadline).format('YYYY-MM-DD'),
+            projectdate: moment(values.projectDate).format("YYYY-MM-DD"),
+            deadline: moment(values.deadline).format("YYYY-MM-DD"),
             status: "Pending", // Set default status to "Pending"
           };
           axios
@@ -113,12 +113,18 @@ function Giveproject() {
     form.resetFields();
   };
 
-  const handleDelete = () => {
-    const filteredData = projectDetails.filter(
-      (item) => !selectedRowKeys.includes(item.id)
+  const handleDelete = async (id) => {
+    let res = await axios.delete(
+      `${baseUrlHr}/projectassign/${id}/update-status/`,
+      {
+        headers: { Authorization: `Token ${token}` },
+      }
     );
-    setProjectDetails(filteredData);
-    setSelectedRowKeys([]);
+
+    if (res.status === 200) {
+      const filteredData = projectDetails.filter((item) => item.id !== id);
+      setProjectDetails(filteredData);
+    }
   };
 
   // const handleEdit = (record) => {
@@ -170,15 +176,19 @@ function Giveproject() {
       key: "status",
       render: (text) => text,
     },
-    // {
-    //   title: "Action",
-    //   key: "action",
-    //   render: (text, record) => (
-    //     <Button type="primary" onClick={() => handleEdit(record)}>
-    //       Edit
-    //     </Button>
-    //   ),
-    // },
+    {
+      title: "Action",
+      key: "action",
+      render: (text, record) => (
+        <Button
+          type="primary"
+          className="ant-btn-primary"
+          onClick={() => handleDelete(record.id)}
+        >
+          Delete
+        </Button>
+      ),
+    },
   ];
 
   return (
@@ -193,15 +203,6 @@ function Giveproject() {
               style={{ marginBottom: 16 }}
             >
               Assign project
-            </Button>
-          </Col>
-          <Col>
-            <Button
-              type="danger"
-              onClick={handleDelete}
-              style={{ marginBottom: 16, marginLeft: 16 }}
-            >
-              Delete Selected
             </Button>
           </Col>
         </Row>
