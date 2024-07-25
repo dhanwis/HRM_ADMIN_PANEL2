@@ -1,23 +1,10 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
  
-
-import { isHRAdminAuthenticated } from '../../utils/isAuthenticated'; 
 import { isTeamLeadAuthenticated } from '../../utils/isAuthenticated';
 
-import HR_Home from '../HR-Section/Home';
-import HR_Profile from '../HR-Section/profile';
-import HR_Tables from '../HR-Section/table';
-import HR_Billing from '../HR-Section/billing';
-import LeaveRequest from '../HR-Section/Leaveaccept';
-import EmployeeRegistrationForm from '../HR-Section/Registration';
-import Taskform from '../HR-Section/Task';
-import AttendanceMarkingPage from '../HR-Section/Attendance';
-import Salaryform from '../HR-Section/Salary';
-import JobForm from '../HR-Section/Jobalert';
 import Teamlead_Main from './main';
-// import HRSignIn from './HRAdminLogin';
-import Feeform from '../HR-Section/Internfee';
+
 import Team_Home from './home';
 import TeamLeadLogin from './TeamLeadLogin';
 import Team_Table from './Teamtable';
@@ -41,7 +28,7 @@ const PrivateTeamLeadRoute = ({ component: Component, ...rest }) => (
         <Component {...props} />
         </Teamlead_Main>
       ) : (
-        <Redirect to="/admin/login" />
+        <Redirect to="/teamlead/login" />
       )
     }
   />

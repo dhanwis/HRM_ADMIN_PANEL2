@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Form, Input, Button, Table, Modal } from 'antd';
+import React, { useState, useEffect } from "react";
+import { Form, Input, Button, Table, Modal } from "antd";
 
-import vector from "../../assets/images/vector_image.png"
-
-
+import vector from "../../assets/images/vector_image.png";
+import axios from "axios";
+import { baseUrl } from "../../url";
 
 const ReferenceForm = () => {
   const [form] = Form.useForm();
@@ -13,32 +13,55 @@ const ReferenceForm = () => {
   const [selectedRecord, setSelectedRecord] = useState(null);
 
   useEffect(() => {
-    const savedData = JSON.parse(localStorage.getItem('submittedReferences')) || [];
-    setSubmittedData(savedData);
+    let fetchRef = async () => {
+      let x = await axios.get(`${baseUrl}/intern/reference/`);
+
+      if (x.status === 200) {
+        console.log(x.data);
+        setSubmittedData(x.data);
+      }
+    };
+    fetchRef();
   }, []);
 
-  const onFinish = (values) => {
-    if (editingKey) {
-      const newData = submittedData.map(item =>
-        item.key === editingKey ? { ...item, ...values } : item
-      );
-      setSubmittedData(newData);
-      localStorage.setItem('submittedReferences', JSON.stringify(newData));
-      setEditingKey(null);
-    } else {
-      const key = Date.now();
-      const newData = {
-        ...values,
-        key,
-      };
+  // const onFinish = (values) => {
+  //   if (editingKey) {
+  //     const newData = submittedData.map((item) =>
+  //       item.key === editingKey ? { ...item, ...values } : item
+  //     );
+  //     setSubmittedData(newData);
+  //     localStorage.setItem("submittedReferences", JSON.stringify(newData));
+  //     setEditingKey(null);
+  //   } else {
+  //     const key = Date.now();
+  //     const newData = {
+  //       ...values,
+  //       key,
+  //     };
+  //     setSubmittedData([...submittedData, newData]);
+  //   }
+  //   form.resetFields();
+  // };
+
+  const onFinish = async (values) => {
+    const key = Date.now();
+    const newData = {
+      ...values,
+      key,
+    };
+    let response = await axios.post(`${baseUrl}/intern/reference/`, newData, {
+      headers: { "Content-Type": "application/json" },
+    });
+    console.log("response", response);
+
+    if (response.status === 201) {
       setSubmittedData([...submittedData, newData]);
-      localStorage.setItem('submittedReferences', JSON.stringify([...submittedData, newData]));
     }
     form.resetFields();
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+    console.log("Failed:", errorInfo);
   };
 
   const edit = (key) => {
@@ -47,11 +70,14 @@ const ReferenceForm = () => {
     form.setFieldsValue(recordToEdit);
   };
 
-  const deleteRecord = (key) => {
-    const newData = submittedData.filter((item) => item.key !== key);
-    setSubmittedData(newData);
-    localStorage.setItem('submittedReferences', JSON.stringify(newData));
-    setEditingKey(null); // Clear editingKey if the record being edited is deleted
+  const deleteRecord = async (key) => {
+    let x = await axios.delete(`${baseUrl}/intern/referencedelete/${key}`);
+
+    console.log(x);
+
+    if (x.status === 200) {
+      setSubmittedData(submittedData.filter((item) => item.key !== key));
+    }
   };
 
   const viewResponse = (record) => {
@@ -66,43 +92,42 @@ const ReferenceForm = () => {
 
   const columns = [
     {
-      title: 'Name',
-      dataIndex: 'Name',
-      key: 'Name',
+      title: "Name",
+      dataIndex: "name",
+      key: "Name",
     },
     {
-      title: 'Email',
-      dataIndex: 'Email',
-      key: 'Email',
+      title: "Email",
+      dataIndex: "email",
+      key: "Email",
     },
     {
-      title: 'Phone',
-      dataIndex: 'Phone',
-      key: 'Phone',
+      title: "Phone",
+      dataIndex: "phone",
+      key: "Phone",
     },
     {
-      title: 'Location',
-      dataIndex: 'location',
-      key: 'location',
+      title: "Location",
+      dataIndex: "location",
+      key: "location",
+    },
+
+    {
+      title: "Education Qualification",
+      dataIndex: "education",
+      key: "Education",
     },
 
     {
-      title: 'Education Qualification',
-      dataIndex: 'Education',
-      key: 'Education',
-    },
-
-
-    {
-      title: 'Actions',
-      dataIndex: 'actions',
-      key: 'actions',
+      title: "Actions",
+      dataIndex: "actions",
+      key: "actions",
       render: (_, record) => (
         <span>
-          <Button type="link" onClick={() => edit(record.key)}>
+          {/* <Button type="link" onClick={() => edit(record.key)}>
             Edit
-          </Button>
-          <Button type="link" onClick={() => deleteRecord(record.key)}>
+          </Button> */}
+          <Button type="link" onClick={() => deleteRecord(record.id)}>
             Delete
           </Button>
           <Button type="link" onClick={() => viewResponse(record)}>
@@ -114,7 +139,10 @@ const ReferenceForm = () => {
   ];
 
   return (
-    <div className="container mt-5" style={{backgroundImage:`url(${vector})`}}>
+    <div
+      className="container mt-5"
+      style={{ backgroundImage: `url(${vector})` }}
+    >
       <Form
         form={form}
         layout="vertical"
@@ -124,42 +152,56 @@ const ReferenceForm = () => {
         <h3>Referral Information</h3>
         <Form.Item
           label="Name"
-          name="Name"
-          rules={[{ required: true, message: 'Please enter name', pattern: /^[a-zA-Z]+$/ }]}
+          name="name"
+          rules={[
+            {
+              required: true,
+              message: "Please enter name",
+              pattern: /^[a-zA-Z]+$/,
+            },
+          ]}
         >
           <Input placeholder="Name" />
         </Form.Item>
         <Form.Item
           label="Email"
-          name="Email"
-          rules={[{ required: true, message: 'Please enter email', type: 'email' }]}
+          name="email"
+          rules={[
+            { required: true, message: "Please enter email", type: "email" },
+          ]}
         >
           <Input placeholder="Email" />
         </Form.Item>
         <Form.Item
           label="Phone"
-          name="Phone"
-          rules={[{ required: true, message: 'Please enter phone number', pattern: /^\d{10}$/ }]}
+          name="phone"
+          rules={[
+            {
+              required: true,
+              message: "Please enter phone number",
+              pattern: /^\d{10}$/,
+            },
+          ]}
         >
           <Input placeholder="Phone" />
         </Form.Item>
         <Form.Item
           label="Location"
           name="location"
-          // rules={[{ required: true, message: 'Please enter location' }]}
+          rules={[{ required: true, message: "Please enter location" }]}
         >
           <Input placeholder="Location" />
         </Form.Item>
 
-
         <Form.Item
           label="Education"
-          name="Education"
-          // rules={[{ required: true, message: 'Please enter Education Details' }]}
+          name="education"
+          rules={[
+            { required: true, message: "Please enter Education Details" },
+          ]}
         >
           <Input placeholder="Education" />
         </Form.Item>
-
 
         <Form.Item>
           <Button type="primary" htmlType="submit">
@@ -177,7 +219,7 @@ const ReferenceForm = () => {
         onOk={handleOk}
         okText="Close"
       >
-                {selectedRecord && (
+        {selectedRecord && (
           <div>
             {/* <p>{`${selectedRecord.Name} has provided the following contact details: Email - ${selectedRecord.Email}, Phone - ${selectedRecord.Phone}, Location - ${selectedRecord.location}.`}</p> */}
             <p>Considered</p>
@@ -189,4 +231,3 @@ const ReferenceForm = () => {
 };
 
 export default ReferenceForm;
-

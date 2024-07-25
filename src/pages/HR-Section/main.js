@@ -1,13 +1,9 @@
- 
-
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Layout, Drawer, Affix } from "antd";
-import Header from "../../components/layout/Header";
-import Footer from "../../components/layout/Footer";
 import SidenavHR from "./sidebar";
 
-const { Header: AntHeader, Content, Sider } = Layout;
+const { Header: Content, Sider } = Layout;
 
 export default function HR_Main({ children }) {
   const [visible, setVisible] = useState(false);
@@ -85,10 +81,6 @@ export default function HR_Main({ children }) {
         <SidenavHR color={sidenavColor} />
       </Sider>
       <Layout>
-
-       
-         
-
         {/* {fixed ? (
 
           <Affix>
@@ -118,8 +110,6 @@ export default function HR_Main({ children }) {
         )} 
         {/* <Header/> */}
 
-
-         
         {/* <Header/> */}
 
         <Content className="content-ant">{children}</Content>
@@ -128,5 +118,3 @@ export default function HR_Main({ children }) {
     </Layout>
   );
 }
-
- 

@@ -1,68 +1,178 @@
-
 import React, { useState, useEffect } from "react";
-import { Form, Input, Button, DatePicker, Table, Popconfirm, Select } from "antd";
+import {
+  Form,
+  Input,
+  Button,
+  DatePicker,
+  Table,
+  message,
+  Popconfirm,
+  Select,
+} from "antd";
 import moment from "moment";
 import vector from "../../assets/images/vectorhr.png";
+import axios from "axios";
+import { baseUrl, baseUrlHr } from "../../url";
 
 const { Option } = Select;
 
 const Taskform = () => {
   const [form] = Form.useForm();
   const [submittedData, setSubmittedData] = useState([]);
+
+  const [TeamLeads, setTeamLeads] = useState([]);
+
   const [editingKey, setEditingKey] = useState(null);
+  const token = localStorage.getItem("authToken");
 
+  //Team lead data fetching for assign task
   useEffect(() => {
-    const savedData = JSON.parse(localStorage.getItem("submittedData")) || [];
-    // Convert date strings back to moment objects
-    savedData.forEach(item => {
-      if (item.startDate) {
-        item.startDate = moment(item.startDate, 'YYYY-MM-DD');
-      }
-      if (item.endDate) {
-        item.endDate = moment(item.endDate, 'YYYY-MM-DD');
-      }
-    });
-    setSubmittedData(savedData);
-  }, []);
+    let fetchTeamLead = async () => {
+      try {
+        let response = await axios.get(`${baseUrl}/Teamlead/`, {
+          headers: { Authorization: `Token ${token}` },
+        });
 
-  const onFinish = (values) => {
-    const key = Date.now();
-    const newData = {
-      ...values,
-      key,
-      startDate: moment(values.startDate).format("YYYY-MM-DD"), // Convert moment object to string
-      endDate: moment(values.endDate).format("YYYY-MM-DD"),     // Convert moment object to string
+        console.log("all teamleads", response.data);
+
+        if (response.status === 200) {
+          setTeamLeads(response.data);
+
+          let x = response.data?.forEach((item) => {
+            if (item.startDate) {
+              item.startDate = moment(item.startDate, "YYYY-MM-DD");
+            }
+            if (item.endDate) {
+              item.endDate = moment(item.endDate, "YYYY-MM-DD");
+            }
+          });
+          setSubmittedData(x);
+        }
+      } catch (error) {
+        console.error("Error due to", error);
+      }
     };
-    setSubmittedData([...submittedData, newData]);
-    form.resetFields();
-    const updatedData = [...submittedData, newData];
-    localStorage.setItem("submittedData", JSON.stringify(updatedData));
-    console.log("Updated Data:", updatedData);
-  };
+
+    fetchTeamLead();
+  }, [token]);
+
+  // All Task listing
+  useEffect(() => {
+    let fetchTeamLead = async () => {
+      try {
+        let response = await axios.get(`${baseUrlHr}/teamleadassign/`, {
+          headers: { Authorization: `Token ${token}` },
+        });
+
+        console.log("fetchtem", response);
+
+        if (response.status === 200) {
+          setSubmittedData(response.data);
+        }
+        console.log("All task ", response);
+      } catch (error) {
+        console.error("Error due to", error);
+      }
+    };
+
+    fetchTeamLead();
+  }, [token]);
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
 
-  const deleteRecord = (key) => {
-    const newData = submittedData.filter((item) => item.key !== key);
-    setSubmittedData(newData);
-    setEditingKey(null);
-    localStorage.setItem("submittedData", JSON.stringify(newData));
+  const deleteRecord = async (key) => {
+    try {
+      let x = await axios.delete(`${baseUrlHr}/teamleadassign/${key}`, {
+        headers: { Authorization: `Token ${token}` },
+      });
+
+      if (x.status === 200) {
+        setSubmittedData((prevData) =>
+          prevData.filter((item) => item.id !== key)
+        );
+        setEditingKey(null);
+      }
+    } catch (error) {
+      console.error(
+        "Error deleting record:",
+        error.response ? error.response.data : error.message
+      );
+    }
   };
 
-  const edit = (key) => {
-    setEditingKey(key);
-    const recordToEdit = submittedData.find((record) => record.key === key);
-    
-    // Convert date strings to moment objects before setting form fields
-    const initialValues = { ...recordToEdit };
-    initialValues.startDate = moment(recordToEdit.startDate);
-    initialValues.endDate = moment(recordToEdit.endDate);
-  
-    form.setFieldsValue(initialValues);
+  const onFinish = async (formValues) => {
+    try {
+      const values = await form.validateFields();
+
+      // Convert the date format
+      if (values.startdate) {
+        const startdate = new Date(values.startdate);
+        values.startdate = startdate.toISOString().split("T")[0]; // YYYY-MM-DD
+      }
+
+      if (values.enddate) {
+        const enddate = new Date(values.enddate);
+        values.enddate = enddate.toISOString().split("T")[0]; // YYYY-MM-DD
+      }
+
+      const response = await axios.post(
+        `${baseUrlHr}/teamleadassign/`,
+        values,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Token ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 201) {
+        console.log("response data", response.data);
+        message.success("Task created successfully!");
+
+        // Ensure submittedData is updated correctly as an array
+        setSubmittedData((prevData) => [...prevData, response.data]);
+        form.resetFields();
+      } else {
+        message.error("Failed to create user. Please try again later.");
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        console.error("Validation error:", error.response.data.message);
+        message.error(
+          error.response.data.message || "Validation error occurred."
+        );
+      } else {
+        console.error("Submission error:", error);
+        message.error("An error occurred while submitting the form.");
+      }
+    }
   };
-  
+
+  const edit = async (key) => {
+    let x = await axios.patch(
+      `${baseUrlHr}/teamleadupdate/${key}`,
+      {},
+      {
+        headers: { Authorization: `Token ${token}` },
+      }
+    );
+
+    if (x.status === 200) {
+      setEditingKey(key);
+      submittedData.find((record) => record.user === key);
+
+      // Convert date strings to moment objects before setting form fields
+      const initialValues = { ...x.data };
+      initialValues.startdate = moment(x.data.startdate);
+      initialValues.enddate = moment(x.data.enddate);
+
+      form.setFieldsValue(initialValues);
+    }
+  };
+
   const save = async (key) => {
     try {
       const row = await form.validateFields();
@@ -71,15 +181,19 @@ const Taskform = () => {
 
       if (index > -1) {
         newData[index] = { ...newData[index], ...row };
-        newData[index].startDate = moment(newData[index].startDate).format("YYYY-MM-DD");
-        newData[index].endDate = moment(newData[index].endDate).format("YYYY-MM-DD");
+        newData[index].startDate = moment(newData[index].startDate).format(
+          "YYYY-MM-DD"
+        );
+        newData[index].endDate = moment(newData[index].endDate).format(
+          "YYYY-MM-DD"
+        );
         setSubmittedData(newData);
         setEditingKey(null);
         localStorage.setItem("submittedData", JSON.stringify(newData));
         console.log("Updated Data:", newData);
       }
     } catch (errInfo) {
-      console.log('Validate Failed:', errInfo);
+      console.log("Validate Failed:", errInfo);
     }
   };
 
@@ -90,51 +204,62 @@ const Taskform = () => {
 
   const columns = [
     {
-      title: 'ID',
-      dataIndex: 'id',
-      key: 'id',
+      title: "TeamLead",
+      dataIndex: "user",
+      key: "username",
     },
     {
-      title: 'Task Title',
-      dataIndex: 'taskTitle',
-      key: 'taskTitle',
+      title: "Task Title",
+      dataIndex: "tasktitle",
+      key: "taskTitle",
     },
     {
-      title: 'Start Date',
-      dataIndex: 'startDate',
-      key: 'startDate',
+      title: "Start Date",
+      dataIndex: "startdate",
+      key: "startDate",
       render: (text, record) => {
         return <span>{moment(record.startDate).format("YYYY-MM-DD")}</span>;
-      }
+      },
     },
     {
-      title: 'End Date',
-      dataIndex: 'endDate',
-      key: 'endDate',
+      title: "End Date",
+      dataIndex: "enddate",
+      key: "endDate",
       render: (text, record) => {
         return <span>{moment(record.endDate).format("YYYY-MM-DD")}</span>;
-      }
+      },
     },
     {
-      title: 'Task Description',
-      dataIndex: 'taskDescription',
-      key: 'taskDescription',
+      title: "Task Description",
+      dataIndex: "task_description",
+      key: "taskDescription",
     },
     {
-      title: 'Actions',
-      dataIndex: 'actions',
-      key: 'actions',
+      title: "Actions",
+      dataIndex: "actions",
+      key: "actions",
       render: (_, record) => {
         const editable = record.key === editingKey;
         return editable ? (
           <span>
-            <Button type="primary" onClick={() => save(record.key)} style={{ marginRight: 8 }}>Save</Button>
+            <Button
+              type="primary"
+              onClick={() => save(record.key)}
+              style={{ marginRight: 8 }}
+            >
+              Save
+            </Button>
             <Button onClick={cancel}>Cancel</Button>
           </span>
         ) : (
           <span>
-            <Button type="link" onClick={() => edit(record.key)}>Edit</Button>
-            <Popconfirm title="Sure to delete?" onConfirm={() => deleteRecord(record.key)}>
+            <Button type="link" onClick={() => edit(record.id)}>
+              Edit
+            </Button>
+            <Popconfirm
+              title="Sure to delete?"
+              onConfirm={() => deleteRecord(record.id)}
+            >
               <Button type="link">Delete</Button>
             </Popconfirm>
           </span>
@@ -144,35 +269,62 @@ const Taskform = () => {
   ];
 
   return (
-    <div style={{marginTop:'100px',backgroundImage:`url(${vector})`,height:'800px'}}>
+    <div
+      style={{
+        marginTop: "100px",
+        backgroundImage: `url(${vector})`,
+        height: "800px",
+      }}
+    >
       <Form
-      
         form={form}
         layout="vertical"
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
       >
         {/* <h2>Task Information</h2> */}
-        <Form.Item label="Name" name="id" rules={[{ required: true, message: "Please enter name" }]}>
+        <Form.Item
+          label="Name"
+          name="user"
+          rules={[{ required: true, message: "Please enter name" }]}
+        >
           <Select placeholder="Select name">
-            <Option value="1">Name 1</Option>
-            <Option value="2">Name 2</Option>
-            <Option value="3">Name 3</Option>
-            {/* Add more options as needed */}
+            {TeamLeads &&
+              TeamLeads.map((name, index) => (
+                <Option value={name.id} key={index}>
+                  {name.username}
+                </Option>
+              ))}
           </Select>
         </Form.Item>
-        <Form.Item label="Task Title" name="taskTitle" rules={[{ required: true, message: "Please enter task title" }]}labelCol={{ span: 24 }} // Adjust the span value as needed
-  wrapperCol={{ span: 24 }} // Adjust the span value as needed
- >
+        <Form.Item
+          label="Task Title"
+          name="tasktitle"
+          rules={[{ required: true, message: "Please enter task title" }]}
+          labelCol={{ span: 24 }} // Adjust the span value as needed
+          wrapperCol={{ span: 24 }} // Adjust the span value as needed
+        >
           <Input placeholder="Task Title" />
         </Form.Item>
-        <Form.Item label="Start Date" name="startDate" rules={[{ required: true, message: "Please select start date" }]}>
+        <Form.Item
+          label="Start Date"
+          name="startdate"
+          rules={[{ required: true, message: "Please select start date" }]}
+        >
           <DatePicker style={{ width: "100%" }} />
         </Form.Item>
-        <Form.Item label="End Date" name="endDate" rules={[{ required: true, message: "Please select end date" }]}>
+        <Form.Item
+          label="End Date"
+          name="enddate"
+          rules={[{ required: true, message: "Please select end date" }]}
+        >
           <DatePicker style={{ width: "100%" }} />
         </Form.Item>
-        <Form.Item label="Task Description" name="taskDescription" rules={[{ required: true, message: "Please enter task description" }]}>
+        <Form.Item
+          label="Task Description"
+          name="task_description"
+          rules={[{ required: true, message: "Please enter task description" }]}
+        >
           <Input.TextArea placeholder="Task Description" />
         </Form.Item>
 

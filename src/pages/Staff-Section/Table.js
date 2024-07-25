@@ -11,6 +11,10 @@ const Tablesstaff = () => {
   const [statusDescription, setStatusDescription] = useState('');
   const [images, setImages] = useState([]);
 
+  const x = localStorage.getItem('is_staff')
+
+  console.log('is',x)
+
   useEffect(() => {
     // Fetch projects and team leads from the backend
     axios.get('/api/projects')

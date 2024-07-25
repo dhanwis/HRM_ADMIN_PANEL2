@@ -1,18 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import {
-  Layout,
-  Menu,
-  Button,
-  Row,
-  Col,
-  Typography,
-  Form,
-  Input,
-  Switch,
-} from "antd";
+import { Layout, Menu, Button, Row, Col, Typography, Form, Input } from "antd";
 
 import signinbg from "../../assets/images/call.webp";
+import { enqueueSnackbar } from "notistack";
 
 import {
   DribbbleOutlined,
@@ -20,6 +11,8 @@ import {
   InstagramOutlined,
   GithubOutlined,
 } from "@ant-design/icons";
+import axios from "axios";
+import { baseUrl } from "../../url";
 function onChange(checked) {
   console.log(`switch to ${checked}`);
 }
@@ -106,11 +99,43 @@ const signin = [
   </svg>,
 ];
 
-
 export default class login extends Component {
   render() {
-    const onFinish = (values) => {
-      console.log("Success:", values);
+    const onFinish = async (values) => {
+      try {
+        let response = await axios.post(`${baseUrl}/frontofficelogin/`, values);
+
+        if (response.status === 200) {
+          enqueueSnackbar("FrontOffice Login success", {
+            variant: "success",
+          });
+          localStorage.setItem(
+            "is_frontoffice",
+            response.data.user.is_frontoffice
+          );
+          localStorage.setItem("authToken", response.data.token);
+          localStorage.setItem("frontoffice", JSON.stringify(response.data.user));
+          this.props.history.push("/frontoffice/dashboard"); // Redirect to /admin/dashboard
+        }
+      } catch (error) {
+        if (error.response) {
+          // The request was made and the server responded with a status code that falls out of the range of 2xx
+          enqueueSnackbar(error.response.data.details, {
+            variant: "warning",
+          });
+        } else if (error.request) {
+          // The request was made but no response was received
+          enqueueSnackbar(
+            "No response from the server. Please try again later.",
+            { variant: "error" }
+          );
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          enqueueSnackbar("An error occurred. Please try again later.", {
+            variant: "error",
+          });
+        }
+      }
     };
 
     const onFinishFailed = (errorInfo) => {
@@ -175,7 +200,7 @@ export default class login extends Component {
                   <Form.Item
                     className="username"
                     label="Email"
-                    name="email"
+                    name="username"
                     rules={[
                       {
                         required: true,
@@ -200,15 +225,6 @@ export default class login extends Component {
                     <Input placeholder="Password" />
                   </Form.Item>
 
-                  <Form.Item
-                    name="remember"
-                    className="aligin-center"
-                    valuePropName="checked"
-                  >
-                    <Switch defaultChecked onChange={onChange} />
-                    Remember me
-                  </Form.Item>
-
                   <Form.Item>
                     <Button
                       type="primary"
@@ -219,8 +235,11 @@ export default class login extends Component {
                     </Button>
                   </Form.Item>
                   <p className="font-semibold text-muted">
-                   forget passsword{" "}
-                    <Link to="/frontoffice/frontResetPassword" className="text-dark font-bold">
+                    forget passsword{" "}
+                    <Link
+                      to="/frontoffice/frontResetPassword"
+                      className="text-dark font-bold"
+                    >
                       Reset passsword
                     </Link>
                   </p>
@@ -272,7 +291,6 @@ export default class login extends Component {
                 <Link to="#">{<GithubOutlined />}</Link>
               </Menu.Item>
             </Menu>
-             
           </Footer>
         </Layout>
       </>

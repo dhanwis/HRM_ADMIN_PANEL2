@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Form, Input, Button, Table, Pagination, DatePicker } from 'antd';
 import moment from 'moment';
 import bg from "../../assets/images/bgvector.png"
+import axios from 'axios';
+import { baseUrlHr } from '../../url';
 
 const { RangePicker } = DatePicker;
 
@@ -11,31 +13,54 @@ const OfficeLeaveForm = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
+  const token = localStorage.getItem('authToken')
+
   useEffect(() => {
-    const savedData = JSON.parse(localStorage.getItem('submittedLeaves')) || [];
-    const formattedData = savedData.map(item => ({
-      ...item,
-      startDate: item.startDate ? moment(item.startDate, 'YYYY-MM-DD') : null,
-      endDate: item.endDate ? moment(item.endDate, 'YYYY-MM-DD') : null,
-    }));
-    setSubmittedRequests(formattedData);
+    const fetchLeaveData = async () => {
+      let response = await axios.get(`${baseUrlHr}/leaverequest/`, {
+        headers: { Authorization: `Token ${token}` },
+      });
+
+      console.log("response", response);
+
+      if (response.status === 200) {
+        const formattedData = response.data?.map((item) => ({
+          ...item,
+          start_date: item.start_date
+            ? moment(item.start_date, "YYYY-MM-DD")
+            : null,
+          end_date: item.end_date ? moment(item.end_date, "YYYY-MM-DD") : null,
+        }));
+        setSubmittedRequests(formattedData);
+      }
+    };
+
+    fetchLeaveData();
   }, []);
 
-  const onFinish = values => {
+  const onFinish = async (values) => {
     const newRequest = {
       ...values,
       key: Date.now(),
-      startDate: moment(values.dateRange[0]).format('YYYY-MM-DD'),
-      endDate: moment(values.dateRange[1]).format('YYYY-MM-DD'),
-      duration: moment(values.dateRange[1]).diff(moment(values.dateRange[0]), 'days') + 1,
-      requestStatus: 'Pending',
+      start_date: moment(values.dateRange[0]).format("YYYY-MM-DD"),
+      end_date: moment(values.dateRange[1]).format("YYYY-MM-DD"),
+      duration:
+        moment(values.dateRange[1]).diff(moment(values.dateRange[0]), "days") +
+        1,
+      status: "Pending",
     };
-    const updatedRequests = [...submittedRequests, newRequest];
-    setSubmittedRequests(updatedRequests);
-    localStorage.setItem('submittedLeaves', JSON.stringify(updatedRequests));
+    let response = await axios.post(`${baseUrlHr}/leaverequest/`, newRequest, {
+      headers: { Authorization: `Token ${token}` },
+    });
+    console.log("response", response);
+
+    if (response.status === 201) {
+      const updatedRequests = [...submittedRequests, response.data];
+      setSubmittedRequests(updatedRequests);
+    }
+
     form.resetFields();
   };
-
   const onFinishFailed = errorInfo => {
     console.error('Failed:', errorInfo);
   };
@@ -109,6 +134,7 @@ const OfficeLeaveForm = () => {
       </Form>
       <div>
         <h3 className="mt-5">Leave History</h3>
+        
         <Table
           dataSource={currentItems}
           columns={columns}

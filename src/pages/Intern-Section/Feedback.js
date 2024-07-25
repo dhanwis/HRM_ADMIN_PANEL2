@@ -1,24 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import vector from "../../assets/images/vector_image.png";
+import axios from "axios";
+import { baseUrl } from "../../url";
 
 const FeedbackForm = () => {
+  const token = localStorage.getItem("authToken");
   const [formData, setFormData] = useState({
-    feedback: '',
+    feedback: "",
   });
 
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Simulate form submission (replace with your actual submission logic)
-    console.log('Submitting feedback:', formData);
+    let x = await axios.post(`${baseUrl}/intern/feedback/`, formData, {
+      headers: { Authorization: `Token ${token}` },
+    });
+    console.log(x);
 
-    // Reset form after submission
     setFormData({
-      feedback: '',
+      feedback: "",
     });
   };
 
@@ -28,7 +32,9 @@ const FeedbackForm = () => {
         <h3>Feedback</h3>
         <form onSubmit={handleSubmit} style={{ marginTop: "20px" }}>
           <div className="mb-3">
-            <label htmlFor="feedback" className="form-label">Feedback</label>
+            <label htmlFor="feedback" className="form-label">
+              Feedback
+            </label>
             <textarea
               className="form-control"
               id="feedback"
@@ -40,7 +46,9 @@ const FeedbackForm = () => {
             ></textarea>
           </div>
           <div className="text-center">
-            <button type="submit" className="btn btn-primary">Submit</button>
+            <button type="submit" className="btn btn-primary">
+              Submit
+            </button>
           </div>
         </form>
       </div>

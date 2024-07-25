@@ -1,108 +1,147 @@
-import React, { useState, useEffect } from 'react';
-import Table from 'react-bootstrap/Table';
-import Button from 'react-bootstrap/Button';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
-import setbackg from "../../assets/images/bgall.png"
+import React, { useState, useEffect } from "react";
+import Table from "react-bootstrap/Table";
+import Button from "react-bootstrap/Button";
+import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
+import setbackg from "../../assets/images/bgall.png";
+import axios from "axios";
+import { baseUrlHr } from "../../url";
+import Loading from "../../Loading";
 
 const Viewprojectstaff = () => {
+  const token = localStorage.getItem("authToken");
   const [tasks, setTasks] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const fetchPendingTasks = async () => {
-      try {
-        // Simulate fetching pending tasks data from the backend API
-        const response = await fetch('https://your-api-url/pending-tasks');
-        if (!response.ok) {
-          throw new Error('Failed to fetch pending tasks');
-        }
-        const data = await response.json();
-        setTasks(data); // Update tasks state with fetched data
-      } catch (error) {
-        console.error('Error fetching pending tasks:', error);
-        // Handle error (e.g., show error message, retry logic, etc.)
-      }
-    };
+    // Fetch project details from the backend
+    axios
+      .get(`${baseUrlHr}/projectassign/`, {
+        headers: { Authorization: `Token ${token}` },
+      })
+      .then((response) => {
+        const fetchedData = response.data.map((item) => ({
+          ...item,
+          status: item.status || "Pending", // Default status to "Pending" if not provided
+        }));
 
-    fetchPendingTasks();
-  }, []);
+        console.log("fetched pro", fetchedData);
+        setTasks(fetchedData);
+      })
+      .catch((error) => {
+        console.error(
+          "There was an error fetching the customer details!",
+          error
+        );
+      });
+  }, [token]);
 
   const updateTaskStatus = async (index, status) => {
     try {
       const taskToUpdate = tasks[index];
-      const response = await fetch(`https://your-api-url/update-task/${taskToUpdate.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ status }),
-      });
 
-      if (!response.ok) {
-        throw new Error('Failed to update task status');
-      }
+      // Simulate a successful response from backend API
+      const updatedTask = { ...taskToUpdate, status };
 
-      const updatedTask = await response.json();
       const updatedTasks = tasks.map((task, i) =>
-        i === index ? { ...task, status: updatedTask.status } : task
+        i === index ? updatedTask : task
       );
       setTasks(updatedTasks);
     } catch (error) {
-      console.error('Error updating task status:', error);
+      console.error("Error updating task status:", error);
       // Handle error (e.g., show error message, retry logic, etc.)
     }
   };
 
-  const handleStart = (index) => {
-    updateTaskStatus(index, 'In Progress');
+  const handleStart = async (taskId, status) => {
+    let response = await axios.patch(
+      `${baseUrlHr}/projectassign/${taskId}/update-status/`,
+      { action: status },
+      { headers: { Authorization: `Token ${token}` } }
+    );
+
+    if (response.status === 200) {
+      const updatedTasksData = tasks.map((task) => {
+        if (task.id === taskId) {
+          return { ...task, status: "In Progress" };
+        }
+
+        return task;
+      });
+
+      setTasks(updatedTasksData);
+      window.location.reload();
+    }
   };
 
-  const handleFinish = (index) => {
-    updateTaskStatus(index, 'Completed');
+  const handleFinish = async (taskId, status) => {
+    let response = await axios.patch(
+      `${baseUrlHr}/projectassign/${taskId}/update-status/`,
+      { action: status },
+      { headers: { Authorization: `Token ${token}` } }
+    );
+
+    console.log("response when start", response);
+
+    if (response.status === 200) {
+      const updatedTasksData = tasks.map((task) => {
+        if (task.id === taskId) {
+          return { ...task, status: "In Progress" };
+        }
+
+        return task;
+      });
+
+      setTasks(updatedTasksData);
+
+      window.location.reload();
+    }
   };
 
   return (
-    <div style={{ marginTop: "50px",  backgroundImage:`url(${setbackg})`}}>
-    <div className="container mt-4">
-      <h2>View Projects</h2>
-      <Table striped bordered hover>
-        <thead className="thead-dark">
-          <tr>
-            <th>Project Name</th>
-            <th>Project Date</th>
-            <th>Deadline</th>
-            <th>Action</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {tasks.map((task, index) => (
-            <tr key={index}>
-              <td>{task.projectName}</td>
-              <td>{task.projectDate}</td>
-              <td>{task.deadline}</td>
-              <td>
-                <Button 
-                  variant="warning" 
-                  onClick={() => handleStart(index)} 
-                  disabled={task.status !== 'Pending'}
-                  className="mr-2"
-                >
-                  Start
-                </Button>
-                <Button 
-                  variant="success" 
-                  onClick={() => handleFinish(index)} 
-                  disabled={task.status !== 'In Progress'}
-                >
-                  Finish
-                </Button>
-              </td>
-              <td>{task.status}</td>
+    <div style={{ marginTop: "50px", backgroundImage: `url(${setbackg})` }}>
+      <div className="container mt-4">
+        <h2>View Projects</h2>
+        <Table striped bordered hover>
+          <thead className="thead-dark">
+            <tr>
+              <th>Project Name</th>
+              <th>Project Date</th>
+              <th>Deadline</th>
+              <th>Action</th>
+              <th>Status</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
-    </div>
+          </thead>
+          <tbody>
+            {tasks.map((task, index) => (
+              <tr key={index}>
+                <td>{task.projectname}</td>
+                <td>{task.projectdate}</td>
+                <td>{task.deadline}</td>
+                <td className="d-flex align-items-center">
+                  <Button
+                    variant="primary"
+                    onClick={() => handleStart(task.id, "start")}
+                    disabled={task.status !== "Pending"}
+                    className="me-2 btn-lg"
+                  >
+                    Start
+                  </Button>
+                  <Button
+                    variant="danger"
+                    onClick={() => handleFinish(task.id, "end")}
+                    disabled={task.status === "Completed"}
+                    className="btn-lg"
+                  >
+                    Finish
+                  </Button>
+                </td>
+
+                <td>{task.status}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </div>
     </div>
   );
 };

@@ -1,15 +1,3 @@
-/*!
-  =========================================================
-  * Muse Ant Design Dashboard - v1.0.0
-  =========================================================
-  * Product Page: https://www.creative-tim.com/product/muse-ant-design-dashboard
-  * Copyright 2021 Creative Tim (https://www.creative-tim.com)
-  * Licensed under MIT (https://github.com/creativetimofficial/muse-ant-design-dashboard/blob/main/LICENSE.md)
-  * Coded by Creative Tim
-  =========================================================
-  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { useState, useEffect } from "react";
 
 import {
@@ -34,7 +22,7 @@ import {
   FacebookFilled,
 } from "@ant-design/icons";
 
-import { NavLink, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import avtar from "../../assets/images/team-2.jpg";
 
@@ -264,18 +252,25 @@ function StaffHeader({
   const [sidenavType, setSidenavType] = useState("transparent");
 
   useEffect(() => window.scrollTo(0, 0));
+  const history = useHistory();
 
   const showDrawer = () => setVisible(true);
   const hideDrawer = () => setVisible(false);
 
+  const handlelogout = () => {
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("is_staff");
+    history.push("/staff/login");
+  };
+
   return (
-    <div style={{paddingTop:"50px"}}>
-      <div className="setting-drwer" onClick={showDrawer} >
+    <div style={{ paddingTop: "50px" }}>
+      <div className="setting-drwer" onClick={showDrawer}>
         {setting}
       </div>
       <Row gutter={[24, 0]}>
-      <Col span={24} md={6}>
-        {/* <Col span={24} md={6}>
+        <Col span={24} md={6}>
+          {/* <Col span={24} md={6}>
           <Breadcrumb>
             <Breadcrumb.Item>
               <NavLink to="/">Pages</NavLink>
@@ -423,10 +418,11 @@ function StaffHeader({
               </div>
             </div>
           </Drawer>
-          <Link to="/staff/login" className="btn-sign-in">
+
+          <span style={{ cursor: "pointer" }} className="btn-sign-in" onClick={handlelogout}>
             {profile}
             <span>Log out</span>
-          </Link>
+          </span>
           <Input
             className="header-search"
             placeholder="Type here..."
