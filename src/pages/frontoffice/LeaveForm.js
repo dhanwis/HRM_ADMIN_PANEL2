@@ -134,6 +134,7 @@ const OfficeLeaveForm = () => {
       </Form>
       <div>
         <h3 className="mt-5">Leave History</h3>
+        
         <Table
           dataSource={currentItems}
           columns={columns}

@@ -17,7 +17,7 @@ const LeaveForm = () => {
 
   const token = localStorage.getItem("authToken");
 
-  console.log('token from team',token)
+  console.log("token from team", token);
 
   useEffect(() => {
     const fetchLeaveData = async () => {
