@@ -9,6 +9,7 @@ import {
   message,
   DatePicker,
 } from "antd";
+import moment from "moment";
 
 import "antd/dist/antd.css";
 import vector from "../../assets/images/vectorhr.png";
@@ -19,6 +20,8 @@ const EmployeeRegistrationForm = () => {
   const [employees, setEmployees] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
+
+  const token = localStorage.getItem("authToken");
 
   useEffect(() => {
     // let fetchData = async () => {
@@ -80,11 +83,19 @@ const EmployeeRegistrationForm = () => {
     );
   };
 
-  const editEmployee = (id) => {
-    const employee = employees.find((emp) => emp.id === id);
-    setSelectedEmployee(employee);
-    setIsModalVisible(true);
+  const deleteEmployee = async (id) => {
+    let response = await axios.delete(`${baseUrl}/allusers/${id}/`);
+
+    if (response.status === 200) {
+      setEmployees(employees.filter((x) => x.id !== id));
+    }
   };
+
+  // const editEmployee = (id) => {
+  //   const employee = employees.find((emp) => emp.id === id);
+  //   setSelectedEmployee(employee);
+  //   setIsModalVisible(true);
+  // };
 
   const columns = [
     {
@@ -112,17 +123,6 @@ const EmployeeRegistrationForm = () => {
       dataIndex: "phone_number",
       key: "phone_number",
     },
-    {
-      title: "Department",
-      dataIndex: "department",
-      key: "department",
-    },
-
-    {
-      title: "Experience",
-      dataIndex: "experience",
-      key: "experience",
-    },
 
     {
       title: "Actions",
@@ -132,11 +132,17 @@ const EmployeeRegistrationForm = () => {
           <Button type="primary" onClick={() => viewEmployee(record.id)}>
             View
           </Button>
-          <Button
+          {/* <Button
             style={{ marginLeft: 8 }}
             onClick={() => editEmployee(record.id)}
           >
             Edit
+          </Button> */}
+          <Button
+            style={{ marginLeft: 8 }}
+            onClick={() => deleteEmployee(record.id)}
+          >
+            Delete
           </Button>
         </span>
       ),
@@ -177,36 +183,6 @@ const EmployeeForm = ({ visible, onCancel, onCreate }) => {
   const [image, setImage] = useState(null);
 
   const [loading, setLoading] = useState(false);
-
-  // const handleSubmit = async () => {
-  //   setLoading(true);
-  //   try {
-  //     const values = await form.validateFields();
-  //     console.log("va", values);
-  //     //form.resetFields();
-
-  //     const response = await axios.post(`${baseUrl}/${values.role}/`, values, {
-  //       headers: { "Content-Type": "application/json" },
-  //     });
-
-  //     console.log("res", response);
-
-  //     if (response.status === 201) {
-  //       onCreate(response.data.user);
-  //       message.success("User created successfully!");
-  //     }
-  //   } catch (error) {
-  //     if (error.response && error.response.status === 400) {
-  //       console.error("Validation error:", error.response.data.message);
-  //       message.error(error.response.data.message);
-  //     } else {
-  //       console.error("Submission error:", error);
-  //       message.error("An error occurred while submitting the form.");
-  //     }
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
 
   const handleFileChange = (file) => {
     setImage(file);
@@ -393,6 +369,23 @@ const EmployeeForm = ({ visible, onCancel, onCreate }) => {
           label="Date of Birth"
           rules={[
             { required: true, message: "Please input the date of birth!" },
+            {
+              validator: (_, value) => {
+                if (!value) {
+                  return Promise.resolve();
+                }
+                const today = moment().startOf("day");
+                if (value.isSame(today, "day")) {
+                  return Promise.reject(new Error("Are you born today?"));
+                }
+                if (value.isAfter(today, "day")) {
+                  return Promise.reject(
+                    new Error("Bro are your birth will be tomorrow?")
+                  );
+                }
+                return Promise.resolve();
+              },
+            },
           ]}
         >
           <DatePicker style={{ width: "100%" }} />
@@ -456,11 +449,11 @@ const EmployeeForm = ({ visible, onCancel, onCreate }) => {
           </Select>
         </Form.Item>
 
-        <Form.Item>
+        {/* <Form.Item>
           <Button type="primary" onClick={handleSubmit}>
             Submit
           </Button>
-        </Form.Item>
+        </Form.Item> */}
       </Form>
     </Modal>
   );

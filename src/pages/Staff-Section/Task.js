@@ -5,41 +5,12 @@ import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
 import setbackg from "../../assets/images/bgall.png";
 import axios from "axios";
 import { baseUrlHr } from "../../url";
+import Loading from "../../Loading";
 
 const Viewprojectstaff = () => {
   const token = localStorage.getItem("authToken");
   const [tasks, setTasks] = useState([]);
-  const [projectDetails,setProjectDetails] = useState([])
-
-  useEffect(() => {
-    // Sample data for tasks
-    const sampleTasks = [
-      {
-        id: "1",
-        projectName: "Project Alpha",
-        projectDate: "2024-01-01",
-        deadline: "2024-06-01",
-        status: "Pending",
-      },
-      {
-        id: "2",
-        projectName: "Project Beta",
-        projectDate: "2024-02-01",
-        deadline: "2024-07-01",
-        status: "Pending",
-      },
-      {
-        id: "3",
-        projectName: "Project Gamma",
-        projectDate: "2024-03-01",
-        deadline: "2024-08-01",
-        status: "In Progress",
-      },
-    ];
-
-    // Set sample data
-    setTasks(sampleTasks);
-  }, []);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     // Fetch project details from the backend
@@ -52,8 +23,9 @@ const Viewprojectstaff = () => {
           ...item,
           status: item.status || "Pending", // Default status to "Pending" if not provided
         }));
-        console.log("project", fetchedData);
-        setProjectDetails(fetchedData);
+
+        console.log("fetched pro", fetchedData);
+        setTasks(fetchedData);
       })
       .catch((error) => {
         console.error(
@@ -61,7 +33,7 @@ const Viewprojectstaff = () => {
           error
         );
       });
-  }, []);
+  }, [token]);
 
   const updateTaskStatus = async (index, status) => {
     try {
@@ -80,12 +52,49 @@ const Viewprojectstaff = () => {
     }
   };
 
-  const handleStart = (index) => {
-    updateTaskStatus(index, "In Progress");
+  const handleStart = async (taskId, status) => {
+    let response = await axios.patch(
+      `${baseUrlHr}/projectassign/${taskId}/update-status/`,
+      { action: status },
+      { headers: { Authorization: `Token ${token}` } }
+    );
+
+    if (response.status === 200) {
+      const updatedTasksData = tasks.map((task) => {
+        if (task.id === taskId) {
+          return { ...task, status: "In Progress" };
+        }
+
+        return task;
+      });
+
+      setTasks(updatedTasksData);
+      window.location.reload();
+    }
   };
 
-  const handleFinish = (index) => {
-    updateTaskStatus(index, "Completed");
+  const handleFinish = async (taskId, status) => {
+    let response = await axios.patch(
+      `${baseUrlHr}/projectassign/${taskId}/update-status/`,
+      { action: status },
+      { headers: { Authorization: `Token ${token}` } }
+    );
+
+    console.log("response when start", response);
+
+    if (response.status === 200) {
+      const updatedTasksData = tasks.map((task) => {
+        if (task.id === taskId) {
+          return { ...task, status: "In Progress" };
+        }
+
+        return task;
+      });
+
+      setTasks(updatedTasksData);
+
+      window.location.reload();
+    }
   };
 
   return (
@@ -105,13 +114,13 @@ const Viewprojectstaff = () => {
           <tbody>
             {tasks.map((task, index) => (
               <tr key={index}>
-                <td>{task.projectName}</td>
-                <td>{task.projectDate}</td>
+                <td>{task.projectname}</td>
+                <td>{task.projectdate}</td>
                 <td>{task.deadline}</td>
                 <td className="d-flex align-items-center">
                   <Button
                     variant="primary"
-                    onClick={() => handleStart(index)}
+                    onClick={() => handleStart(task.id, "start")}
                     disabled={task.status !== "Pending"}
                     className="me-2 btn-lg"
                   >
@@ -119,8 +128,8 @@ const Viewprojectstaff = () => {
                   </Button>
                   <Button
                     variant="danger"
-                    onClick={() => handleFinish(index)}
-                    disabled={task.status !== "In Progress"}
+                    onClick={() => handleFinish(task.id, "end")}
+                    disabled={task.status === "Completed"}
                     className="btn-lg"
                   >
                     Finish

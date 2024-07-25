@@ -22,8 +22,6 @@ const LeaveFormStaff = () => {
         headers: { Authorization: `Token ${token}` },
       });
 
-      console.log("response", response);
-
       if (response.status === 200) {
         const formattedData = response.data?.map((item) => ({
           ...item,
