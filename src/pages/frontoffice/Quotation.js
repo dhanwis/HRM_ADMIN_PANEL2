@@ -20,6 +20,7 @@ const Quotation = () => {
   const [packageAmount, setPackageAmount] = useState(30000);
   const [gstRate] = useState(18);
   const [gstAmount, setGstAmount] = useState(0);
+
   const [totalAmount, setTotalAmount] = useState(0);
 
   const [quotations, setQuotations] = useState([]);
@@ -134,7 +135,9 @@ const Quotation = () => {
       add_on: moment(addon).format("YYYY-MM-DD"),
       expired_on: moment(expiredOn).format("YYYY-MM-DD"),
       gst_amount: gstAmount,
+      development_charge: packageAmount,
       total_amount: totalAmount,
+      issued_by: contact,
     };
 
     console.log(formData);
@@ -354,6 +357,7 @@ const Quotation = () => {
                 onChange={handleCustomerNameChange}
                 isInvalid={!!errors.customerName}
               />
+              {/* setDevelopmentCharge */}
               <Form.Control.Feedback type="invalid">
                 {errors.customerName}
               </Form.Control.Feedback>
@@ -371,7 +375,7 @@ const Quotation = () => {
                 <option value="mobile_app_development">
                   Mobile App Development
                 </option>
-                <option value="digital_market">Digital Marketing</option>
+                <option value="digital_marketing">Digital Marketing</option>
               </Form.Control>
               <Form.Control.Feedback type="invalid">
                 {errors.quotationType}
@@ -436,7 +440,7 @@ const Quotation = () => {
                 </Button>
               </div>
             ))} */}
-            
+
             {/* <Button
               variant="secondary"
               onClick={handleAddStrategy}

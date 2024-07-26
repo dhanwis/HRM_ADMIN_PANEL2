@@ -86,7 +86,7 @@ const OfficeLeaveForm = () => {
     },
     {
       title: 'Duration (days)',
-      dataIndex: 'duration',
+      dataIndex: 'duration_days',
       key: 'duration',
     },
     {
@@ -96,7 +96,7 @@ const OfficeLeaveForm = () => {
     },
     {
       title: 'Status',
-      dataIndex: 'requestStatus',
+      dataIndex: 'status',
       key: 'requestStatus',
     },
   ];
