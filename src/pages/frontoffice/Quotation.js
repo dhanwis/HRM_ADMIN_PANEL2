@@ -172,8 +172,6 @@ const Quotation = () => {
       { headers: { Authorization: `Token ${token}` } }
     );
 
-    console.log(response);
-
     if (response.status === 200) {
       const updatedQuotations = quotations.filter((q) => q.id !== id);
       setQuotations(updatedQuotations);
@@ -258,27 +256,7 @@ const Quotation = () => {
             <p class="field-name">Introduction:</p>
             <p>${viewingQuotation.introduction}</p>
           </div>
-          <h2>Strategy</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>Key</th>
-                <th>Value</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${viewingQuotation.strategyData
-                .map(
-                  (item, index) => `
-                <tr key=${index}>
-                  <td>${item.key}</td>
-                  <td>${item.value}</td>
-                </tr>
-              `
-                )
-                .join("")}
-            </tbody>
-          </table>
+         
           <h2>Payment Details</h2>
           <table>
             <thead>
@@ -458,13 +436,14 @@ const Quotation = () => {
                 </Button>
               </div>
             ))} */}
-            <Button
+            
+            {/* <Button
               variant="secondary"
               onClick={handleAddStrategy}
               className="mb-3"
             >
               Add Strategy
-            </Button>
+            </Button> */}
 
             <h2>PAYMENT DETAILS</h2>
             <Row className="mb-3">
@@ -636,3 +615,25 @@ const Quotation = () => {
 };
 
 export default Quotation;
+
+// <h2>Strategy</h2>
+// <table>
+//   <thead>
+//     <tr>
+//       <th>Key</th>
+//       <th>Value</th>
+//     </tr>
+//   </thead>
+//   <tbody>
+//     ${viewingQuotation.strategyData
+//       .map(
+//         (item, index) => `
+//       <tr key=${index}>
+//         <td>${item.key}</td>
+//         <td>${item.value}</td>
+//       </tr>
+//     `
+//       )
+//       .join("")}
+//   </tbody>
+// </table>

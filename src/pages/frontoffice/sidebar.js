@@ -52,12 +52,12 @@ export default function SidenavFront({ color }) {
     //   label: "Enquiry",
     //   link: "/frontoffice/Enquiry",
     // },
-    {
-      key: "confirmed_details",
-      icon: <SolutionOutlined />,
-      label: "Confirmed Details",
-      link: "/frontoffice/Customerdetails",
-    },
+    // {
+    //   key: "confirmed_details",
+    //   icon: <SolutionOutlined />,
+    //   label: "Confirmed Details",
+    //   link: "/frontoffice/Customerdetails",
+    // },
 
     {
       key: "profile",

@@ -52,7 +52,7 @@ const FrontRoutes = () => (
     <PrivateFrontofficeRoute path="/frontoffice/quotation" exact component={Quotation}/>
     <PrivateFrontofficeRoute path="/frontoffice/OfficeLeaveForm" exact component={OfficeLeaveForm}/>
     <PrivateFrontofficeRoute path="/frontoffice/Enquiry" exact component={Enquiryfront}/>
-    <PrivateFrontofficeRoute path="/frontoffice/Customerdetails" exact component={CustomerDetails}/>
+    {/* <PrivateFrontofficeRoute path="/frontoffice/Customerdetails" exact component={CustomerDetails}/> */}
     <PrivateFrontofficeRoute path="/frontoffice/PaymentDetailsPage" exact component={PaymentDetailsPage}/>
     <PrivateFrontofficeRoute path="/frontoffice/internRegistration" exact component={InternRegistration}/>
     <PrivateFrontofficeRoute path="/frontoffice/profile" exact component={Profile}/>

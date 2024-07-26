@@ -14,7 +14,7 @@ import moment from "moment";
 import "antd/dist/antd.css";
 import vector from "../../assets/images/vectorhr.png";
 import axios from "axios";
-import { baseUrl, baseUrlHr, baseUrlImg } from "../../url";
+import { baseUrl, baseUrlImg } from "../../url";
 
 const EmployeeRegistrationForm = () => {
   const [employees, setEmployees] = useState([]);
@@ -193,8 +193,6 @@ const EmployeeForm = ({ visible, onCancel, onCreate }) => {
     try {
       const values = await form.validateFields();
       const formData = new FormData();
-
-      console.log("values", values);
 
       // Convert the date format
       if (values.dob) {

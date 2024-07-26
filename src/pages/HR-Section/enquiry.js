@@ -149,15 +149,26 @@ const EnquiryAdmissionForm = () => {
       );
       setEnquiries(updatedEnquiries);
     } else {
+      const formData = new FormData();
+      // Append all fields to FormData
+
       const newEnquiry = {
         ...formData,
         id: enquiries.length + 1,
       };
-      console.log("new en", newEnquiry);
+
+      Object.keys(newEnquiry).forEach((key) => {
+        console.log("key", key);
+        formData.append(key, newEnquiry[key]);
+      });
+
+      // Append the image file separately
+      //formData.append("image", image); // Assuming `image` is the file object
+
       fetch(`${baseUrl}/intern-reg/`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
         },
         body: JSON.stringify(newEnquiry),
       })
@@ -230,6 +241,7 @@ const EnquiryAdmissionForm = () => {
       dob: "",
       email: "",
       address: "",
+      image: null,
       city: "",
       state: "",
       country: "",
@@ -403,6 +415,11 @@ const EnquiryAdmissionForm = () => {
                   onChange={handleChange}
                   required
                 />
+              </Column>
+
+              <Column>
+                <Label>Image</Label>
+                <input type="file" required onChange={handleFileChange} />
               </Column>
               <Column>
                 <Label>Category</Label>

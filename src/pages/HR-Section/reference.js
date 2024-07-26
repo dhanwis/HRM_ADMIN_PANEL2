@@ -76,9 +76,9 @@ function ReferenceCard({ reference }) {
       <p><strong>Phone:</strong> {reference.phone}</p>
       <p><strong>Location:</strong> {reference.location}</p>
       <p><strong>Education:</strong> {reference.education}</p>
-      <button style={buttonStyle} onClick={handleRespondClick}>
+      {/* <button style={buttonStyle} onClick={handleRespondClick}>
         RESPOND
-      </button>
+      </button> */}
       {/* {showTextbox && (
         <form onSubmit={handleSubmit}>
           <textarea
