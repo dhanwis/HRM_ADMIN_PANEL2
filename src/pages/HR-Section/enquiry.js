@@ -185,7 +185,7 @@ const EnquiryAdmissionForm = () => {
       }
 
       const data = await response.json();
-      console.log('data',data)
+      console.log("data", data);
       setEnquiries(data);
     } catch (error) {
       console.error("Error fetching enquiries:", error.message);
