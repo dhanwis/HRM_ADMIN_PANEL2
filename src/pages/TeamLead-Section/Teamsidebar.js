@@ -280,7 +280,7 @@ export default function SidenavTeam({ color }) {
           </NavLink>
         </Menu.Item>
 
-        <Menu.Item key="4">
+        {/* <Menu.Item key="4">
           <NavLink to="/teamlead/seat" style={{ textDecoration: "none" }}>
             <span
               className="icon"
@@ -292,7 +292,7 @@ export default function SidenavTeam({ color }) {
             </span>
             <span className="label">Machine Allocation</span>
           </NavLink>
-        </Menu.Item>
+        </Menu.Item> */}
 
         <Menu.Item key="5">
           <NavLink

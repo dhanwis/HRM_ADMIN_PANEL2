@@ -40,7 +40,7 @@ const TeamRoutes = () => (
     <PrivateTeamLeadRoute path="/teamlead/dashboard" exact component={Team_Home} />
     <PrivateTeamLeadRoute path="/teamlead/tables" exact component={Team_Table} />
     <PrivateTeamLeadRoute path="/teamlead/leave" exact component={LeaveForm} />
-    <PrivateTeamLeadRoute path="/teamlead/seat" exact component={SeatingChart} />
+    {/* <PrivateTeamLeadRoute path="/teamlead/seat" exact component={SeatingChart} /> */}
     <PrivateTeamLeadRoute path="/teamlead/projectview" exact component={Viewproject} />
     <PrivateTeamLeadRoute path="/teamlead/staffstatus" exact component={ProjectDetailsViewer} />
     <PrivateTeamLeadRoute path="/teamlead/giveproject" exact component={Giveproject} />
