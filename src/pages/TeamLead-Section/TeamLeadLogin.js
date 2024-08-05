@@ -42,6 +42,7 @@ export default class StaffLogin extends Component {
           });
 
           localStorage.setItem("is_teamlead", response.data.user.is_teamlead);
+          localStorage.setItem("teamlead", JSON.stringify(response.data.user));
           localStorage.setItem("authToken", response.data.token);
           this.props.history.push("/teamlead/dashboard"); // Redirect to /admin/dashboard
         }

@@ -35,10 +35,6 @@ function CallSheet({ onConfirm }) {
     fetchCalls();
   }, [token]);
 
-  useEffect(() => {
-    localStorage.setItem("calls", JSON.stringify(calls));
-  }, [calls]);
-
   const showModal = () => {
     setIsModalVisible(true);
     setEditingCall(null);
@@ -49,10 +45,10 @@ function CallSheet({ onConfirm }) {
     form.validateFields().then((values) => {
       const newCall = {
         id: editingCall ? editingCall.id : calls.length + 1,
-        company_name: values.companyName,
-        customer_name: values.customerName,
-        project_name: values.projectName,
-        phone_number: values.phoneNumber,
+        company_name: values.company_name,
+        customer_name: values.customer_name,
+        project_name: values.project_name,
+        phone_number: values.phone_number,
         date: moment().format("YYYY-MM-DD"),
       };
 
@@ -62,7 +58,7 @@ function CallSheet({ onConfirm }) {
         })
         .then((res) => {
           if (res.status === 201) {
-            setCalls([res.data]);
+            setCalls([...calls, res.data]);
           }
         });
 
@@ -70,6 +66,8 @@ function CallSheet({ onConfirm }) {
       form.resetFields();
     });
   };
+
+  console.log("cals", calls);
 
   const handleCancel = () => {
     setIsModalVisible(false);
@@ -142,8 +140,8 @@ function CallSheet({ onConfirm }) {
   const columns = [
     {
       title: "Company Name",
-      dataIndex: "company_name ",
-      key: "companyName",
+      dataIndex: "company_name",
+      key: "CompanyName",
     },
     {
       title: "Customer Name",
@@ -166,15 +164,15 @@ function CallSheet({ onConfirm }) {
       key: "date",
       render: (text) => moment(text).format("YYYY-MM-DD"),
     },
-    {
-      title: "Actions",
-      key: "actions",
-      render: (_, record) => (
-        <Button type="primary" onClick={() => handleConfirm(record)}>
-          Confirm
-        </Button>
-      ),
-    },
+    // {
+    //   title: "Actions",
+    //   key: "actions",
+    //   render: (_, record) => (
+    //     <Button type="primary" onClick={() => handleConfirm(record)}>
+    //       Confirm
+    //     </Button>
+    //   ),
+    // },
   ];
 
   return (
@@ -223,14 +221,14 @@ function CallSheet({ onConfirm }) {
         >
           <Form form={form} layout="vertical">
             <Form.Item
-              name="companyName"
+              name="company_name"
               label="Company Name"
               rules={[{ required: true, message: "Please enter company name" }]}
             >
               <Input />
             </Form.Item>
             <Form.Item
-              name="customerName"
+              name="customer_name"
               label="Customer Name"
               rules={[
                 { required: true, message: "Please enter customer name" },
@@ -239,14 +237,14 @@ function CallSheet({ onConfirm }) {
               <Input />
             </Form.Item>
             <Form.Item
-              name="projectName"
+              name="project_name"
               label="Project Name"
               rules={[{ required: true, message: "Please enter project name" }]}
             >
               <Input />
             </Form.Item>
             <Form.Item
-              name="phoneNumber"
+              name="phone_number"
               label="Phone Number"
               rules={[{ required: true, message: "Please enter phone number" }]}
             >

@@ -60,7 +60,7 @@ const Taskform = () => {
   useEffect(() => {
     let fetchTeamLead = async () => {
       try {
-        let response = await axios.get(`${baseUrlHr}/teamleadassign/`, {
+        let response = await axios.get(`${baseUrlHr}/teamleadassignhr/`, {
           headers: { Authorization: `Token ${token}` },
         });
 

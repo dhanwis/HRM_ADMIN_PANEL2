@@ -17,8 +17,6 @@ const LeaveForm = () => {
 
   const token = localStorage.getItem("authToken");
 
-  console.log("token from team", token);
-
   useEffect(() => {
     const fetchLeaveData = async () => {
       let response = await axios.get(`${baseUrlHr}/leaverequest/`, {
@@ -61,14 +59,16 @@ const LeaveForm = () => {
     let response = await axios.post(`${baseUrlHr}/leaverequest/`, newRequest, {
       headers: { Authorization: `Token ${token}` },
     });
-    console.log("response", response);
 
-    // if (response.status === 201) {
-    //   const updatedRequests = [...submittedRequests, response.data];
-    //   setSubmittedRequests(updatedRequests);
-    // }
+    if (response.status === 201) {
+      enqueueSnackbar("Your Request was send to HR", {
+        variant: "success",
+      });
+      const updatedRequests = [...submittedRequests, response.data];
+      setSubmittedRequests(updatedRequests);
+    }
 
-    // form.resetFields();
+    form.resetFields();
   };
 
   const onFinishFailed = (errorInfo) => {

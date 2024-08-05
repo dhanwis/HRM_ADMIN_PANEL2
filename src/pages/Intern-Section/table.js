@@ -59,7 +59,6 @@ const Tables = () => {
     setFilter(e.target.value);
   };
 
-
   const handleStart = async (taskId, status) => {
     let response = await axios.patch(
       `${baseUrlHr}/studentassign/${taskId}/update-status/`,
@@ -76,7 +75,7 @@ const Tables = () => {
         }
         return task;
       });
-      console.log('taskdata',tasksData)
+      console.log("taskdata", tasksData);
       setTasksData(updatedTasksData);
     }
   };
@@ -93,21 +92,20 @@ const Tables = () => {
     if (response.status === 200) {
       const updatedTasksData = tasksData.map((task) => {
         if (task.id === taskId) {
-          return { ...task, status: "In Progress" };
+          return { ...task, status: "Completed" };
         }
         return task;
       });
-      console.log('taskdata',tasksData)
+      console.log("taskdata", tasksData);
       setTasksData(updatedTasksData);
     }
   };
-
 
   const filteredTasksData = tasksData.filter((task) => {
     if (filter === "all") return true;
     if (filter === "Pending") return task.status === "Pending";
     if (filter === "In progress") return task.status === "In progress";
-    if (filter === "Complete") return task.status === "Completed";
+    if (filter === "Completed") return task.status === "Completed";
     return true;
   });
 
@@ -157,7 +155,6 @@ const Tables = () => {
     },
   ];
 
-  
   return (
     <div style={{ backgroundImage: `url(${vector})`, height: "700px" }}>
       <div className="container mt-5">

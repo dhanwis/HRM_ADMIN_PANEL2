@@ -20,6 +20,7 @@ const Quotation = () => {
   const [packageAmount, setPackageAmount] = useState(30000);
   const [gstRate] = useState(18);
   const [gstAmount, setGstAmount] = useState(0);
+
   const [totalAmount, setTotalAmount] = useState(0);
 
   const [quotations, setQuotations] = useState([]);
@@ -134,7 +135,9 @@ const Quotation = () => {
       add_on: moment(addon).format("YYYY-MM-DD"),
       expired_on: moment(expiredOn).format("YYYY-MM-DD"),
       gst_amount: gstAmount,
+      development_charge: packageAmount,
       total_amount: totalAmount,
+      issued_by: contact,
     };
 
     console.log(formData);
@@ -171,8 +174,6 @@ const Quotation = () => {
       `${baseUrlHr}/frontoffice/quotationdelete/${id}/`,
       { headers: { Authorization: `Token ${token}` } }
     );
-
-    console.log(response);
 
     if (response.status === 200) {
       const updatedQuotations = quotations.filter((q) => q.id !== id);
@@ -258,27 +259,7 @@ const Quotation = () => {
             <p class="field-name">Introduction:</p>
             <p>${viewingQuotation.introduction}</p>
           </div>
-          <h2>Strategy</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>Key</th>
-                <th>Value</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${viewingQuotation.strategyData
-                .map(
-                  (item, index) => `
-                <tr key=${index}>
-                  <td>${item.key}</td>
-                  <td>${item.value}</td>
-                </tr>
-              `
-                )
-                .join("")}
-            </tbody>
-          </table>
+         
           <h2>Payment Details</h2>
           <table>
             <thead>
@@ -376,6 +357,7 @@ const Quotation = () => {
                 onChange={handleCustomerNameChange}
                 isInvalid={!!errors.customerName}
               />
+              {/* setDevelopmentCharge */}
               <Form.Control.Feedback type="invalid">
                 {errors.customerName}
               </Form.Control.Feedback>
@@ -393,7 +375,7 @@ const Quotation = () => {
                 <option value="mobile_app_development">
                   Mobile App Development
                 </option>
-                <option value="digital_market">Digital Marketing</option>
+                <option value="digital_marketing">Digital Marketing</option>
               </Form.Control>
               <Form.Control.Feedback type="invalid">
                 {errors.quotationType}
@@ -458,13 +440,14 @@ const Quotation = () => {
                 </Button>
               </div>
             ))} */}
-            <Button
+
+            {/* <Button
               variant="secondary"
               onClick={handleAddStrategy}
               className="mb-3"
             >
               Add Strategy
-            </Button>
+            </Button> */}
 
             <h2>PAYMENT DETAILS</h2>
             <Row className="mb-3">
@@ -636,3 +619,25 @@ const Quotation = () => {
 };
 
 export default Quotation;
+
+// <h2>Strategy</h2>
+// <table>
+//   <thead>
+//     <tr>
+//       <th>Key</th>
+//       <th>Value</th>
+//     </tr>
+//   </thead>
+//   <tbody>
+//     ${viewingQuotation.strategyData
+//       .map(
+//         (item, index) => `
+//       <tr key=${index}>
+//         <td>${item.key}</td>
+//         <td>${item.value}</td>
+//       </tr>
+//     `
+//       )
+//       .join("")}
+//   </tbody>
+// </table>

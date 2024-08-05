@@ -1,80 +1,36 @@
-/*!
-  =========================================================
-  * Muse Ant Design Dashboard - v1.0.0
-  =========================================================
-  * Product Page: https://www.creative-tim.com/product/muse-ant-design-dashboard
-  * Copyright 2021 Creative Tim (https://www.creative-tim.com)
-  * Licensed under MIT (https://github.com/creativetimofficial/muse-ant-design-dashboard/blob/main/LICENSE.md)
-  * Coded by Creative Tim
-  =========================================================
-  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 // import { useState } from "react";
-import { Menu, Button,Dropdown, } from "antd";
+import { Menu, Button, Dropdown } from "antd";
 import { NavLink, useLocation } from "react-router-dom";
 import logo from "../../assets/images/teamprofile.png";
-// import StudentList from "./Studentlist";
-// import giveproject from "./giveproject";
-// import Viewproject from "./viewproject";
+import { baseUrlImg } from "../../url";
 
 export default function SidenavTeam({ color }) {
-const { pathname } = useLocation();
-const page = pathname.replace("/", "");
+  const { pathname } = useLocation();
+  const page = pathname.replace("/", "");
+  const user = JSON.parse(localStorage.getItem("teamlead"));
 
-const dashboard = [
-  <svg
-    width="20"
-    height="20"
-    viewBox="0 0 20 20"
-    xmlns="http://www.w3.org/2000/svg"
-    key={0}
-  >
-  <path
-    d="M3 4C3 3.44772 3.44772 3 4 3H16C16.5523 3 17 3.44772 17 4V6C17 6.55228 16.5523 7 16 7H4C3.44772 7 3 6.55228 3 6V4Z"
-    fill={color}
-  >
-  </path>
-  <path
-    d="M3 10C3 9.44771 3.44772 9 4 9H10C10.5523 9 11 9.44771 11 10V16C11 16.5523 10.5523 17 10 17H4C3.44772 17 3 16.5523 3 16V10Z"
-    fill={color}
-  >
-  </path>
-  <path
-    d="M14 9C13.4477 9 13 9.44771 13 10V16C13 16.5523 13.4477 17 14 17H16C16.5523 17 17 16.5523 17 16V10C17 9.44771 16.5523 9 16 9H14Z"
-    fill={color}
-  >
-  </path>
-  </svg>,
+  const dashboard = [
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      xmlns="http://www.w3.org/2000/svg"
+      key={0}
+    >
+      <path
+        d="M3 4C3 3.44772 3.44772 3 4 3H16C16.5523 3 17 3.44772 17 4V6C17 6.55228 16.5523 7 16 7H4C3.44772 7 3 6.55228 3 6V4Z"
+        fill={color}
+      ></path>
+      <path
+        d="M3 10C3 9.44771 3.44772 9 4 9H10C10.5523 9 11 9.44771 11 10V16C11 16.5523 10.5523 17 10 17H4C3.44772 17 3 16.5523 3 16V10Z"
+        fill={color}
+      ></path>
+      <path
+        d="M14 9C13.4477 9 13 9.44771 13 10V16C13 16.5523 13.4477 17 14 17H16C16.5523 17 17 16.5523 17 16V10C17 9.44771 16.5523 9 16 9H14Z"
+        fill={color}
+      ></path>
+    </svg>,
   ];
-
-
-///////////////////////////////////////  table  ////////////////////////////////////////////////////////////////////////////////////////////////
-
-  // const tables = [
-  //   <svg
-  //     width="25"
-  //     height="25"
-  //     viewBox="0 0 20 20"
-  //     fill="none"
-  //     xmlns="http://www.w3.org/2000/svg"
-  //     key={0}
-  //   >
-  //     <path
-  //       d="M9 2C8.44772 2 8 2.44772 8 3C8 3.55228 8.44772 4 9 4H11C11.5523 4 12 3.55228 12 3C12 2.44772 11.5523 2 11 2H9Z"
-  //       fill={color}
-  //     ></path>
-  //     <path
-  //       fillRule="evenodd"
-  //       clipRule="evenodd"
-  //       d="M4 5C4 3.89543 4.89543 3 6 3C6 4.65685 7.34315 6 9 6H11C12.6569 6 14 4.65685 14 3C15.1046 3 16 3.89543 16 5V16C16 17.1046 15.1046 18 14 18H6C4.89543 18 4 17.1046 4 16V5ZM7 9C6.44772 9 6 9.44772 6 10C6 10.5523 6.44772 11 7 11H7.01C7.56228 11 8.01 10.5523 8.01 10C8.01 9.44772 7.56228 9 7.01 9H7ZM10 9C9.44772 9 9 9.44772 9 10C9 10.5523 9.44772 11 10 11H13C13.5523 11 14 10.5523 14 10C14 9.44772 13.5523 9 13 9H10ZM7 13C6.44772 13 6 13.4477 6 14C6 14.5523 6.44772 15 7 15H7.01C7.56228 15 8.01 14.5523 8.01 14C8.01 13.4477 7.56228 13 7.01 13H7ZM10 13C9.44772 13 9 13.4477 9 14C9 14.5523 9.44772 15 10 15H13C13.5523 15 14 14.5523 14 14C14 13.4477 13.5523 13 13 13H10Z"
-  //       fill={color}
-  //     ></path>
-  //   </svg>,
-  // ];
-
-/////////////////////////////////////// billing //////////////////////////////////////////////////////////////////////////////////////////////////
-
 
   const billing = [
     <svg
@@ -98,9 +54,7 @@ const dashboard = [
     </svg>,
   ];
 
-
-/////////////////////////////////// rtl ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+  /////////////////////////////////// rtl ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   const rtl = [
     <svg
@@ -120,10 +74,8 @@ const dashboard = [
     </svg>,
   ];
 
+  ///////////////////////////////////////////// profile ///////////////////////////////////////////////////////////////////////////////////////////
 
-
-///////////////////////////////////////////// profile ///////////////////////////////////////////////////////////////////////////////////////////
- 
   const profile = [
     <svg
       width="20"
@@ -142,97 +94,25 @@ const dashboard = [
     </svg>,
   ];
 
+  const seat = [
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      key={0}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M12 12c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2s-2 .9-2 2v3c0 1.1.9 2 2 2zm6-2v-2c0-1.1-.9-2-2-2h-1V7c0-2.21-1.79-4-4-4s-4 1.79-4 4v1H8c-1.1 0-2 .9-2 2v2H4v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10h-2zm0 10H6v-4h12v4zm0-6H6v-2h12v2z"
+        fill={color}
+      ></path>
+    </svg>,
+  ];
 
-/////////////////////////////////////////////////////// signin //////////////////////////////////////////////////////////////////////////////////
-
-
-  // const signin = [
-  //   <svg
-  //     width="20"
-  //     height="20"
-  //     viewBox="0 0 20 20"
-  //     fill="none"
-  //     xmlns="http://www.w3.org/2000/svg"
-  //     key={0}
-  //   >
-  //     <path
-  //       fillRule="evenodd"
-  //       clipRule="evenodd"
-  //       d="M6 2C5.44772 2 5 2.44772 5 3V4H4C2.89543 4 2 4.89543 2 6V16C2 17.1046 2.89543 18 4 18H16C17.1046 18 18 17.1046 18 16V6C18 4.89543 17.1046 4 16 4H15V3C15 2.44772 14.5523 2 14 2C13.4477 2 13 2.44772 13 3V4H7V3C7 2.44772 6.55228 2 6 2ZM6 7C5.44772 7 5 7.44772 5 8C5 8.55228 5.44772 9 6 9H14C14.5523 9 15 8.55228 15 8C15 7.44772 14.5523 7 14 7H6Z"
-  //       fill={color}
-  //     ></path>
-  //   </svg>,
-  // ];
-
-
-
-////////////////////////////////////// signup ///////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-  // const signup = [
-  //   <svg
-  //     xmlns="http://www.w3.org/2000/svg"
-  //     width="20"
-  //     height="20"
-  //     viewBox="0 0 14 14"
-  //     key={0}
-  //   >
-  //     <path
-  //       d="M0,2A2,2,0,0,1,2,0H8a2,2,0,0,1,2,2V8a2,2,0,0,1-2,2H2A2,2,0,0,1,0,8Z"
-  //       transform="translate(4 4)"
-  //       fill={color}
-  //     />
-  //     <path
-  //       d="M2,0A2,2,0,0,0,0,2V8a2,2,0,0,0,2,2V4A2,2,0,0,1,4,2h6A2,2,0,0,0,8,0Z"
-  //       fill={color}
-  //     />
-  //   </svg>,
-  // ];
-
-
-
-///////////////////////////////////////// student ///////////////////////////////////////////////////////////////////////////////////////////////  
-
-  // const student = [
-  //   <svg
-  //     width="20"
-  //     height="20"
-  //     viewBox="0 0 20 20"
-  //     fill="none"
-  //     xmlns="http://www.w3.org/2000/svg"
-  //     key={0}
-  //   >
-  //     <path
-  //       fillRule="evenodd"
-  //       clipRule="evenodd"
-  //       d="M6 2C5.44772 2 5 2.44772 5 3V4H4C2.89543 4 2 4.89543 2 6V16C2 17.1046 2.89543 18 4 18H16C17.1046 18 18 17.1046 18 16V6C18 4.89543 17.1046 4 16 4H15V3C15 2.44772 14.5523 2 14 2C13.4477 2 13 2.44772 13 3V4H7V3C7 2.44772 6.55228 2 6 2ZM6 7C5.44772 7 5 7.44772 5 8C5 8.55228 5.44772 9 6 9H14C14.5523 9 15 8.55228 15 8C15 7.44772 14.5523 7 14 7H6Z"
-  //       fill={color}
-  //     ></path>
-  //   </svg>,
-  // ];
-
-//////////////////////////////////////////////// seat /////////////////////////////////////////////////////////////////////////////////////////////
-
-
-const seat = [
-  <svg
-    width="20"
-    height="20"
-    viewBox="0 0 20 20"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    key={0}
-  >
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M12 12c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2s-2 .9-2 2v3c0 1.1.9 2 2 2zm6-2v-2c0-1.1-.9-2-2-2h-1V7c0-2.21-1.79-4-4-4s-4 1.79-4 4v1H8c-1.1 0-2 .9-2 2v2H4v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10h-2zm0 10H6v-4h12v4zm0-6H6v-2h12v2z"
-      fill={color}
-    ></path>
-  </svg>,
-];
-
-/////////////////////////////////// give project ////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////// give project ////////////////////////////////////////////////////////////////////////////////////////////////
 
   const Giveproject = [
     <svg
@@ -252,8 +132,7 @@ const seat = [
     </svg>,
   ];
 
-
-//////////////////////////////////////////////////// Staff status ///////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////// Staff status ///////////////////////////////////////////////////////////////////////////
 
   const StaffStatus = [
     <svg
@@ -273,8 +152,7 @@ const seat = [
     </svg>,
   ];
 
-/////////////////////////////////////////////////// view project /////////////////////////////////////////////////////////////////////////////////
-
+  /////////////////////////////////////////////////// view project /////////////////////////////////////////////////////////////////////////////////
 
   const Viewproject = [
     <svg
@@ -293,119 +171,89 @@ const seat = [
     </svg>,
   ];
 
+  //////////////////////////////////////////////////////////////student tasks////////////////////////////////////////////////////////////////////
 
-//////////////////////////////////////////////////////////////student tasks////////////////////////////////////////////////////////////////////
+  const StudentTasks = [
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="0.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path d="M12 2L2 7l10 5 10-5-10-5zM2 7v10l10 5 10-5V7m-7 4h4" />
+    </svg>,
+  ];
+  ////////////////////////////////////////////////////////////// Feedback ///////////////////////////////////////////////////////////////////
 
-const StudentTasks = [
-<svg
-  xmlns="http://www.w3.org/2000/svg"
-  width="24"
-  height="24"
-  viewBox="0 0 24 24"
-  fill="none"
-  stroke="currentColor"
-  stroke-width="0.5"
-  stroke-linecap="round"
-  stroke-linejoin="round"
->
-  <path d="M12 2L2 7l10 5 10-5-10-5zM2 7v10l10 5 10-5V7m-7 4h4" />
-</svg>
-
-];
-////////////////////////////////////////////////////////////// Feedback ///////////////////////////////////////////////////////////////////
-
-const StudentFeedback = [
-<svg
-  xmlns="http://www.w3.org/2000/svg"
-  width="24"
-  height="24"
-  viewBox="0 0 24 24"
-  fill="none"
-  stroke="currentColor"
-  stroke-width="0.5"
-  stroke-linecap="round"
-  stroke-linejoin="round"
->
-  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-</svg>
-
-];
-
-/////////////////////////////////////////////////// note upload ///////////////////////////////////////////////////////////////////////////////
-
-// const Uploadnote = [
-//   <svg
-//     width="20"
-//     height="20"
-//     viewBox="0 0 20 20"
-//     fill="none"
-//     xmlns="http://www.w3.org/2000/svg"
-//     key={0}
-//   >
-//     <path
-//       fillRule="evenodd"
-//       clipRule="evenodd"
-//       d="M9.76 10.31L11.48 9.1C11.69 9.001 11.94 9 12.15 9C12.36 9 12.61 9.001 12.82 9.1L14.54 10.31C14.65 10.3699 14.745 10.46 14.815 10.57C14.885 10.68 14.9283 10.8045 14.94 10.93V12.7C14.92 13.225 14.6598 13.7266 14.215 14.05C13.851 14.3148 13.383 14.4493 12.915 14.436C12.447 14.4227 11.9873 14.262 11.595 13.975C11.3183 13.7575 11.1227 13.4655 11.05 13.147V12.72L10.59 12.28L9.17 10.84L4.28 14.5C3.80142 14.8821 3.1534 14.9956 2.68603 14.7945C2.21866 14.5933 1.93653 14.1245 2.05 13.65L3.48 8.54C3.61 8.05 4.08 7.76 4.58 7.76H6V6C6 5.45 6.45 5 7 5H17C17.55 5 18 5.45 18 6V7.76H19.42C19.92 7.76 20.39 8.05 20.52 8.54L21.95 13.65C22.0635 14.1245 21.7813 14.5933 21.3139 14.7945C20.8466 14.9956 20.1986 14.8821 19.72 14.5L14.83 10.84L13.41 12.28L12.95 12.72V13.15C12.8773 13.4655 12.6817 13.7575 12.405 13.975C12.0127 14.262 11.552 14.4227 11.085 14.436C10.617 14.4493 10.149 14.3148 9.785 14.05C9.34016 13.7266 9.08 13.225 9.06 12.7V10.93C9.07167 10.8045 9.11497 10.68 9.185 10.57C9.25503 10.46 9.35 10.3699 9.46 10.31H9.76ZM12 15C13.66 15 15 16.34 15 18C15 19.66 13.66 21 12 21C10.34 21 9 19.66 9 18C9 16.34 10.34 15 12 15ZM7 6C7 5.45 7.45 5 8 5H16C16.55 5 17 5.45 17 6V7H7V6Z"
-//       fill={color}
-//     ></path>
-//   </svg>,
-// ];
-
-
-////////////////////////////////////////////////// digital marketing //////////////////////////////////////////////////////////////////////////
-
+  const StudentFeedback = [
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="0.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+    </svg>,
+  ];
 
   const DigitalMarketingTable = [
     <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    stroke-width="0.5"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-  >
-    <path d="M6 8l2 2 6-6M4 12h6M18 12h2m-5.38 3H8.38A4.26 4.26 0 0 0 4 19.38v.12A4.26 4.26 0 0 0 8.38 24h7.24A4.26 4.26 0 0 0 20 19.5v-7" />
-  </svg>  
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="0.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path d="M6 8l2 2 6-6M4 12h6M18 12h2m-5.38 3H8.38A4.26 4.26 0 0 0 4 19.38v.12A4.26 4.26 0 0 0 8.38 24h7.24A4.26 4.26 0 0 0 20 19.5v-7" />
+    </svg>,
   ];
 
-
-
-////////////////////////////////////////////////////////// drope down /////////////////////////////////////////////////////////////////////////
-
+  ////////////////////////////////////////////////////////// drope down /////////////////////////////////////////////////////////////////////////
 
   const projectmenu = (
     <Menu>
       <Menu.Item key="view project">
-        <NavLink to="/teamlead/projectview">
-          Employee Registration
-        </NavLink>
-       
+        <NavLink to="/teamlead/projectview">Employee Registration</NavLink>
       </Menu.Item>
       {/* Add more menu items for other options */}
       <Menu.Item key="assign project">
-        <NavLink to="/teamlead/giveproject">
-          Task
-        </NavLink>
-       
+        <NavLink to="/teamlead/giveproject">Task</NavLink>
       </Menu.Item>
     </Menu>
-)
+  );
 
   return (
     <div>
       <div className="brand">
         <NavLink to="/teamlead/profile">
-          <img src={logo} alt="" style={{ width: "120px", height: "120px" }} />
+          <img
+            src={`${baseUrlImg}${user.image}`}
+            alt=""
+            style={{ width: "120px", height: "120px" }}
+          />
         </NavLink>
-        <span style={{ marginLeft: "30px", fontSize: "20px" }}><b>TEAMLEAD</b></span>
+        <span style={{ marginLeft: "30px", fontSize: "20px" }}>
+          <b>{user.username}</b>
+        </span>
       </div>
       <hr />
       <Menu theme="light" mode="inline">
         <Menu.Item key="1">
-          <NavLink to="/teamlead/dashboard" style={{ textDecoration: 'none' }}>
+          <NavLink to="/teamlead/dashboard" style={{ textDecoration: "none" }}>
             <span
               className="icon"
               style={{
@@ -418,27 +266,8 @@ const StudentFeedback = [
           </NavLink>
         </Menu.Item>
 
-{/* ///////////////////////////////////////// table ///////////////////////////////////////////////////////////////////////////////////////// */}
-{/* 
-        <Menu.Item key="2">
-          <NavLink to="/teamlead/tables" style={{ textDecoration: 'none' }}>
-            <span
-              className="icon"
-              style={{
-                background: page === "tables" ? color : "",
-              }}
-            >
-              {tables}
-            </span>
-            <span className="label">Team details</span>
-          </NavLink>
-        </Menu.Item> */}
-
-
-{/* /////////////////////////////////////////////////////// billing ////////////////////////////////////////////////////////////////////////// */}
-
         <Menu.Item key="3">
-          <NavLink to="/teamlead/leave" style={{ textDecoration: 'none' }}>
+          <NavLink to="/teamlead/leave" style={{ textDecoration: "none" }}>
             <span
               className="icon"
               style={{
@@ -451,29 +280,8 @@ const StudentFeedback = [
           </NavLink>
         </Menu.Item>
 
-
-{/* /////////////////////////////////////////////////////////////////  student //////////////////////////////////////////////////////////////// */}
-
-
-
         {/* <Menu.Item key="4">
-          <NavLink to="/teamlead/student" style={{ textDecoration: 'none' }}>
-            <span
-              className="icon"
-              style={{
-                background: page === "billing" ? color : "",
-              }}
-            >
-              {student}
-            </span>
-            <span className="label">Student List</span>
-          </NavLink>
-        </Menu.Item> */}
-
-{/* /////////////////////////////////////////////////////////// seat //////////////////////////////////////////////////////////////////// */}
-
-<Menu.Item key="4">
-          <NavLink to="/teamlead/seat" style={{ textDecoration: 'none' }}>
+          <NavLink to="/teamlead/seat" style={{ textDecoration: "none" }}>
             <span
               className="icon"
               style={{
@@ -484,31 +292,13 @@ const StudentFeedback = [
             </span>
             <span className="label">Machine Allocation</span>
           </NavLink>
-        </Menu.Item>
-
-
-{/* //////////////////////////////////////////// rtl //////////////////////////////////////////////////////////////////////////////////////// */}
-
-        {/* <Menu.Item key="4">
-          <NavLink to="/rtl">
-            <span
-              className="icon"
-              style={{
-                background: page === "rtl" ? color : "",
-              }}
-            >
-              {rtl}
-            </span>
-            <span className="label">RTL</span>
-          </NavLink>
         </Menu.Item> */}
 
-
-
-{/* ///////////////////////////////////////////////////// view project /////////////////////////////////////////////////////////////////////// */}
-
         <Menu.Item key="5">
-          <NavLink to="/teamlead/projectview" style={{ textDecoration: 'none' }}>
+          <NavLink
+            to="/teamlead/projectview"
+            style={{ textDecoration: "none" }}
+          >
             <span
               className="icon"
               style={{
@@ -521,12 +311,13 @@ const StudentFeedback = [
           </NavLink>
         </Menu.Item>
 
-
-{/* //////////////////////////////////////////////////////// give project ///////////////////////////////////////////////////////////////// */}
-
+        {/* //////////////////////////////////////////////////////// give project ///////////////////////////////////////////////////////////////// */}
 
         <Menu.Item key="6">
-          <NavLink to="/teamlead/giveproject" style={{ textDecoration: 'none' }}>
+          <NavLink
+            to="/teamlead/giveproject"
+            style={{ textDecoration: "none" }}
+          >
             <span
               className="icon"
               style={{
@@ -539,11 +330,13 @@ const StudentFeedback = [
           </NavLink>
         </Menu.Item>
 
-{/* ////////////////////////////////////////////////////////staff status/////////////////////////////////////////////////////////////// */}
+        {/* ////////////////////////////////////////////////////////staff status/////////////////////////////////////////////////////////////// */}
 
-
-<Menu.Item key="6">
-          <NavLink to="/teamlead/staffstatus" style={{ textDecoration: 'none' }}>
+        <Menu.Item key="6">
+          <NavLink
+            to="/teamlead/staffstatus"
+            style={{ textDecoration: "none" }}
+          >
             <span
               className="icon"
               style={{
@@ -556,10 +349,13 @@ const StudentFeedback = [
           </NavLink>
         </Menu.Item>
 
-{/* ////////////////////////////////////////////// student tasks ////////////////////////////////////////////////////////////////////// */}
+        {/* ////////////////////////////////////////////// student tasks ////////////////////////////////////////////////////////////////////// */}
 
         <Menu.Item key="6">
-          <NavLink to="/teamlead/studenttask" style={{ textDecoration: 'none' }}>
+          <NavLink
+            to="/teamlead/studenttask"
+            style={{ textDecoration: "none" }}
+          >
             <span
               className="icon"
               style={{
@@ -572,10 +368,10 @@ const StudentFeedback = [
           </NavLink>
         </Menu.Item>
 
-{/* /////////////////////////////////////////// feedback /////////////////////////////////////////////////////////////////////////// */}
+        {/* /////////////////////////////////////////// feedback /////////////////////////////////////////////////////////////////////////// */}
 
-<Menu.Item key="7">
-          <NavLink to="/teamlead/feedback" style={{ textDecoration: 'none' }}>
+        <Menu.Item key="7">
+          <NavLink to="/teamlead/feedback" style={{ textDecoration: "none" }}>
             <span
               className="icon"
               style={{
@@ -588,9 +384,9 @@ const StudentFeedback = [
           </NavLink>
         </Menu.Item>
 
-{/* ////////////////////////////////////////////////////////// student notes ///////////////////////////////////////////////////// */}
+        {/* ////////////////////////////////////////////////////////// student notes ///////////////////////////////////////////////////// */}
 
-{/* <Menu.Item key="6">
+        {/* <Menu.Item key="6">
           <NavLink to="/teamlead/internnotes" style={{ textDecoration: 'none' }}>
             <span
               className="icon"
@@ -604,15 +400,13 @@ const StudentFeedback = [
           </NavLink>
         </Menu.Item> */}
 
-
-
-
-
-{/* //////////////////////////////////////////////////////////////// digital marketing //////////////////////////////////////////// */}
-
+        {/* //////////////////////////////////////////////////////////////// digital marketing //////////////////////////////////////////// */}
 
         <Menu.Item key="5">
-          <NavLink to="/teamlead/digitalmarketing" style={{ textDecoration: 'none' }}>
+          <NavLink
+            to="/teamlead/digitalmarketing"
+            style={{ textDecoration: "none" }}
+          >
             <span
               className="icon"
               style={{
@@ -625,16 +419,14 @@ const StudentFeedback = [
           </NavLink>
         </Menu.Item>
 
-
-{/* ////////////////////////////////////////////////////////////// account pages /////////////////////////////////////////////////////////// */}
-
+        {/* ////////////////////////////////////////////////////////////// account pages /////////////////////////////////////////////////////////// */}
 
         {/* <Menu.Item className="menu-item-header" key="5">
           Account Pages
         </Menu.Item> */}
 
-{/* ////////////////////////////////////////////////////////////////// profile //////////////////////////////////////////////////////////// */}
-{/* 
+        {/* ////////////////////////////////////////////////////////////////// profile //////////////////////////////////////////////////////////// */}
+        {/* 
         <Menu.Item key="6">
           <NavLink to="/teamlead/profile" style={{ textDecoration: 'none' }}>
             <span
@@ -649,8 +441,7 @@ const StudentFeedback = [
           </NavLink>
         </Menu.Item> */}
 
-
-{/* ///////////////////////////////////////////////////////////// sigin ////////////////////////////////////////////////////////////////////// */}
+        {/* ///////////////////////////////////////////////////////////// sigin ////////////////////////////////////////////////////////////////////// */}
 
         {/* <Menu.Item key="7">
           <NavLink to="/sign-in"style={{ textDecoration: 'none' }}>
@@ -659,7 +450,7 @@ const StudentFeedback = [
           </NavLink>
         </Menu.Item> */}
 
-{/* ///////////////////////////////////////////////////////////// signup ///////////////////////////////////////////////////////////////////// */}
+        {/* ///////////////////////////////////////////////////////////// signup ///////////////////////////////////////////////////////////////////// */}
 
         {/* <Menu.Item key="8">
           <NavLink to="/sign-up" style={{ textDecoration: 'none' }}>
@@ -668,25 +459,22 @@ const StudentFeedback = [
           </NavLink>
         </Menu.Item> */}
 
-
-{/* ///////////////////////////////////////////////////////// dropedown///////////////////////////////////////////////////////////////////// */}
+        {/* ///////////////////////////////////////////////////////// dropedown///////////////////////////////////////////////////////////////////// */}
 
         {/* <Menu.Item key="employee" className="menu-item-header">
           <Dropdown overlay={projectmenu} trigger={['click']}>
             <span>project</span>
           </Dropdown>
         </Menu.Item> */}
-        </Menu>
+      </Menu>
       <div className="aside-footer">
         <div
           className="footer-box"
-          
           style={{
             background: color,
           }}
-          >
-
-{/* ///////////////////////////////////////////////////////ad////////////////////////////////////////////////////////////////////////////// */}
+        >
+          {/* ///////////////////////////////////////////////////////ad////////////////////////////////////////////////////////////////////////////// */}
 
           <span className="icon" style={{ color }}>
             {dashboard}
@@ -701,6 +489,3 @@ const StudentFeedback = [
     </div>
   );
 }
-
- 
-
