@@ -1,3 +1,3 @@
-export const baseUrl = "https://corvosotech.pythonanywhere.com/authapp";
-export const baseUrlHr = "https://corvosotech.pythonanywhere.com/hr";
-export const baseUrlImg = "https://corvosotech.pythonanywhere.com";
+export const baseUrl = "http://hrm.dhanwis.com/authapp";
+export const baseUrlHr = "http://hrm.dhanwis.com//hr";
+export const baseUrlImg = "http://hrm.dhanwis.com/";
